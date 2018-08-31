@@ -25,7 +25,7 @@ public class MainTest {
             "\"minLandArea\":720, " +
             "\"maxLandArea\":2000, " +
             "\"minPrice\":200000, " +
-            "\"maxPrice\": 6000000, " +
+            "\"maxPrice\": 600000, " +
             "\"updatedSince\": " + localDate + ", " +
             "\"locations\":[ " +
                 "{" +
