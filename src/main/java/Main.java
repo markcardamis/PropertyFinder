@@ -41,7 +41,6 @@ public class Main {
   public static void main(String... args) throws Exception {
     RecordingService service = new RecordingService();
     
-    MyTask mTask = new MyTask();
     RatpackServer server = RatpackServer.of(s -> s
       .registryOf(r -> r.add(service))
       .handler(r -> ctx -> ctx.render("ok"))
