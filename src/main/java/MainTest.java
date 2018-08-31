@@ -12,7 +12,6 @@ import java.time.LocalDate;
 
 public class MainTest {
 
-  String authKey = Variables.authKey;
     String authToken = "";
     PropertyListing[] propertyListings;
     LocalDate localDate;
@@ -51,6 +50,10 @@ public class MainTest {
     }
 
     private void getDomainAuth() throws Exception {
+        String authKey = System.getenv().get("authKey");
+            if (authKey == null) {
+                authKey = Variables.authKey;
+        }
         DomainAuthentication domainAuthentication = new DomainAuthentication();
         DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(authKey);
         authToken = domainTokenAuthResponse.access_token;
