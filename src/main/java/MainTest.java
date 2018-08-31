@@ -52,7 +52,7 @@ public class MainTest {
     private void getDomainAuth() throws Exception {
         String authKey = System.getenv().get("authKey");
             if (authKey == null) {
-                authKey = Variables.authKey;
+                //authKey = variables.authKey;
         }
         DomainAuthentication domainAuthentication = new DomainAuthentication();
         DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(authKey);

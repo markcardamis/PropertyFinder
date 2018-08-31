@@ -22,7 +22,7 @@ public class EmailNotification implements IEmailNotification {
         if (propertyListings.length > 0){
             String urlZapier = System.getenv().get("zapierURL");
             if (urlZapier == null) {
-                urlZapier = Variables.zapierURL;
+                //urlZapier = Variables.zapierURL;
             }
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String json = gson.toJson(propertyListings);
