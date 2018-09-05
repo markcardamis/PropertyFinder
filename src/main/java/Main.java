@@ -4,6 +4,8 @@ import ratpack.service.StartEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Tools.DateHelper;
+
 
 public class Main {
   
@@ -28,10 +30,14 @@ public class Main {
     @Override
     public void run() {
       try {
-        System.out.println("Hi see you after 60 minutes");
-        MainTest mainTest = new MainTest();
-        mainTest.getListings();
-        System.out.println("Run finished");
+        DateHelper dateHelper = new DateHelper();
+        if (dateHelper.isBusinessDay())
+        {
+          System.out.println("Hi see you after 60 minutes");
+          MainTest mainTest = new MainTest();
+          mainTest.getListings();
+          System.out.println("Run finished");
+        }
       } catch (Exception e){
         System.out.println("Exception");
       }
