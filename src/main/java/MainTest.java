@@ -23,9 +23,8 @@ public class MainTest {
                 "\"House\", " +
                 "\"VacantLand\" ]," +
             "\"minLandArea\":720, " +
-            "\"maxLandArea\":2000, " +
             "\"minPrice\":200000, " +
-            "\"maxPrice\": 600000, " +
+            "\"maxPrice\": 2000000, " +
             "\"updatedSince\": " + localDate + ", " +
             "\"locations\":[ " +
                 "{" +
