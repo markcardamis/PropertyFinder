@@ -16,7 +16,8 @@ public class Main {
       try {
         Timer t = new Timer();
         MyTask mTask = new MyTask();
-        t.scheduleAtFixedRate(mTask, 0L, 3600000L);
+        //t.scheduleAtFixedRate(mTask, 0L, 3600000L);
+        t.scheduleAtFixedRate(mTask, 0L, 60000L);
       } catch (Exception e) {
         System.out.println("Exception");
       }
@@ -31,7 +32,8 @@ public class Main {
     public void run() {
       try {
         DateHelper dateHelper = new DateHelper();
-        if (dateHelper.isBusinessDay())
+        // if (dateHelper.isBusinessDay())
+        if (true)
         {
           System.out.println("Hi see you after 60 minutes");
           MainTest mainTest = new MainTest();
@@ -39,7 +41,7 @@ public class Main {
           System.out.println("Run finished");
         }
       } catch (Exception e){
-        System.out.println("Exception");
+        System.out.println(e.toString());
       }
     }
  }
