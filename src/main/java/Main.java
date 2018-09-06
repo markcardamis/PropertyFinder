@@ -16,8 +16,7 @@ public class Main {
       try {
         Timer t = new Timer();
         MyTask mTask = new MyTask();
-        //t.scheduleAtFixedRate(mTask, 0L, 3600000L);
-        t.scheduleAtFixedRate(mTask, 0L, 60000L);
+        t.scheduleAtFixedRate(mTask, 0L, 3600000L);
       } catch (Exception e) {
         System.out.println("Exception");
       }
@@ -39,7 +38,7 @@ public class Main {
           mainTest.getListings();
           System.out.println("Run finished");
         } else {
-          System.out.println("Not business hours");
+          System.out.println(" Not business hours");
         }
       } catch (Exception e){
         System.out.println(e.toString());
