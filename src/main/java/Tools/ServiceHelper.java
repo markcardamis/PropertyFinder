@@ -43,7 +43,7 @@ public class ServiceHelper implements IServiceHelper
             request.setRequestProperty("content-type","application/json");
         }
 
-        request.setUseCaches (false);
+        request.setUseCaches(false);
 
         if (httpMethodString.equals("POST") || httpMethodString.equals("PUT"))
         {
@@ -55,8 +55,8 @@ public class ServiceHelper implements IServiceHelper
                 wr.writeBytes (json);
                 wr.flush ();
                 wr.close ();
-            }catch (Exception ex) {
-                return null;
+            }catch (Exception e) {
+                System.out.println("HTTP POST exception " + e.getLocalizedMessage());
             }
         }
 

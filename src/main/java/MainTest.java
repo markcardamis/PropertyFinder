@@ -80,11 +80,6 @@ public class MainTest {
 
     private void getDomainAuth() throws Exception {
         String authKey = System.getenv().get("authKey");
-        //     if (authKey == null) {
-        //         authKey = Variables.authKey;
-        // }
-        System.out.println("Auth Key " + authKey);
-
         DomainAuthentication domainAuthentication = new DomainAuthentication();
         DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(authKey);
         authToken = domainTokenAuthResponse.access_token;
@@ -92,8 +87,6 @@ public class MainTest {
 
     private void getDomainListing() throws Exception {
         localDate = LocalDate.now();
-        System.out.println("Local Date " + localDate);
-
         DomainListing domainListing = new DomainListing();
         propertyListings = domainListing.getPropertyList(authToken, searchJson);
     }

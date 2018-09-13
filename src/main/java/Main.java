@@ -18,7 +18,7 @@ public class Main {
         MyTask mTask = new MyTask();
         t.scheduleAtFixedRate(mTask, 0L, 3600000L); // Run every hour
       } catch (Exception e) {
-        System.out.println("Exception");
+        System.out.println("Exception " + e.getMessage());
       }
     }
   }

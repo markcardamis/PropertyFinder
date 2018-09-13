@@ -21,8 +21,6 @@ public class EmailNotification implements IEmailNotification {
         //Get Zapier Address
         if (propertyListings.length > 0){
             String urlZapier = System.getenv().get("zapierURL");
-            System.out.println("ZapierURL " + urlZapier);
-
             // if (urlZapier == null) {
             //     urlZapier = Variables.zapierURL;
             // }
