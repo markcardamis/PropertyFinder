@@ -29,17 +29,6 @@ public class ServiceHelper implements IServiceHelper
         String result;
         URL obj = new URL(url);
 
-        // System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
-
-        // // Create all-trusting host name verifier
-        // HostnameVerifier allHostsValid = new HostnameVerifier() {
-        //     public boolean verify(String hostname, SSLSession session) {
-        //         return true;
-        //     }
-        // };
-        // // Install the all-trusting host verifier
-        // HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-
         HttpsURLConnection request = (HttpsURLConnection) obj.openConnection();
         // SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
         // sslContext.init(null,null,null);
@@ -53,7 +42,7 @@ public class ServiceHelper implements IServiceHelper
         request.setRequestProperty("Host", host);
         System.out.println("Host " + host);
         if (basic) {
-            request.setRequestProperty("Authorization", "Basic " + authorization);
+            request.setRequestProperty("Authorization", "Bearer " + authorization);
             request.setRequestProperty("content-type","application/x-www-form-urlencoded");
         } else {
             request.setRequestProperty("Authorization", "Bearer " + authorization);
