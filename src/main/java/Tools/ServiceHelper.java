@@ -69,8 +69,8 @@ public class ServiceHelper implements IServiceHelper
                 wr.writeBytes (json);
                 wr.flush ();
                 wr.close ();
-            }catch (Exception ex) {
-                return null;
+            }catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
 
@@ -108,6 +108,7 @@ public class ServiceHelper implements IServiceHelper
         {
             request.disconnect();
         }
+        System.out.println("Run result " + result);
         return result;
     }
 

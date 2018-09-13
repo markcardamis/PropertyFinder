@@ -54,13 +54,13 @@ public class MainTest {
         DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(authKey);
         authToken = domainTokenAuthResponse.access_token;
         System.out.println("authToken " + authToken);
-
     }
 
     private void getDomainListing() throws Exception {
         localDate = LocalDate.now();
         DomainListing domainListing = new DomainListing();
         propertyListings = domainListing.getPropertyList(authToken, searchJson);
+        System.out.println("propertyListings " + propertyListings.toString());
     }
 
     private void addPlanningPortalAddress() throws Exception {
