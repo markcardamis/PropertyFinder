@@ -50,6 +50,7 @@ public class ServiceHelper implements IServiceHelper
             request.setRequestProperty("Content-Length","" + Integer.toString(json.getBytes().length));
             try
             {
+                System.out.println("HTTP POST WRITE " + json);
                 DataOutputStream wr = new DataOutputStream (request.getOutputStream());
                 wr.writeBytes (json);
                 wr.flush ();
