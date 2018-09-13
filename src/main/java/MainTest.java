@@ -82,6 +82,7 @@ public class MainTest {
         String authKey = System.getenv().get("authKey");
         DomainAuthentication domainAuthentication = new DomainAuthentication();
         DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(authKey);
+        System.out.println("Get Domain Auth" + domainTokenAuthResponse.toString());
         authToken = domainTokenAuthResponse.access_token;
     }
 
@@ -89,21 +90,26 @@ public class MainTest {
         localDate = LocalDate.now();
         DomainListing domainListing = new DomainListing();
         propertyListings = domainListing.getPropertyList(authToken, searchJson);
+        System.out.println("Get Domain Listing " + propertyListings.toString());
+
     }
 
     private void addPlanningPortalAddress() throws Exception {
         PlanningPortalAddressSearch planningPortalAddressSearch = new PlanningPortalAddressSearch();
         propertyListings = planningPortalAddressSearch.getFormattedAddress(propertyListings);
+        System.out.println("Planning Address " + propertyListings.toString());
     }
 
     private void addPlanningPortalZone() throws Exception {
         PlanningPortalZoneSearch planningPortalZoneSearch = new PlanningPortalZoneSearch();
         propertyListings = planningPortalZoneSearch.getPlanningZone(propertyListings);
+        System.out.println("Planning Zone " + propertyListings.toString());
     }
 
     private void addPlanningPortalArea() throws Exception {
         PlanningPortalAreaSearch planningPortalAreaSearch = new PlanningPortalAreaSearch();
         propertyListings = planningPortalAreaSearch.getAddressArea(propertyListings);
+        System.out.println("Planning Area " + propertyListings.toString());
     }
 
     private void filterProperties() {
