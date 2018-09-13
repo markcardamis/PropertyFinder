@@ -22,8 +22,8 @@ public class ServiceHelper implements IServiceHelper
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
         String dateString = dateFormat.format(date);
-
         String result = "";
+        
         URL obj = new URL(url);
 
         HttpsURLConnection request = (HttpsURLConnection) obj.openConnection();
@@ -36,7 +36,7 @@ public class ServiceHelper implements IServiceHelper
         request.setRequestMethod(httpMethodString);
         if (basic) {
             request.setRequestProperty("Authorization", "Basic " + authorization);
-            request.setRequestProperty("content-type","application/x-www-form-urlencoded");
+            //request.setRequestProperty("content-type","application/x-www-form-urlencoded"); 
         } else {
             request.setRequestProperty("Authorization", "Bearer " + authorization);
             request.setRequestProperty("updatedSince", dateString);
