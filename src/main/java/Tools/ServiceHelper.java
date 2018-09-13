@@ -3,7 +3,6 @@ package Tools;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,7 +35,7 @@ public class ServiceHelper implements IServiceHelper
         request.setRequestMethod(httpMethodString);
         if (basic) {
             request.setRequestProperty("Authorization", "Basic " + authorization);
-            //request.setRequestProperty("content-type","application/x-www-form-urlencoded"); 
+            request.setRequestProperty("content-type","application/x-www-form-urlencoded");
         } else {
             request.setRequestProperty("Authorization", "Bearer " + authorization);
             request.setRequestProperty("updatedSince", dateString);

@@ -12,7 +12,6 @@ public class Main {
   static class RecordingService implements Service {
     public void onStart(StartEvent event) {
       System.out.println("Hey, I started");
-
       try {
         Timer t = new Timer();
         MyTask mTask = new MyTask();
