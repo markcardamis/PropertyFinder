@@ -40,12 +40,12 @@ public class MainTest {
 
     public void getListings() throws Exception{
         getDomainAuth();
-        getDomainListing();
-        addPlanningPortalAddress();
-        addPlanningPortalZone();
-        addPlanningPortalArea();
-        filterProperties();
-        sendEmailNotifications();
+        // getDomainListing();
+        // addPlanningPortalAddress();
+        // addPlanningPortalZone();
+        // addPlanningPortalArea();
+        // filterProperties();
+        // sendEmailNotifications();
     }
 
     private void getDomainAuth() throws Exception {
@@ -53,6 +53,8 @@ public class MainTest {
         DomainAuthentication domainAuthentication = new DomainAuthentication();
         DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(authKey);
         authToken = domainTokenAuthResponse.access_token;
+        System.out.println("authToken " + authToken);
+
     }
 
     private void getDomainListing() throws Exception {
