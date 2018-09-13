@@ -10,8 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 public class ServiceHelper implements IServiceHelper
 {
@@ -26,10 +30,19 @@ public class ServiceHelper implements IServiceHelper
         String result;
         URL obj = new URL(url);
 
+        // Create all-trusting host name verifier
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+
         HttpsURLConnection request = (HttpsURLConnection) obj.openConnection();
-        // SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-        // sslContext.init(null,null,null);
-        // request.setSSLSocketFactory(sslContext.getSocketFactory());
+        SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+        sslContext.init(null,null,null);
+        request.setSSLSocketFactory(sslContext.getSocketFactory());
         request.setConnectTimeout(HTTP_REQUEST_TIMEOUT);
         request.setReadTimeout(HTTP_REQUEST_TIMEOUT);
         String httpMethodString  = method.toString();
