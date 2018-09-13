@@ -30,7 +30,8 @@ public class Main {
     public void run() {
       try {
         DateHelper dateHelper = new DateHelper();
-        if (dateHelper.isBusinessDay())
+        //if (dateHelper.isBusinessDay())
+        if (true)
         {
           System.out.println("Hi see you after 60 minutes");
           MainTest mainTest = new MainTest();

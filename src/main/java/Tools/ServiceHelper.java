@@ -27,13 +27,15 @@ public class ServiceHelper implements IServiceHelper
         URL obj = new URL(url);
 
         HttpsURLConnection request = (HttpsURLConnection) obj.openConnection();
-        SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-        sslContext.init(null,null,null);
-        request.setSSLSocketFactory(sslContext.getSocketFactory());
+        // SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+        // sslContext.init(null,null,null);
+        // request.setSSLSocketFactory(sslContext.getSocketFactory());
         request.setConnectTimeout(HTTP_REQUEST_TIMEOUT);
         request.setReadTimeout(HTTP_REQUEST_TIMEOUT);
         String httpMethodString  = method.toString();
         request.setRequestMethod(httpMethodString);
+        request.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+
         if (basic) {
             request.setRequestProperty("Authorization", "Basic " + authorization);
             request.setRequestProperty("content-type","application/x-www-form-urlencoded");
