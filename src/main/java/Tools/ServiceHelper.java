@@ -51,6 +51,7 @@ public class ServiceHelper implements IServiceHelper
             try
             {
                 System.out.println("HTTP POST WRITE " + json);
+                System.out.println("HTTP Authorisation header is " + request.getRequestProperty("Authorization"));
                 DataOutputStream wr = new DataOutputStream (request.getOutputStream());
                 wr.writeBytes (json);
                 wr.flush ();
