@@ -16,7 +16,7 @@ public class DomainAuthentication implements IDomainAuthentication
 
     public DomainTokenAuthResponse getAuthToken(String authKey) throws Exception{
         String urlAuth = "https://auth.domain.com.au/v1/connect/token";
-        String responseJson = mServiceHelper.callHTTPService(urlAuth, HttpMethod.POST, "grant_type=client_credentials&scope=api_agencies_read%20api_listings_read", true, authKey);
+        String responseJson = mServiceHelper.callHTTPService(urlAuth, HttpMethod.POST, "grant_type=client_credentials&scope=api_agencies_read api_listings_read", true, authKey);
         System.out.println("response json " + responseJson);
         Gson gson = new Gson();
         return gson.fromJson(responseJson, DomainTokenAuthResponse.class);
