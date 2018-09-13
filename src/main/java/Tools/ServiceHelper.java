@@ -29,16 +29,16 @@ public class ServiceHelper implements IServiceHelper
         String result;
         URL obj = new URL(url);
 
-        System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+        // System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
 
-        // Create all-trusting host name verifier
-        HostnameVerifier allHostsValid = new HostnameVerifier() {
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        };
-        // Install the all-trusting host verifier
-        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+        // // Create all-trusting host name verifier
+        // HostnameVerifier allHostsValid = new HostnameVerifier() {
+        //     public boolean verify(String hostname, SSLSession session) {
+        //         return true;
+        //     }
+        // };
+        // // Install the all-trusting host verifier
+        // HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
 
         HttpsURLConnection request = (HttpsURLConnection) obj.openConnection();
         // SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
