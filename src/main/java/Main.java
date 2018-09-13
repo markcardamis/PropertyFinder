@@ -44,7 +44,7 @@ public class Main {
         System.out.println("Main.java " + e.toString());
         System.out.println("Get Message " + e.getMessage());
         System.out.println("Get Local Message " + e.getLocalizedMessage());
-        System.out.println("Get Message " + e.getClass().getName());
+        System.out.println("Get Class Name " + e.getClass().getName());
       }
     }
  }
