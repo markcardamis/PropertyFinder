@@ -41,7 +41,10 @@ public class Main {
           System.out.println(" Not business hours");
         }
       } catch (Exception e){
-        System.out.println(e.toString());
+        System.out.println("Main.java " + e.toString());
+        System.out.println("Get Message " + e.getMessage());
+        System.out.println("Get Local Message " + e.getLocalizedMessage());
+        System.out.println("Get Message " + e.getClass().getName());
       }
     }
  }
