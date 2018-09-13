@@ -23,7 +23,7 @@ public class ServiceHelper implements IServiceHelper
         Date date = new Date();
         String dateString = dateFormat.format(date);
 
-        String result;
+        String result = "";
         URL obj = new URL(url);
 
         HttpsURLConnection request = (HttpsURLConnection) obj.openConnection();
@@ -87,8 +87,8 @@ public class ServiceHelper implements IServiceHelper
             if(!(httpCode == 200 || httpCode == 201))
                 throw new IllegalStateException(httpCode + " " + request.getResponseMessage());
 
-        } catch (SocketTimeoutException e){
-            throw new Exception(e);
+        } catch (Exception e){
+            System.out.println("Service Helper " + e.getMessage());
         }
         finally
         {
