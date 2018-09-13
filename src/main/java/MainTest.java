@@ -42,13 +42,11 @@ public class MainTest {
         try {
             getDomainAuth();
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Get Domain Auth Exception" + e.getMessage());
         }
         try {
             getDomainListing();
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Get Domain Listing Exception" + e.getMessage());
         }
         try {
@@ -60,20 +58,17 @@ public class MainTest {
         try {
             addPlanningPortalZone();
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Planning Portal Zone Exception " + e.getMessage());
         }
         try {
             addPlanningPortalArea();
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Planning Portal Area Exception " + e.getMessage());
         }
         filterProperties();
         try {
             sendEmailNotifications();
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Email Exception " + e.getMessage());
         }
     }

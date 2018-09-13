@@ -93,6 +93,7 @@ public class ServiceHelper implements IServiceHelper
         {
             request.disconnect();
         }
+        System.out.println("Service Helper " + result);
         return result;
     }
 
