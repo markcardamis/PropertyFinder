@@ -49,7 +49,9 @@ public class ServiceHelper implements IServiceHelper
         String httpMethodString  = method.toString();
         request.setRequestMethod(httpMethodString);
         request.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
-
+        String host = url.substring(8,url.indexOf("/", 8));
+        request.setRequestProperty("Host", host);
+        System.out.println("Host " + host);
         if (basic) {
             request.setRequestProperty("Authorization", "Basic " + authorization);
             request.setRequestProperty("content-type","application/x-www-form-urlencoded");
