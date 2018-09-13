@@ -3,6 +3,7 @@ package Tools;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,8 +22,8 @@ public class ServiceHelper implements IServiceHelper
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
         String dateString = dateFormat.format(date);
-        String result = "";
-        
+
+        String result;
         URL obj = new URL(url);
 
         HttpsURLConnection request = (HttpsURLConnection) obj.openConnection();
@@ -42,7 +43,7 @@ public class ServiceHelper implements IServiceHelper
             request.setRequestProperty("content-type","application/json");
         }
 
-        request.setUseCaches(false);
+        request.setUseCaches (false);
 
         if (httpMethodString.equals("POST") || httpMethodString.equals("PUT"))
         {
@@ -50,14 +51,12 @@ public class ServiceHelper implements IServiceHelper
             request.setRequestProperty("Content-Length","" + Integer.toString(json.getBytes().length));
             try
             {
-                System.out.println("HTTP POST WRITE " + json);
-                System.out.println("HTTP Authorisation header is " + request.getRequestProperty("Authorization"));
                 DataOutputStream wr = new DataOutputStream (request.getOutputStream());
                 wr.writeBytes (json);
                 wr.flush ();
                 wr.close ();
-            }catch (Exception e) {
-                System.out.println("HTTP POST exception " + e.getLocalizedMessage());
+            }catch (Exception ex) {
+                return null;
             }
         }
 
@@ -88,14 +87,13 @@ public class ServiceHelper implements IServiceHelper
             if(!(httpCode == 200 || httpCode == 201))
                 throw new IllegalStateException(httpCode + " " + request.getResponseMessage());
 
-        } catch (Exception e){
-            System.out.println("Service Helper " + e.getMessage());
+        } catch (SocketTimeoutException e){
+            throw new Exception(e);
         }
         finally
         {
             request.disconnect();
         }
-        System.out.println("Service Result " + result);
         return result;
     }
 
