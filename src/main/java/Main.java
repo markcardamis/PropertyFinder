@@ -34,8 +34,7 @@ public class Main {
         if (true)
         {
           System.out.println("Hi see you after 60 minutes");
-          MainTest mainTest = new MainTest();
-          mainTest.getListings();
+          new MainTest().getListings();
           System.out.println("Run finished");
         } else {
           System.out.println(" Not business hours");
