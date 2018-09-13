@@ -29,6 +29,8 @@ public class ServiceHelper implements IServiceHelper
         String result;
         URL obj = new URL(url);
 
+        System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+
         // Create all-trusting host name verifier
         HostnameVerifier allHostsValid = new HostnameVerifier() {
             public boolean verify(String hostname, SSLSession session) {
