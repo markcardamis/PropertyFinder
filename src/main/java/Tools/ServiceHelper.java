@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import java.util.Base64;
 import javax.net.ssl.HttpsURLConnection;
 
 public class ServiceHelper implements IServiceHelper
@@ -37,12 +36,10 @@ public class ServiceHelper implements IServiceHelper
         request.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
         String host = url.substring(8,url.indexOf("/", 8));
         request.setRequestProperty("Host", host);
-        System.out.println("Host " + host);
         if (basic) {
             request.setRequestProperty("Authorization", "Basic " + authorization);
             request.setRequestProperty("content-type","application/x-www-form-urlencoded");
             System.out.println("Auth: Basic " + authorization);
-            System.out.println("Url " + url);
         } else {
             request.setRequestProperty("Authorization", "Bearer " + authorization);
             request.setRequestProperty("updatedSince", dateString);
@@ -88,7 +85,7 @@ public class ServiceHelper implements IServiceHelper
             }
             rd.close();
             result = response.toString();
-            
+
             if(!(httpCode == 200 || httpCode == 201))
                 throw new IllegalStateException(httpCode + " " + request.getResponseMessage());
 

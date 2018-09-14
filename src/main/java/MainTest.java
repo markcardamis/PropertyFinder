@@ -50,7 +50,6 @@ public class MainTest {
 
     private void getDomainAuth() throws Exception {
         String authKey = System.getenv().get("authKey");
-        System.out.println("authKey " + authKey);
         DomainAuthentication domainAuthentication = new DomainAuthentication();
         DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(authKey);
         authToken = domainTokenAuthResponse.access_token;
