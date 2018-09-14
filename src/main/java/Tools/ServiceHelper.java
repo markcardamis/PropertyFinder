@@ -44,6 +44,9 @@ public class ServiceHelper implements IServiceHelper
         if (basic) {
             request.setRequestProperty("Authorization", "Basic " + authorization);
             request.setRequestProperty("content-type","application/x-www-form-urlencoded");
+            System.out.println("Auth: Basic " + authorization);
+            System.out.println("Url " + url);
+
         } else {
             request.setRequestProperty("Authorization", "Bearer " + authorization);
             request.setRequestProperty("updatedSince", dateString);
