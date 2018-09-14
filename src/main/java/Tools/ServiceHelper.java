@@ -52,11 +52,12 @@ public class ServiceHelper implements IServiceHelper
             request.setRequestProperty("Content-Length","" + Integer.toString(json.getBytes().length));
             try
             {
-                System.out.println("Request " + request.getOutputStream());
                 DataOutputStream wr = new DataOutputStream (request.getOutputStream());
                 wr.writeBytes (json);
                 wr.flush ();
                 wr.close ();
+                System.out.println("Request " + wr.toString());
+
             }catch (Exception e) {
                 System.out.println(e.getMessage());
             }
