@@ -103,7 +103,7 @@ public class ServiceHelper implements IServiceHelper
         {
             request.disconnect();
         }
-        //System.out.println("Run result " + result);
+        System.out.println("Run result " + result);
         return result;
     }
 
