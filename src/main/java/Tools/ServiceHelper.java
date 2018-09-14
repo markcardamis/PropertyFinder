@@ -39,13 +39,11 @@ public class ServiceHelper implements IServiceHelper
         if (basic) {
             request.setRequestProperty("Authorization", "Basic " + authorization);
             request.setRequestProperty("content-type","application/x-www-form-urlencoded");
-            System.out.println("Auth: Basic " + authorization);
         } else {
             request.setRequestProperty("Authorization", "Bearer " + authorization);
             request.setRequestProperty("updatedSince", dateString);
             request.setRequestProperty("content-type","application/json");
         }
-
         request.setUseCaches (false);
 
         if (httpMethodString.equals("POST") || httpMethodString.equals("PUT"))
@@ -54,6 +52,7 @@ public class ServiceHelper implements IServiceHelper
             request.setRequestProperty("Content-Length","" + Integer.toString(json.getBytes().length));
             try
             {
+                System.out.println("POST**");
                 DataOutputStream wr = new DataOutputStream (request.getOutputStream());
                 wr.writeBytes (json);
                 wr.flush ();
