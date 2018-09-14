@@ -48,7 +48,6 @@ public class ServiceHelper implements IServiceHelper
 
         if (httpMethodString.equals("POST") || httpMethodString.equals("PUT"))
         {
-            System.out.println("Post yes ");
             request.setDoOutput(true);
             request.setRequestProperty("Content-Length","" + Integer.toString(json.getBytes().length));
             try
@@ -58,6 +57,7 @@ public class ServiceHelper implements IServiceHelper
                 wr.flush ();
                 wr.close ();
             }catch (Exception e) {
+                System.out.println("Write exeption ");
                 System.out.println(e.getMessage());
             }
         }
