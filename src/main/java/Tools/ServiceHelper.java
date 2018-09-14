@@ -10,11 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.net.ssl.HostnameVerifier;
+import java.util.Base64;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManagerFactory;
 
 public class ServiceHelper implements IServiceHelper
 {
@@ -46,7 +43,6 @@ public class ServiceHelper implements IServiceHelper
             request.setRequestProperty("content-type","application/x-www-form-urlencoded");
             System.out.println("Auth: Basic " + authorization);
             System.out.println("Url " + url);
-
         } else {
             request.setRequestProperty("Authorization", "Bearer " + authorization);
             request.setRequestProperty("updatedSince", dateString);
@@ -69,7 +65,6 @@ public class ServiceHelper implements IServiceHelper
                 System.out.println(e.getMessage());
             }
         }
-
         try
         {
             request.connect();
@@ -93,9 +88,7 @@ public class ServiceHelper implements IServiceHelper
             }
             rd.close();
             result = response.toString();
-
-            System.out.println("Result " +result);
-
+            
             if(!(httpCode == 200 || httpCode == 201))
                 throw new IllegalStateException(httpCode + " " + request.getResponseMessage());
 
@@ -106,7 +99,6 @@ public class ServiceHelper implements IServiceHelper
         {
             request.disconnect();
         }
-        System.out.println("Run result " + result);
         return result;
     }
 
