@@ -42,7 +42,7 @@ public class ServiceHelper implements IServiceHelper
         request.setRequestProperty("Host", host);
         System.out.println("Host " + host);
         if (basic) {
-            request.setRequestProperty("Authorization", "Bearer " + authorization);
+            request.setRequestProperty("Authorization", "Basic " + authorization);
             request.setRequestProperty("content-type","application/x-www-form-urlencoded");
         } else {
             request.setRequestProperty("Authorization", "Bearer " + authorization);
@@ -103,7 +103,7 @@ public class ServiceHelper implements IServiceHelper
         {
             request.disconnect();
         }
-        System.out.println("Run result " + result);
+        //System.out.println("Run result " + result);
         return result;
     }
 
