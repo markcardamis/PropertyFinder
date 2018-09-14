@@ -56,8 +56,6 @@ public class ServiceHelper implements IServiceHelper
                 wr.writeBytes (json);
                 wr.flush ();
                 wr.close ();
-                System.out.println("Json " + json);
-
             }catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -85,9 +83,6 @@ public class ServiceHelper implements IServiceHelper
             }
             rd.close();
             result = response.toString();
-
-            System.out.println("HTTP response " + result);
-
             
             if(!(httpCode == 200 || httpCode == 201))
                 throw new IllegalStateException(httpCode + " " + request.getResponseMessage());
