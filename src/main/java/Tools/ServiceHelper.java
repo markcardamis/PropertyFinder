@@ -56,7 +56,7 @@ public class ServiceHelper implements IServiceHelper
                 wr.writeBytes (json);
                 wr.flush ();
                 wr.close ();
-                System.out.println("Request " + wr.toString());
+                System.out.println("Json " + json);
 
             }catch (Exception e) {
                 System.out.println(e.getMessage());
