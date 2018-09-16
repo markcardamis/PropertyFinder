@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 
 public class ServiceHelper implements IServiceHelper
 {
@@ -26,9 +27,9 @@ public class ServiceHelper implements IServiceHelper
         URL obj = new URL(url);
 
         HttpsURLConnection request = (HttpsURLConnection) obj.openConnection();
-        // SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-        // sslContext.init(null,null,null);
-        // request.setSSLSocketFactory(sslContext.getSocketFactory());
+        SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+        sslContext.init(null,null,null);
+        request.setSSLSocketFactory(sslContext.getSocketFactory());
         request.setConnectTimeout(HTTP_REQUEST_TIMEOUT);
         request.setReadTimeout(HTTP_REQUEST_TIMEOUT);
         String httpMethodString  = method.toString();
@@ -37,6 +38,7 @@ public class ServiceHelper implements IServiceHelper
         String host = url.substring(8,url.indexOf("/", 8));
         request.setRequestProperty("Host", host);
         if (basic) {
+            System.out.println("HTTP write auth " + authorization);
             request.setRequestProperty("Authorization", "Basic " + authorization);
             request.setRequestProperty("content-type","application/x-www-form-urlencoded");
         } else {
@@ -44,6 +46,7 @@ public class ServiceHelper implements IServiceHelper
             request.setRequestProperty("updatedSince", dateString);
             request.setRequestProperty("content-type","application/json");
         }
+
         request.setUseCaches (false);
 
         if (httpMethodString.equals("POST") || httpMethodString.equals("PUT"))
@@ -57,8 +60,8 @@ public class ServiceHelper implements IServiceHelper
                 wr.flush ();
                 wr.close ();
             }catch (Exception e) {
-                System.out.println("Write exeption ");
-                System.out.println(e.getMessage());
+                System.out.println("HTTP write exeption " + e.getLocalizedMessage());
+                return null;
             }
         }
         try
