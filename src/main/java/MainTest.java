@@ -1,4 +1,8 @@
 
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.util.Base64;
+
 import Models.DomainTokenAuthResponse;
 import Models.PropertyListing;
 import Services.DomainAuthentication;
@@ -8,7 +12,6 @@ import Services.FilterProperties;
 import Services.PlanningPortalAddressSearch;
 import Services.PlanningPortalAreaSearch;
 import Services.PlanningPortalZoneSearch;
-import java.time.LocalDate;
 
 public class MainTest {
 
@@ -49,10 +52,12 @@ public class MainTest {
     }
 
     private void getDomainAuth() throws Exception {
-        String authKey = System.getenv().get("authKey");
-        System.out.println("authKey " + authKey);
+        String username = System.getenv().get("domainUsername");
+        String password = System.getenv().get("domainPassword");
+        String encoded = Base64.getEncoder().encodeToString((username+":"+password).getBytes(StandardCharsets.UTF_8));  //Java 8
+        System.out.println("authKey " + encoded);
         DomainAuthentication domainAuthentication = new DomainAuthentication();
-        DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(authKey);
+        DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(encoded);
         authToken = domainTokenAuthResponse.access_token;
         System.out.println("authToken " + authToken);
     }

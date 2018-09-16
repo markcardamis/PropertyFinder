@@ -5,8 +5,10 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Locale;
 
