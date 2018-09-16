@@ -41,11 +41,11 @@ public class MainTest {
     public void getListings() throws Exception{
         // getDomainAuth();
         getDomainListing();
-        // addPlanningPortalAddress();
-        // addPlanningPortalZone();
-        // addPlanningPortalArea();
-        // filterProperties();
-        // sendEmailNotifications();
+        addPlanningPortalAddress();
+        addPlanningPortalZone();
+        addPlanningPortalArea();
+        filterProperties();
+        sendEmailNotifications();
     }
 
     private void getDomainAuth() throws Exception {
