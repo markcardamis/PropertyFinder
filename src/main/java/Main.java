@@ -29,14 +29,12 @@ public class Main {
     public void run() {
       try {
         DateHelper dateHelper = new DateHelper();
-        //if (dateHelper.isBusinessDay())
-        if (true)
+        if (dateHelper.isBusinessDay())
         {
-          System.out.println("Hi see you after 60 minutes");
           new MainTest().getListings();
           System.out.println("Run finished");
         } else {
-          System.out.println(" Not business hours");
+          System.out.println("Not business hours");
         }
       } catch (Exception e){
         System.out.println("Main.java " + e.toString());
@@ -52,7 +50,6 @@ public class Main {
       .handler(r -> ctx -> ctx.render("ok"))
     );
     server.start();
-
   }
 
 }
