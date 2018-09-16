@@ -36,13 +36,13 @@ public class ServiceHelper implements IServiceHelper
         request.setReadTimeout(HTTP_REQUEST_TIMEOUT);
         String httpMethodString  = method.toString();
         request.setRequestMethod(httpMethodString);
-        request.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
-        String host = url.substring(8,url.indexOf("/", 8));
-        request.setRequestProperty("Host", host);
+        // request.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+        // String host = url.substring(8,url.indexOf("/", 8));
+        // request.setRequestProperty("Host", host);
         if (basic) {
             System.out.println("HTTP write auth " + authorization);
             request.setRequestProperty("Authorization", "Basic " + authorization);
-            request.setRequestProperty("charset", "utf-8");
+            // request.setRequestProperty("charset", "utf-8");
             request.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
         } else {
             System.out.println("HTTP Bearer " + authorization);
@@ -57,11 +57,11 @@ public class ServiceHelper implements IServiceHelper
         {
             request.setDoOutput(true);
             request.setRequestProperty("Content-Length", "" + Integer.toString(json.getBytes().length));
-            request.setRequestProperty("Content-Language", "en-US");  
+            // request.setRequestProperty("Content-Language", "en-US");  
             try
             {
-                DataOutputStream wr = new DataOutputStream (request.getOutputStream());
                 System.out.println("HTTP POST Content " + json);
+                DataOutputStream wr = new DataOutputStream (request.getOutputStream());
                 wr.writeBytes(json);
                 wr.flush();
                 wr.close();

@@ -55,7 +55,6 @@ public class MainTest {
         String username = System.getenv().get("domainUsername");
         String password = System.getenv().get("domainPassword");
         String encoded = Base64.getEncoder().encodeToString((username+":"+password).getBytes(StandardCharsets.UTF_8));  //Java 8
-        System.out.println("authKey " + encoded);
         DomainAuthentication domainAuthentication = new DomainAuthentication();
         DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(encoded);
         authToken = domainTokenAuthResponse.access_token;
