@@ -3,12 +3,12 @@ package Tools;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Date;
 import java.util.Locale;
 
@@ -27,6 +27,19 @@ public class ServiceHelper implements IServiceHelper
 
         String result;
         URL obj = new URL(url);
+
+        String proxyURLHost = System.getenv().get("proxyURLHost");
+        String proxyURLPort = System.getenv().get("proxyURLPort");
+        String proxyUsername = System.getenv().get("proxyUsername");
+        String proxyPassword = System.getenv().get("proxyPassword");
+
+        System.setProperty("http.proxyHost", proxyURLHost);
+        System.setProperty("http.proxyPort", proxyURLPort);
+        Authenticator.setDefault(new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(proxyUsername, proxyPassword.toCharArray());
+                }
+        });
 
         HttpsURLConnection request = (HttpsURLConnection) obj.openConnection();
         SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
