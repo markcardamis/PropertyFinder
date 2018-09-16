@@ -87,7 +87,8 @@ public class ServiceHelper implements IServiceHelper
             }
             rd.close();
             result = response.toString();
-            
+            System.out.println("HTTP RESPONSE");
+            System.out.println(result);
             if(!(httpCode == 200 || httpCode == 201))
                 throw new IllegalStateException(httpCode + " " + request.getResponseMessage());
 
