@@ -40,14 +40,15 @@ public class ServiceHelper implements IServiceHelper
         if (basic) {
             System.out.println("HTTP write auth " + authorization);
             request.setRequestProperty("Authorization", "Basic " + authorization);
-            request.setRequestProperty("content-type","application/x-www-form-urlencoded");
+            request.setRequestProperty("charset", "utf-8");
+            request.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
         } else {
             request.setRequestProperty("Authorization", "Bearer " + authorization);
             request.setRequestProperty("updatedSince", dateString);
             request.setRequestProperty("content-type","application/json");
         }
 
-        request.setUseCaches (false);
+        request.setUseCaches(false);
 
         if (httpMethodString.equals("POST") || httpMethodString.equals("PUT"))
         {
