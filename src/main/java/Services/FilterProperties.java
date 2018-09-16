@@ -38,15 +38,6 @@ public class FilterProperties implements IFilterProperties {
             }
         }
 
-        PropertyListing pingAddress = new PropertyListing();
-            pingAddress.listingURL = "https://www.majoapps.com";
-            pingAddress.address = "Ping";
-            pingAddress.area = 1f;
-            pingAddress.price = "1";
-            pingAddress.zone = "A1";
-            pingAddress.planningPortalURL = "https://www.majoapps.com";
-
-        propertyListings = ArrayUtils.insert(0, propertyListings, pingAddress);
         return propertyListings;
     }
 }
