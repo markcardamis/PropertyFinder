@@ -21,9 +21,6 @@ public class EmailNotification implements IEmailNotification {
         //Get Zapier Address
         if (propertyListings.length > 0){
             String urlZapier = System.getenv().get("zapierURL");
-            // if (urlZapier == null) {
-            //     urlZapier = Variables.zapierURL;
-            // }
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String json = gson.toJson(propertyListings);
             mServiceHelper.callHTTPService(urlZapier,

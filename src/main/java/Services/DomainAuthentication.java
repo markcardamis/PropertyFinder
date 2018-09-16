@@ -14,9 +14,10 @@ public class DomainAuthentication implements IDomainAuthentication
     public DomainAuthentication() throws Exception {
         mServiceHelper = new ServiceHelper();
     }
-
+    
+    @Override
     public DomainTokenAuthResponse getAuthToken(String authKey) throws Exception{
-        String urlAuth = "https://auth.domain.com.au/v1/connect/token/";
+        String urlAuth = "https://auth.domain.com.au/v1/connect/token";
         String responseJson = mServiceHelper.callHTTPService(urlAuth, HttpMethod.POST, 
         "grant_type=client_credentials&scope=api_agencies_read%20api_listings_read", true, authKey);
         Gson gson = new Gson();
