@@ -39,8 +39,8 @@ public class MainTest {
 
 
     public void getListings() throws Exception{
-        getDomainAuth();
-        // getDomainListing();
+        // getDomainAuth();
+        getDomainListing();
         // addPlanningPortalAddress();
         // addPlanningPortalZone();
         // addPlanningPortalArea();
@@ -59,6 +59,7 @@ public class MainTest {
 
     private void getDomainListing() throws Exception {
         localDate = LocalDate.now();
+        authToken = System.getenv().get("authToken");
         DomainListing domainListing = new DomainListing();
         propertyListings = domainListing.getPropertyList(authToken, searchJson);
         System.out.println("propertyListings " + propertyListings.toString());

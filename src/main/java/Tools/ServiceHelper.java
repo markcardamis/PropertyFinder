@@ -43,6 +43,7 @@ public class ServiceHelper implements IServiceHelper
             request.setRequestProperty("charset", "utf-8");
             request.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
         } else {
+            System.out.println("HTTP Bearer " + authorization);
             request.setRequestProperty("Authorization", "Bearer " + authorization);
             request.setRequestProperty("updatedSince", dateString);
             request.setRequestProperty("content-type","application/json");
@@ -58,6 +59,7 @@ public class ServiceHelper implements IServiceHelper
             try
             {
                 DataOutputStream wr = new DataOutputStream (request.getOutputStream());
+                System.out.println("HTTP POST Content " + json);
                 wr.writeBytes(json);
                 wr.flush();
                 wr.close();
