@@ -25,21 +25,14 @@ public class ServiceHelper implements IServiceHelper
         Date date = new Date();
         String dateString = dateFormat.format(date);
 
+        if (basic) {
+            setProxy(System.getenv().get("QUOTAGUARDSTATIC_URL"));
+         } else {
+             setProxy("");
+         }
+        
         String result;
         URL obj = new URL(url);
-
-        String proxyURLHost = System.getenv().get("proxyURLHost");
-        String proxyURLPort = System.getenv().get("proxyURLPort");
-        String proxyUsername = System.getenv().get("proxyUsername");
-        String proxyPassword = System.getenv().get("proxyPassword");
-
-        System.setProperty("http.proxyHost", proxyURLHost);
-        System.setProperty("http.proxyPort", proxyURLPort);
-        Authenticator.setDefault(new Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(proxyUsername, proxyPassword.toCharArray());
-                }
-        });
 
         HttpsURLConnection request = (HttpsURLConnection) obj.openConnection();
         SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
@@ -49,13 +42,10 @@ public class ServiceHelper implements IServiceHelper
         request.setReadTimeout(HTTP_REQUEST_TIMEOUT);
         String httpMethodString  = method.toString();
         request.setRequestMethod(httpMethodString);
-        // request.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
-        // String host = url.substring(8,url.indexOf("/", 8));
-        // request.setRequestProperty("Host", host);
+
         if (basic) {
             System.out.println("HTTP write auth " + authorization);
             request.setRequestProperty("Authorization", "Basic " + authorization);
-            // request.setRequestProperty("charset", "utf-8");
             request.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
         } else {
             System.out.println("HTTP Bearer " + authorization);
@@ -119,6 +109,29 @@ public class ServiceHelper implements IServiceHelper
             request.disconnect();
         }
         return result;
+    }
+
+    private void setProxy(String proxyStringConnectionURL) throws Exception{
+        if (proxyStringConnectionURL != ""){
+            URL proxyUrl = new URL(proxyStringConnectionURL);
+            String userInfo = proxyUrl.getUserInfo();
+            String user = userInfo.substring(0, userInfo.indexOf(':'));
+            String password = userInfo.substring(userInfo.indexOf(':') + 1);
+            System.setProperty("jdk.http.auth.tunneling.disabledSchemes", "");
+            System.setProperty("jdk.http.auth.proxying.disabledSchemes", "");
+            System.setProperty("https.proxyHost", proxyUrl.getHost());
+            System.setProperty("https.proxyPort", Integer.toString(proxyUrl.getPort()));
+    
+            Authenticator.setDefault(new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(user, password.toCharArray());
+                }
+            });
+        } else {
+            System.clearProperty("https.proxySet");
+            System.clearProperty("https.proxyHost");
+            System.clearProperty("https.proxyPort");
+        }
     }
 
 }
