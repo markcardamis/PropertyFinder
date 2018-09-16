@@ -53,13 +53,14 @@ public class ServiceHelper implements IServiceHelper
         if (httpMethodString.equals("POST") || httpMethodString.equals("PUT"))
         {
             request.setDoOutput(true);
-            request.setRequestProperty("Content-Length","" + Integer.toString(json.getBytes().length));
+            request.setRequestProperty("Content-Length", "" + Integer.toString(json.getBytes().length));
+            request.setRequestProperty("Content-Language", "en-US");  
             try
             {
                 DataOutputStream wr = new DataOutputStream (request.getOutputStream());
-                wr.writeBytes (json);
-                wr.flush ();
-                wr.close ();
+                wr.writeBytes(json);
+                wr.flush();
+                wr.close();
             }catch (Exception e) {
                 System.out.println("HTTP write exeption " + e.getLocalizedMessage());
                 return null;
