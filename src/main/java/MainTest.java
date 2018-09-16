@@ -39,7 +39,7 @@ public class MainTest {
 
 
     public void getListings() throws Exception{
-        // getDomainAuth();
+        getDomainAuth();
         // getDomainListing();
         // addPlanningPortalAddress();
         // addPlanningPortalZone();
