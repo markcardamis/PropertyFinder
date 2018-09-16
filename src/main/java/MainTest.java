@@ -43,17 +43,17 @@ public class MainTest {
 
     public void getListings() throws Exception{
         getDomainAuth();
-        // getDomainListing();
-        // addPlanningPortalAddress();
-        // addPlanningPortalZone();
-        // addPlanningPortalArea();
-        // filterProperties();
-        // sendEmailNotifications();
+        getDomainListing();
+        addPlanningPortalAddress();
+        addPlanningPortalZone();
+        addPlanningPortalArea();
+        filterProperties();
+        sendEmailNotifications();
     }
 
     private void getDomainAuth() throws Exception {
-        String username = System.getenv().get("domainUsername");
-        String password = System.getenv().get("domainPassword");
+        String username = System.getenv().get("DOMAIN_USERNAME");
+        String password = System.getenv().get("DOMAIN_PASSWORD");
         String encoded = Base64.getEncoder().encodeToString((username+":"+password).getBytes(StandardCharsets.UTF_8));  //Java 8
         DomainAuthentication domainAuthentication = new DomainAuthentication();
         DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(encoded);
@@ -63,7 +63,6 @@ public class MainTest {
 
     private void getDomainListing() throws Exception {
         localDate = LocalDate.now();
-        authToken = System.getenv().get("authToken");
         DomainListing domainListing = new DomainListing();
         propertyListings = domainListing.getPropertyList(authToken, searchJson);
         System.out.println("propertyListings " + propertyListings.toString());

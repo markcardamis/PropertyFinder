@@ -16,8 +16,8 @@ public class FilterProperties implements IFilterProperties {
                 for (int i = 0; i < propertyListings.length; i++) {
                     priceInt = PriceMethods.stringToInteger(propertyListings[i].price);
                     pricePerArea = priceInt/Math.round(propertyListings[i].area);
-                    if ((propertyListings[i].zone.equals("R1")) && (propertyListings[i].area > 1350) &&
-                            (pricePerArea < 450)) {
+                    if ((propertyListings[i].zone.equals("R1")) && 
+                        (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
                         System.out.println(propertyListings[i]);
                     } else if ((propertyListings[i].zone.equals("DM")) &&
                             (propertyListings[i].area > 1350) && (pricePerArea < 450)) {

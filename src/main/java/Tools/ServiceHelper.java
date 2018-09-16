@@ -60,10 +60,8 @@ public class ServiceHelper implements IServiceHelper
         {
             request.setDoOutput(true);
             request.setRequestProperty("Content-Length", "" + Integer.toString(json.getBytes().length));
-            // request.setRequestProperty("Content-Language", "en-US");  
             try
             {
-                System.out.println("HTTP POST Content " + json);
                 DataOutputStream wr = new DataOutputStream (request.getOutputStream());
                 wr.writeBytes(json);
                 wr.flush();
@@ -96,8 +94,6 @@ public class ServiceHelper implements IServiceHelper
             }
             rd.close();
             result = response.toString();
-            System.out.println("HTTP RESPONSE");
-            System.out.println(result);
             if(!(httpCode == 200 || httpCode == 201))
                 throw new IllegalStateException(httpCode + " " + request.getResponseMessage());
 

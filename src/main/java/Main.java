@@ -11,13 +11,12 @@ public class Main {
   
   static class RecordingService implements Service {
     public void onStart(StartEvent event) {
-      System.out.println("Hey, I started");
       try {
         Timer t = new Timer();
         MyTask mTask = new MyTask();
-        t.scheduleAtFixedRate(mTask, 10000L, 3600000L); // Run every hour
+        t.scheduleAtFixedRate(mTask, 0L, 3600000L); // Run every hour
       } catch (Exception e) {
-        System.out.println("Exception " + e.getMessage());
+        System.out.println("Scheduling Exception " + e.getMessage());
       }
     }
   }
