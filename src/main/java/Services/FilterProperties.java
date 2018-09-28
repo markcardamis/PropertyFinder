@@ -29,6 +29,9 @@ public class FilterProperties implements IFilterProperties {
                             (propertyListings[i].area > 1200) && (priceInt < 200000)) {
                         System.out.println(propertyListings[i]);
                     } else {
+                        if ((propertyListings[i].zone.equals("R1")) || (propertyListings[i].zone.equals("R3"))){
+                            System.out.println(propertyListings[i]);
+                        }
                         propertyListings = ArrayUtils.remove(propertyListings, i);
                         i--;
                     }
