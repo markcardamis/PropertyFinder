@@ -10,7 +10,6 @@ import Services.DomainListing;
 import Services.EmailNotification;
 import Services.FilterProperties;
 import Services.PlanningPortalAddressSearch;
-import Services.PlanningPortalAreaSearch;
 import Services.PlanningPortalZoneSearch;
 
 public class MainTest {
@@ -27,7 +26,8 @@ public class MainTest {
                 "\"VacantLand\" ]," +
             "\"minLandArea\":720, " +
             "\"minPrice\":200000, " +
-            "\"maxPrice\": 2000000, " +
+            "\"maxPrice\": 1500000, " +
+            "\"pageSize\": 200, " +
             "\"updatedSince\": " + localDate + ", " +
             "\"locations\":[ " +
                 "{" +
@@ -46,7 +46,6 @@ public class MainTest {
         getDomainListing();
         addPlanningPortalAddress();
         addPlanningPortalZone();
-        addPlanningPortalArea();
         filterProperties();
         sendEmailNotifications();
     }
@@ -74,11 +73,6 @@ public class MainTest {
     private void addPlanningPortalZone() throws Exception {
         PlanningPortalZoneSearch planningPortalZoneSearch = new PlanningPortalZoneSearch();
         propertyListings = planningPortalZoneSearch.getPlanningZone(propertyListings);
-    }
-
-    private void addPlanningPortalArea() throws Exception {
-        PlanningPortalAreaSearch planningPortalAreaSearch = new PlanningPortalAreaSearch();
-        propertyListings = planningPortalAreaSearch.getAddressArea(propertyListings);
     }
 
     private void filterProperties() {

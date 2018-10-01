@@ -28,7 +28,7 @@ public class Main {
     @Override
     public void run() {
       try {
-        DateHelper dateHelper = new DateHelper();
+        DateHelper dateHelper = new DateHelper(); // Only run at 5pm
         if (dateHelper.isBusinessDay())
         {
           new MainTest().getListings();

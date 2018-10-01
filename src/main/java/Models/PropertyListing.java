@@ -3,7 +3,7 @@ package Models;
 public class PropertyListing {
     public String listingURL;
     public String address;
-    public Float area;
+    public Integer area;
     public String price;
     public String zone;
     public String planningPortalURL;

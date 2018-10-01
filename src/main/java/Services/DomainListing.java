@@ -32,6 +32,7 @@ public class DomainListing implements IDomainListing
             for (int i = 0; i < propertyArrayLength; i++){
                 propertyListings[i] = new PropertyListing();
                 propertyListings[i].address = propertyListingResponse[i].listing.propertyDetails.displayableAddress;
+                propertyListings[i].area = propertyListingResponse[i].listing.propertyDetails.landArea;
                 propertyListings[i].price = propertyListingResponse[i].listing.priceDetails.displayPrice;
                 propertyListings[i].listingURL = "https://www.domain.com.au/" +
                             propertyListingResponse[i].listing.listingSlug;

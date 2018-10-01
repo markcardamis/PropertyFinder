@@ -20,7 +20,7 @@ public class FilterProperties implements IFilterProperties {
                         (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
                         System.out.println(propertyListings[i]);
                     } else if ((propertyListings[i].zone.equals("DM")) &&
-                            (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
+                            (propertyListings[i].area > 1200) && (pricePerArea < 300)) {
                         System.out.println(propertyListings[i]);
                     } else if ((propertyListings[i].zone.equals("R3")) &&
                             (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
