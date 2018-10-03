@@ -30,7 +30,7 @@ public class FilterProperties implements IFilterProperties {
                         System.out.println(propertyListings[i].listingURL);
                     } else {
                         if ((propertyListings[i].zone.equals("R1")) || (propertyListings[i].zone.equals("R3"))){
-                            System.out.println("R1 or R3 " + propertyListings[i].listingURL);
+                            System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
                         }
                         propertyListings = ArrayUtils.remove(propertyListings, i);
                         i--;
