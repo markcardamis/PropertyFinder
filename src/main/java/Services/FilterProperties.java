@@ -18,19 +18,19 @@ public class FilterProperties implements IFilterProperties {
                     pricePerArea = priceInt/Math.round(propertyListings[i].area);
                     if ((propertyListings[i].zone.equals("R1")) && 
                         (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
-                        System.out.println(propertyListings[i]);
+                        System.out.println(propertyListings[i].listingURL);
                     } else if ((propertyListings[i].zone.equals("DM")) &&
                             (propertyListings[i].area > 1200) && (pricePerArea < 300)) {
-                        System.out.println(propertyListings[i]);
+                        System.out.println(propertyListings[i].listingURL);
                     } else if ((propertyListings[i].zone.equals("R3")) &&
                             (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
-                        System.out.println(propertyListings[i]);
+                        System.out.println(propertyListings[i].listingURL);
                     } else if ((propertyListings[i].zone.equals("R2")) &&
                             (propertyListings[i].area > 1200) && (priceInt < 200000)) {
-                        System.out.println(propertyListings[i]);
+                        System.out.println(propertyListings[i].listingURL);
                     } else {
                         if ((propertyListings[i].zone.equals("R1")) || (propertyListings[i].zone.equals("R3"))){
-                            System.out.println(propertyListings[i]);
+                            System.out.println("R1 or R3 " + propertyListings[i].listingURL);
                         }
                         propertyListings = ArrayUtils.remove(propertyListings, i);
                         i--;
