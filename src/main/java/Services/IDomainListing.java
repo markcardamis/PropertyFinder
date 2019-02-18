@@ -1,7 +1,8 @@
 package Services;
 
 import Models.PropertyListing;
+import Models.PropertySearchRequest;
 
 public interface IDomainListing {
-    PropertyListing[] getPropertyList(String authKey, String searchJson) throws Exception;
+    PropertyListing[] getPropertyList(String authKey, PropertySearchRequest request) throws Exception;
 }

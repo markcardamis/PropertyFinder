@@ -1,11 +1,15 @@
+
 package Tools;
+
 
 public class PriceMethods
 {
     public static Integer stringToInteger(String text) throws Exception{
+
         int firstIndex = text.indexOf('$');
         if (firstIndex >= 0) { // found a $
             text = text.substring(firstIndex+1);
+
             if (text.length() < 12) {
                 text = text.replaceAll("[^0-9.]", "");
             } else {
@@ -20,7 +24,9 @@ public class PriceMethods
         } else {
             text = "10000000";
         }
-        return (Integer.valueOf(text));
+        return ((int) Double.parseDouble(text));
     }
 
 }
+
+

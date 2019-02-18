@@ -9,7 +9,6 @@ public class PropertyListingResponse {
 
     public static class Contact implements Serializable {
         public String name;
-        public String photoUrl;
         private final static long serialVersionUID = -5022412230273243656L;
     }
 
@@ -25,7 +24,7 @@ public class PropertyListingResponse {
         public Integer id;
         public Advertiser advertiser;
         public PriceDetails priceDetails;
-        public List<Media> media = null;
+        public List<Medium> media = null;
         public PropertyDetails propertyDetails;
         public String headline;
         public String summaryDescription;
@@ -38,23 +37,25 @@ public class PropertyListingResponse {
     }
 
     public static class Advertiser {
-        private Integer id;
+        private String id;
         private String bannerUrl;
         private String preferredColourHex;
         private String name;
         private String logoUrl;
         private String type;
-        private List<Contact> contacts = null;
+        private Contact[] contacts;
     }
 
 
-    public static class Media implements Serializable {
+    public static class Medium implements Serializable {
         public String category;
         public String url;
+        private final static long serialVersionUID = 4086544935120502407L;
     }
 
     public static class PriceDetails implements Serializable {
         public String displayPrice;
+        private final static long serialVersionUID = -9198532097364411366L;
     }
 
     public static class PropertyDetails implements Serializable {

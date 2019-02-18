@@ -1,10 +1,9 @@
 package Tools;
 
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -25,12 +24,6 @@ public class ServiceHelper implements IServiceHelper
         Date date = new Date();
         String dateString = dateFormat.format(date);
 
-        if (basic) {
-            setProxy(System.getenv().get("QUOTAGUARDSTATIC_URL"));
-         } else {
-             setProxy("");
-         }
-        
         String result;
         URL obj = new URL(url);
 
@@ -42,46 +35,44 @@ public class ServiceHelper implements IServiceHelper
         request.setReadTimeout(HTTP_REQUEST_TIMEOUT);
         String httpMethodString  = method.toString();
         request.setRequestMethod(httpMethodString);
-
         if (basic) {
             request.setRequestProperty("Authorization", "Basic " + authorization);
-            request.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            request.setRequestProperty("content-type","application/x-www-form-urlencoded");
         } else {
             request.setRequestProperty("Authorization", "Bearer " + authorization);
             request.setRequestProperty("updatedSince", dateString);
             request.setRequestProperty("content-type","application/json");
         }
 
-        request.setUseCaches(false);
+        request.setUseCaches (false);
 
         if (httpMethodString.equals("POST") || httpMethodString.equals("PUT"))
         {
             request.setDoOutput(true);
-            request.setRequestProperty("Content-Length", "" + Integer.toString(json.getBytes().length));
+            request.setRequestProperty("Content-Length","" + Integer.toString(json.getBytes().length));
             try
             {
                 DataOutputStream wr = new DataOutputStream (request.getOutputStream());
-                wr.writeBytes(json);
-                wr.flush();
-                wr.close();
-            }catch (Exception e) {
-                System.out.println("HTTP write exeption " + e.getLocalizedMessage());
+                wr.writeBytes (json);
+                wr.flush ();
+                wr.close ();
+            }catch (Exception ex) {
                 return null;
             }
         }
+
         try
         {
             request.connect();
             int httpCode = request.getResponseCode();
             BufferedReader rd;
 
-            if (httpCode == 200 || httpCode == 201)
-            {
+            if (httpCode == 200 || httpCode == 201) {
                 rd = new BufferedReader(new InputStreamReader(request.getInputStream()));
-            }
-            else
-            {
+            } else if (request.getErrorStream() != null){
                 rd = new BufferedReader(new InputStreamReader(request.getErrorStream()));
+            } else {
+                throw new IllegalStateException(httpCode + ": Connection closed, no ErrorStream");
             }
 
             String line;
@@ -92,6 +83,7 @@ public class ServiceHelper implements IServiceHelper
             }
             rd.close();
             result = response.toString();
+
             if(!(httpCode == 200 || httpCode == 201))
                 throw new IllegalStateException(httpCode + " " + request.getResponseMessage());
 
@@ -103,29 +95,6 @@ public class ServiceHelper implements IServiceHelper
             request.disconnect();
         }
         return result;
-    }
-
-    private void setProxy(String proxyStringConnectionURL) throws Exception{
-        if (proxyStringConnectionURL != ""){
-            URL proxyUrl = new URL(proxyStringConnectionURL);
-            String userInfo = proxyUrl.getUserInfo();
-            String user = userInfo.substring(0, userInfo.indexOf(':'));
-            String password = userInfo.substring(userInfo.indexOf(':') + 1);
-            System.setProperty("jdk.http.auth.tunneling.disabledSchemes", "");
-            System.setProperty("jdk.http.auth.proxying.disabledSchemes", "");
-            System.setProperty("https.proxyHost", proxyUrl.getHost());
-            System.setProperty("https.proxyPort", Integer.toString(proxyUrl.getPort()));
-    
-            Authenticator.setDefault(new Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(user, password.toCharArray());
-                }
-            });
-        } else {
-            System.clearProperty("https.proxySet");
-            System.clearProperty("https.proxyHost");
-            System.clearProperty("https.proxyPort");
-        }
     }
 
 }

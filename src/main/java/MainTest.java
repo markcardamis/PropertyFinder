@@ -1,51 +1,48 @@
 
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.Base64;
 
+import Models.PropertySearchRequest;
+import PlanningInformation.FilterProperties;
+import PlanningInformation.SearchLocations;
 import Models.DomainTokenAuthResponse;
 import Models.PropertyListing;
 import Services.DomainAuthentication;
 import Services.DomainListing;
 import Services.EmailNotification;
-import Services.FilterProperties;
 import Services.PlanningPortalAddressSearch;
 import Services.PlanningPortalZoneSearch;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class MainTest {
 
     String authToken = "";
     PropertyListing[] propertyListings;
-    LocalDate localDate;
-
-    String searchJson = "{" +
-            "\"listingType\":\"Sale\"," +
-            "\"propertyTypes\":[" +
-                "\"DevelopmentSite\", " +
-                "\"House\", " +
-                "\"VacantLand\" ]," +
-            "\"minLandArea\":720, " +
-            "\"minPrice\":200000, " +
-            "\"maxPrice\": 1500000, " +
-            "\"pageSize\": 200, " +
-            "\"updatedSince\": " + localDate + ", " +
-            "\"locations\":[ " +
-                "{" +
-                "\"state\":\"NSW\", " +
-                    "\"region\":\"Sydney Region\", " +
-                    "\"area\":\"Blue Mountains & Surrounds\", " +
-                    "\"suburb\":\"Katoomba\", " +
-                    "\"postCode\":\"2780\", " +
-                    "\"includeSurroundingSuburbs\":true " +
-                "}" +
-            "]}";
+    PropertyListing[] propertyListingsComplete = null;
+    PropertySearchRequest searchJson;
 
 
     public void getListings() throws Exception{
+        PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
+        propertySearchRequest.minPrice = 300000;
+        propertySearchRequest.maxPrice = 700000;
+        propertySearchRequest.minLandArea = 1350;
+        searchJson = new SearchLocations().NSW(propertySearchRequest);
         getDomainAuth();
         getDomainListing();
         addPlanningPortalAddress();
         addPlanningPortalZone();
+        propertyListingsComplete = propertyListings;
+        int i = 1;
+        while (propertyListings.length >= 200) {
+            i++;
+            System.out.println("Pages " + String.valueOf(i));
+            searchJson.page = i;
+            getDomainListing();
+            addPlanningPortalAddress();
+            addPlanningPortalZone();
+            propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
+        }
         filterProperties();
         sendEmailNotifications();
     }
@@ -60,7 +57,6 @@ public class MainTest {
     }
 
     private void getDomainListing() throws Exception {
-        localDate = LocalDate.now();
         DomainListing domainListing = new DomainListing();
         propertyListings = domainListing.getPropertyList(authToken, searchJson);
     }
