@@ -15,6 +15,8 @@ import java.util.Locale;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 
+import groovy.ui.Console;
+
 public class ServiceHelper implements IServiceHelper
 {
     private static final int HTTP_REQUEST_TIMEOUT = 30000;
@@ -92,9 +94,6 @@ public class ServiceHelper implements IServiceHelper
             }
             rd.close();
             result = response.toString();
-            if(!(httpCode == 200 || httpCode == 201))
-                throw new IllegalStateException(httpCode + " " + request.getResponseMessage());
-
         } catch (SocketTimeoutException e){
             throw new Exception(e);
         }

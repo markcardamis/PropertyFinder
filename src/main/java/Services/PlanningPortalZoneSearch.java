@@ -44,7 +44,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    e.getMessage();
                 }
             }
         }

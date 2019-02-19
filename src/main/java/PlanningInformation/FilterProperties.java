@@ -23,13 +23,13 @@ public class FilterProperties implements IFilterProperties {
 
                     if (propertyListings[i].lgaCode == 900) { //BLUE MOUNTAINS
                         if ((propertyListings[i].zone.equals("R1")) &&
-                                (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
+                                (propertyListings[i].area > 1350) && (pricePerArea < 400)) {
                             System.out.println(propertyListings[i].listingURL);
                         } else if ((propertyListings[i].zone.equals("DM")) &&
                                 (propertyListings[i].area > 1200) && (pricePerArea < 300)) {
                             System.out.println(propertyListings[i].listingURL);
                         } else if ((propertyListings[i].zone.equals("R3")) &&
-                                (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
+                                (propertyListings[i].area > 1350) && (pricePerArea < 400)) {
                             System.out.println(propertyListings[i].listingURL);
                         } else if ((propertyListings[i].zone.equals("R2")) &&
                                 (propertyListings[i].area > 1200) && (priceInt < 300000)) {
