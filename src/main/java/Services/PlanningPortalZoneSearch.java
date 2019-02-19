@@ -23,6 +23,10 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
             String urlPlanningPortal = "https://www.planningportal.nsw.gov.au/xvt-weave/cadastre/";
             for (int i = 0; i < propertyListings.length; i++){
                 try {
+                    propertyListings[i].zone = "0"; // set default values as address is not always found
+                    propertyListings[i].lgaName = "0";
+                    propertyListings[i].lgaCode = 0;
+
                     String address = urlPlanningPortal + propertyListings[i].planningPortalURL + "/land_zoning";
                     String responseJson = mServiceHelper.callHTTPService(address,
                             HttpMethod.GET, "", false, "");
@@ -41,11 +45,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    propertyListings[i].zone = "0";
-                    propertyListings[i].lgaName = "0";
-                    propertyListings[i].lgaCode = 0;
                 }
-                System.out.println("PlanningPortalZone " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
             }
         }
         return propertyListings;

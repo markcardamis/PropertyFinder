@@ -45,52 +45,18 @@ public class FilterProperties implements IFilterProperties {
                             i--;
                         }
 
-                    } else if (propertyListings[i].lgaCode == 5240) { // MID-COAST
-                        if ((propertyListings[i].zone.equals("R1")) &&
-                                (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
-                            System.out.println(propertyListings[i].listingURL);
-                        } else if ((propertyListings[i].zone.equals("DM")) &&
-                                (propertyListings[i].area > 1200) && (pricePerArea < 300)) {
-                            System.out.println(propertyListings[i].listingURL);
-                        } else if ((propertyListings[i].zone.equals("R3")) &&
-                                (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
-                            System.out.println(propertyListings[i].listingURL);
-                        } else if ((propertyListings[i].zone.equals("R2")) &&
-                                (propertyListings[i].area > 1200) && (priceInt < 300000)) {
-                            System.out.println(propertyListings[i].listingURL);
-                        } else if (keywordExists.isKeywordPresent(propertyListings[i].summaryDescription, keywords)) {
-                            System.out.println("Property keyword " + propertyListings[i].listingURL);
-                        } else {
-                            propertyListings = ArrayUtils.remove(propertyListings, i);
-                            i--;
-                        }
-                    } else if (propertyListings[i].lgaCode == 9999) { // Generic Council template
-                        if ((propertyListings[i].zone.equals("R1")) &&
-                                (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
-                            System.out.println(propertyListings[i].listingURL);
-                        } else if ((propertyListings[i].zone.equals("DM")) &&
-                                (propertyListings[i].area > 1200) && (pricePerArea < 300)) {
-                            System.out.println(propertyListings[i].listingURL);
-                        } else if ((propertyListings[i].zone.equals("R3")) &&
-                                (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
-                            System.out.println(propertyListings[i].listingURL);
-                        } else if ((propertyListings[i].zone.equals("R2")) &&
-                                (propertyListings[i].area > 1200) && (priceInt < 300000)) {
-                            System.out.println(propertyListings[i].listingURL);
-                        } else if (keywordExists.isKeywordPresent(propertyListings[i].summaryDescription, keywords)) {
-                            System.out.println("Property keyword " + propertyListings[i].listingURL);
-                        } else {
-                            propertyListings = ArrayUtils.remove(propertyListings, i);
-                            i--;
-                        }
                     } else { //generic response
                         if ((propertyListings[i].zone.equals("R1")) &&
-                                (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
-                            System.out.println(propertyListings[i].listingURL);
+                                (propertyListings[i].area > 1350) && (pricePerArea < 400)) {
+                            System.out.println("R1 " + propertyListings[i].listingURL);
                         } else if ((propertyListings[i].zone.equals("R3")) &&
-                                (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
-                            System.out.println(propertyListings[i].listingURL);
-                        } else {
+                                (propertyListings[i].area > 1350) && (pricePerArea < 400)) {
+                            System.out.println("R3 " + propertyListings[i].listingURL);
+                        } else if ((propertyListings[i].zone.equals("R4")) &&
+                                (propertyListings[i].area > 1350)) {
+                            System.out.println("R4 " + propertyListings[i].listingURL);
+                        }
+                        else {
                             propertyListings = ArrayUtils.remove(propertyListings, i);
                             i--;
                         }
@@ -102,15 +68,6 @@ public class FilterProperties implements IFilterProperties {
             }
         }
 
-//        PropertyListing pingAddress = new PropertyListing();
-//        pingAddress.listingURL = "https://www.majoapps.com";
-//        pingAddress.address = "Ping";
-//        pingAddress.area = 1;
-//        pingAddress.price = "1";
-//        pingAddress.zone = "A1";
-//        pingAddress.planningPortalURL = "https://www.majoapps.com";
-//        propertyListings = ArrayUtils.insert(0, propertyListings, pingAddress);
-//
         return propertyListings;
     }
 }
