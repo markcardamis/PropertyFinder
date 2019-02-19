@@ -22,7 +22,6 @@ public class FilterProperties implements IFilterProperties {
                     pricePerArea = priceInt/Math.round(propertyListings[i].area);
 
                     if (propertyListings[i].lgaCode == 900) { //BLUE MOUNTAINS
-                        keywords = new String[]{"urgent", "reduced", "motivated", "builder", "renovator", " da "};
                         if ((propertyListings[i].zone.equals("R1")) &&
                                 (propertyListings[i].area > 1350) && (pricePerArea < 450)) {
                             System.out.println(propertyListings[i].listingURL);
@@ -38,13 +37,9 @@ public class FilterProperties implements IFilterProperties {
                         } else if (keywordExists.isKeywordPresent(propertyListings[i].summaryDescription, keywords)) {
                             System.out.println("Property keyword " + propertyListings[i].listingURL);
                         } else {
-                            if ((propertyListings[i].zone.equals("R1")) || (propertyListings[i].zone.equals("R3"))) {
-                                System.out.println("Zone " + propertyListings[i].zone + " " + propertyListings[i].listingURL);
-                            }
                             propertyListings = ArrayUtils.remove(propertyListings, i);
                             i--;
                         }
-
                     } else { //generic response
                         if ((propertyListings[i].zone.equals("R1")) &&
                                 (propertyListings[i].area > 1350) && (pricePerArea < 400)) {
