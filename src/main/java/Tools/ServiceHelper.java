@@ -15,8 +15,6 @@ import java.util.Locale;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 
-import groovy.ui.Console;
-
 public class ServiceHelper implements IServiceHelper
 {
     private static final int HTTP_REQUEST_TIMEOUT = 30000;
