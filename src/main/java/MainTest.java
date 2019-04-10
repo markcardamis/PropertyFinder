@@ -25,11 +25,13 @@ public class MainTest {
     public void getListings() throws Exception{
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         propertySearchRequest.minPrice = 150000;
-        propertySearchRequest.maxPrice = 1000000;
+        propertySearchRequest.maxPrice = 500000;
         propertySearchRequest.minLandArea = 1350;
+        propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite","House", "VacantLand"};
         PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
             locations.state = "NSW";
             locations.region = "Sydney Region";
+            locations.area = "Blue Mountains & Surrounds";
         propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
         searchJson = new SearchLocations().NSW(propertySearchRequest);
         getDomainAuth();

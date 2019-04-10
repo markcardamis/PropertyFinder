@@ -20,6 +20,7 @@ public class FilterProperties implements IFilterProperties {
                 for (int i = 0; i < propertyListings.length; i++) { //Iterate through all the listings
                     priceInt = PriceMethods.stringToInteger(propertyListings[i].price);
                     pricePerArea = priceInt/Math.round(propertyListings[i].area);
+                    pricePerArea = 1; //remove pricePerArea restriction
 
                     if ((propertyListings[i].zone.equals("R1")) &&
                             (propertyListings[i].area > 1350) && (pricePerArea < 400)) {

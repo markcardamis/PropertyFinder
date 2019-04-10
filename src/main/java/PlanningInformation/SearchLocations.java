@@ -13,9 +13,9 @@ public class SearchLocations {
         PropertySearchRequest searchJson = new PropertySearchRequest();
         searchJson.listingType = "Sale";
         searchJson.propertyTypes = new String[]{"DevelopmentSite","House", "VacantLand"};
-        searchJson.minLandArea = 720;
-        searchJson.minPrice = 200000;
-        searchJson.maxPrice = 1500000;
+        searchJson.minLandArea = 1350;
+        searchJson.minPrice = 150000;
+        searchJson.maxPrice = 500000;
         searchJson.page = 1;
         searchJson.pageSize = 200;
         searchJson.dateUpdated = LocalDate.now().toString();
