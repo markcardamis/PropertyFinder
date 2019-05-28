@@ -23,7 +23,7 @@ public class PlanningPortalAreaSearch implements IPlanningPortalAreaSearch
             String urlPlanningPortal = "https://www.planningportal.nsw.gov.au/xvt-weave/cadastre/";
             for (int i = 0; i < propertyListings.length; i++){
                 try {
-                    String address = urlPlanningPortal + propertyListings[i].planningPortalURL;
+                    String address = urlPlanningPortal + propertyListings[i].planningPortalPropId;
                     String responseJson = mServiceHelper.callHTTPService(address,
                             HttpMethod.GET, "", false, "");
                     Gson gson = new Gson();

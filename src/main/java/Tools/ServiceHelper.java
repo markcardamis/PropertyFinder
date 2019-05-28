@@ -17,7 +17,7 @@ import javax.net.ssl.SSLContext;
 
 public class ServiceHelper implements IServiceHelper
 {
-    private static final int HTTP_REQUEST_TIMEOUT = 30000;
+    private static final int HTTP_REQUEST_TIMEOUT = 60000;
 
     public String callHTTPService(String url, HttpMethod method, String json, Boolean basic, String authorization) throws Exception {
 

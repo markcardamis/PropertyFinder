@@ -31,8 +31,10 @@ public class FilterProperties implements IFilterProperties {
                     } else if ((propertyListings[i].zone.equals("R4")) &&
                             (propertyListings[i].area > 1350)) {
                         System.out.println("R4 " + propertyListings[i].listingURL);
-                    }
-                    else {
+                    } else if ((propertyListings[i].zone.contains("B")) &&
+                            (propertyListings[i].area > 400)) {
+                        System.out.println("B " + propertyListings[i].listingURL);
+                    } else {
                         propertyListings = ArrayUtils.remove(propertyListings, i);
                         i--;
                     }

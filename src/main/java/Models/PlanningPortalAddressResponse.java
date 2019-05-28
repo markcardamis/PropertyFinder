@@ -1,6 +1,6 @@
 package Models;
 
 public class PlanningPortalAddressResponse {
-    public String value;
-    public String label;
+    public String address;
+    public String propId;
 }

@@ -7,7 +7,8 @@ public class PropertyListing {
     public String price;
     public String zone;
     public String lgaName;
-    public Integer lgaCode;
-    public String planningPortalURL;
+    public Float fsr;
+    public String planningPortalPropId;
+    public String planningPortalAddress;
     public String summaryDescription;
 }

@@ -11,7 +11,6 @@ public class PropertySearchRequest {
     public Integer pageSize;
     public String dateUpdated;
     public Locations[] locations;
-    public String planningPortalURL;
 
     public static class Locations {
         public String state;
