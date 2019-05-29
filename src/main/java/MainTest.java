@@ -26,7 +26,7 @@ public class MainTest {
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         propertySearchRequest.minPrice = 150000;
         propertySearchRequest.maxPrice = 800000;
-        propertySearchRequest.minLandArea = 4000;
+        propertySearchRequest.minLandArea = 400;
         propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite","House", "VacantLand"};
         PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
             locations.state = "NSW";
