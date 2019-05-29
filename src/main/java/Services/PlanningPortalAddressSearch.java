@@ -6,6 +6,7 @@ import Models.PropertyListing;
 import Tools.HttpMethod;
 import Tools.IServiceHelper;
 import Tools.ServiceHelper;
+import Tools.UrlExtensionMethods;
 
 import java.net.URLEncoder;
 
@@ -22,15 +23,17 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
 
         //Get Planning Portal URL
         if (propertyListings!=null && propertyListings.length > 0){
-            String urlPlanningPortal = "https://www.planningportal.nsw.gov.au/xvt-weave/address_poi?q=";
             for (int i = 0; i < propertyListings.length; i++){
-                String address = URLEncoder.encode(propertyListings[i].address, "UTF-8");
-                String responseJson = mServiceHelper.callHTTPService(urlPlanningPortal+address,
+                String address = "https://api.apps1.nsw.gov.au/planning/viewersf/V1/ePlanningApi/address";
+                address = UrlExtensionMethods.appendParameter(address, "a", propertyListings[i].address);
+                String responseJson = mServiceHelper.callHTTPService(address,
                         HttpMethod.GET, "", false, "");
                 Gson gson = new Gson();
                 PlanningPortalAddressResponse[] planningPortalAddressResponses = gson.fromJson(responseJson, PlanningPortalAddressResponse[].class);
                 propertyListings[i].planningPortalPropId = planningPortalAddressResponses[0].propId;
                 propertyListings[i].planningPortalAddress = planningPortalAddressResponses[0].address;
+
+                System.out.println("PlanningPortalAddress " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
             }
         }
         return propertyListings;
