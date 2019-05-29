@@ -54,6 +54,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
                 } catch (Exception e) {
                     e.getMessage();
                 }
+                System.out.println("PlanningPortalZone " + propertyListings[i].zone + " " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
             }
         }
         return propertyListings;

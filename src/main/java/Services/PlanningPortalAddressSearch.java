@@ -32,6 +32,7 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
                 PlanningPortalAddressResponse[] planningPortalAddressResponses = gson.fromJson(responseJson, PlanningPortalAddressResponse[].class);
                 propertyListings[i].planningPortalPropId = planningPortalAddressResponses[0].propId;
                 propertyListings[i].planningPortalAddress = planningPortalAddressResponses[0].address;
+                System.out.println("PlanningPortalAddress " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
             }
         }
         return propertyListings;
