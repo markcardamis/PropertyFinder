@@ -8,8 +8,6 @@ import Tools.IServiceHelper;
 import Tools.ServiceHelper;
 import Tools.UrlExtensionMethods;
 
-import java.net.URLEncoder;
-
 public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
 {
     private IServiceHelper mServiceHelper;// = new IServiceHelper();
