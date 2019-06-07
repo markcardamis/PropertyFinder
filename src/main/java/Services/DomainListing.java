@@ -7,6 +7,7 @@ import Models.PropertySearchRequest;
 import Tools.HttpMethod;
 import Tools.IServiceHelper;
 import Tools.ServiceHelper;
+import Tools.StringCheck;
 
 public class DomainListing implements IDomainListing
 {
@@ -34,9 +35,9 @@ public class DomainListing implements IDomainListing
             for (int i = 0; i < propertyArrayLength; i++){
                 propertyListings[i] = new PropertyListing();
                 propertyListings[i].displayableAddress = propertyListingResponse[i].listing.propertyDetails.displayableAddress;
-                propertyListings[i].address = propertyListingResponse[i].listing.propertyDetails.streetNumber + " " +
-                        propertyListingResponse[i].listing.propertyDetails.street + " " +
-                        propertyListingResponse[i].listing.propertyDetails.suburb + " " +
+                propertyListings[i].address = StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.streetNumber, " ") +
+                        StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.street, " ") +
+                        StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.suburb, " ") +
                         propertyListingResponse[i].listing.propertyDetails.postcode;
                 propertyListings[i].area = propertyListingResponse[i].listing.propertyDetails.landArea;
                 propertyListings[i].price = propertyListingResponse[i].listing.priceDetails.displayPrice;
