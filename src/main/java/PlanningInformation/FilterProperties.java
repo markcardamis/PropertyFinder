@@ -24,16 +24,16 @@ public class FilterProperties implements IFilterProperties {
 
                     if ((propertyListings[i].zone.equals("R1")) &&
                             (propertyListings[i].area > 1350) && (pricePerArea < 400)) {
-                        System.out.println("R1 " + propertyListings[i].listingURL);
+                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
                     } else if ((propertyListings[i].zone.equals("R3")) &&
                             (propertyListings[i].area > 1350) && (pricePerArea < 400)) {
-                        System.out.println("R3 " + propertyListings[i].listingURL);
+                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
                     } else if ((propertyListings[i].zone.equals("R4")) &&
                             (propertyListings[i].area > 1350)) {
-                        System.out.println("R4 " + propertyListings[i].listingURL);
+                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
                     } else if ((propertyListings[i].zone.contains("B")) &&
                             (propertyListings[i].area > 400)) {
-                        System.out.println("B " + propertyListings[i].listingURL);
+                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
                     } else {
                         propertyListings = ArrayUtils.remove(propertyListings, i);
                         i--;
