@@ -41,13 +41,16 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
                         Gson gson = new Gson();
                         PlanningPortalZoneResponse[] planningPortalZoneResponse = gson.fromJson(responseJson, PlanningPortalZoneResponse[].class);
                         for (int j = 0; j < planningPortalZoneResponse.length; j++) {
-                            if (planningPortalZoneResponse[j].id.equals("18")) {
+                            if (planningPortalZoneResponse[j].layerName.equals("Land Zoning")) {
                                 propertyListings[i].zone = planningPortalZoneResponse[j].results[0].Zone;
                                 propertyListings[i].lgaName =
                                         planningPortalZoneResponse[j].results[0].LGA_Name;
-                            } else if (planningPortalZoneResponse[j].id.equals("11")){
+                            } else if (planningPortalZoneResponse[j].layerName.equals("Floor Space Ratio (n:1)")){
                                 propertyListings[i].fsr =
                                         Float.valueOf(planningPortalZoneResponse[j].results[0].Floor_Space_Ratio);
+                            } else if (planningPortalZoneResponse[j].layerName.equals("Minimum Lot Size")){
+                                propertyListings[i].minimumLotSize =
+                                        planningPortalZoneResponse[j].results[0].title;
                             }
                         }
                     }
