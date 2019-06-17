@@ -12,6 +12,7 @@ public class Main {
   static class RecordingService implements Service {
     public void onStart(StartEvent event) {
       try {
+        new MainTest().getListings(); //run on new deployment
         Timer t = new Timer();
         MyTask mTask = new MyTask();
         t.scheduleAtFixedRate(mTask, 0L, 3600000L); // Run every hour
