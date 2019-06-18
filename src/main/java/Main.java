@@ -29,7 +29,8 @@ public class Main {
     public void run() {
       try {
         DateHelper dateHelper = new DateHelper(); // Only run at 5pm
-        if (dateHelper.isBusinessDay())
+        //if (dateHelper.isBusinessDay())
+        if (true)
         {
           new MainTest().getListings();
           System.out.println("Run finished");
