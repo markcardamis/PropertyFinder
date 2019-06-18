@@ -79,11 +79,11 @@ public class MainTest {
 
     private void filterProperties() {
         FilterProperties filterProperties = new FilterProperties();
-        propertyListings = filterProperties.filterProperties(propertyListings);
+        propertyListingsComplete = filterProperties.filterProperties(propertyListingsComplete);
     }
 
     private void sendEmailNotifications() throws Exception {
         EmailNotification emailNotification = new EmailNotification();
-        emailNotification.sendEmailNotification(propertyListings);
+        emailNotification.sendEmailNotification(propertyListingsComplete);
     }
 }
