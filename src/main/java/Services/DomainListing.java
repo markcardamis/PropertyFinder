@@ -40,6 +40,7 @@ public class DomainListing implements IDomainListing
                         StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.suburb, " ") +
                         propertyListingResponse[i].listing.propertyDetails.postcode;
                 propertyListings[i].area = propertyListingResponse[i].listing.propertyDetails.landArea;
+                propertyListings[i].postCode = propertyListingResponse[i].listing.propertyDetails.postcode;
                 propertyListings[i].price = propertyListingResponse[i].listing.priceDetails.displayPrice;
                 propertyListings[i].listingURL = "https://www.domain.com.au/" +
                             propertyListingResponse[i].listing.listingSlug;
