@@ -29,7 +29,7 @@ public class FilterProperties implements IFilterProperties {
                             (propertyListings[i].area > 1350)) {
                         System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
                     } else if ((propertyListings[i].zone.equals("R4")) &&
-                            (propertyListings[i].area > 1350)) {
+                            (propertyListings[i].area > 400)) {
                         System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
                     } else if ((propertyListings[i].zone.contains("B")) &&
                             (propertyListings[i].area > 400)) {
