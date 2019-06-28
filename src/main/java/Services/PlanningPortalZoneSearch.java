@@ -30,6 +30,8 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
 
                     if (propertyListings[i].address.toLowerCase().contains("lot")) { // lot numbers don't always get correct zone
                         propertyListings[i].zone = "NA";
+                    } else if (!propertyListings[i].displayableAddress.toLowerCase().matches(".*\\d.*")) { // agents don't always include address
+                    propertyListings[i].zone = "NA";
                     } else {
                         String address = "https://api.apps1.nsw.gov.au/planning/viewersf/V1/ePlanningApi/layerintersect";
                         address = UrlExtensionMethods.appendParameter(address, "type", "property");
