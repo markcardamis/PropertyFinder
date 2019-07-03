@@ -14,7 +14,7 @@ public class Main {
       try {
         Timer t = new Timer();
         MyTask mTask = new MyTask();
-        t.scheduleAtFixedRate(mTask, 0L, 3600000L); // Run every hour
+        t.scheduleAtFixedRate(mTask, 1000L, 3600000L); // Run every hour
       } catch (Exception e) {
         System.out.println("Scheduling Exception " + e.getMessage());
       }
@@ -47,8 +47,13 @@ public class Main {
     
     RatpackServer server = RatpackServer.of(s -> s
       .registryOf(r -> r.add(service))
-      .handler(r -> ctx -> ctx.render("ok"))
-    );
+      .handlers(chain -> chain
+        .get(ctx -> {
+          ctx.render("Run Started"); 
+          new MainTest().getListings(); 
+        })
+      ));
+    
     server.start();
   }
 
