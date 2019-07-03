@@ -8,6 +8,8 @@ import Tools.HttpMethod;
 import Tools.IServiceHelper;
 import Tools.ServiceHelper;
 import Tools.StringCheck;
+import org.jsoup.Jsoup;
+
 
 public class DomainListing implements IDomainListing
 {
@@ -44,7 +46,7 @@ public class DomainListing implements IDomainListing
                 propertyListings[i].price = propertyListingResponse[i].listing.priceDetails.displayPrice;
                 propertyListings[i].listingURL = "https://www.domain.com.au/" +
                             propertyListingResponse[i].listing.listingSlug;
-                propertyListings[i].summaryDescription = propertyListingResponse[i].listing.summaryDescription.toLowerCase();
+                propertyListings[i].summaryDescription = Jsoup.parse(propertyListingResponse[i].listing.summaryDescription.toLowerCase()).text();
 
             }
         }

@@ -16,6 +16,8 @@ dependencies {
   compile 'com.google.code.gson:gson:2.8.5'
   compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8'
   testCompile 'junit:junit:4.12'
+  implementation 'org.jsoup:jsoup:1.12.1'
+
 }
 
 task stage {
