@@ -18,7 +18,7 @@ public class EmailNotification implements IEmailNotification {
     public void sendEmailNotification(PropertyListing[] propertyListings) throws Exception{
 
         //Get Zapier Address
-        if (propertyListings.length > 0){
+        if (propertyListings != null && propertyListings.length > 0){
             String urlZapier = System.getenv().get("ZAPIER_URL");            
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String json = gson.toJson(propertyListings);

@@ -52,7 +52,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
                                         Float.valueOf(planningPortalZoneResponse[j].results[0].Floor_Space_Ratio);
                             } else if (planningPortalZoneResponse[j].layerName.equals("Minimum Lot Size")){
                                 propertyListings[i].minimumLotSize =
-                                        planningPortalZoneResponse[j].results[0].title;
+                                planningPortalZoneResponse[j].results[0].title.replaceAll("\\D", "");
                             }
                         }
                     }
