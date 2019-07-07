@@ -55,6 +55,7 @@ public class EmailNotification implements IEmailNotification {
                     request.setEndpoint("mail/send");
                     request.setBody(mail.build());
                     Response response = sg.api(request);
+                    System.out.println(response.getStatusCode());
                 } catch (IOException ex) {
                     System.out.println(ex.toString());
                 }
