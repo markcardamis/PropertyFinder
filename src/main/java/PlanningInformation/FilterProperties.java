@@ -44,7 +44,8 @@ public class FilterProperties implements IFilterProperties {
                             (keywordExists.isKeywordPresent(propertyListings[i].postCode, postcodes))){
                         propertyListings[i].selectionReason = "E4, Postcode, >4000m, $100m<";
                         System.out.println(propertyListings[i].zone + " PostCode " + propertyListings[i].listingURL);
-                    } else if (keywordExists.isKeywordPresent(propertyListings[i].summaryDescription, keywords)) {
+                    } else if ((keywordExists.isKeywordPresent(propertyListings[i].summaryDescription, keywords)) &&
+                    (keywordExists.isKeywordPresent(propertyListings[i].postCode, postcodes))){
                         propertyListings[i].selectionReason = "Keyword found: " +
                                 keywordExists.keywordPresent(propertyListings[i].summaryDescription, keywords);
                         System.out.println("Keyword found: " + propertyListings[i].listingURL);
