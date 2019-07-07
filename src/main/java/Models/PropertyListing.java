@@ -14,4 +14,5 @@ public class PropertyListing {
     public String planningPortalAddress;
     public String summaryDescription;
     public String minimumLotSize;
+    public String selectionReason;
 }
