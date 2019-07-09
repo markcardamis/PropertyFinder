@@ -49,6 +49,9 @@ public class EmailNotification implements IEmailNotification {
                 Mail mail = new Mail(from, subject, to, content);
 
                 SendGrid sg = new SendGrid(System.getenv().get("SENDGRID_API"));
+                if (StringCheck.isNotNullOrEmpty(propertyListings[i].planningPortalPropId)) {
+                    sg.addRequestHeader("References", propertyListings[i].planningPortalPropId);
+                }
                 Request request = new Request();
                 try {
                     request.setMethod(Method.POST);
