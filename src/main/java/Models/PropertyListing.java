@@ -15,4 +15,6 @@ public class PropertyListing {
     public String summaryDescription;
     public String minimumLotSize;
     public String selectionReason;
+    public Double lat;
+    public Double lng;
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "254562778288",
+    "firebase_url": "https://propertyfinder-d2752.firebaseio.com",
+    "project_id": "propertyfinder-d2752",
+    "storage_bucket": "propertyfinder-d2752.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254562778288:android:0db4cb69b3df1225",
+        "android_client_info": {
+          "package_name": "com.majoapps.propertyfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254562778288-33d7p4vsjt66004noc9oapebhhlpioi4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBbDnGQWoWte9QaKtgMN8ml1kRIcGuEsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254562778288-33d7p4vsjt66004noc9oapebhhlpioi4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

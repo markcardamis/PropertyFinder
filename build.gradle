@@ -18,6 +18,7 @@ dependencies {
   testCompile 'junit:junit:4.12'
   implementation 'org.jsoup:jsoup:1.12.1'
   implementation 'com.sendgrid:sendgrid-java:4.4.1'
+  implementation 'com.google.firebase:firebase-database:18.0.0'
 }
 
 task stage {
