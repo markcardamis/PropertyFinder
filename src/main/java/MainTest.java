@@ -7,6 +7,7 @@ import PlanningInformation.FilterProperties;
 import PlanningInformation.SearchLocations;
 import Models.DomainTokenAuthResponse;
 import Models.PropertyListing;
+import Services.DatabaseStorage;
 import Services.DomainAuthentication;
 import Services.DomainListing;
 import Services.EmailNotification;
@@ -25,7 +26,7 @@ public class MainTest {
     public void getListings() throws Exception{
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         propertySearchRequest.minPrice = 150000;
-        propertySearchRequest.maxPrice = 800000;
+        propertySearchRequest.maxPrice = 200000;
         propertySearchRequest.minLandArea = 400;
         propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
         PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
@@ -50,6 +51,7 @@ public class MainTest {
             propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
         }
         filterProperties();
+        saveDatabasePoint();
         sendEmailNotifications();
     }
 
@@ -80,6 +82,11 @@ public class MainTest {
     private void filterProperties() {
         FilterProperties filterProperties = new FilterProperties();
         propertyListingsComplete = filterProperties.filterProperties(propertyListingsComplete);
+    }
+
+    private void saveDatabasePoint() throws Exception {
+        DatabaseStorage databaseStorageSave = new DatabaseStorage();
+        databaseStorageSave.save(propertyListingsComplete);
     }
 
     private void sendEmailNotifications() throws Exception {
