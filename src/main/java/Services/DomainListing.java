@@ -45,6 +45,8 @@ public class DomainListing implements IDomainListing
                     propertyListings[i].listingURL = "https://www.domain.com.au/" +
                                 propertyListingResponse[i].listing.listingSlug;
                     propertyListings[i].summaryDescription = Jsoup.parse(propertyListingResponse[i].listing.summaryDescription.toLowerCase()).text();
+                    propertyListings[i].lat = propertyListingResponse[i].listing.propertyDetails.latitude;
+                    propertyListings[i].lng = propertyListingResponse[i].listing.propertyDetails.longitude;
                 } else {
                     propertyListings[i].displayableAddress = "1 Sydney St, Sydney NSW";
                     propertyListings[i].address = "1 Sydney St SYDNEY 2000";
