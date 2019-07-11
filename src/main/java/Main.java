@@ -53,7 +53,7 @@ public class Main {
         .get(ctx -> { 
           ctx.render("Run Started"); 
           new MainTest().getListings(); 
-        }) 
+        })
         .files(f -> f.dir("public").indexFiles("index.html"))
       ));
     
