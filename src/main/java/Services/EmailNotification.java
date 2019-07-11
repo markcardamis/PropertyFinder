@@ -29,35 +29,37 @@ public class EmailNotification implements IEmailNotification {
         if (propertyListings != null && propertyListings.length > 0) {
 
             for (int i = 0; i < propertyListings.length; i++) {
-                String json = "Price: " + StringCheck.isNotNullOrEmpty(propertyListings[i].price, "") + "\n" +
-                        "Zone: " + StringCheck.isNotNullOrEmpty(propertyListings[i].zone, "") + "\n" +
-                        "FSR: " + propertyListings[i].fsr + "\n" +
-                        "Area: " + propertyListings[i].area + "\n" +
-                        "Domain Listed Address: " + StringCheck.isNotNullOrEmpty(propertyListings[i].address, "") + "\n" +
-                        "Planning Portal Address: " + StringCheck.isNotNullOrEmpty(propertyListings[i].planningPortalAddress, "") + "\n" +
-                        "URL: " + StringCheck.isNotNullOrEmpty(propertyListings[i].listingURL, "") + "\n" +
-                        "Selection Reason: " + StringCheck.isNotNullOrEmpty(propertyListings[i].selectionReason, "") + "\n" +
-                        "Summary: " + StringCheck.isNotNullOrEmpty(propertyListings[i].summaryDescription, "");
+                if (propertyListings[i].selectionReason != null) {
+                    String json = "Price: " + StringCheck.isNotNullOrEmpty(propertyListings[i].price, "") + "\n" +
+                            "Zone: " + StringCheck.isNotNullOrEmpty(propertyListings[i].zone, "") + "\n" +
+                            "FSR: " + propertyListings[i].fsr + "\n" +
+                            "Area: " + propertyListings[i].area + "\n" +
+                            "Domain Listed Address: " + StringCheck.isNotNullOrEmpty(propertyListings[i].address, "") + "\n" +
+                            "Planning Portal Address: " + StringCheck.isNotNullOrEmpty(propertyListings[i].planningPortalAddress, "") + "\n" +
+                            "URL: " + StringCheck.isNotNullOrEmpty(propertyListings[i].listingURL, "") + "\n" +
+                            "Selection Reason: " + StringCheck.isNotNullOrEmpty(propertyListings[i].selectionReason, "") + "\n" +
+                            "Summary: " + StringCheck.isNotNullOrEmpty(propertyListings[i].summaryDescription, "");
 
-                Email from = new Email("noreply@majoapps.com");
-                String subject = "Domain Trigger " + propertyListings[i].address;
-                Email to = new Email("markncardamis@gmail.com");
-                Content content = new Content("text/plain", json);
-                Mail mail = new Mail(from, subject, to, content);
+                    Email from = new Email("noreply@majoapps.com");
+                    String subject = "Domain Trigger " + propertyListings[i].address;
+                    Email to = new Email("markncardamis@gmail.com");
+                    Content content = new Content("text/plain", json);
+                    Mail mail = new Mail(from, subject, to, content);
 
-                SendGrid sg = new SendGrid(System.getenv().get("SENDGRID_API"));
-                if (StringCheck.isNotNullOrEmpty(propertyListings[i].planningPortalPropId)) {
-                    sg.addRequestHeader("References", propertyListings[i].planningPortalPropId);
-                }
-                Request request = new Request();
-                try {
-                    request.setMethod(Method.POST);
-                    request.setEndpoint("mail/send");
-                    request.setBody(mail.build());
-                    Response response = sg.api(request);
-                    System.out.println(response.getStatusCode());
-                } catch (IOException ex) {
-                    System.out.println(ex.toString());
+                    SendGrid sg = new SendGrid(System.getenv().get("SENDGRID_API"));
+                    if (StringCheck.isNotNullOrEmpty(propertyListings[i].planningPortalPropId)) {
+                        sg.addRequestHeader("References", propertyListings[i].planningPortalPropId);
+                    }
+                    Request request = new Request();
+                    try {
+                        request.setMethod(Method.POST);
+                        request.setEndpoint("mail/send");
+                        request.setBody(mail.build());
+                        Response response = sg.api(request);
+                        System.out.println(response.getStatusCode());
+                    } catch (IOException ex) {
+                        System.out.println(ex.toString());
+                    }
                 }
             }
         }

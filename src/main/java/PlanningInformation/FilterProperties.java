@@ -55,9 +55,6 @@ public class FilterProperties implements IFilterProperties {
                     (keywordExists.isKeywordPresent(propertyListings[i].postCode, postcodes))){
                         propertyListings[i].selectionReason = "Keyword found: " + propertyListings[i].summaryDescription;
                         System.out.println("Keyword found: " + propertyListings[i].listingURL);
-                    } else {
-                        propertyListings = ArrayUtils.remove(propertyListings, i);
-                        i--;
                     }            
 
                 }
