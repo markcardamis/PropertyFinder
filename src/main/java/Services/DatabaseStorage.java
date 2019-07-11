@@ -28,7 +28,7 @@ public class DatabaseStorage implements IDatabaseStorage {
 
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl("https://propertyfinder-d2752.firebaseio.com")
+                    .setDatabaseUrl(System.getenv().get("DATABASE_URL"))
                     .build();
 
             // Initialize the default app
