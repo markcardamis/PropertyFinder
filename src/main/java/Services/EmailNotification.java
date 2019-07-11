@@ -1,9 +1,6 @@
 package Services;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import Models.PropertyListing;
-import Tools.HttpMethod;
 import Tools.IServiceHelper;
 import Tools.ServiceHelper;
 import Tools.StringCheck;

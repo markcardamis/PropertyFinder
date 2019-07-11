@@ -1,23 +1,18 @@
 package Services;
 
+import Models.PropertyListing;
+
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.apache.commons.codec.binary.Base64InputStream;
-
-import Models.PropertyListing;
-
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Base64;
-
 
 public class DatabaseStorage implements IDatabaseStorage {
 
@@ -29,7 +24,6 @@ public class DatabaseStorage implements IDatabaseStorage {
 
             String jsonString = System.getenv().get("FIREBASE_AUTH");
             byte[] decoded = Base64.getDecoder().decode(jsonString);
-
             InputStream serviceAccount =  new ByteArrayInputStream(decoded);
 
             FirebaseOptions options = new FirebaseOptions.Builder()
