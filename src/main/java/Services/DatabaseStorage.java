@@ -6,11 +6,18 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.apache.commons.codec.binary.Base64InputStream;
+
 import Models.PropertyListing;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Base64;
+
 
 public class DatabaseStorage implements IDatabaseStorage {
 
@@ -19,10 +26,12 @@ public class DatabaseStorage implements IDatabaseStorage {
     @Override
     public void save(PropertyListing[] propertyListings) throws Exception {
         if (propertyListings != null && propertyListings.length > 0) {
-            System.out.println(System.getenv().get("GOOGLE_APPLICATION_CREDENTIALS"));
-            FileInputStream serviceAccount =
-                    new FileInputStream(System.getenv().get("GOOGLE_APPLICATION_CREDENTIALS"));
-                    
+
+            String jsonString = System.getenv().get("FIREBASE_AUTH");
+            byte[] decoded = Base64.getDecoder().decode(jsonString);
+
+            InputStream serviceAccount =  new ByteArrayInputStream(decoded);
+
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://propertyfinder-d2752.firebaseio.com")
