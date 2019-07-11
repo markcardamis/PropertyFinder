@@ -50,8 +50,8 @@ public class MainTest {
             addPlanningPortalZone();
             propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
         }
-        saveDatabasePoint();
         filterProperties();
+        saveDatabasePoint();
         sendEmailNotifications();
     }
 
@@ -79,14 +79,14 @@ public class MainTest {
         propertyListings = planningPortalZoneSearch.getPlanningZone(propertyListings);
     }
 
-    private void saveDatabasePoint() throws Exception {
-        DatabaseStorage databaseStorageSave = new DatabaseStorage();
-        databaseStorageSave.save(propertyListingsComplete);
-    }
-
     private void filterProperties() {
         FilterProperties filterProperties = new FilterProperties();
         propertyListingsComplete = filterProperties.filterProperties(propertyListingsComplete);
+    }
+    
+    private void saveDatabasePoint() throws Exception {
+        DatabaseStorage databaseStorageSave = new DatabaseStorage();
+        databaseStorageSave.save(propertyListingsComplete);
     }
 
     private void sendEmailNotifications() throws Exception {
