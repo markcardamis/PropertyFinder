@@ -1,3 +1,4 @@
+import ratpack.server.BaseDir;
 import ratpack.server.RatpackServer;
 import ratpack.service.Service;
 import ratpack.service.StartEvent;
@@ -46,12 +47,14 @@ public class Main {
     RecordingService service = new RecordingService();
     
     RatpackServer server = RatpackServer.of(s -> s
+      .serverConfig(c -> c.baseDir(BaseDir.find()))
       .registryOf(r -> r.add(service))
       .handlers(chain -> chain
-        .get(ctx -> {
+        .get(ctx -> { 
           ctx.render("Run Started"); 
           new MainTest().getListings(); 
         })
+        .files(f -> f.dir("public").indexFiles("index.html"))
       ));
     
     server.start();

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+
+
+
+    <script>
+/**
+ * Firebase config block.
+ */
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyB1dkqYZ6NtVwfgQTW8GjL-N0M6jUJJPwM",
+    authDomain: "propertyfinder-d2752.firebaseapp.com",
+    databaseURL: "https://propertyfinder-d2752.firebaseio.com",
+    projectId: "propertyfinder-d2752",
+    storageBucket: "propertyfinder-d2752.appspot.com",
+    messagingSenderId: "254562778288",
+    appId: "1:254562778288:web:a83e899df53411a4"
+  };
+   var map;
+   var marker;
+   var infoWindow;
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  function initAuthentication(onAuthSuccess) {
+        firebase.auth().signInAnonymously().catch(function(error) {
+          console.log(error.code + ', ' + error.message);
+        }, {remember: 'sessionOnly'});
+
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+
+            onAuthSuccess();
+          } else {
+            // User is signed out.
+          }
+        });
+      }
+
+  function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.7278481, lng: 150.453873},
+          zoom: 11,
+          styles: [{
+            featureType: 'poi',
+            stylers: [{ visibility: 'off' }]  // Turn off POI.
+          },
+          {
+            featureType: 'transit.station',
+            stylers: [{ visibility: 'off' }]  // Turn off bus, train stations etc.
+          }],
+          disableDoubleClickZoom: true,
+          streetViewControl: false,
+        });
+
+
+      // Create a heatmap.
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+          data: [],
+          map: map,
+          radius: 16
+        });
+
+        initAuthentication(initFirebase.bind(undefined, heatmap));
+
+      }
+
+
+      function initFirebase(heatmap) {
+
+        // Reference to the properties in Firebase.
+        var clicks = firebase.database().ref('propertyListings');
+        
+        // Listen for clicks and add them to the heatmap.
+        clicks.on('child_added',
+          function(snapshot) {
+            var newPosition = snapshot.val();
+            var point = new google.maps.LatLng(newPosition.lat, newPosition.lng);
+            marker = new google.maps.Marker({
+              position: point,
+              map: map,
+            });
+
+            marker['infowindow'] = new google.maps.InfoWindow({
+            maxWidth: 400,
+            content: "<b>Price: </b>" + newPosition.price + '<br>' +
+                        "<b>Zone: </b>" + newPosition.zone + '<br>' +
+                        "<b>FSR: </b>" + newPosition.fsr + '<br>' +
+                        "<b>Area: </b>" + newPosition.area + '<br>' +
+                        "<b>Domain Listed Address: </b>" + newPosition.address + '<br>' +
+                        "<b>Planning Portal Address: </b>" + newPosition.planningPortalAddress + '<br>' +
+                        "<b>URL: </b>" + "<a href=" + newPosition.listingURL + ">" + newPosition.listingURL + "</a>" + '<br>' +
+                        "<b>Selection Reason: </b>" + newPosition.selectionReason + '<br>' +
+                        "<b>Summary: </b>" + newPosition.summaryDescription
+
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+              this['infowindow'].open(map, this);
+            });
+          }
+        );
+
+      }
+    </script>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvGWzXkCf060KX9sdxlRChGPASgtXXiKI&libraries=visualization&callback=initMap">
+    </script>
+  </body>
+</html>
