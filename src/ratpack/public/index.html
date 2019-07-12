@@ -5,7 +5,7 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 100%;
+        height: 95%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -18,13 +18,24 @@
   <body>
     <div id="map"></div>
 
+    <div id="buttons">
+    	<select id="type" onchange="filterMarkers(this.value);">
+            <option value="">Please select category</option>
+            <option value="Shortlisted">Shortlisted</option>
+            <option value="R1">R1</option>
+            <option value="R3">R3</option>
+            <option value="R4">R4</option>
+        </select>
+    </div>
+
+
 <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
 
 
 
-    <script>
+<script>
 /**
  * Firebase config block.
  */
@@ -40,6 +51,8 @@
   };
    var map;
    var marker;
+   var markersArray = [];
+   var propertiesArray = [];
    var infoWindow;
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
@@ -107,6 +120,9 @@
               icon: iconVar
             });
 
+            markersArray.push(marker);
+            propertiesArray.push(newPosition);
+
             marker['infowindow'] = new google.maps.InfoWindow({
             maxWidth: 400,
             content: "<b>Price: </b>" + newPosition.price + '<br>' +
@@ -126,12 +142,34 @@
             });
           }
         );
-
       }
+
+
+		/**
+         * Function to filter markers by category
+         */
+
+        filterMarkers = function (category) {
+            for (i = 0; i < markersArray.length; i++) {
+                marker = markersArray[i];
+                var property = propertiesArray[i];
+                // If is same category or category not picked
+                if (property.zone == category || category.length === 0 ||
+                    (property.selectionReason && category == 'Shortlisted')) {
+                    marker.setVisible(true);
+                }
+                    // Categories don't match 
+                else {
+                    marker.setVisible(false);
+                }
+            }
+        }
+
+
     </script>
 
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvGWzXkCf060KX9sdxlRChGPASgtXXiKI&libraries=visualization&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRk9mLgyRjj5dY89K0LRrKrxFbyFoS4nM&libraries=visualization&callback=initMap">
     </script>
   </body>
 </html>
