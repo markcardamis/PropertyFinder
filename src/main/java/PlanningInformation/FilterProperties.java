@@ -26,30 +26,18 @@ public class FilterProperties implements IFilterProperties {
                     if ((propertyListings[i].zone.equals("R1")) && (propertyListings[i].area > 1350)) {
                         propertyListings[i].selectionReason = "R1, >1350m";
                         System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
-                    } else if (propertyListings[i].zone.equals("R1")) {
-                        propertyListings[i].selectionReason = "R1";
-                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
                     } else if ((propertyListings[i].zone.equals("R3")) && (propertyListings[i].area > 1350)) {
                         propertyListings[i].selectionReason = "R3, >1350m";
-                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
-                    } else if (propertyListings[i].zone.equals("R3")) {
-                        propertyListings[i].selectionReason = "R3";
                         System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
                     } else if ((propertyListings[i].zone.equals("R4")) && (propertyListings[i].area > 400)) {
                         propertyListings[i].selectionReason = "R4, >400m";
                         System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
-                    } else if (propertyListings[i].zone.equals("R4")){
-                        propertyListings[i].selectionReason = "R4";
-                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
                     } else if ((propertyListings[i].zone.contains("B")) && (propertyListings[i].area > 400)) {
                         propertyListings[i].selectionReason = "B, >400m";
                         System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
-                    } else if (propertyListings[i].zone.contains("B")) {
-                        propertyListings[i].selectionReason = "B";
-                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
-                    } else if ((propertyListings[i].zone.contains("E4")) && (propertyListings[i].area > 4000) &&
+                    } else if ((propertyListings[i].zone.contains("E4")) && (propertyListings[i].area > 10000) &&
                             (pricePerArea < 100) && (keywordExists.isKeywordPresent(propertyListings[i].postCode, postcodes))){
-                        propertyListings[i].selectionReason = "E4, Postcode, >4000m, $100m<";
+                        propertyListings[i].selectionReason = "E4, Postcode, >10000m, $100m<";
                         System.out.println(propertyListings[i].zone + " PostCode " + propertyListings[i].listingURL);
                     } else if ((keywordExists.isKeywordPresent(propertyListings[i].summaryDescription, keywords)) &&
                     (keywordExists.isKeywordPresent(propertyListings[i].postCode, postcodes))){
