@@ -26,7 +26,7 @@ public class MainTest {
     public void getListings() throws Exception{
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         propertySearchRequest.minPrice = 150000;
-        propertySearchRequest.maxPrice = 1500000;
+        propertySearchRequest.maxPrice = 5000000;
         propertySearchRequest.minLandArea = 400;
         propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
         PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
