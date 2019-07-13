@@ -5,8 +5,6 @@ import Services.IFilterProperties;
 import Tools.KeywordExists;
 import Tools.PriceMethods;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 public class FilterProperties implements IFilterProperties {
 
     @Override
@@ -17,7 +15,7 @@ public class FilterProperties implements IFilterProperties {
             KeywordExists keywordExists = new KeywordExists();
             String[] postcodes = new String[]{"2785", "2783", "2782", "2780", "2779", "2778", "2777",
                 "2776", "2774", "2773"};
-            String[] keywords = new String[]{"urgent", "reduced", "divorce", "builder"};
+            String[] keywords = new String[]{"urgent", "reduced", "divorce", "builder", "motivated"};
             try {
                 for (int i = 0; i < propertyListings.length; i++) { //Iterate through all the listings
                     priceInt = PriceMethods.stringToInteger(propertyListings[i].price);
