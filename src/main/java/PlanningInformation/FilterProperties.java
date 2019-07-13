@@ -33,10 +33,6 @@ public class FilterProperties implements IFilterProperties {
                     } else if ((propertyListings[i].zone.contains("B")) && (propertyListings[i].area > 400)) {
                         propertyListings[i].selectionReason = "B, >400m";
                         System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
-                    } else if ((propertyListings[i].zone.contains("E4")) && (propertyListings[i].area > 10000) &&
-                            (pricePerArea < 100) && (keywordExists.isKeywordPresent(propertyListings[i].postCode, postcodes))){
-                        propertyListings[i].selectionReason = "E4, Postcode, >10000m, $100m<";
-                        System.out.println(propertyListings[i].zone + " PostCode " + propertyListings[i].listingURL);
                     } else if ((keywordExists.isKeywordPresent(propertyListings[i].summaryDescription, keywords)) &&
                     (keywordExists.isKeywordPresent(propertyListings[i].postCode, postcodes))){
                         propertyListings[i].selectionReason = "Keyword found: " + keywordExists.keywordPresent(propertyListings[i].summaryDescription, keywords);
