@@ -41,12 +41,14 @@ public class MainTest {
         addPlanningPortalZone();
         propertyListingsComplete = propertyListings;
         int i = 1;
-        while (propertyListings.length >= 200) {
+        while (propertyListings != null && propertyListings.length >= 200) {
             i++;
             System.out.println("Pages " + String.valueOf(i));
             searchJson.page = i;
             getDomainListing();
-            propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
+            if (propertyListings != null) {
+                propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
+            }        
         }
         addPlanningPortalAddress();
         addPlanningPortalZone();
