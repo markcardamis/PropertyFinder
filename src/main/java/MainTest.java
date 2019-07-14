@@ -46,10 +46,10 @@ public class MainTest {
             System.out.println("Pages " + String.valueOf(i));
             searchJson.page = i;
             getDomainListing();
-            addPlanningPortalAddress();
-            addPlanningPortalZone();
             propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
         }
+        addPlanningPortalAddress();
+        addPlanningPortalZone();
         filterProperties();
         saveDatabasePoint();
         sendEmailNotifications();
@@ -71,12 +71,12 @@ public class MainTest {
 
     private void addPlanningPortalAddress() throws Exception {
         PlanningPortalAddressSearch planningPortalAddressSearch = new PlanningPortalAddressSearch();
-        propertyListings = planningPortalAddressSearch.getFormattedAddress(propertyListings);
+        propertyListingsComplete = planningPortalAddressSearch.getFormattedAddress(propertyListingsComplete);
     }
 
     private void addPlanningPortalZone() throws Exception {
         PlanningPortalZoneSearch planningPortalZoneSearch = new PlanningPortalZoneSearch();
-        propertyListings = planningPortalZoneSearch.getPlanningZone(propertyListings);
+        propertyListingsComplete = planningPortalZoneSearch.getPlanningZone(propertyListingsComplete);
     }
 
     private void filterProperties() {
