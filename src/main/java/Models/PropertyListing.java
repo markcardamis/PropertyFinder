@@ -1,6 +1,10 @@
 package Models;
 
+import java.time.LocalDate;
+
 public class PropertyListing {
+    public LocalDate date;
+    public Integer domainListingId;
     public String listingURL;
     public String address;
     public String displayableAddress;
