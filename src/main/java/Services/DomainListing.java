@@ -1,6 +1,8 @@
 package Services;
 
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import com.google.gson.Gson;
 import Models.PropertyListing;
@@ -24,7 +26,9 @@ public class DomainListing implements IDomainListing
     public PropertyListing[] getPropertyList(String authToken, PropertySearchRequest request) throws Exception{
 
         PropertyListing[] propertyListings = null;
-        LocalDate today = LocalDate.now();
+        
+        SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'", new Locale("AU"));
+        String timeDate = ISO_8601_FORMAT.format(new Date());
         
         //Get Listing Property
         String urlListings = "https://api.domain.com.au/v1/listings/residential/_search";
@@ -37,7 +41,7 @@ public class DomainListing implements IDomainListing
             for (int i = 0; i < propertyListingResponse.length; i++){
                 propertyListings[i] = new PropertyListing();
                 if (propertyListingResponse[i].type.equals("PropertyListing")) {
-                    propertyListings[i].date = today;
+                    propertyListings[i].dateTime = timeDate;
                     propertyListings[i].domainListingId = propertyListingResponse[i].listing.id;
                     propertyListings[i].displayableAddress = propertyListingResponse[i].listing.propertyDetails.displayableAddress;
                     propertyListings[i].address = StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.streetNumber, " ") +

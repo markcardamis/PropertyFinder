@@ -7,7 +7,6 @@ import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -21,9 +20,8 @@ public class ServiceHelper implements IServiceHelper
 
     public String callHTTPService(String url, HttpMethod method, String json, Boolean basic, String authorization) throws Exception {
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        Date date = new Date();
-        String dateString = dateFormat.format(date);
+        SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'", new Locale("AU"));
+        String timeDate = ISO_8601_FORMAT.format(new Date());
 
         if (basic) {
             setProxy(System.getenv().get("QUOTAGUARDSTATIC_URL"));
@@ -48,7 +46,7 @@ public class ServiceHelper implements IServiceHelper
             request.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
         } else {
             request.setRequestProperty("Authorization", "Bearer " + authorization);
-            request.setRequestProperty("updatedSince", dateString);
+            request.setRequestProperty("updatedSince", timeDate);
             request.setRequestProperty("content-type","application/json");
         }
 

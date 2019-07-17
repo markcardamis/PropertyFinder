@@ -1,9 +1,8 @@
 package Models;
 
-import java.time.LocalDate;
 
 public class PropertyListing {
-    public LocalDate date;
+    public String dateTime;
     public Integer domainListingId;
     public String listingURL;
     public String address;
