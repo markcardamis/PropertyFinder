@@ -29,7 +29,7 @@ public class PriceMethods
                         return ((int) (Double.parseDouble(text) * 1000000));
                     }
                 } else {
-                    text = text.replaceAll("[^0-9.]", "");
+                    text = text.replaceAll("[^0-9]", "");
                 }
             } else {
                 text = errorNumber;
