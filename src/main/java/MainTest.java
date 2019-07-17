@@ -35,6 +35,7 @@ public class MainTest {
             locations.area = "Blue Mountains & Surrounds";
         propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
         searchJson = new SearchLocations().NSW(propertySearchRequest);
+        searchJson.page = 1;
         getDomainAuth();
         getDomainListing();
         addPlanningPortalAddress();
@@ -43,7 +44,6 @@ public class MainTest {
         int i = 1;
         while (propertyListings != null && propertyListings.length >= 200) {
             i++;
-            System.out.println("Pages " + String.valueOf(i));
             searchJson.page = i;
             getDomainListing();
             if (propertyListings != null) {
