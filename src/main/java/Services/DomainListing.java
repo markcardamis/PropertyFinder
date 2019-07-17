@@ -1,5 +1,7 @@
 package Services;
 
+import java.time.LocalDate;
+
 import com.google.gson.Gson;
 import Models.PropertyListing;
 import Models.PropertyListingResponse;
@@ -22,7 +24,8 @@ public class DomainListing implements IDomainListing
     public PropertyListing[] getPropertyList(String authToken, PropertySearchRequest request) throws Exception{
 
         PropertyListing[] propertyListings = null;
-
+        LocalDate today = LocalDate.now();
+        
         //Get Listing Property
         String urlListings = "https://api.domain.com.au/v1/listings/residential/_search";
         String requestData = new Gson().toJson(request);
@@ -34,6 +37,8 @@ public class DomainListing implements IDomainListing
             for (int i = 0; i < propertyListingResponse.length; i++){
                 propertyListings[i] = new PropertyListing();
                 if (propertyListingResponse[i].type.equals("PropertyListing")) {
+                    propertyListings[i].date = today;
+                    propertyListings[i].domainListingId = propertyListingResponse[i].listing.id;
                     propertyListings[i].displayableAddress = propertyListingResponse[i].listing.propertyDetails.displayableAddress;
                     propertyListings[i].address = StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.streetNumber, " ") +
                             StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.street, " ") +
