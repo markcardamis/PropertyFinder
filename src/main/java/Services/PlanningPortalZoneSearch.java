@@ -74,7 +74,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
     @Override
     public PropertyListing[] getPlanningZoneMultiThreaded(PropertyListing[] propertyListings) throws Exception{
 
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newFixedThreadPool(5);
         propertyListingArrayList = new ArrayList<>();
 
         // Get Planning portal zone info
