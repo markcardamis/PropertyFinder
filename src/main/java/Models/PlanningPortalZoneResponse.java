@@ -11,9 +11,9 @@ public class PlanningPortalZoneResponse {
         @SerializedName("EPI Name") public String EPI_Name;
         @SerializedName("LGA Name") public String LGA_Name;
         @SerializedName("EPI Type") public String EPI_Type;
-        public String title;
+        @SerializedName("title") public String title;
         @SerializedName("Land Use") public String Land_Use;
-        public String Zone;
+        @SerializedName("Zone") public String Zone;
         @SerializedName("Floor Space Ratio") public String Floor_Space_Ratio;
     }
 }

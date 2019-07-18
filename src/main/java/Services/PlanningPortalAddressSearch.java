@@ -1,8 +1,8 @@
 package Services;
 
+import static java.util.concurrent.Executors.newFixedThreadPool;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import com.google.gson.Gson;
 import Models.PlanningPortalAddressResponse;
@@ -45,7 +45,7 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
     @Override
     public PropertyListing[] getFormattedAddressMultiThreaded(PropertyListing[] propertyListings) throws Exception{
 
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        ExecutorService executor = newFixedThreadPool(5);
         propertyListingArrayList = new ArrayList<>();
 
         // Get Planning portal zone info

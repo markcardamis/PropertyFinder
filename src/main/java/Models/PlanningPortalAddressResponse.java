@@ -1,6 +1,8 @@
 package Models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PlanningPortalAddressResponse {
-    public String address;
-    public String propId;
+    @SerializedName("address") public String address;
+    @SerializedName("propId") public String propId;
 }
