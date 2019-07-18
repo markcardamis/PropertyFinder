@@ -1,5 +1,9 @@
 package Services;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import com.google.gson.Gson;
 import Models.PlanningPortalAddressResponse;
 import Models.PropertyListing;
@@ -11,7 +15,9 @@ import Tools.UrlExtensionMethods;
 public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
 {
     private IServiceHelper mServiceHelper;// = new IServiceHelper();
-
+    private ArrayList<PropertyListing> propertyListingArrayList;
+    private Integer propertyListingLength = 0;
+    
     public PlanningPortalAddressSearch() throws Exception {
         mServiceHelper = new ServiceHelper();
     }
@@ -34,6 +40,64 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
             }
         }
         return propertyListings;
+    }
+
+    @Override
+    public PropertyListing[] getFormattedAddressMultiThreaded(PropertyListing[] propertyListings) throws Exception{
+
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+        propertyListingArrayList = new ArrayList<>();
+
+        // Get Planning portal zone info
+        if (propertyListings != null && propertyListings.length > 0){
+
+            propertyListingLength = propertyListings.length;
+            for (int j = 0; j < propertyListingLength; j++) {
+
+                Runnable worker = new MyRunnable(propertyListings[j]);
+                executor.execute(worker);
+            }
+            executor.shutdown();
+            // Wait until all threads are finish
+            while (!executor.isTerminated()) {
+
+            }
+            System.out.println("\nFinished all planning portal address threads");
+
+        }
+        int arraySize = propertyListingArrayList.size();
+        propertyListings = propertyListingArrayList.toArray(new PropertyListing[arraySize]);
+        return propertyListings;
+    }
+
+    private class MyRunnable implements Runnable {
+        private final PropertyListing propertyListing;
+
+        MyRunnable(PropertyListing propertyListing) {
+            this.propertyListing = propertyListing;
+        }
+
+        @Override
+        public void run() {
+            PlanningPortalZoneSearch planningPortalZoneSearch = null;
+            try {
+                String address = "https://api.apps1.nsw.gov.au/planning/viewersf/V1/ePlanningApi/address";
+                address = UrlExtensionMethods.appendParameter(address, "a", propertyListing.address);
+                String responseJson = mServiceHelper.callHTTPService(address,
+                        HttpMethod.GET, "", false, "");
+                Gson gson = new Gson();
+                PlanningPortalAddressResponse[] planningPortalAddressResponses = gson.fromJson(responseJson, PlanningPortalAddressResponse[].class);
+                propertyListing.planningPortalPropId = planningPortalAddressResponses[0].propId;
+                propertyListing.planningPortalAddress = planningPortalAddressResponses[0].address;
+
+                propertyListingArrayList.add(propertyListing);
+                System.out.println("PlanningPortalAddress " + propertyListingArrayList.size() + "/" + propertyListingLength);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
 }
