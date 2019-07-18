@@ -73,12 +73,12 @@ public class MainTest {
 
     private void addPlanningPortalAddress() throws Exception {
         PlanningPortalAddressSearch planningPortalAddressSearch = new PlanningPortalAddressSearch();
-        propertyListingsComplete = planningPortalAddressSearch.getFormattedAddress(propertyListingsComplete);
+        propertyListingsComplete = planningPortalAddressSearch.getFormattedAddressMultiThreaded(propertyListingsComplete);
     }
 
     private void addPlanningPortalZone() throws Exception {
         PlanningPortalZoneSearch planningPortalZoneSearch = new PlanningPortalZoneSearch();
-        propertyListingsComplete = planningPortalZoneSearch.getPlanningZone(propertyListingsComplete);
+        propertyListingsComplete = planningPortalZoneSearch.getPlanningZoneMultiThreaded(propertyListingsComplete);
     }
 
     private void filterProperties() {
