@@ -138,11 +138,18 @@
             });
 
             google.maps.event.addListener(marker, 'click', function() {
+              hideAllInfoWindows(map);
               this['infowindow'].open(map, this);
             });
           }
         );
       }
+
+      function hideAllInfoWindows(map) {
+   			markersArray.forEach(function(marker) {
+     		marker.infowindow.close(map, marker);
+  			}); 
+		}
 
 
 		/**
