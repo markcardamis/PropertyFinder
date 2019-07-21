@@ -52,9 +52,14 @@ public class MainTest {
         }
         addPlanningPortalAddress();
         addPlanningPortalZone();
+        System.out.println("Portal complete");
         filterProperties();
+        System.out.println("Filter complete");
         saveDatabasePoint();
+        System.out.println("Database complete");
         sendEmailNotifications();
+        System.out.println("Email complete");
+
     }
 
     private void getDomainAuth() throws Exception {
