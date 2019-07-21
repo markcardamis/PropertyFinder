@@ -97,7 +97,9 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch {
             }
             executor.shutdown();
             // Wait until all threads are finish
-            executor.awaitTermination(60, TimeUnit.SECONDS);
+            while (!executor.isTerminated()) {
+
+            }
             System.out.println("\nFinished all planning portal zone threads");
 
         }

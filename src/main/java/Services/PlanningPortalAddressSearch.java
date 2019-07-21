@@ -63,7 +63,9 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
             }
             executor.shutdown();
             // Wait until all threads are finish
-            executor.awaitTermination(60, TimeUnit.SECONDS);
+            while (!executor.isTerminated()) {
+
+            }
             System.out.println("\nFinished all planning portal address threads");
 
         }
