@@ -2,7 +2,10 @@ package Services;
 
 import static java.util.concurrent.Executors.newFixedThreadPool;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import com.google.gson.Gson;
 import Models.PlanningPortalZoneResponse;
@@ -14,7 +17,7 @@ import Tools.UrlExtensionMethods;
 
 public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch {
     private IServiceHelper mServiceHelper;// = new IServiceHelper();
-    private ArrayList<PropertyListing> propertyListingArrayList;
+    private List<PropertyListing> propertyListingArrayList = Collections.synchronizedList(new ArrayList<>());
     private Integer propertyListingLength = 0;
     private long startTime;
 
@@ -82,7 +85,6 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch {
 
         ExecutorService executor = newFixedThreadPool(15);
         startTime = System.currentTimeMillis();
-        propertyListingArrayList = new ArrayList<>();
 
         // Get Planning portal zone info
         if (propertyListings != null && propertyListings.length > 0){
@@ -95,9 +97,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch {
             }
             executor.shutdown();
             // Wait until all threads are finish
-            while (!executor.isTerminated()) {
-
-            }
+            executor.awaitTermination(60, TimeUnit.SECONDS);
             System.out.println("\nFinished all planning portal zone threads");
 
         }
