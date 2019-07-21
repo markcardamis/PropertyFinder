@@ -17,7 +17,8 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
     private IServiceHelper mServiceHelper;// = new IServiceHelper();
     private ArrayList<PropertyListing> propertyListingArrayList;
     private Integer propertyListingLength = 0;
-    
+    private long startTime;
+
     public PlanningPortalAddressSearch() throws Exception {
         mServiceHelper = new ServiceHelper();
     }
@@ -45,7 +46,8 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
     @Override
     public PropertyListing[] getFormattedAddressMultiThreaded(PropertyListing[] propertyListings) throws Exception{
 
-        ExecutorService executor = newFixedThreadPool(5);
+        ExecutorService executor = newFixedThreadPool(15);
+        startTime = System.currentTimeMillis();
         propertyListingArrayList = new ArrayList<>();
 
         // Get Planning portal zone info
@@ -81,6 +83,7 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
         public void run() {
             PlanningPortalZoneSearch planningPortalZoneSearch = null;
             try {
+                long sTime = System.currentTimeMillis();
                 String address = "https://api.apps1.nsw.gov.au/planning/viewersf/V1/ePlanningApi/address";
                 address = UrlExtensionMethods.appendParameter(address, "a", propertyListing.address);
                 String responseJson = mServiceHelper.callHTTPService(address,
@@ -92,7 +95,14 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
 
                 propertyListingArrayList.add(propertyListing);
                 System.out.println("PlanningPortalAddress " + propertyListingArrayList.size() + "/" + propertyListingLength);
-
+                long endTime = System.currentTimeMillis() - startTime;
+                long eTime = System.currentTimeMillis() - sTime;
+                System.out.println("RPS " + propertyListingArrayList.size()/(endTime/1000f));
+                if (eTime > 2000) {
+                    eTime = 2000;
+                }
+                Thread.sleep(2000-eTime);
+                
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -16,6 +16,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch {
     private IServiceHelper mServiceHelper;// = new IServiceHelper();
     private ArrayList<PropertyListing> propertyListingArrayList;
     private Integer propertyListingLength = 0;
+    private long startTime;
 
     public PlanningPortalZoneSearch() throws Exception {
         mServiceHelper = new ServiceHelper();
@@ -79,7 +80,8 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch {
     @Override
     public PropertyListing[] getPlanningZoneMultiThreaded(PropertyListing[] propertyListings) throws Exception {
 
-        ExecutorService executor = newFixedThreadPool(3);
+        ExecutorService executor = newFixedThreadPool(15);
+        startTime = System.currentTimeMillis();
         propertyListingArrayList = new ArrayList<>();
 
         // Get Planning portal zone info
@@ -115,6 +117,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch {
         public void run() {
             PlanningPortalZoneSearch planningPortalZoneSearch = null;
             try {
+                long sTime = System.currentTimeMillis();
                 propertyListing.zone = "0"; // set default values as address is not always found
                 propertyListing.lgaName = "0";
                 propertyListing.fsr = 0f;
@@ -148,7 +151,15 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch {
                     }
                 }
                 propertyListingArrayList.add(propertyListing);
+                
                 System.out.println("PlanningPortalZone " + propertyListing.zone + " " + String.valueOf(propertyListingArrayList.size()) + "/" + String.valueOf(propertyListingLength));
+                long endTime = System.currentTimeMillis() - startTime;
+                long eTime = System.currentTimeMillis() - sTime;
+                System.out.println("RPS " + propertyListingArrayList.size()/(endTime/1000f));
+                if (eTime > 2000) {
+                    eTime = 2000;
+                }
+                Thread.sleep(2000-eTime);
 
             } catch (Exception e) {
                 e.printStackTrace();
