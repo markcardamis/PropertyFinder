@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Base64;
 
@@ -32,7 +33,17 @@ public class DatabaseStorage implements IDatabaseStorage {
                     .build();
 
             // Initialize the default app
-            FirebaseApp defaultApp = FirebaseApp.initializeApp(options);
+            FirebaseApp firebaseApp = null;
+            List<FirebaseApp> firebaseApps = FirebaseApp.getApps();
+            if(firebaseApps!=null && !firebaseApps.isEmpty()){
+                for(FirebaseApp app : firebaseApps){
+                    if(app.getName().equals(FirebaseApp.DEFAULT_APP_NAME))
+                        firebaseApp = app;
+                }
+            }
+            else {
+                firebaseApp = FirebaseApp.initializeApp(options);
+            }
 
             mDatabaseReference = FirebaseDatabase.getInstance().getReference("propertyListings");
             Map<String, PropertyListing> properties = new HashMap<>();
