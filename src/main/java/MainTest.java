@@ -1,7 +1,3 @@
-
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-
 import Models.PropertySearchRequest;
 import PlanningInformation.FilterProperties;
 import PlanningInformation.SearchLocations;
@@ -21,6 +17,71 @@ public class MainTest {
     PropertyListing[] propertyListings;
     PropertyListing[] propertyListingsComplete = null;
     PropertySearchRequest searchJson;
+    Integer domainKey = 0;
+    Integer domainSearchCount = 0;
+    String[] authKey = {
+        System.getenv().get("DOMAIN_KEY_0"),
+        System.getenv().get("DOMAIN_KEY_1"),
+        System.getenv().get("DOMAIN_KEY_2"),
+        System.getenv().get("DOMAIN_KEY_3"),
+        System.getenv().get("DOMAIN_KEY_4"),
+    };
+
+    public void getListingsNSW() throws Exception {
+        Integer price = 100000;
+        Integer priceIncrementAmount = 10000;
+        Integer priceStop = 5000000;
+
+        getDomainAuth(domainKey);
+        PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
+
+        while (price < priceStop) {
+            propertySearchRequest.minPrice = price;
+            propertySearchRequest.maxPrice = price + priceIncrementAmount;
+            propertySearchRequest.minLandArea = 400;
+            propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
+            PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
+            locations.state = "NSW";
+            propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
+            searchJson = new SearchLocations().NSW(propertySearchRequest);
+            searchJson.page = 1;
+            if (domainSearchCount <= 450) {
+                getDomainListing();
+            } else {
+                domainKey++;
+                if (domainKey >= authKey.length){
+                    domainKey = 0;
+                }
+                System.out.println("Domain Key " + domainKey);
+                getDomainAuth(domainKey);
+                domainSearchCount = 0;
+                getDomainListing();
+            }
+            System.out.println(price + " Pages 1 " + propertyListings.length);
+            if (propertyListingsComplete == null) {
+                propertyListingsComplete = propertyListings;
+            } else {
+                propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
+            }
+            int i = 1;
+            while (propertyListings != null && propertyListings.length >= 200) {
+                i++;
+                searchJson.page = i;
+                getDomainListing();
+                if (propertyListings != null) {
+                    System.out.println(price + " Pages " + i + " " + propertyListings.length);
+                    propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
+                }
+            }
+            price += priceIncrementAmount;
+        }
+
+        addPlanningPortalAddress();
+        addPlanningPortalZone();
+        filterProperties();
+        saveDatabasePoint();
+        sendEmailCompletion();
+    }
 
 
     public void getListings() throws Exception{
@@ -36,7 +97,7 @@ public class MainTest {
         propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
         searchJson = new SearchLocations().NSW(propertySearchRequest);
         searchJson.page = 1;
-        getDomainAuth();
+        getDomainAuth(0);
         getDomainListing();
         addPlanningPortalAddress();
         addPlanningPortalZone();
@@ -62,18 +123,16 @@ public class MainTest {
 
     }
 
-    private void getDomainAuth() throws Exception {
-        String username = System.getenv().get("DOMAIN_USERNAME");
-        String password = System.getenv().get("DOMAIN_PASSWORD");
-        String encoded = Base64.getEncoder().encodeToString((username+":"+password).getBytes(StandardCharsets.UTF_8));  //Java 8
+    private void getDomainAuth(Integer key) throws Exception {
         DomainAuthentication domainAuthentication = new DomainAuthentication();
-        DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(encoded);
+        DomainTokenAuthResponse domainTokenAuthResponse = domainAuthentication.getAuthToken(authKey[key]);
         authToken = domainTokenAuthResponse.access_token;
     }
 
     private void getDomainListing() throws Exception {
         DomainListing domainListing = new DomainListing();
         propertyListings = domainListing.getPropertyList(authToken, searchJson);
+        domainSearchCount++;
     }
 
     private void addPlanningPortalAddress() throws Exception {
@@ -99,5 +158,24 @@ public class MainTest {
     private void sendEmailNotifications() throws Exception {
         EmailNotification emailNotification = new EmailNotification();
         emailNotification.sendEmailNotification(propertyListingsComplete);
+    }
+
+    private void sendEmailCompletion() throws Exception {
+        PropertyListing completePropertyListing = new PropertyListing();
+            completePropertyListing.domainListingId = 12345;
+            completePropertyListing.listingURL = "https://www.majoapps.com";
+            completePropertyListing.address = "Finished NSW search";
+            completePropertyListing.area = 1;
+            completePropertyListing.price = "1";
+            completePropertyListing.zone = "A1";
+            completePropertyListing.lgaName = "TestCouncil";
+            completePropertyListing.fsr = 0f;
+            completePropertyListing.planningPortalPropId = "12345";
+            completePropertyListing.planningPortalAddress = "https://www.majoapps.com";
+            completePropertyListing.summaryDescription = "Finished NSW search";
+            completePropertyListing.selectionReason = "Finished NSW search";
+
+        EmailNotification emailNotification = new EmailNotification();
+        emailNotification.sendEmailNotification(new PropertyListing[]{completePropertyListing});
     }
 }
