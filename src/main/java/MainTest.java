@@ -17,7 +17,7 @@ public class MainTest {
     PropertyListing[] propertyListings;
     PropertyListing[] propertyListingsComplete = null;
     PropertySearchRequest searchJson;
-    Integer domainKey = 3;
+    Integer domainKey = 4;
     Integer domainSearchCount = 0;
     String[] authKey = {
         System.getenv().get("DOMAIN_KEY_0"),
@@ -28,9 +28,10 @@ public class MainTest {
     };
 
     public void getListingsNSW() throws Exception {
+        propertyListingsComplete = null;
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
-        Integer priceStop = 2000000;
+        Integer priceStop = 110000;
         getDomainAuth(domainKey);
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         while (price < priceStop) {
@@ -73,7 +74,8 @@ public class MainTest {
             }
             price += priceIncrementAmount;
         }
-
+        
+        System.out.println("Property listings complete " + propertyListingsComplete.length);
         addPlanningPortalAddress();
         addPlanningPortalZone();
         filterProperties();
@@ -83,6 +85,7 @@ public class MainTest {
 
 
     public void getListings() throws Exception{
+        propertyListingsComplete = null;
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         propertySearchRequest.minPrice = 150000;
         propertySearchRequest.maxPrice = 2500000;
