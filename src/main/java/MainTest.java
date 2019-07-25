@@ -28,6 +28,7 @@ public class MainTest {
     };
 
     public void getListingsNSW() throws Exception {
+        System.out.println("Run getListingsNSW started");
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
         Integer priceStop = 2000000;
