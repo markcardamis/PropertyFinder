@@ -17,7 +17,7 @@ public class MainTest {
     PropertyListing[] propertyListings;
     PropertyListing[] propertyListingsComplete = null;
     PropertySearchRequest searchJson;
-    Integer domainKey = 0;
+    Integer domainKey = 1;
     Integer domainSearchCount = 0;
     String[] authKey = {
         System.getenv().get("DOMAIN_KEY_0"),
@@ -50,7 +50,7 @@ public class MainTest {
             } else {
                 domainKey++;
                 if (domainKey >= authKey.length){
-                    domainKey = 0;
+                    domainKey = 1;
                 }
                 System.out.println("Domain Key " + domainKey);
                 getDomainAuth(domainKey);
