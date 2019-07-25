@@ -43,7 +43,7 @@ public class MainTest {
             locations.state = "NSW";
             propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
             searchJson = new SearchLocations().NSW(propertySearchRequest);
-            searchJson.page = 2;
+            searchJson.page = 1;
             if (domainSearchCount <= 450) {
                 getDomainListing();
             } else {
