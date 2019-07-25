@@ -17,7 +17,7 @@ public class MainTest {
     PropertyListing[] propertyListings;
     PropertyListing[] propertyListingsComplete = null;
     PropertySearchRequest searchJson;
-    Integer domainKey = 1;
+    Integer domainKey = 2;
     Integer domainSearchCount = 0;
     String[] authKey = {
         System.getenv().get("DOMAIN_KEY_0"),
