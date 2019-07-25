@@ -45,6 +45,7 @@ public class Main {
 
   public static void main(String... args) throws Exception {
     RecordingService service = new RecordingService();
+    MainTest mainTest = new MainTest();
     
     RatpackServer server = RatpackServer.of(s -> s
       .serverConfig(c -> c.baseDir(BaseDir.find()))
@@ -52,7 +53,7 @@ public class Main {
       .handlers(chain -> chain
         .get(ctx -> { 
           ctx.render("Run Started"); 
-          new MainTest().getListingsNSW(); 
+          mainTest.getListingsNSW(); 
         })
         .files(f -> f.dir("public").indexFiles("index.html"))
       ));
