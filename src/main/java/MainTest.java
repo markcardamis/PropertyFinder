@@ -30,7 +30,7 @@ public class MainTest {
     public void getListingsNSW() throws Exception {
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
-        Integer priceStop = 5000000;
+        Integer priceStop = 2000000;
 
         getDomainAuth(domainKey);
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
