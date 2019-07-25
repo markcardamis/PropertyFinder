@@ -131,7 +131,6 @@ public class MainTest {
         DomainListing domainListing = new DomainListing();
         propertyListings = domainListing.getPropertyList(authToken, searchJson);
         domainSearchCount++;
-        System.out.println(domainSearchCount);
     }
 
     private void addPlanningPortalAddress() throws Exception {
