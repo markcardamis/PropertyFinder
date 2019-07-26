@@ -74,6 +74,7 @@ public class DatabaseStorage implements IDatabaseStorage {
 
             while ((eTime < DATABASE_SAVE_TIMEOUT) && (!databaseComplete)){
                 eTime = System.currentTimeMillis() - sTime;
+                Thread.sleep(1);
             }
             
             System.out.println("Firebase Exit");
