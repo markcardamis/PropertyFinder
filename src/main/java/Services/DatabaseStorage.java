@@ -18,9 +18,12 @@ import java.util.Base64;
 public class DatabaseStorage implements IDatabaseStorage {
 
     private DatabaseReference mDatabaseReference; // Firebase database reference
+    private boolean databaseComplete = false;
+    private static int DATABASE_SAVE_TIMEOUT = 60000;
 
     @Override
     public void save(PropertyListing[] propertyListings) throws Exception {
+        databaseComplete = false;
         if (propertyListings != null && propertyListings.length > 0) {
 
             String jsonString = System.getenv().get("FIREBASE_AUTH");
@@ -46,10 +49,14 @@ public class DatabaseStorage implements IDatabaseStorage {
             }
 
             mDatabaseReference = FirebaseDatabase.getInstance().getReference("propertyListings");
+            
             Map<String, PropertyListing> properties = new HashMap<>();
             for (int i = 0; i < propertyListings.length; i++) {
                 properties.put(propertyListings[i].planningPortalPropId, propertyListings[i]);
             }
+
+            long sTime = System.currentTimeMillis();
+
             mDatabaseReference.setValue(properties, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -60,7 +67,13 @@ public class DatabaseStorage implements IDatabaseStorage {
                     }
                 }
             });
-            Thread.sleep(5000);
+
+            long eTime = System.currentTimeMillis() - sTime;
+
+            while ((eTime < DATABASE_SAVE_TIMEOUT) && (!databaseComplete)){
+                eTime = System.currentTimeMillis() - sTime;
+            }
+            
             System.out.println("Firebase Exit");
         }
     }
