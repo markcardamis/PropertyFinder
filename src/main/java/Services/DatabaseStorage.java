@@ -62,8 +62,10 @@ public class DatabaseStorage implements IDatabaseStorage {
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     if (databaseError != null) {
                         System.out.println("Data could not be saved " + databaseError.getMessage());
+                        databaseComplete = true;
                     } else {
                         System.out.println("Data saved successfully.");
+                        databaseComplete = true;
                     }
                 }
             });
