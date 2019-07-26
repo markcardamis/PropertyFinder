@@ -31,7 +31,7 @@ public class MainTest {
         propertyListingsComplete = null;
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
-        Integer priceStop = 2000000;
+        Integer priceStop = 110000;
         getDomainAuth(domainKey);
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         while (price < priceStop) {
@@ -81,6 +81,7 @@ public class MainTest {
         filterProperties();
         saveDatabasePoint();
         sendEmailCompletion();
+        propertyListingsComplete = null;
     }
 
 
@@ -121,7 +122,7 @@ public class MainTest {
         System.out.println("Database complete");
         sendEmailNotifications();
         System.out.println("Email complete");
-
+        propertyListingsComplete = null;
     }
 
     private void getDomainAuth(Integer key) throws Exception {
