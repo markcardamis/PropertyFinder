@@ -14,8 +14,6 @@ import org.apache.commons.lang3.ArrayUtils;
 public class MainTest {
 
     String authToken = "";
-    PropertyListing[] propertyListings;
-    PropertyListing[] propertyListingsComplete = null;
     PropertySearchRequest searchJson;
     Integer domainKey = 0;
     Integer domainSearchCount = 0;
@@ -28,7 +26,8 @@ public class MainTest {
     };
 
     public void getListingsNSW() throws Exception {
-        propertyListingsComplete = null;
+        PropertyListing[] propertyListings = null;
+        PropertyListing[] propertyListingsComplete = null;
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
         Integer priceStop = 2000000;
@@ -81,12 +80,12 @@ public class MainTest {
         filterProperties();
         saveDatabasePoint();
         sendEmailCompletion();
-        propertyListingsComplete = null;
     }
 
 
     public void getListings() throws Exception{
-        propertyListingsComplete = null;
+        PropertyListing[] propertyListings = null;
+        PropertyListing[] propertyListingsComplete = null;
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         propertySearchRequest.minPrice = 150000;
         propertySearchRequest.maxPrice = 2500000;
@@ -122,7 +121,6 @@ public class MainTest {
         System.out.println("Database complete");
         sendEmailNotifications();
         System.out.println("Email complete");
-        propertyListingsComplete = null;
     }
 
     private void getDomainAuth(Integer key) throws Exception {
