@@ -13,6 +13,8 @@ public class PropertyListing {
     public String zone;
     public String lgaName;
     public Float fsr;
+    public Integer priceInteger;
+    public Integer pricePerSquareMeter;
     public String planningPortalPropId;
     public String planningPortalAddress;
     public String summaryDescription;

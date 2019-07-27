@@ -11,7 +11,6 @@ public class FilterProperties implements IFilterProperties {
     public PropertyListing[] filterProperties(PropertyListing[] propertyListings) {
         if (propertyListings.length > 0) {
             Integer priceInt;
-            int pricePerArea;
             KeywordExists keywordExists = new KeywordExists();
             String[] postcodes = new String[]{"2785", "2783", "2782", "2780", "2779", "2778", "2777",
                 "2776", "2774", "2773"};
@@ -19,7 +18,8 @@ public class FilterProperties implements IFilterProperties {
             try {
                 for (int i = 0; i < propertyListings.length; i++) { //Iterate through all the listings
                     priceInt = PriceMethods.stringToInteger(propertyListings[i].price);
-                    pricePerArea = priceInt/Math.round(propertyListings[i].area);
+                    propertyListings[i].priceInteger = priceInt;
+                    propertyListings[i].pricePerSquareMeter = priceInt/Math.round(propertyListings[i].area);
 
                     if ((propertyListings[i].zone.equals("R1")) && (propertyListings[i].area > 1350)) {
                         propertyListings[i].selectionReason = "R1, >1350m";

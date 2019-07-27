@@ -33,6 +33,8 @@ public class EmailNotification implements IEmailNotification {
                     String json = "Price: " + StringCheck.isNotNullOrEmpty(propertyListings[i].price, "") + "\n" +
                             "Zone: " + StringCheck.isNotNullOrEmpty(propertyListings[i].zone, "") + "\n" +
                             "FSR: " + propertyListings[i].fsr + "\n" +
+                            "PricePerSquareMeter: " + propertyListings[i].pricePerSquareMeter + "\n" +
+                            "PriceInteger: " + propertyListings[i].priceInteger + "\n" +
                             "Area: " + propertyListings[i].area + "\n" +
                             "Domain Listed Address: " + StringCheck.isNotNullOrEmpty(propertyListings[i].address, "") + "\n" +
                             "Planning Portal Address: " + StringCheck.isNotNullOrEmpty(propertyListings[i].planningPortalAddress, "") + "\n" +
