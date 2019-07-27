@@ -100,8 +100,6 @@ public class MainTest {
         searchJson.page = 1;
         getDomainAuth(0);
         propertyListings = getDomainListing();
-        propertyListings = addPlanningPortalAddress(propertyListings);
-        propertyListings = addPlanningPortalZone(propertyListings);
         propertyListingsComplete = propertyListings;
         int i = 1;
         while (propertyListings != null && propertyListings.length >= 200) {
