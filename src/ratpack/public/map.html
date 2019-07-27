@@ -20,12 +20,48 @@
     <div id="map"></div>
 
     <div id="buttons">
-    	<select id="type" onchange="filterMarkers(this.value);">
-            <option value="">Please select category</option>
+    	<select id="category_zone_filter" onchange="filterMarkers(this.value);">
+            <option value="">Please select zone</option>
             <option value="Shortlisted">Shortlisted</option>
             <option value="R1">R1</option>
             <option value="R3">R3</option>
             <option value="R4">R4</option>
+        </select>
+        <select id="category_price_filter" onchange="filterMarkers(this.value);">
+            <option value="">Please select max price</option>
+            <option value="200000">$200,000</option>
+            <option value="300000">$300,000</option>
+            <option value="400000">$400,000</option>
+            <option value="500000">$500,000</option>
+            <option value="600000">$600,000</option>
+            <option value="700000">$700,000</option>
+            <option value="800000">$800,000</option>
+            <option value="900000">$900,000</option>
+            <option value="1000000">$1,000,000</option>
+            <option value="1100000">$1,100,000</option>
+            <option value="1200000">$1,200,000</option>
+            <option value="1300000">$1,300,000</option>
+            <option value="1400000">$1,400,000</option>
+            <option value="1500000">$1,500,000</option>
+            <option value="1600000">$1,600,000</option>
+            <option value="1700000">$1,700,000</option>
+            <option value="1800000">$1,800,000</option>
+            <option value="1900000">$1,900,000</option>
+            <option value="2000000">$2,000,000</option>
+            <option value="5000000">$5,000,000</option>
+        </select>
+        <select id="category_pricePerSquareMeter_filter" onchange="filterMarkers(this.value);">
+            <option value="">Please select max Price Per Meter</option>
+            <option value="100">$100/m2</option>
+            <option value="200">$200/m2</option>
+            <option value="300">$300/m2</option>
+            <option value="400">$400/m2</option>
+            <option value="500">$500/m2</option>
+            <option value="600">$600/m2</option>
+            <option value="700">$700/m2</option>
+            <option value="800">$800/m2</option>
+            <option value="900">$900/m2</option>
+            <option value="1000">$1000/m2</option>
         </select>
     </div>
 
@@ -124,8 +160,8 @@
             content: "<b>Price: </b>" + newPosition.price + '<br>' +
                         "<b>Zone: </b>" + newPosition.zone + '<br>' +
                         "<b>FSR: </b>" + newPosition.fsr + '<br>' +
-                        "<b>PricePerSquareMeter: </b>" + newPosition.pricePerSquareMeter + '<br>' +
-                        "<b>PriceInteger: </b>" + newPosition.priceInteger + '<br>' +
+                        "<b>Price Per Square Meter: </b>" + newPosition.pricePerSquareMeter + '<br>' +
+                        "<b>Price Integer: </b>" + newPosition.priceInteger + '<br>' +
                         "<b>Area: </b>" + newPosition.area + '<br>' +
                         "<b>Domain Listed Address: </b>" + newPosition.address + '<br>' +
                         "<b>Planning Portal Address: </b>" + newPosition.planningPortalAddress + '<br>' +
@@ -154,13 +190,18 @@
          * Function to filter markers by category
          */
 
-        filterMarkers = function (category) {
+        filterMarkers = function () {
+        	var category_zone = document.getElementById('category_zone_filter').value;
+    		var category_price = document.getElementById('category_price_filter').value;
+    		var category_pricePerSquareMeter = document.getElementById('category_pricePerSquareMeter_filter').value;
             for (i = 0; i < markersArray.length; i++) {
                 marker = markersArray[i];
                 var property = propertiesArray[i];
                 // If is same category or category not picked
-                if (property.zone == category || category.length === 0 ||
-                    (property.selectionReason && category == 'Shortlisted')) {
+                if ((property.zone == category_zone || category_zone.length === 0 || (property.selectionReason && category_zone == 'Shortlisted')) 
+                	&& ( property.priceInteger <= parseInt(category_price) || category_price.length === 0 )
+                	&& ( property.pricePerSquareMeter <= parseInt(category_pricePerSquareMeter) || category_pricePerSquareMeter.length === 0))
+        		{
                     marker.setVisible(true);
                 }
                     // Categories don't match 
