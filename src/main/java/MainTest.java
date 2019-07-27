@@ -44,7 +44,7 @@ public class MainTest {
             searchJson = new SearchLocations().NSW(propertySearchRequest);
             searchJson.page = 1;
             if (domainSearchCount <= 450) {
-                getDomainListing();
+                propertyListings = getDomainListing();
             } else {
                 domainKey++;
                 if (domainKey >= authKey.length){
@@ -53,7 +53,7 @@ public class MainTest {
                 System.out.println("Domain Key " + domainKey);
                 getDomainAuth(domainKey);
                 domainSearchCount = 0;
-                getDomainListing();
+                propertyListings = getDomainListing();
             }
             System.out.println(price + " Pages 1 " + propertyListings.length);
             if (propertyListingsComplete == null) {
@@ -65,7 +65,7 @@ public class MainTest {
             while (propertyListings != null && propertyListings.length >= 200) {
                 i++;
                 searchJson.page = i;
-                getDomainListing();
+                propertyListings = getDomainListing();
                 if (propertyListings != null) {
                     System.out.println(price + " Pages " + i + " " + propertyListings.length);
                     propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
@@ -75,10 +75,10 @@ public class MainTest {
         }
         
         System.out.println("Property listings complete " + propertyListingsComplete.length);
-        addPlanningPortalAddress();
-        addPlanningPortalZone();
-        filterProperties();
-        saveDatabasePoint();
+        propertyListingsComplete = addPlanningPortalAddress(propertyListingsComplete);
+        propertyListingsComplete = addPlanningPortalZone(propertyListingsComplete);
+        propertyListingsComplete = filterProperties(propertyListingsComplete);
+        saveDatabasePoint(propertyListingsComplete);
         sendEmailCompletion();
     }
 
@@ -99,27 +99,27 @@ public class MainTest {
         searchJson = new SearchLocations().NSW(propertySearchRequest);
         searchJson.page = 1;
         getDomainAuth(0);
-        getDomainListing();
-        addPlanningPortalAddress();
-        addPlanningPortalZone();
+        propertyListings = getDomainListing();
+        propertyListings = addPlanningPortalAddress(propertyListings);
+        propertyListings = addPlanningPortalZone(propertyListings);
         propertyListingsComplete = propertyListings;
         int i = 1;
         while (propertyListings != null && propertyListings.length >= 200) {
             i++;
             searchJson.page = i;
-            getDomainListing();
+            propertyListings = getDomainListing();
             if (propertyListings != null) {
                 propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
             }        
         }
-        addPlanningPortalAddress();
-        addPlanningPortalZone();
+        propertyListingsComplete = addPlanningPortalAddress(propertyListingsComplete);
+        propertyListingsComplete = addPlanningPortalZone(propertyListingsComplete);
         System.out.println("Portal complete");
-        filterProperties();
+        propertyListingsComplete = filterProperties(propertyListingsComplete);
         System.out.println("Filter complete");
-        saveDatabasePoint();
+        saveDatabasePoint(propertyListingsComplete);
         System.out.println("Database complete");
-        sendEmailNotifications();
+        sendEmailNotifications(propertyListingsComplete);
         System.out.println("Email complete");
     }
 
@@ -129,35 +129,35 @@ public class MainTest {
         authToken = domainTokenAuthResponse.access_token;
     }
 
-    private void getDomainListing() throws Exception {
+    private PropertyListing[] getDomainListing() throws Exception {
         DomainListing domainListing = new DomainListing();
-        propertyListings = domainListing.getPropertyList(authToken, searchJson);
         domainSearchCount++;
+        return (domainListing.getPropertyList(authToken, searchJson));
     }
 
-    private void addPlanningPortalAddress() throws Exception {
+    private PropertyListing[] addPlanningPortalAddress(PropertyListing[] pListings) throws Exception {
         PlanningPortalAddressSearch planningPortalAddressSearch = new PlanningPortalAddressSearch();
-        propertyListingsComplete = planningPortalAddressSearch.getFormattedAddressMultiThreaded(propertyListingsComplete);
+        return (planningPortalAddressSearch.getFormattedAddressMultiThreaded(pListings));
     }
 
-    private void addPlanningPortalZone() throws Exception {
+    private PropertyListing[] addPlanningPortalZone(PropertyListing[] pListings) throws Exception {
         PlanningPortalZoneSearch planningPortalZoneSearch = new PlanningPortalZoneSearch();
-        propertyListingsComplete = planningPortalZoneSearch.getPlanningZoneMultiThreaded(propertyListingsComplete);
+        return (planningPortalZoneSearch.getPlanningZoneMultiThreaded(pListings));
     }
 
-    private void filterProperties() {
+    private PropertyListing[] filterProperties(PropertyListing[] pListings) {
         FilterProperties filterProperties = new FilterProperties();
-        propertyListingsComplete = filterProperties.filterProperties(propertyListingsComplete);
+        return (filterProperties.filterProperties(pListings));
     }
     
-    private void saveDatabasePoint() throws Exception {
+    private void saveDatabasePoint(PropertyListing[] pListings) throws Exception {
         DatabaseStorage databaseStorageSave = new DatabaseStorage();
-        databaseStorageSave.save(propertyListingsComplete);
+        databaseStorageSave.save(pListings);
     }
 
-    private void sendEmailNotifications() throws Exception {
+    private void sendEmailNotifications(PropertyListing[] pListings) throws Exception {
         EmailNotification emailNotification = new EmailNotification();
-        emailNotification.sendEmailNotification(propertyListingsComplete);
+        emailNotification.sendEmailNotification(pListings);
     }
 
     private void sendEmailCompletion() throws Exception {
