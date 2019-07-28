@@ -53,15 +53,12 @@ public class EmailNotification implements IEmailNotification {
                         sg.addRequestHeader("References", propertyListings[i].planningPortalPropId);
                     }
                     Request request = new Request();
-                    try {
-                        request.setMethod(Method.POST);
-                        request.setEndpoint("mail/send");
-                        request.setBody(mail.build());
-                        Response response = sg.api(request);
-                        System.out.println(response.getStatusCode());
-                    } catch (IOException ex) {
-                        System.out.println(ex.toString());
-                    }
+
+                    request.setMethod(Method.POST);
+                    request.setEndpoint("mail/send");
+                    request.setBody(mail.build());
+                    Response response = sg.api(request);
+                    System.out.println(response.getStatusCode());
                 }
             }
         }
