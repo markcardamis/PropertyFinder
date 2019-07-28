@@ -30,7 +30,7 @@ public class MainTest {
         PropertyListing[] propertyListingsComplete = null;
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
-        Integer priceStop = 100000;
+        Integer priceStop = 5000000;
         getDomainAuth(domainKey);
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         while (price <= priceStop) {
