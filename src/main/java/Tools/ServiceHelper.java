@@ -100,8 +100,10 @@ public class ServiceHelper implements IServiceHelper
         return result;
     }
 
-    private void setProxy(String proxyStringConnectionURL) throws Exception{
+    private void setProxy(String proxyStringConnectionURL) throws Exception {
+        System.out.println("Enter proxy string ");
         if (proxyStringConnectionURL != ""){
+            System.out.println("proxy string " + proxyStringConnectionURL);
             URL proxyUrl = new URL(proxyStringConnectionURL);
             String userInfo = proxyUrl.getUserInfo();
             String user = userInfo.substring(0, userInfo.indexOf(':'));
