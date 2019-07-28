@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
+import java.net.Proxy;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -26,7 +27,9 @@ public class ServiceHelper implements IServiceHelper
         if (basic) {
             setProxy(System.getenv().get("QUOTAGUARDSTATIC_URL"));
          } else {
-             setProxy("");
+            System.clearProperty("https.proxySet");
+            System.clearProperty("https.proxyHost");
+            System.clearProperty("https.proxyPort");
          }
         
         String result;
@@ -101,26 +104,22 @@ public class ServiceHelper implements IServiceHelper
     }
 
     void setProxy(String proxyStringConnectionURL) throws Exception {
-        if (proxyStringConnectionURL != ""){
-            URL proxyUrl = new URL(proxyStringConnectionURL);
-            String userInfo = proxyUrl.getUserInfo();
-            String user = userInfo.substring(0, userInfo.indexOf(':'));
-            String password = userInfo.substring(userInfo.indexOf(':') + 1);
-            System.setProperty("jdk.http.auth.tunneling.disabledSchemes", "");
-            System.setProperty("jdk.http.auth.proxying.disabledSchemes", "");
-            System.setProperty("https.proxyHost", proxyUrl.getHost());
-            System.setProperty("https.proxyPort", Integer.toString(proxyUrl.getPort()));
-    
-            Authenticator.setDefault(new Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(user, password.toCharArray());
-                }
-            });
-        } else {
-            System.clearProperty("https.proxySet");
-            System.clearProperty("https.proxyHost");
-            System.clearProperty("https.proxyPort");
-        }
+
+        System.setProperty("jdk.http.auth.tunneling.disabledSchemes", "");
+        System.setProperty("jdk.http.auth.proxying.disabledSchemes", "");
+            
+        URL proxyUrl = new URL(proxyStringConnectionURL);
+        String userInfo = proxyUrl.getUserInfo();
+        String user = userInfo.substring(0, userInfo.indexOf(':'));
+        String password = userInfo.substring(userInfo.indexOf(':') + 1);
+        System.setProperty("https.proxyHost", proxyUrl.getHost());
+        System.setProperty("https.proxyPort", Integer.toString(proxyUrl.getPort()));
+
+        Authenticator.setDefault(new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(user, password.toCharArray());
+            }
+        });  
     }
 
 }
