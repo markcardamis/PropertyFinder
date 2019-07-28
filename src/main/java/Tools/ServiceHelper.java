@@ -67,7 +67,7 @@ public class ServiceHelper implements IServiceHelper
                 wr.close();
             }catch (Exception e) {
                 System.out.println("HTTP write exeption " + e.getLocalizedMessage());
-                //throw new Exception(e);
+                throw new Exception(e);
             }
         }
         try
@@ -112,14 +112,17 @@ public class ServiceHelper implements IServiceHelper
         String userInfo = proxyUrl.getUserInfo();
         String user = userInfo.substring(0, userInfo.indexOf(':'));
         String password = userInfo.substring(userInfo.indexOf(':') + 1);
-        System.setProperty("https.proxyHost", proxyUrl.getHost());
-        System.setProperty("https.proxyPort", Integer.toString(proxyUrl.getPort()));
-
+        
         Authenticator.setDefault(new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(user, password.toCharArray());
             }
         });  
+
+        System.setProperty("https.proxyHost", proxyUrl.getHost());
+        System.setProperty("https.proxyPort", Integer.toString(proxyUrl.getPort()));
+        
+        System.out.println("Proxy Set ");
     }
 
 }
