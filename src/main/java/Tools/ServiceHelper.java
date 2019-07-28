@@ -100,14 +100,15 @@ public class ServiceHelper implements IServiceHelper
         return result;
     }
 
-    private void setProxy(String proxyStringConnectionURL) throws Exception {
-        System.out.println("Enter proxy string ");
+    void setProxy(String proxyStringConnectionURL) throws Exception {
         if (proxyStringConnectionURL != ""){
-            System.out.println("proxy string " + proxyStringConnectionURL);
+            System.out.println("Entered Proxy string " + proxyStringConnectionURL);
             URL proxyUrl = new URL(proxyStringConnectionURL);
             String userInfo = proxyUrl.getUserInfo();
             String user = userInfo.substring(0, userInfo.indexOf(':'));
+            System.out.println("Entered Proxy user " + user);
             String password = userInfo.substring(userInfo.indexOf(':') + 1);
+            System.out.println("Entered Proxy password " + password);
             System.setProperty("jdk.http.auth.tunneling.disabledSchemes", "");
             System.setProperty("jdk.http.auth.proxying.disabledSchemes", "");
             System.setProperty("https.proxyHost", proxyUrl.getHost());
