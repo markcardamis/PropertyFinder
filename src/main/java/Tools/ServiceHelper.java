@@ -64,7 +64,7 @@ public class ServiceHelper implements IServiceHelper
                 wr.close();
             }catch (Exception e) {
                 System.out.println("HTTP write exeption " + e.getLocalizedMessage());
-                return null;
+                throw new Exception(e);
             }
         }
         try
