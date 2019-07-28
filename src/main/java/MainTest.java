@@ -30,15 +30,14 @@ public class MainTest {
         PropertyListing[] propertyListingsComplete = null;
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
-        Integer priceStop = 2000000;
+        Integer priceStop = 5000000;
         getDomainAuth(domainKey);
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
-        while (price < priceStop) {
+        while (price <= priceStop) {
             propertySearchRequest.minPrice = price;
             propertySearchRequest.maxPrice = price + priceIncrementAmount;
             propertySearchRequest.minLandArea = 400;
-            //propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
-            propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "VacantLand"};
+            propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
             PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
             locations.state = "NSW";
             propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
@@ -81,6 +80,7 @@ public class MainTest {
         propertyListingsComplete = filterProperties(propertyListingsComplete);
         saveDatabasePoint(propertyListingsComplete);
         sendEmailCompletion();
+        System.gc();
     }
 
 

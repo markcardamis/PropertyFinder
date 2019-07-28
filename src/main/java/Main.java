@@ -36,7 +36,6 @@ public class Main {
           System.out.println("Run finished");
         } else {
           System.out.println("Not business hours");
-          System.gc();
         }
       } catch (Exception e){
         System.out.println("Main.java " + e.getMessage());
