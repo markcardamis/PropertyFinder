@@ -120,8 +120,6 @@ public class ServiceHelper implements IServiceHelper
 
         System.setProperty("https.proxyHost", proxyUrl.getHost());
         System.setProperty("https.proxyPort", Integer.toString(proxyUrl.getPort()));
-        
-        System.out.println("Proxy Set ");
     }
 
 }
