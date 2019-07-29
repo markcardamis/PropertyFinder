@@ -11,7 +11,7 @@ public class DateHelper {
         // check if weekend
         if(cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
             return false;
-        } else if (( hours < 17) || (hours >= 18)){
+        } else if (( hours < 16) || (hours >= 17)){
             return false;
         }
         // IF NOTHING ELSE, IT'S A BUSINESS DAY
