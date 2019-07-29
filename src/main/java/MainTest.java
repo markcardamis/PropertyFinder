@@ -15,7 +15,7 @@ public class MainTest {
 
     String authToken = "";
     PropertySearchRequest searchJson;
-    Integer domainKey = 3;
+    Integer domainKey = 1;
     Integer domainSearchCount = 0;
     String[] authKey = {
         System.getenv().get("DOMAIN_KEY_0"),
@@ -30,7 +30,7 @@ public class MainTest {
         PropertyListing[] propertyListingsComplete = null;
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
-        Integer priceStop = 5000000;
+        Integer priceStop = 2500000;
         getDomainAuth(domainKey);
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         while (price <= priceStop) {
@@ -81,7 +81,6 @@ public class MainTest {
         saveDatabasePoint(propertyListingsComplete);
         sendEmailCompletion();
     }
-
 
     public void getListings() throws Exception{
         PropertyListing[] propertyListings = null;
