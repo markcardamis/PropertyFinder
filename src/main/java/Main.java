@@ -13,6 +13,7 @@ public class Main {
   static class RecordingService implements Service {
     public void onStart(StartEvent event) {
       try {
+        new MainTest().getListingsNSW(); // run this on startup
         Timer t = new Timer();
         MyTask mTask = new MyTask();
         t.scheduleAtFixedRate(mTask, 0L, 3600000L); // Run every hour
@@ -30,7 +31,7 @@ public class Main {
     public void run() {
       try {
         DateHelper dateHelper = new DateHelper(); // Only run at 5pm
-        if (!dateHelper.isBusinessDay())
+        if (dateHelper.isBusinessDay())
         {
           new MainTest().getListings();
           System.out.println("Run finished");
@@ -45,7 +46,6 @@ public class Main {
 
   public static void main(String... args) throws Exception {
     RecordingService service = new RecordingService();
-     MainTest mainTest = new MainTest();
     
     RatpackServer server = RatpackServer.of(s -> s
       .serverConfig(c -> c.baseDir(BaseDir.find()))
@@ -53,7 +53,6 @@ public class Main {
       .handlers(chain -> chain
         .get(ctx -> { 
           ctx.render("Run Started"); 
-          mainTest.getListingsNSW(); 
         })
         .files(f -> f.dir("public").indexFiles("index.html"))
       ));
