@@ -23,13 +23,13 @@ public class ServiceHelper implements IServiceHelper
         SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'", new Locale("AU"));
         String timeDate = ISO_8601_FORMAT.format(new Date());
 
-        // if (basic) {
-        //     setProxy(System.getenv().get("QUOTAGUARDSTATIC_URL"));
-        //  } else {
-        //     System.clearProperty("https.proxySet");
-        //     System.clearProperty("https.proxyHost");
-        //     System.clearProperty("https.proxyPort");
-        //  }
+        if (basic) {
+            setProxy(System.getenv().get("QUOTAGUARDSTATIC_URL"));
+         } else {
+            System.clearProperty("https.proxySet");
+            System.clearProperty("https.proxyHost");
+            System.clearProperty("https.proxyPort");
+         }
         
         String result;
         URL obj = new URL(url);
