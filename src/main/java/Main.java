@@ -53,9 +53,7 @@ public class Main {
       .handlers(chain -> chain
         .get(ctx -> { 
           ctx.render("Run Started"); 
-          System.out.println("Run Started");
           mainTest.getListingsNSW();
-          System.out.println("Run Finished");
         })
         .files(f -> f.dir("public").indexFiles("index.html"))
       ));
