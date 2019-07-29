@@ -30,7 +30,7 @@ public class Main {
     public void run() {
       try {
         DateHelper dateHelper = new DateHelper(); // Only run at 5pm
-        if (!dateHelper.isBusinessDay())
+        if (dateHelper.isBusinessDay())
         {
           new MainTest().getListings();
           System.out.println("Run finished");
@@ -45,7 +45,7 @@ public class Main {
 
   public static void main(String... args) throws Exception {
     RecordingService service = new RecordingService();
-    MainTest mainTest = new MainTest();
+     MainTest mainTest = new MainTest();
     
     RatpackServer server = RatpackServer.of(s -> s
       .serverConfig(c -> c.baseDir(BaseDir.find()))

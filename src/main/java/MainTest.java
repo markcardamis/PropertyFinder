@@ -37,7 +37,7 @@ public class MainTest {
             propertySearchRequest.minPrice = price;
             propertySearchRequest.maxPrice = price + priceIncrementAmount;
             propertySearchRequest.minLandArea = 400;
-            propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
+            propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "VacantLand"};
             PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
             locations.state = "NSW";
             propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
