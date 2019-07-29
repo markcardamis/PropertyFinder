@@ -135,12 +135,12 @@ public class MainTest {
 
     private PropertyListing[] addPlanningPortalAddress(PropertyListing[] pListings) throws Exception {
         PlanningPortalAddressSearch planningPortalAddressSearch = new PlanningPortalAddressSearch();
-        return (planningPortalAddressSearch.getFormattedAddress(pListings));
+        return (planningPortalAddressSearch.getFormattedAddressMultiThreaded(pListings));
     }
 
     private PropertyListing[] addPlanningPortalZone(PropertyListing[] pListings) throws Exception {
         PlanningPortalZoneSearch planningPortalZoneSearch = new PlanningPortalZoneSearch();
-        return (planningPortalZoneSearch.getPlanningZone(pListings));
+        return (planningPortalZoneSearch.getPlanningZoneMultiThreaded(pListings));
     }
 
     private PropertyListing[] filterProperties(PropertyListing[] pListings) {
