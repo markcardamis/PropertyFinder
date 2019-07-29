@@ -13,10 +13,11 @@ public class Main {
   static class RecordingService implements Service {
     public void onStart(StartEvent event) {
       try {
-        new MainTest().getListingsNSW(); // run this on startup
         Timer t = new Timer();
         MyTask mTask = new MyTask();
-        t.scheduleAtFixedRate(mTask, 20000L, 3600000L); // Run every hour
+        MyTask1 mTask1 = new MyTask1();
+        t.scheduleAtFixedRate(mTask, 0, 3600000L); // Run every hour
+        t.schedule(mTask1, 20000);
       } catch (Exception e) {
         System.out.println("Scheduling Exception " + e.getMessage());
       }
@@ -43,6 +44,21 @@ public class Main {
       }
     }
  }
+
+ static class MyTask1 extends TimerTask{
+  public MyTask1(){
+    
+  }
+  @Override
+  public void run() {
+    try {
+      MainTest mainTest = new MainTest();
+      mainTest.getListingsNSW();
+    } catch (Exception e){
+      System.out.println("Main.java " + e.getMessage());
+    }
+  }
+}
 
   public static void main(String... args) throws Exception {
     RecordingService service = new RecordingService();

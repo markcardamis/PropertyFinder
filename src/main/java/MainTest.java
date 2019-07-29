@@ -15,7 +15,7 @@ public class MainTest {
 
     String authToken = "";
     PropertySearchRequest searchJson;
-    Integer domainKey = 2;
+    Integer domainKey = 3;
     Integer domainSearchCount = 0;
     String[] authKey = {
         System.getenv().get("DOMAIN_KEY_0"),
@@ -97,7 +97,7 @@ public class MainTest {
         propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
         searchJson = new SearchLocations().NSW(propertySearchRequest);
         searchJson.page = 1;
-        getDomainAuth(0);
+        getDomainAuth(4);
         propertyListings = getDomainListing();
         propertyListingsComplete = propertyListings;
         int i = 1;
