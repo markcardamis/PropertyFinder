@@ -43,14 +43,14 @@ public class ServiceHelper implements IServiceHelper
         String httpMethodString  = method.toString();
         request.setRequestMethod(httpMethodString);
 
-        if (basic) {
-            request.setRequestProperty("Authorization", "Basic " + authorization);
-            request.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-        } else {
-            request.setRequestProperty("Authorization", "Bearer " + authorization);
-            request.setRequestProperty("updatedSince", timeDate);
-            request.setRequestProperty("content-type","application/json");
-        }
+        // if (basic) {
+        //     request.setRequestProperty("Authorization", "Basic " + authorization);
+        //     request.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+        // } else {
+        //     request.setRequestProperty("Authorization", "Bearer " + authorization);
+        //     request.setRequestProperty("updatedSince", timeDate);
+        //     request.setRequestProperty("content-type","application/json");
+        // }
 
         request.setUseCaches(false);
 

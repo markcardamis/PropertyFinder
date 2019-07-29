@@ -32,6 +32,7 @@ public class MainTest {
         Integer priceIncrementAmount = 10000;
         Integer priceStop = 2500000;
         getDomainAuth(domainKey);
+        System.out.println("Get Domain Key " + domainKey);
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         while (price <= priceStop) {
             propertySearchRequest.minPrice = price;

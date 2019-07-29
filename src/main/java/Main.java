@@ -15,9 +15,7 @@ public class Main {
       try {
         Timer t = new Timer();
         MyTask mTask = new MyTask();
-        MyTask1 mTask1 = new MyTask1();
         t.scheduleAtFixedRate(mTask, 0, 3600000L); // Run every hour
-        t.schedule(mTask1, 20000);
       } catch (Exception e) {
         System.out.println("Scheduling Exception " + e.getMessage());
       }
@@ -45,23 +43,9 @@ public class Main {
     }
  }
 
- static class MyTask1 extends TimerTask{
-  public MyTask1(){
-    
-  }
-  @Override
-  public void run() {
-    try {
-      MainTest mainTest = new MainTest();
-      mainTest.getListingsNSW();
-    } catch (Exception e){
-      System.out.println("Main.java " + e.toString());
-    }
-  }
-}
-
   public static void main(String... args) throws Exception {
     RecordingService service = new RecordingService();
+    MainTest mainTest = new MainTest();
     
     RatpackServer server = RatpackServer.of(s -> s
       .serverConfig(c -> c.baseDir(BaseDir.find()))
@@ -69,6 +53,9 @@ public class Main {
       .handlers(chain -> chain
         .get(ctx -> { 
           ctx.render("Run Started"); 
+          System.out.println("Run Started");
+          mainTest.getListingsNSW();
+          System.out.println("Run Finished");
         })
         .files(f -> f.dir("public").indexFiles("index.html"))
       ));
