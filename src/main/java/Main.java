@@ -55,7 +55,7 @@ public class Main {
       MainTest mainTest = new MainTest();
       mainTest.getListingsNSW();
     } catch (Exception e){
-      System.out.println("Main.java " + e.getMessage());
+      System.out.println("Main.java " + e.toString());
     }
   }
 }
