@@ -80,7 +80,6 @@ public class MainTest {
         propertyListingsComplete = filterProperties(propertyListingsComplete);
         saveDatabasePoint(propertyListingsComplete);
         sendEmailCompletion();
-        System.gc();
     }
 
 
