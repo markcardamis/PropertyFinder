@@ -16,7 +16,7 @@ public class Main {
         new MainTest().getListingsNSW(); // run this on startup
         Timer t = new Timer();
         MyTask mTask = new MyTask();
-        t.scheduleAtFixedRate(mTask, 10000L, 3600000L); // Run every hour
+        t.scheduleAtFixedRate(mTask, 20000L, 3600000L); // Run every hour
       } catch (Exception e) {
         System.out.println("Scheduling Exception " + e.getMessage());
       }
