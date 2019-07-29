@@ -115,8 +115,8 @@ public class MainTest {
         System.out.println("Portal complete");
         propertyListingsComplete = filterProperties(propertyListingsComplete);
         System.out.println("Filter complete");
-        saveDatabasePoint(propertyListingsComplete);
-        System.out.println("Database complete");
+        //saveDatabasePoint(propertyListingsComplete); // removed save database from kattomba search
+        //System.out.println("Database complete");
         sendEmailNotifications(propertyListingsComplete);
         System.out.println("Email complete");
     }
