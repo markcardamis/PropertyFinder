@@ -63,6 +63,15 @@
             <option value="900">$900/m2</option>
             <option value="1000">$1000/m2</option>
         </select>
+        <select id="category_area_filter" onchange="filterMarkers(this.value);">
+            <option value="">Please select min area</option>
+            <option value="1000">1000m</option>
+            <option value="1250">1250m</option>
+            <option value="2000">2000m</option>
+            <option value="4000">4000m</option>
+            <option value="8000">8000m</option>
+            <option value="20000">20000m</option>
+        </select>
     </div>
 
 
@@ -157,7 +166,7 @@
 
             marker['infowindow'] = new google.maps.InfoWindow({
             maxWidth: 400,
-            content: "<b>Price: </b>" + newPosition.price + '<br>' +
+            content:    "<b>Price: </b>" + newPosition.price + '<br>' +
                         "<b>Zone: </b>" + newPosition.zone + '<br>' +
                         "<b>FSR: </b>" + newPosition.fsr + '<br>' +
                         "<b>Price Per Square Meter: </b>" + newPosition.pricePerSquareMeter + '<br>' +
@@ -192,15 +201,17 @@
 
         filterMarkers = function () {
         	var category_zone = document.getElementById('category_zone_filter').value;
-    		var category_price = document.getElementById('category_price_filter').value;
-    		var category_pricePerSquareMeter = document.getElementById('category_pricePerSquareMeter_filter').value;
+    		  var category_price = document.getElementById('category_price_filter').value;
+    		  var category_pricePerSquareMeter = document.getElementById('category_pricePerSquareMeter_filter').value;
+          var category_area = document.getElementById('category_area_filter').value;
             for (i = 0; i < markersArray.length; i++) {
                 marker = markersArray[i];
                 var property = propertiesArray[i];
                 // If is same category or category not picked
                 if ((property.zone == category_zone || category_zone.length === 0 || (property.selectionReason && category_zone == 'Shortlisted')) 
                 	&& ( property.priceInteger <= parseInt(category_price) || category_price.length === 0 )
-                	&& ( property.pricePerSquareMeter <= parseInt(category_pricePerSquareMeter) || category_pricePerSquareMeter.length === 0))
+                	&& ( property.pricePerSquareMeter <= parseInt(category_pricePerSquareMeter) || category_pricePerSquareMeter.length === 0)
+                  && ( property.area >= parseInt(category_area) || category_area.length === 0))
         		{
                     marker.setVisible(true);
                 }
