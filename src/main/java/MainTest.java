@@ -15,7 +15,7 @@ public class MainTest {
 
     String authToken = "";
     PropertySearchRequest searchJson;
-    Integer domainKey = 4;
+    Integer domainKey = 1;
     Integer domainSearchCount = 0;
     String[] authKey = {
         System.getenv().get("DOMAIN_KEY_0"),
@@ -30,7 +30,7 @@ public class MainTest {
         PropertyListing[] propertyListingsComplete = null;
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
-        Integer priceStop = 2000000;
+        Integer priceStop = 6000000;
         getDomainAuth(domainKey);
         System.out.println("Get Domain Key " + domainKey);
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
@@ -38,7 +38,7 @@ public class MainTest {
             propertySearchRequest.minPrice = price;
             propertySearchRequest.maxPrice = price + priceIncrementAmount;
             propertySearchRequest.minLandArea = 400;
-            propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "VacantLand"};
+            propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
             PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
             locations.state = "NSW";
             propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
