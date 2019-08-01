@@ -15,7 +15,7 @@ public class MainTest {
 
     String authToken = "";
     PropertySearchRequest searchJson;
-    Integer domainKey = 1;
+    Integer domainKey = 3;
     Integer domainSearchCount = 0;
     String[] authKey = {
         System.getenv().get("DOMAIN_KEY_0"),
@@ -30,7 +30,7 @@ public class MainTest {
         PropertyListing[] propertyListingsComplete = null;
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
-        Integer priceStop = 6000000;
+        Integer priceStop = 5000000;
         getDomainAuth(domainKey);
         System.out.println("Get Domain Key " + domainKey);
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
@@ -135,12 +135,12 @@ public class MainTest {
 
     private PropertyListing[] addPlanningPortalAddress(PropertyListing[] pListings) throws Exception {
         PlanningPortalAddressSearch planningPortalAddressSearch = new PlanningPortalAddressSearch();
-        return (planningPortalAddressSearch.getFormattedAddressMultiThreaded(pListings));
+        return (planningPortalAddressSearch.getFormattedAddress(pListings));
     }
 
     private PropertyListing[] addPlanningPortalZone(PropertyListing[] pListings) throws Exception {
         PlanningPortalZoneSearch planningPortalZoneSearch = new PlanningPortalZoneSearch();
-        return (planningPortalZoneSearch.getPlanningZoneMultiThreaded(pListings));
+        return (planningPortalZoneSearch.getPlanningZone(pListings));
     }
 
     private PropertyListing[] filterProperties(PropertyListing[] pListings) {
