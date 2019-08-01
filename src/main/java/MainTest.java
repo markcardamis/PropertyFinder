@@ -39,21 +39,18 @@ public class MainTest {
             propertySearchRequest.maxPrice = price + priceIncrementAmount;
             propertySearchRequest.minLandArea = 400;
             propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
-            // PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
-            // locations.state = "NSW";
             PropertySearchRequest.Locations sydneyRegion = new PropertySearchRequest.Locations();
-                        sydneyRegion.state = "NSW";
-            sydneyRegion.region = "Sydney Region";
-            PropertySearchRequest.Locations regionalNSW = new PropertySearchRequest.Locations();
-                        regionalNSW.state = "NSW";
-            regionalNSW.region = "Regional NSW";
+                sydneyRegion.state = "NSW";
+                sydneyRegion.region = "Sydney Region";
             PropertySearchRequest.Locations illawarraSouthCoast = new PropertySearchRequest.Locations();
-                        illawarraSouthCoast.state = "NSW";
-            illawarraSouthCoast.region = "Illawarra & South Coast";
+                illawarraSouthCoast.state = "NSW";
+                illawarraSouthCoast.region = "Illawarra & South Coast";
             PropertySearchRequest.Locations hunterCentralNorthCoasts = new PropertySearchRequest.Locations();
-                        hunterCentralNorthCoasts.state = "NSW";
-            hunterCentralNorthCoasts.region = "Hunter, Central & North Coasts";
-            propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
+                hunterCentralNorthCoasts.state = "NSW";
+                hunterCentralNorthCoasts.region = "Hunter, Central & North Coasts";
+            propertySearchRequest.locations = new PropertySearchRequest.Locations[]{
+                sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts
+            };
             searchJson = new SearchLocations().NSW(propertySearchRequest);
             searchJson.page = 1;
             if (domainSearchCount <= 450) {
