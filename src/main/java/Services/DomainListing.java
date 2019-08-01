@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import Models.PropertyListing;
 import Models.PropertyListingResponse;
 import Models.PropertySearchRequest;
@@ -32,7 +34,8 @@ public class DomainListing implements IDomainListing
         
         //Get Listing Property
         String urlListings = "https://api.domain.com.au/v1/listings/residential/_search";
-        String requestData = new Gson().toJson(request);
+        Gson gsonRequest = new GsonBuilder().disableHtmlEscaping().create();
+        String requestData = gsonRequest.toJson(request);
         String responseJson = mServiceHelper.callHTTPService(urlListings, HttpMethod.POST, requestData, false, authToken);
         Gson gson = new Gson();
         PropertyListingResponse[] propertyListingResponse = gson.fromJson(responseJson, PropertyListingResponse[].class);

@@ -15,7 +15,7 @@ public class MainTest {
 
     String authToken = "";
     PropertySearchRequest searchJson;
-    Integer domainKey = 3;
+    Integer domainKey = 2;
     Integer domainSearchCount = 0;
     String[] authKey = {
         System.getenv().get("DOMAIN_KEY_0"),
@@ -30,7 +30,7 @@ public class MainTest {
         PropertyListing[] propertyListingsComplete = null;
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
-        Integer priceStop = 5000000;
+        Integer priceStop = 2000000;
         getDomainAuth(domainKey);
         System.out.println("Get Domain Key " + domainKey);
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
@@ -39,8 +39,20 @@ public class MainTest {
             propertySearchRequest.maxPrice = price + priceIncrementAmount;
             propertySearchRequest.minLandArea = 400;
             propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
-            PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
-            locations.state = "NSW";
+            // PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
+            // locations.state = "NSW";
+            PropertySearchRequest.Locations sydneyRegion = new PropertySearchRequest.Locations();
+                        sydneyRegion.state = "NSW";
+            sydneyRegion.region = "Sydney Region";
+            PropertySearchRequest.Locations regionalNSW = new PropertySearchRequest.Locations();
+                        regionalNSW.state = "NSW";
+            regionalNSW.region = "Regional NSW";
+            PropertySearchRequest.Locations illawarraSouthCoast = new PropertySearchRequest.Locations();
+                        illawarraSouthCoast.state = "NSW";
+            illawarraSouthCoast.region = "Illawarra & South Coast";
+            PropertySearchRequest.Locations hunterCentralNorthCoasts = new PropertySearchRequest.Locations();
+                        hunterCentralNorthCoasts.state = "NSW";
+            hunterCentralNorthCoasts.region = "Hunter, Central & North Coasts";
             propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
             searchJson = new SearchLocations().NSW(propertySearchRequest);
             searchJson.page = 1;
