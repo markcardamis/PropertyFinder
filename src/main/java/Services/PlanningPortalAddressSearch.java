@@ -39,6 +39,9 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
                 PlanningPortalAddressResponse[] planningPortalAddressResponses = gson.fromJson(responseJson, PlanningPortalAddressResponse[].class);
                 propertyListings[i].planningPortalPropId = planningPortalAddressResponses[0].propId;
                 propertyListings[i].planningPortalAddress = planningPortalAddressResponses[0].address;
+                propertyListings[i].landCheckerURL = "https://www.landchecker.com.au/property/NSW-"
+                + planningPortalAddressResponses[0].propId + "/info";
+
                 System.out.println("PlanningPortalAddress " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
             }
         }
@@ -93,7 +96,8 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
                 PlanningPortalAddressResponse[] planningPortalAddressResponses = gson.fromJson(responseJson, PlanningPortalAddressResponse[].class);
                 propertyListing.planningPortalPropId = planningPortalAddressResponses[0].propId;
                 propertyListing.planningPortalAddress = planningPortalAddressResponses[0].address;
-
+                propertyListing.landCheckerURL = "https://www.landchecker.com.au/property/NSW-"
+                        + planningPortalAddressResponses[0].propId + "/info";
                 propertyListingArrayList.add(propertyListing);
                 System.out.println("PlanningPortalAddress " + propertyListingArrayList.size() + "/" + propertyListingLength);
                 long endTime = System.currentTimeMillis() - startTime;

@@ -5,6 +5,7 @@ public class PropertyListing {
     public String dateTime;
     public Integer domainListingId;
     public String listingURL;
+    public String landCheckerURL;
     public String address;
     public String displayableAddress;
     public String postCode;
