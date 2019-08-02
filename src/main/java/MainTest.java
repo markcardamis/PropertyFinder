@@ -28,60 +28,73 @@ public class MainTest {
     public void getListingsNSW() throws Exception {
         PropertyListing[] propertyListings = null;
         PropertyListing[] propertyListingsComplete = null;
-        Integer price = 100000;
+        Integer price;
+        Integer priceStart = 100000;
         Integer priceIncrementAmount = 10000;
         Integer priceStop = 2500000;
+        Integer minPrice = 400;
+        String[] propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
+
         getDomainAuth(domainKey);
         System.out.println("Get Domain Key " + domainKey);
-        PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
-        while (price <= priceStop) {
-            propertySearchRequest.minPrice = price;
-            propertySearchRequest.maxPrice = price + priceIncrementAmount;
-            propertySearchRequest.minLandArea = 400;
-            propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
-            PropertySearchRequest.Locations sydneyRegion = new PropertySearchRequest.Locations();
-                sydneyRegion.state = "NSW";
-                sydneyRegion.region = "Sydney Region";
-            PropertySearchRequest.Locations illawarraSouthCoast = new PropertySearchRequest.Locations();
-                illawarraSouthCoast.state = "NSW";
-                illawarraSouthCoast.region = "Illawarra & South Coast";
-            PropertySearchRequest.Locations hunterCentralNorthCoasts = new PropertySearchRequest.Locations();
-                hunterCentralNorthCoasts.state = "NSW";
-                hunterCentralNorthCoasts.region = "Hunter, Central & North Coasts";
-            propertySearchRequest.locations = new PropertySearchRequest.Locations[]{
-                sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts
-            };
-            searchJson = new SearchLocations().NSW(propertySearchRequest);
-            searchJson.page = 1;
-            if (domainSearchCount <= 450) {
-                propertyListings = getDomainListing();
-            } else {
-                domainKey++;
-                if (domainKey >= authKey.length){
-                    domainKey = 1;
+
+        PropertySearchRequest.Locations sydneyRegion = new PropertySearchRequest.Locations();
+            sydneyRegion.state = "NSW";
+            sydneyRegion.region = "Sydney Region";
+        PropertySearchRequest.Locations illawarraSouthCoast = new PropertySearchRequest.Locations();
+            illawarraSouthCoast.state = "NSW";
+            illawarraSouthCoast.region = "Illawarra & South Coast";
+        PropertySearchRequest.Locations hunterCentralNorthCoasts = new PropertySearchRequest.Locations();
+            hunterCentralNorthCoasts.state = "NSW";
+            hunterCentralNorthCoasts.region = "Hunter, Central & North Coasts";
+        PropertySearchRequest.Locations regionalNSW = new PropertySearchRequest.Locations();
+            regionalNSW.state = "NSW";
+            regionalNSW.region = "Regional NSW";
+        PropertySearchRequest.Locations[] locations = new PropertySearchRequest.Locations[]
+                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts};
+                
+        for (int k = 0; k < locations.length; k++) {
+            PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
+            price = priceStart;
+        
+            while (price <= priceStop) {
+                propertySearchRequest.minPrice = price;
+                propertySearchRequest.maxPrice = price + priceIncrementAmount;
+                propertySearchRequest.minLandArea = minPrice;
+                propertySearchRequest.propertyTypes = propertyTypes;
+                propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations[k]};
+                searchJson = new SearchLocations().NSW(propertySearchRequest);
+                searchJson.page = 1;
+                if (domainSearchCount <= 450) {
+                    propertyListings = getDomainListing();
+                } else {
+                    domainKey++;
+                    if (domainKey >= authKey.length){
+                        domainKey = 1;
+                    }
+                    System.out.println("Domain Key " + domainKey);
+                    getDomainAuth(domainKey);
+                    domainSearchCount = 0;
+                    propertyListings = getDomainListing();
                 }
-                System.out.println("Domain Key " + domainKey);
-                getDomainAuth(domainKey);
-                domainSearchCount = 0;
-                propertyListings = getDomainListing();
-            }
-            System.out.println(price + " Pages 1 " + propertyListings.length);
-            if (propertyListingsComplete == null) {
-                propertyListingsComplete = propertyListings;
-            } else if (propertyListings.length > 0){
-                propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
-            }
-            int i = 1;
-            while (propertyListings != null && propertyListings.length >= 200) {
-                i++;
-                searchJson.page = i;
-                propertyListings = getDomainListing();
-                if (propertyListings != null) {
-                    System.out.println(price + " Pages " + i + " " + propertyListings.length);
+                System.out.println(price + " Pages 1 " + propertyListings.length);
+                if (propertyListingsComplete == null) {
+                    propertyListingsComplete = propertyListings;
+                } else if (propertyListings.length > 0){
                     propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
                 }
+                int i = 1;
+                while (propertyListings != null && propertyListings.length >= 200) {
+                    i++;
+                    searchJson.page = i;
+                    propertyListings = getDomainListing();
+                    if (propertyListings != null) {
+                        System.out.println(price + " Pages " + i + " " + propertyListings.length);
+                        propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
+                    }
+                }
+                price += priceIncrementAmount;
             }
-            price += priceIncrementAmount;
         }
         
         System.out.println("Property listings complete " + propertyListingsComplete.length);
