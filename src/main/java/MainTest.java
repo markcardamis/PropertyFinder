@@ -30,7 +30,7 @@ public class MainTest {
         PropertyListing[] propertyListingsComplete = null;
         Integer price = 100000;
         Integer priceIncrementAmount = 10000;
-        Integer priceStop = 2000000;
+        Integer priceStop = 2500000;
         getDomainAuth(domainKey);
         System.out.println("Get Domain Key " + domainKey);
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
@@ -68,7 +68,7 @@ public class MainTest {
             System.out.println(price + " Pages 1 " + propertyListings.length);
             if (propertyListingsComplete == null) {
                 propertyListingsComplete = propertyListings;
-            } else {
+            } else if (propertyListings.length > 0){
                 propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
             }
             int i = 1;
@@ -115,7 +115,7 @@ public class MainTest {
             i++;
             searchJson.page = i;
             propertyListings = getDomainListing();
-            if (propertyListings != null) {
+            if ((propertyListings != null) && (propertyListings.length > 0)) {
                 propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
             }        
         }
