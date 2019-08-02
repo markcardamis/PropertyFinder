@@ -15,7 +15,7 @@ public class MainTest {
 
     String authToken = "";
     PropertySearchRequest searchJson;
-    Integer domainKey = 0;
+    Integer domainKey = 3;
     Integer domainSearchCount = 0;
     String[] authKey = {
         System.getenv().get("DOMAIN_KEY_0"),
@@ -30,7 +30,7 @@ public class MainTest {
         PropertyListing[] propertyListingsComplete = null;
         Integer price;
         Integer priceStart = 100000;
-        Integer priceIncrementAmount = 10000;
+        Integer priceIncrementAmount = 40000;
         Integer priceStop = 2500000;
         Integer minPrice = 400;
         String[] propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
