@@ -25,7 +25,10 @@ public class MainTest {
         System.getenv().get("DOMAIN_KEY_4"),
     };
 
-    public void getListingsNSW() throws Exception {
+    public void getListingsNSW(Integer key) throws Exception {
+        if (key != null){
+            domainKey = key;
+        }
         PropertyListing[] propertyListings = null;
         PropertyListing[] propertyListingsComplete = null;
         Integer price;
