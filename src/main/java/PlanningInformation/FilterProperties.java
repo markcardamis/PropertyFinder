@@ -12,7 +12,7 @@ public class FilterProperties implements IFilterProperties {
         if (propertyListings.length > 0) {
             Integer priceInt;
             KeywordExists keywordExists = new KeywordExists();
-            String[] postcodes = new String[]{"2785", "2783", "2782", "2780", "2779", "2778", "2777",
+            String[] postcodes = new String[]{"2785", "2784", "2783", "2782", "2780", "2779", "2778", "2777",
                 "2776", "2774", "2773"};
             String[] keywords = new String[]{"urgent", "reduced", "divorce", "builder", "motivated"};
             try {

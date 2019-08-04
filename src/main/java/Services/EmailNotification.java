@@ -2,6 +2,7 @@ package Services;
 
 import Models.PropertyListing;
 import Tools.IServiceHelper;
+import Tools.KeywordExists;
 import Tools.ServiceHelper;
 import Tools.StringCheck;
 
@@ -27,9 +28,14 @@ public class EmailNotification implements IEmailNotification {
 
         //Send to Send Grid
         if (propertyListings != null && propertyListings.length > 0) {
+            String[] postcodes = new String[]{"2785", "2784", "2783", "2782", "2780", "2779", "2778", "2777",
+                "2776", "2774", "2773"}; // Only email properties in Blue Mountains
+            KeywordExists keywordExists = new KeywordExists();
 
             for (int i = 0; i < propertyListings.length; i++) {
-                if (propertyListings[i].selectionReason != null) {
+                boolean blueMountains = (keywordExists.isKeywordPresent(propertyListings[i].postCode, postcodes));
+
+                if (propertyListings[i].selectionReason != null && blueMountains) {
                     String json = "Price: " + StringCheck.isNotNullOrEmpty(propertyListings[i].price, "") + "\n" +
                             "Zone: " + StringCheck.isNotNullOrEmpty(propertyListings[i].zone, "") + "\n" +
                             "FSR: " + propertyListings[i].fsr + "\n" +
