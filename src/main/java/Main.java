@@ -44,7 +44,7 @@ public class Main {
  }
 
   public static void main(String... args) throws Exception {
-    RecordingService service = new RecordingService(); 
+    RecordingService service = new RecordingService();
     
     RatpackServer server = RatpackServer.of(s -> s
       .serverConfig(c -> c.baseDir(BaseDir.find()))
