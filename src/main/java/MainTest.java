@@ -104,6 +104,7 @@ public class MainTest {
         propertyListingsComplete = filterProperties(propertyListingsComplete);
         System.out.println("Filter complete");
         saveDatabasePoint(propertyListingsComplete);
+        System.out.println("Database complete");
         sendEmailNotifications(propertyListingsComplete);
         System.out.println("Email complete");
     }
