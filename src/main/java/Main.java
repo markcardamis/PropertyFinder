@@ -51,7 +51,7 @@ public class Main {
       .registryOf(r -> r.add(service))
       .handlers(chain -> chain
         .get(ctx -> { 
-          ctx.render("Run Started"); 
+          ctx.render("Run Started");
           new MainTest().getListingsNSW();
         })
         .files(f -> f.dir("public").indexFiles("index.html"))
