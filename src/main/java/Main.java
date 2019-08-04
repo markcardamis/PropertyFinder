@@ -32,7 +32,7 @@ public class Main {
         DateHelper dateHelper = new DateHelper(); // Only run at 5pm
         if (dateHelper.isBusinessDay())
         {
-          new MainTest().getListings();
+          new MainTest().getListingsNSW();
           System.out.println("Run finished");
         } else {
           System.out.println("Not business hours");
