@@ -35,7 +35,7 @@ public class MainTest {
         Integer priceStart = 100000;
         Integer priceIncrementAmount = 40000;
         Integer priceStop = 2500000;
-        Integer minPrice = 400;
+        Integer minLandSize = 400;
         String[] propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
 
         getDomainAuth(domainKey);
@@ -63,7 +63,7 @@ public class MainTest {
             while (price <= priceStop) {
                 propertySearchRequest.minPrice = price;
                 propertySearchRequest.maxPrice = price + priceIncrementAmount;
-                propertySearchRequest.minLandArea = minPrice;
+                propertySearchRequest.minLandArea = minLandSize;
                 propertySearchRequest.propertyTypes = propertyTypes;
                 propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations[k]};
                 searchJson = new SearchLocations().NSW(propertySearchRequest);
