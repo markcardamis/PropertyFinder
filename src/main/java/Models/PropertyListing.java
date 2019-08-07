@@ -2,7 +2,7 @@ package Models;
 
 
 public class PropertyListing {
-    public String dateTime;
+    public String timeDate;
     public Integer domainListingId;
     public String listingURL;
     public String landCheckerURL;

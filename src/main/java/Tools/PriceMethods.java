@@ -71,6 +71,14 @@ public class PriceMethods
         return text;
     }
 
+    public static Integer convertStringToInteger(String text) {
+        if (text != null) {
+            text = text.replaceAll("[^0-9]", "");
+            return Integer.parseInt(text);
+        }
+        return 1;
+    }
+
 }
 
 
