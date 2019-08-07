@@ -8,9 +8,9 @@ public class PriceMethods
 
         String errorNumber = "10000000";
 
-        if(text.matches(".*\\d.*")) {
-            int firstIndex = text.indexOf('$');
+        if(text != null && text.matches(".*\\d.*")) {
             text = text.toLowerCase();
+            int firstIndex = text.indexOf('$');
             if (firstIndex >= 0) { // found a $
                 text = text.substring(firstIndex + 1);
 

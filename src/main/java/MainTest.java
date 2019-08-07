@@ -46,7 +46,7 @@ public class MainTest {
         Integer price;
         Integer priceStart = 100000;
         Integer priceIncrementAmount = 40000;
-        Integer priceStop = 2500000;
+        Integer priceStop = 4000000;
         Integer minLandSize = 400;
         String[] propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
 
