@@ -45,7 +45,10 @@ public class MainTest {
     private void getListingsResidentialNSW() throws Exception {
         Integer price;
         Integer priceStart = 100000;
-        Integer priceIncrementAmount = 40000;
+        Integer priceIncrementAmount;
+        Integer priceIncrementAmountSmall = 50000;
+        Integer priceIncrementAmountMedium = 100000;
+        Integer priceIncrementAmountLarge = 250000;
         Integer priceStop = 4000000;
         Integer minLandSize = 400;
         String[] propertyTypes = new String[]{"DevelopmentSite", "House", "VacantLand"};
@@ -73,6 +76,13 @@ public class MainTest {
             price = priceStart;
         
             while (price <= priceStop) {
+                if (price < 1000000) {
+                    priceIncrementAmount = priceIncrementAmountSmall;
+                } else if (price < 2000000){
+                    priceIncrementAmount = priceIncrementAmountMedium;
+                } else {
+                    priceIncrementAmount = priceIncrementAmountLarge;
+                }
                 propertySearchRequest.minPrice = price;
                 propertySearchRequest.maxPrice = price + priceIncrementAmount;
                 propertySearchRequest.minLandArea = minLandSize;
