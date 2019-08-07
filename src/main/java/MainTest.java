@@ -3,6 +3,7 @@ import PlanningInformation.FilterProperties;
 import PlanningInformation.SearchLocations;
 import Models.DomainTokenAuthResponse;
 import Models.PropertyListing;
+import Models.PropertySearchCommercialRequest;
 import Services.DatabaseStorage;
 import Services.DomainAuthentication;
 import Services.DomainListing;
@@ -13,11 +14,14 @@ import org.apache.commons.lang3.ArrayUtils;
 
 public class MainTest {
 
-    String authToken = "";
-    PropertySearchRequest searchJson;
-    Integer domainKey = 0;
-    Integer domainSearchCount = 0;
-    String[] authKey = {
+    private String authToken = "";
+    private PropertyListing[] propertyListings = null;
+    private PropertyListing[] propertyListingsComplete = null;
+    private PropertySearchRequest searchJson;
+    private PropertySearchCommercialRequest searchJsonCommercial;
+    private Integer domainKey = 0;
+    private Integer domainSearchCount = 0;
+    private String[] authKey = {
         System.getenv().get("DOMAIN_KEY_0"),
         System.getenv().get("DOMAIN_KEY_1"),
         System.getenv().get("DOMAIN_KEY_2"),
@@ -29,8 +33,16 @@ public class MainTest {
         if (key != null){
             domainKey = key;
         }
-        PropertyListing[] propertyListings = null;
-        PropertyListing[] propertyListingsComplete = null;
+        getListingsResidentialNSW();
+        getListingsCommercialNSW();
+        propertyListingsComplete = addPlanningPortalAddress(propertyListingsComplete);
+        propertyListingsComplete = addPlanningPortalZone(propertyListingsComplete);
+        propertyListingsComplete = filterProperties(propertyListingsComplete);
+        saveDatabasePoint(propertyListingsComplete);
+        sendEmailNotifications(propertyListingsComplete);
+    }
+
+    private void getListingsResidentialNSW() throws Exception {
         Integer price;
         Integer priceStart = 100000;
         Integer priceIncrementAmount = 40000;
@@ -99,17 +111,67 @@ public class MainTest {
                 price += priceIncrementAmount;
             }
         }
-        
-        System.out.println("Property listings complete " + propertyListingsComplete.length);
-        propertyListingsComplete = addPlanningPortalAddress(propertyListingsComplete);
-        propertyListingsComplete = addPlanningPortalZone(propertyListingsComplete);
-        System.out.println("Portal complete");
-        propertyListingsComplete = filterProperties(propertyListingsComplete);
-        System.out.println("Filter complete");
-        saveDatabasePoint(propertyListingsComplete);
-        System.out.println("Database complete");
-        sendEmailNotifications(propertyListingsComplete);
-        System.out.println("Email complete");
+
+        System.out.println("Residential property listings complete " + propertyListingsComplete.length);
+    }
+
+    public void getListingsCommercialNSW() throws Exception {
+
+        searchJsonCommercial = new PropertySearchCommercialRequest();
+        searchJsonCommercial.searchMode = "forSale";
+        PropertySearchCommercialRequest.PriceSearch priceSearch = new PropertySearchCommercialRequest.PriceSearch();
+        priceSearch.min = 100000;
+        priceSearch.max = 5000000;
+        priceSearch.type = "totalAmount";
+        searchJsonCommercial.price = priceSearch;
+        searchJsonCommercial.propertyTypes = new String[]{
+                "blockOfUnits",
+                "developmentLand",
+                "developmentSite",
+                "newLand",
+                "propertyRealEstate",
+                "vacantLand"
+        };
+        searchJsonCommercial.landAreaMin = 100;
+        searchJsonCommercial.pageSize = 200;
+        PropertySearchCommercialRequest.LocationSearch sydneyRegion = new PropertySearchCommercialRequest.LocationSearch();
+            sydneyRegion.state = "NSW";
+            sydneyRegion.region = "Sydney Region";
+        PropertySearchCommercialRequest.LocationSearch regionalNSW = new PropertySearchCommercialRequest.LocationSearch();
+            regionalNSW.state = "NSW";
+            regionalNSW.region = "Regional NSW";
+        PropertySearchCommercialRequest.LocationSearch illawarraSouthCoast = new PropertySearchCommercialRequest.LocationSearch();
+            illawarraSouthCoast.state = "NSW";
+            illawarraSouthCoast.region = "Illawarra & South Coast";
+        PropertySearchCommercialRequest.LocationSearch hunterCentralNorthCoasts = new PropertySearchCommercialRequest.LocationSearch();
+            hunterCentralNorthCoasts.state = "NSW";
+            hunterCentralNorthCoasts.region = "Hunter, Central & North Coasts";
+        PropertySearchCommercialRequest.LocationSearch[] locations = new PropertySearchCommercialRequest.LocationSearch[]
+                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts};
+
+        for (int k = 0; k < locations.length; k++) {
+            searchJsonCommercial.locations = new PropertySearchCommercialRequest.LocationSearch[]{locations[k]};
+
+            searchJsonCommercial.page = 1;
+            getDomainAuth(0);
+            getDomainListingCommercial();
+            if (propertyListingsComplete == null) {
+                propertyListingsComplete = propertyListings;
+            } else if (propertyListings.length > 0) {
+                propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
+
+            }
+            int i = 1;
+            while (propertyListings != null && propertyListings.length >= 200) {
+                i++;
+                searchJsonCommercial.page = i;
+                getDomainListingCommercial();
+                if (propertyListings != null && propertyListings.length > 0) {
+                    propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
+                }
+            }
+        }
+        System.out.println("Commercial property listings complete " + propertyListingsComplete.length);
     }
 
     private void getDomainAuth(Integer key) throws Exception {
@@ -122,6 +184,12 @@ public class MainTest {
         DomainListing domainListing = new DomainListing();
         domainSearchCount++;
         return (domainListing.getPropertyList(authToken, searchJson));
+    }
+
+    private void getDomainListingCommercial() throws Exception {
+        DomainListing domainListing = new DomainListing();
+        propertyListings = domainListing.getPropertyList(authToken, searchJsonCommercial);
+        domainSearchCount++;
     }
 
     private PropertyListing[] addPlanningPortalAddress(PropertyListing[] pListings) throws Exception {
