@@ -70,7 +70,7 @@ public class MainTest {
             regionalNSW.state = "NSW";
             regionalNSW.region = "Regional NSW";
         PropertySearchRequest.Locations[] locations = new PropertySearchRequest.Locations[]
-                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts, regionalNSW};
+                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts};
                 
         for (int k = 0; k < locations.length; k++) {
             PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
@@ -158,7 +158,7 @@ public class MainTest {
             hunterCentralNorthCoasts.state = "NSW";
             hunterCentralNorthCoasts.region = "Hunter, Central & North Coasts";
         PropertySearchCommercialRequest.LocationSearch[] locations = new PropertySearchCommercialRequest.LocationSearch[]
-                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts, regionalNSW};
+                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts};
 
         for (int k = 0; k < locations.length; k++) {
             searchJsonCommercial.locations = new PropertySearchCommercialRequest.LocationSearch[]{locations[k]};
