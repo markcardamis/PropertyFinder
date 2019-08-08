@@ -47,7 +47,7 @@ public class MainTest {
         Integer price;
         Integer priceStart = 100000;
         Integer priceIncrementAmount;
-        Integer priceIncrementAmountSmall = 50000;
+        Integer priceIncrementAmountSmall = 25000;
         Integer priceIncrementAmountMedium = 100000;
         Integer priceIncrementAmountLarge = 250000;
         Integer priceStop = 4000000;
@@ -70,7 +70,7 @@ public class MainTest {
             regionalNSW.state = "NSW";
             regionalNSW.region = "Regional NSW";
         PropertySearchRequest.Locations[] locations = new PropertySearchRequest.Locations[]
-                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts};
+                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts, regionalNSW};
                 
         for (int k = 0; k < locations.length; k++) {
             PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
@@ -158,7 +158,7 @@ public class MainTest {
             hunterCentralNorthCoasts.state = "NSW";
             hunterCentralNorthCoasts.region = "Hunter, Central & North Coasts";
         PropertySearchCommercialRequest.LocationSearch[] locations = new PropertySearchCommercialRequest.LocationSearch[]
-                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts};
+                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts, regionalNSW};
 
         for (int k = 0; k < locations.length; k++) {
             searchJsonCommercial.locations = new PropertySearchCommercialRequest.LocationSearch[]{locations[k]};
