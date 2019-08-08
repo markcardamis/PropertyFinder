@@ -27,6 +27,7 @@ public class MainTest {
         System.getenv().get("DOMAIN_KEY_2"),
         System.getenv().get("DOMAIN_KEY_3"),
         System.getenv().get("DOMAIN_KEY_4"),
+        System.getenv().get("DOMAIN_KEY_5")
     };
 
     public void getListingsNSW(Integer key) throws Exception {
