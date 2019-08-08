@@ -47,7 +47,7 @@ public class MainTest {
         Integer price;
         Integer priceStart = 100000;
         Integer priceIncrementAmount;
-        Integer priceIncrementAmountSmall = 25000;
+        Integer priceIncrementAmountSmall = 20000;
         Integer priceIncrementAmountMedium = 100000;
         Integer priceIncrementAmountLarge = 250000;
         Integer priceStop = 4000000;
@@ -103,10 +103,12 @@ public class MainTest {
                     domainSearchCount = 0;
                     propertyListings = getDomainListing();
                 }
-                System.out.println(price + " Pages 1 " + propertyListings.length);
-                if (propertyListingsComplete == null) {
+                
+                if (propertyListingsComplete == null && propertyListings != null) {
+                    System.out.println(price + " Pages 1 " + propertyListings.length);
                     propertyListingsComplete = propertyListings;
-                } else if (propertyListings.length > 0){
+                } else if (propertyListings != null && propertyListings.length > 0){
+                    System.out.println(price + " Pages 1 " + propertyListings.length);
                     propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
                 }
                 int i = 1;
@@ -123,7 +125,9 @@ public class MainTest {
             }
         }
 
-        System.out.println("Residential property listings complete " + propertyListingsComplete.length);
+        if (propertyListingsComplete != null) {
+            System.out.println("Residential property listings complete " + propertyListingsComplete.length);
+        }
     }
 
     public void getListingsCommercialNSW() throws Exception {
@@ -166,9 +170,9 @@ public class MainTest {
             searchJsonCommercial.page = 1;
             getDomainAuth(0);
             getDomainListingCommercial();
-            if (propertyListingsComplete == null) {
+            if (propertyListingsComplete == null && propertyListings != null) {
                 propertyListingsComplete = propertyListings;
-            } else if (propertyListings.length > 0) {
+            } else if (propertyListings != null && propertyListings.length > 0) {
                 propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
 
             }
@@ -182,7 +186,10 @@ public class MainTest {
                 }
             }
         }
-        System.out.println("Commercial property listings complete " + propertyListingsComplete.length);
+
+        if (propertyListingsComplete != null) {
+            System.out.println("Commercial property listings complete " + propertyListingsComplete.length);
+        }
     }
 
     private void getDomainAuth(Integer key) throws Exception {
