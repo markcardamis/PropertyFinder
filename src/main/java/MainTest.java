@@ -73,6 +73,7 @@ public class MainTest {
                 {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts, regionalNSW};
                 
         for (int k = 0; k < locations.length; k++) {
+            System.out.println("Location " + locations[k].region);
             PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
             price = priceStart;
         
@@ -165,10 +166,10 @@ public class MainTest {
                 {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts, regionalNSW};
 
         for (int k = 0; k < locations.length; k++) {
+            System.out.println("Location " + locations[k].region);
             searchJsonCommercial.locations = new PropertySearchCommercialRequest.LocationSearch[]{locations[k]};
-
             searchJsonCommercial.page = 1;
-            getDomainAuth(0);
+            getDomainAuth(domainKey);
             getDomainListingCommercial();
             if (propertyListingsComplete == null && propertyListings != null) {
                 propertyListingsComplete = propertyListings;
