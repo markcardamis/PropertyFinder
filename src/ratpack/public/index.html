@@ -114,7 +114,15 @@ limitations under the License.
       });
       // [END authstatelistener]
       document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
+      document.getElementById('password').addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          //event.preventDefault();
+          // Trigger the button element with a click
+          document.getElementById("quickstart-sign-in").click();
+        }
+      });
     }
+
     window.onload = function() {
       initApp();
     };
