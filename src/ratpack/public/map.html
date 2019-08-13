@@ -139,14 +139,20 @@
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -33.7278481, lng: 150.453873},
           zoom: 11,
-          styles: [{
-            featureType: 'poi',
-            stylers: [{ visibility: 'off' }]  // Turn off POI.
-          },
-          {
-            featureType: 'transit.station',
-            stylers: [{ visibility: 'on' }]  // Turn off bus, train stations etc.
-          }],
+          styles: [
+            {
+              featureType: 'poi',
+              stylers: [{ visibility: 'off' }]  // Turn off POI.
+            },
+            {
+              featureType: 'poi.school',
+              stylers: [{ visibility: 'on' }]  // Turn on school POI only.
+            },
+            {
+              featureType: 'transit.station',
+              stylers: [{ visibility: 'on' }]  // Turn on train stations.
+            }
+          ],
           disableDoubleClickZoom: true,
           streetViewControl: false,
         });
