@@ -41,6 +41,8 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
                 propertyListings[i].planningPortalAddress = planningPortalAddressResponses[0].address;
                 propertyListings[i].landCheckerURL = "https://www.landchecker.com.au/property/NSW-"
                 + planningPortalAddressResponses[0].propId + "/info";
+                String priceHelperAddress = "http://img.ksou.cn/p.php";
+                propertyListings[i].priceCheckerURL = UrlExtensionMethods.appendParameter(priceHelperAddress, "q", propertyListings[i].priceCheckerURL);
 
                 System.out.println("PlanningPortalAddress " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
             }
@@ -98,6 +100,9 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
                 propertyListing.planningPortalAddress = planningPortalAddressResponses[0].address;
                 propertyListing.landCheckerURL = "https://www.landchecker.com.au/property/NSW-"
                         + planningPortalAddressResponses[0].propId + "/info";
+                String priceHelperAddress = "http://img.ksou.cn/p.php";
+                propertyListing.priceCheckerURL = UrlExtensionMethods.appendParameter(priceHelperAddress, "q", propertyListing.priceCheckerURL);
+
                 propertyListingArrayList.add(propertyListing);
                 System.out.println("PlanningPortalAddress " + propertyListingArrayList.size() + "/" + propertyListingLength);
                 long endTime = System.currentTimeMillis() - startTime;

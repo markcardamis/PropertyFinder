@@ -46,6 +46,7 @@ public class EmailNotification implements IEmailNotification {
                             "Planning Portal Address: " + StringCheck.isNotNullOrEmpty(propertyListings[i].planningPortalAddress, "") + "\n" +
                             "Domain URL: " + StringCheck.isNotNullOrEmpty(propertyListings[i].listingURL, "") + "\n" +
                             "Land Checker URL: " + StringCheck.isNotNullOrEmpty(propertyListings[i].landCheckerURL, "") + "\n" +
+                            "Price Checker URL: " + StringCheck.isNotNullOrEmpty(propertyListings[i].priceCheckerURL, "") + "\n" +
                             "Selection Reason: " + StringCheck.isNotNullOrEmpty(propertyListings[i].selectionReason, "") + "\n" +
                             "Summary: " + StringCheck.isNotNullOrEmpty(propertyListings[i].summaryDescription, "");
 

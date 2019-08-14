@@ -54,6 +54,9 @@ public class DomainListing implements IDomainListing
                             StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.street, " ") +
                             StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.suburb, " ") +
                             propertyListingResponse[i].listing.propertyDetails.postcode;
+                    propertyListings[i].priceCheckerURL = StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.streetNumber, " ") +
+                            StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.street, ", ") +
+                            StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.suburb, "");
                     propertyListings[i].area = propertyListingResponse[i].listing.propertyDetails.landArea;
                     propertyListings[i].postCode = propertyListingResponse[i].listing.propertyDetails.postcode;
                     propertyListings[i].price = propertyListingResponse[i].listing.priceDetails.displayPrice;
@@ -102,6 +105,9 @@ public class DomainListing implements IDomainListing
                         StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.street, " ") +
                         StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.suburb, " ") +
                         propertyListingResponse[i].metadata.addressComponents.postcode;
+                propertyListings[i].priceCheckerURL = StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.streetNumber, " ") +
+                        StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.street, ", ") +
+                        StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.suburb, "");
                 propertyListings[i].area = PriceMethods.convertStringToInteger(propertyListingResponse[i].propertyArea);
                 propertyListings[i].postCode = propertyListingResponse[i].metadata.addressComponents.postcode;
                 propertyListings[i].price = propertyListingResponse[i].price;
