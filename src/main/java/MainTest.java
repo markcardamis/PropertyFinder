@@ -39,8 +39,8 @@ public class MainTest {
         propertyListingsComplete = addPlanningPortalAddress(propertyListingsComplete);
         propertyListingsComplete = addPlanningPortalZone(propertyListingsComplete);
         propertyListingsComplete = filterProperties(propertyListingsComplete);
-        saveDatabasePoint(propertyListingsComplete);
         sendEmailNotifications(propertyListingsComplete);
+        saveDatabasePoint(propertyListingsComplete);
     }
 
     private void getListingsResidentialNSW() throws Exception {
