@@ -51,7 +51,7 @@ public class MainTest {
         Integer priceIncrementAmountSmallRegional = 20000;
         Integer priceIncrementAmountMedium = 200000;
         Integer priceIncrementAmountLarge = 1000000;
-        Integer priceStop = 600000;
+        Integer priceStop = 1100000;
         Integer minLandSize = 400;
         String[] propertyTypes = new String[]{"DevelopmentSite", "House", "NewLand", "VacantLand"};
 
@@ -71,7 +71,7 @@ public class MainTest {
             regionalNSW.state = "NSW";
             regionalNSW.region = "Regional NSW";
         PropertySearchRequest.Locations[] locations = new PropertySearchRequest.Locations[]
-                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts};
+                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts, regionalNSW};
                 
         for (int k = 0; k < locations.length; k++) {
             System.out.println("Location " + locations[k].region);
