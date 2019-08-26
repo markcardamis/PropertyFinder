@@ -39,8 +39,8 @@ public class MainTest {
         propertyListingsComplete = addPlanningPortalAddress(propertyListingsComplete);
         propertyListingsComplete = addPlanningPortalZone(propertyListingsComplete);
         propertyListingsComplete = filterProperties(propertyListingsComplete);
-        sendEmailNotifications(propertyListingsComplete);
         saveDatabasePoint(propertyListingsComplete);
+        sendEmailNotifications(propertyListingsComplete);   
     }
 
     private void getListingsResidentialNSW() throws Exception {
@@ -51,7 +51,7 @@ public class MainTest {
         Integer priceIncrementAmountSmallRegional = 20000;
         Integer priceIncrementAmountMedium = 200000;
         Integer priceIncrementAmountLarge = 1000000;
-        Integer priceStop = 4000000;
+        Integer priceStop = 600000;
         Integer minLandSize = 400;
         String[] propertyTypes = new String[]{"DevelopmentSite", "House", "NewLand", "VacantLand"};
 
