@@ -71,7 +71,7 @@ public class MainTest {
             regionalNSW.state = "NSW";
             regionalNSW.region = "Regional NSW";
         PropertySearchRequest.Locations[] locations = new PropertySearchRequest.Locations[]
-                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts, regionalNSW};
+                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts};
                 
         for (int k = 0; k < locations.length; k++) {
             System.out.println("Location " + locations[k].region);
