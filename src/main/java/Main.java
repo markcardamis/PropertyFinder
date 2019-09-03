@@ -52,7 +52,7 @@ public class Main {
       .handlers(chain -> chain
         .get(ctx -> { 
           ctx.render("Run Started");
-          new MainTest().getListingsNSW(2);
+          new MainTest().getListingsNSW(3);
         }) 
         .files(f -> f.dir("public").indexFiles("index.html"))
       ));
