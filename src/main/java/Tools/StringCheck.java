@@ -2,8 +2,9 @@ package Tools;
 
 public class StringCheck {
     public static String isNotNullOrEmpty(String str, String delimiter) {
-        if(str != null && !str.isEmpty())
-            return str + delimiter;
+        if(str != null && !str.isEmpty() && delimiter != null) {
+            return ((str.endsWith(delimiter)) ? str : str + delimiter); // don't double add delimiter
+        }
         return "";
     }
 
