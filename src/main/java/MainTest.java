@@ -145,7 +145,7 @@ public class MainTest {
     private void getListingsResidentialBMCC() throws Exception {
         PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
         propertySearchRequest.minPrice = 100000;
-        propertySearchRequest.maxPrice = 5000000;
+        propertySearchRequest.maxPrice = 4000000;
         propertySearchRequest.minLandArea = 400;
         propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "NewLand", "VacantLand"};
         PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
