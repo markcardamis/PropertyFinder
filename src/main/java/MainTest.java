@@ -34,21 +34,16 @@ public class MainTest {
     public void getListingsNSW(Integer key) throws Exception {
         if (key != null){
             domainKey = key;
+        } else {
+            domainKey = 0;
         }
-        //getListingsResidentialNSW();
-        //getListingsCommercialNSW();
-        // propertyListingsComplete = addPlanningPortalAddress(propertyListingsComplete);
-        // propertyListingsComplete = addPlanningPortalZone(propertyListingsComplete);
-        // propertyListingsComplete = filterProperties(propertyListingsComplete);
-        // saveDatabasePoint(propertyListingsComplete);
-        // sendEmailNotifications(propertyListingsComplete); 
-        getListingsResidentialBMCC();
+        getListingsResidentialNSW();
+        getListingsCommercialNSW();
         propertyListingsComplete = addPlanningPortalAddress(propertyListingsComplete);
         propertyListingsComplete = addPlanningPortalZone(propertyListingsComplete);
-        propertyListingsComplete = addLandValue(propertyListingsComplete);
         propertyListingsComplete = filterProperties(propertyListingsComplete);
         saveDatabasePoint(propertyListingsComplete);
-        sendEmailNotifications(propertyListingsComplete);   
+        sendEmailNotifications(propertyListingsComplete);    
     }
 
     private void getListingsResidentialNSW() throws Exception {
@@ -59,7 +54,7 @@ public class MainTest {
         Integer priceIncrementAmountSmallRegional = 20000;
         Integer priceIncrementAmountMedium = 200000;
         Integer priceIncrementAmountLarge = 1000000;
-        Integer priceStop = 1100000;
+        Integer priceStop = 1000000;
         Integer minLandSize = 400;
         String[] propertyTypes = new String[]{"DevelopmentSite", "House", "NewLand", "VacantLand"};
 
@@ -79,7 +74,7 @@ public class MainTest {
             regionalNSW.state = "NSW";
             regionalNSW.region = "Regional NSW";
         PropertySearchRequest.Locations[] locations = new PropertySearchRequest.Locations[]
-                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts, regionalNSW};
+                {sydneyRegion};
                 
         for (int k = 0; k < locations.length; k++) {
             System.out.println("Location " + locations[k].region);
@@ -140,33 +135,7 @@ public class MainTest {
         if (propertyListingsComplete != null) {
             System.out.println("Residential property listings complete " + propertyListingsComplete.length);
         }
-    }
-
-    private void getListingsResidentialBMCC() throws Exception {
-        PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
-        propertySearchRequest.minPrice = 100000;
-        propertySearchRequest.maxPrice = 2000000;
-        propertySearchRequest.minLandArea = 400;
-        propertySearchRequest.propertyTypes = new String[]{"DevelopmentSite", "House", "NewLand", "VacantLand"};
-        PropertySearchRequest.Locations locations = new PropertySearchRequest.Locations();
-            locations.state = "NSW";
-            locations.area = "Blue Mountains & Surrounds";
-        propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations};
-        searchJson = new SearchLocations().NSW(propertySearchRequest);
-        searchJson.page = 1;
-        getDomainAuth(5);
-        propertyListings = getDomainListing();
-        propertyListingsComplete = propertyListings;
-        int i = 1;
-        while (propertyListings != null && propertyListings.length >= 200) {
-            i++;
-            searchJson.page = i;
-            getDomainListing();
-            if (propertyListings != null && propertyListings.length > 0) {
-                propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
-            }
-        }
-    }
+    }    
 
     public void getListingsCommercialNSW() throws Exception {
 
@@ -174,7 +143,7 @@ public class MainTest {
         searchJsonCommercial.searchMode = "forSale";
         PropertySearchCommercialRequest.PriceSearch priceSearch = new PropertySearchCommercialRequest.PriceSearch();
         priceSearch.min = 100000;
-        priceSearch.max = 5000000;
+        priceSearch.max = 1000000;
         priceSearch.type = "totalAmount";
         searchJsonCommercial.price = priceSearch;
         searchJsonCommercial.propertyTypes = new String[]{
@@ -200,7 +169,7 @@ public class MainTest {
             hunterCentralNorthCoasts.state = "NSW";
             hunterCentralNorthCoasts.region = "Hunter, Central & North Coasts";
         PropertySearchCommercialRequest.LocationSearch[] locations = new PropertySearchCommercialRequest.LocationSearch[]
-                {sydneyRegion, illawarraSouthCoast, hunterCentralNorthCoasts, regionalNSW};
+                {sydneyRegion};
 
         for (int k = 0; k < locations.length; k++) {
             System.out.println("Location " + locations[k].region);
