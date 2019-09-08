@@ -4,6 +4,8 @@ import Models.PropertyListing;
 import Services.IFilterProperties;
 import Tools.KeywordExists;
 import Tools.PriceMethods;
+import Tools.StringCheck;
+
 
 public class FilterProperties implements IFilterProperties {
 
@@ -21,24 +23,48 @@ public class FilterProperties implements IFilterProperties {
                     propertyListings[i].priceInteger = priceInt;
                     propertyListings[i].pricePerSquareMeter = priceInt/Math.round(propertyListings[i].area);
 
-                    if ((propertyListings[i].zone.equals("R1")) && (propertyListings[i].area > 1350)) {
-                        propertyListings[i].selectionReason = "R1, >1350m";
-                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
-                    } else if ((propertyListings[i].zone.equals("R3")) && (propertyListings[i].area > 1350)) {
-                        propertyListings[i].selectionReason = "R3, >1350m";
-                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
-                    } else if ((propertyListings[i].zone.equals("R4")) && (propertyListings[i].area > 400)) {
-                        propertyListings[i].selectionReason = "R4, >400m";
-                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
-                    } else if ((propertyListings[i].zone.contains("B")) && (propertyListings[i].area > 400)) {
-                        propertyListings[i].selectionReason = "B, >400m";
-                        System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
-                    } else if ((keywordExists.isKeywordPresent(propertyListings[i].summaryDescription, keywords)) &&
-                    (keywordExists.isKeywordPresent(propertyListings[i].postCode, postcodes))){
-                        propertyListings[i].selectionReason = "Keyword found: " + keywordExists.keywordPresent(propertyListings[i].summaryDescription, keywords);
-                        System.out.println("Keyword found: " + propertyListings[i].listingURL);
-                    }            
-
+                    if (propertyListings[i].address.equals(propertyListings[i].planningPortalAddress)) {
+                        // Check if property price is smaller than landValue
+                        if ((priceInt.compareTo(propertyListings[i].landValue)) < 0) {
+                            propertyListings[i].selectionReason =
+                                    StringCheck.concatWhenNotNull(propertyListings[i].selectionReason,
+                                            "Land Value " + propertyListings[i].landValue, ",\n");
+                            System.out.println("Land Value " + propertyListings[i].landValue + " " +
+                                    propertyListings[i].priceInteger + " " + propertyListings[i].listingURL);
+                        }
+                        if ((propertyListings[i].zone.equals("R1")) && (propertyListings[i].area > 1350)) {
+                            propertyListings[i].selectionReason =
+                                    StringCheck.concatWhenNotNull(propertyListings[i].selectionReason,
+                                            "R1, >1350m", ",\n");
+                            System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
+                        }
+                        if ((propertyListings[i].zone.equals("R3")) && (propertyListings[i].area > 1350)) {
+                            propertyListings[i].selectionReason =
+                                    StringCheck.concatWhenNotNull(propertyListings[i].selectionReason,
+                                            "R3, >1350m", ",\n");
+                            System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
+                        }
+                        if ((propertyListings[i].zone.equals("R4")) && (propertyListings[i].area > 400)) {
+                            propertyListings[i].selectionReason =
+                                    StringCheck.concatWhenNotNull(propertyListings[i].selectionReason,
+                                            "R4, >400m", ",\n");
+                            System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
+                        }
+                        if ((propertyListings[i].zone.contains("B")) && (propertyListings[i].area > 400)) {
+                            propertyListings[i].selectionReason =
+                                    StringCheck.concatWhenNotNull(propertyListings[i].selectionReason,
+                                            "B, >400m", ",\n");
+                            System.out.println(propertyListings[i].zone + " " + propertyListings[i].listingURL);
+                        }
+                        if ((keywordExists.isKeywordPresent(propertyListings[i].summaryDescription, keywords)) &&
+                                (keywordExists.isKeywordPresent(propertyListings[i].postCode, postcodes))) {
+                            propertyListings[i].selectionReason =
+                                    StringCheck.concatWhenNotNull(propertyListings[i].selectionReason,
+                                            "Keyword found: " + keywordExists.keywordPresent(propertyListings[i].summaryDescription, keywords),
+                                            ",\n");
+                            System.out.println("Keyword found: " + propertyListings[i].listingURL);
+                        }
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
