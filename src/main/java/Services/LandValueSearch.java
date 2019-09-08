@@ -10,7 +10,7 @@ public class LandValueSearch implements ILandValueSearch
     public PropertyListing[] getLandValue(PropertyListing[] propertyListings) throws Exception {
         // Get Land Value info
         if (propertyListings.length > 0) {
-            String csvFile = "/Users/markcardamis/Documents/AndroidStudioProjects/PropertyFinder/app/src/main/java/com/majoapps/propertyfinder/PlanningInformation/BlueMountains.csv";
+            String csvFile = "../PlanningInformation/BlueMountains.csv";
             CSVUtils csvUtils = new CSVUtils();
             for (int i = 0; i < propertyListings.length; i++){
                 try {
