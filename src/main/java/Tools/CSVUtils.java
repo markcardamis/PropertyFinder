@@ -10,7 +10,7 @@ public class CSVUtils {
     private static final char DEFAULT_SEPARATOR = ',';
     private static final char DEFAULT_QUOTE = '"';
 
-    public String CSVUtils (String filename, Integer primaryKeyColumn, String propertyKey, Integer propertyFieldColumn) { //Return a property field
+    public String getPropertyField (String filename, Integer primaryKeyColumn, String propertyKey, Integer propertyFieldColumn) { //Return a property field
         Scanner scanner = null;
         try {
             if (filename != null && primaryKeyColumn != null && propertyKey != null && propertyFieldColumn != null) {
