@@ -24,8 +24,8 @@ public class FilterProperties implements IFilterProperties {
                     propertyListings[i].pricePerSquareMeter = priceInt/Math.round(propertyListings[i].area);
 
                     if (propertyListings[i].address.equals(propertyListings[i].planningPortalAddress)) {
-                        // Check if property price is smaller than landValue
-                        if ((priceInt.compareTo(propertyListings[i].landValue)) < 0) {
+                        // Check if property price is smaller than landValue (if not null)
+                        if ((propertyListings[i].landValue != null) && (priceInt.compareTo(propertyListings[i].landValue) < 0)) {
                             propertyListings[i].selectionReason =
                                     StringCheck.concatWhenNotNull(propertyListings[i].selectionReason,
                                             "Land Value " + propertyListings[i].landValue, ",\n");
