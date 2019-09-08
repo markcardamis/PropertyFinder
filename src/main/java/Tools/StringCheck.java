@@ -12,7 +12,7 @@ public class StringCheck {
         return(str != null && !str.isEmpty());
     }
 
-    public static String concatWhenNotNull (String originalString, String stringAdded, String delimiter) {
+    public static String concatWhenNotNull(String originalString, String stringAdded, String delimiter) {
         if (isNotNullOrEmpty(delimiter))
             stringAdded += delimiter;
             return (isNotNullOrEmpty(originalString) ? originalString + stringAdded: stringAdded);
