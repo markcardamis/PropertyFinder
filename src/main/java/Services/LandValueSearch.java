@@ -1,16 +1,19 @@
 package Services;
 
+import java.io.FileInputStream;
+
 import Models.PropertyListing;
 import Tools.CSVUtils;
 
 public class LandValueSearch implements ILandValueSearch
 {
-
+    
     @Override
     public PropertyListing[] getLandValue(PropertyListing[] propertyListings) throws Exception {
         // Get Land Value info
         if (propertyListings.length > 0) {
-            String csvFile = "../PlanningInformation/BlueMountains.csv";
+            String root = System.getProperty("user.dir");
+            String csvFile = root + "/public/landvalues/bluemountains.csv";
             CSVUtils csvUtils = new CSVUtils();
             for (int i = 0; i < propertyListings.length; i++){
                 try {
