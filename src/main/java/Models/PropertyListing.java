@@ -24,4 +24,5 @@ public class PropertyListing {
     public String selectionReason;
     public Double lat;
     public Double lng;
+    public Integer landValue;
 }

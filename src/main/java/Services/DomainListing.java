@@ -102,8 +102,8 @@ public class DomainListing implements IDomainListing
                 propertyListings[i].domainListingId = propertyListingResponse[i].id;
                 propertyListings[i].displayableAddress = propertyListingResponse[i].address;
                 propertyListings[i].address = StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.streetNumber, " ") +
-                        StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.street, " ") +
-                        StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.suburb, " ") +
+                        StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.street, " ").toUpperCase() +
+                        StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.suburb, " ").toUpperCase() +
                         propertyListingResponse[i].metadata.addressComponents.postcode;
                 propertyListings[i].priceCheckerURL = StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.streetNumber, " ") +
                         StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.street, ", ") +
