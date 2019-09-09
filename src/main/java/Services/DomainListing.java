@@ -51,8 +51,8 @@ public class DomainListing implements IDomainListing
                     propertyListings[i].domainListingId = propertyListingResponse[i].listing.id;
                     propertyListings[i].displayableAddress = propertyListingResponse[i].listing.propertyDetails.displayableAddress;
                     propertyListings[i].address = StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.streetNumber, " ") +
-                            StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.street, " ") +
-                            StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.suburb, " ") +
+                            StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.street, " ").toUpperCase(Locale.ENGLISH) +
+                            StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.suburb, " ").toUpperCase(Locale.ENGLISH) +
                             propertyListingResponse[i].listing.propertyDetails.postcode;
                     propertyListings[i].priceCheckerURL = StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.streetNumber, " ") +
                             StringCheck.isNotNullOrEmpty(propertyListingResponse[i].listing.propertyDetails.street, ", ") +
@@ -102,8 +102,8 @@ public class DomainListing implements IDomainListing
                 propertyListings[i].domainListingId = propertyListingResponse[i].id;
                 propertyListings[i].displayableAddress = propertyListingResponse[i].address;
                 propertyListings[i].address = StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.streetNumber, " ") +
-                        (StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.street, " ")).toUpperCase() +
-                        (StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.suburb, " ")).toUpperCase() +
+                        StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.street, " ").toUpperCase(Locale.ENGLISH) +
+                        StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.suburb, " ").toUpperCase(Locale.ENGLISH) +
                         propertyListingResponse[i].metadata.addressComponents.postcode;
                 propertyListings[i].priceCheckerURL = StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.streetNumber, " ") +
                         StringCheck.isNotNullOrEmpty(propertyListingResponse[i].metadata.addressComponents.street, ", ") +
