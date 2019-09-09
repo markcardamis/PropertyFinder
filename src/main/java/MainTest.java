@@ -52,6 +52,7 @@ public class MainTest {
         Integer priceStart = 100000;
         Integer priceIncrementAmount;
         Integer priceIncrementAmountSmall = 40000;
+        Integer priceIncrementAmountSmallSydney = 100000;
         Integer priceIncrementAmountSmallRegional = 20000;
         Integer priceIncrementAmountMedium = 200000;
         Integer priceIncrementAmountLarge = 1000000;
@@ -85,6 +86,8 @@ public class MainTest {
             while (price <= priceStop) {
                 if (price < 1000000 && locations[k].region.equals(regionalNSW.region)) {
                     priceIncrementAmount = priceIncrementAmountSmallRegional;
+                } else if (price < 1000000 && locations[k].region.equals(sydneyRegion.region)) {
+                    priceIncrementAmount = priceIncrementAmountSmallSydney;
                 } else if (price < 1000000) {
                     priceIncrementAmount = priceIncrementAmountSmall;
                 } else if (price < 2000000){
