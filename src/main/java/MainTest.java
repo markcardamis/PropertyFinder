@@ -147,7 +147,7 @@ public class MainTest {
         searchJsonCommercial.searchMode = "forSale";
         PropertySearchCommercialRequest.PriceSearch priceSearch = new PropertySearchCommercialRequest.PriceSearch();
         priceSearch.min = 100000;
-        priceSearch.max = 1000000;
+        priceSearch.max = 5000000;
         priceSearch.type = "totalAmount";
         searchJsonCommercial.price = priceSearch;
         searchJsonCommercial.propertyTypes = new String[]{
