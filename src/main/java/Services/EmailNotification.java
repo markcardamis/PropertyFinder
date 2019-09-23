@@ -51,7 +51,7 @@ public class EmailNotification implements IEmailNotification {
                             "Summary: " + StringCheck.isNotNullOrEmpty(propertyListings[i].summaryDescription, "");
 
                     Email from = new Email("noreply@majoapps.com");
-                    String subject = "Domain Trigger " + propertyListings[i].address;
+                    String subject = "Re: Domain Trigger " + propertyListings[i].address;
                     Email to = new Email("markncardamis@gmail.com");
                     Content content = new Content("text/plain", json);
                     Mail mail = new Mail(from, subject, to, content);
