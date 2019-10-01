@@ -50,9 +50,9 @@ public class Main {
       .serverConfig(c -> c.baseDir(BaseDir.find()))
       .registryOf(r -> r.add(service))
       .handlers(chain -> chain
-        .get(ctx -> { 
-          ctx.render("Homepage found at /index.html");
-          //new MainTest().getListingsNSW(3);
+        .get(ctx -> {
+          //ctx.render("Homepage found at /index.html");
+          ctx.redirect("index.html");
         }) 
         .files(f -> f.dir("public").indexFiles("index.html"))
       ));

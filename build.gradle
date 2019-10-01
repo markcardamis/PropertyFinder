@@ -10,7 +10,6 @@ repositories {
 mainClassName = "Main"
 
 dependencies {
-  runtime "org.slf4j:slf4j-simple:1.7.25"
   compile ratpack.dependency("hikari")
   compile "org.postgresql:postgresql:42.2.2"
   compile 'com.google.code.gson:gson:2.8.5'
