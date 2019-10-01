@@ -51,8 +51,8 @@ public class Main {
       .registryOf(r -> r.add(service))
       .handlers(chain -> chain
         .get(ctx -> { 
-          ctx.render("Run Started");
-          new MainTest().getListingsNSW(3);
+          ctx.render("Homepage found at /index.html");
+          //new MainTest().getListingsNSW(3);
         }) 
         .files(f -> f.dir("public").indexFiles("index.html"))
       ));
