@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Property Finder Map">
+      <title>Property Finder Map</title>
+
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 95%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+    <!-- Hotjar Tracking Code for https://pacific-brushlands-80068.herokuapp.com/ -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:1445331,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <div id="buttons">
+    	<select id="category_zone_filter" onchange="filterMarkers(this.value);">
+            <option value="">Please select zone</option>
+            <option value="Shortlisted">Shortlisted</option>
+            <option value="R1">R1</option>
+            <option value="R2">R2</option>
+            <option value="R3">R3</option>
+            <option value="R4">R4</option>
+            <option value="B1">B1</option>
+            <option value="B2">B2</option>
+            <option value="B3">B3</option>
+            <option value="B4">B4</option>
+            <option value="B5">B5</option>
+            <option value="B6">B6</option>
+            <option value="B7">B7</option>
+            <option value="IN1">IN1</option>
+            <option value="IN2">IN2</option>
+            <option value="IN3">IN3</option>
+            <option value="IN4">IN4</option>
+        </select>
+        <select id="category_price_filter" onchange="filterMarkers(this.value);">
+            <option value="">Please select max price</option>
+            <option value="200000">$200,000</option>
+            <option value="300000">$300,000</option>
+            <option value="400000">$400,000</option>
+            <option value="500000">$500,000</option>
+            <option value="600000">$600,000</option>
+            <option value="700000">$700,000</option>
+            <option value="800000">$800,000</option>
+            <option value="900000">$900,000</option>
+            <option value="1000000">$1,000,000</option>
+            <option value="1100000">$1,100,000</option>
+            <option value="1200000">$1,200,000</option>
+            <option value="1300000">$1,300,000</option>
+            <option value="1400000">$1,400,000</option>
+            <option value="1500000">$1,500,000</option>
+            <option value="1600000">$1,600,000</option>
+            <option value="1700000">$1,700,000</option>
+            <option value="1800000">$1,800,000</option>
+            <option value="1900000">$1,900,000</option>
+            <option value="2000000">$2,000,000</option>
+            <option value="5000000">$5,000,000</option>
+        </select>
+        <select id="category_pricePerSquareMeter_filter" onchange="filterMarkers(this.value);">
+            <option value="">Please select max Price Per Meter</option>
+            <option value="100">$100/m2</option>
+            <option value="200">$200/m2</option>
+            <option value="300">$300/m2</option>
+            <option value="400">$400/m2</option>
+            <option value="500">$500/m2</option>
+            <option value="600">$600/m2</option>
+            <option value="700">$700/m2</option>
+            <option value="800">$800/m2</option>
+            <option value="900">$900/m2</option>
+            <option value="1000">$1000/m2</option>
+        </select>
+        <select id="category_area_filter" onchange="filterMarkers(this.value);">
+            <option value="">Please select min area</option>
+            <option value="1000">1000m</option>
+            <option value="1250">1250m</option>
+            <option value="2000">2000m</option>
+            <option value="4000">4000m</option>
+            <option value="8000">8000m</option>
+            <option value="20000">20000m</option>
+        </select>
+    </div>
+
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+
+<script>
+/**
+ * Firebase config block.
+ */
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyB1dkqYZ6NtVwfgQTW8GjL-N0M6jUJJPwM",
+    authDomain: "propertyfinder-d2752.firebaseapp.com",
+    databaseURL: "https://propertyfinder-d2752.firebaseio.com",
+    projectId: "propertyfinder-d2752",
+    storageBucket: "propertyfinder-d2752.appspot.com",
+    messagingSenderId: "254562778288",
+    appId: "1:254562778288:web:a83e899df53411a4"
+  };
+   var map;
+   var marker;
+   var markersArray = [];
+   var propertiesArray = [];
+   var infoWindow;
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+<!--  function initAuthentication(onAuthSuccess) {-->
+
+<!--      initFirebase();-->
+<!--      -->
+<!--      firebase.auth().onAuthStateChanged(function(user) {-->
+<!--        // [START_EXCLUDE silent]-->
+<!--        if (user) {-->
+<!--          // User is signed in.-->
+<!--          var email = user.email;-->
+<!--          var uid = user.uid;-->
+
+<!--        } else {-->
+<!--          // User is signed out.-->
+<!--          window.location = 'index.html';-->
+<!--        }-->
+
+<!--      });-->
+<!--   }-->
+    window.onload = function() {
+      initFirebase();
+    };
+
+  function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.7278481, lng: 150.453873},
+          zoom: 11,
+          styles: [
+            {
+              featureType: 'poi',
+              stylers: [{ visibility: 'off' }]  // Turn off POI.
+            },
+            {
+              featureType: 'poi.school',
+              stylers: [{ visibility: 'on' }]  // Turn on school POI only.
+            },
+            {
+              featureType: 'transit.station',
+              stylers: [{ visibility: 'on' }]  // Turn on train stations.
+            }
+          ],
+          disableDoubleClickZoom: true,
+          streetViewControl: false,
+        });
+
+      }
+
+
+      function initFirebase() {
+
+        // Reference to the properties in Firebase.
+        var clicks = firebase.database().ref('propertyListings');
+        
+        // Listen for clicks and add them to the heatmap.
+        clicks.on('child_added',
+          function(snapshot) {
+            var newPosition = snapshot.val();
+            var point = new google.maps.LatLng(newPosition.lat, newPosition.lng);
+            var iconVar = (typeof newPosition.selectionReason === 'undefined')? { 
+              	url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+              	}  : null ;
+            marker = new google.maps.Marker({
+              position: point,
+              map: map,
+              icon: iconVar
+            });
+
+            markersArray.push(marker);
+            propertiesArray.push(newPosition);
+
+            marker['infowindow'] = new google.maps.InfoWindow({
+            maxWidth: 400,
+            content:    "<b>Price: </b>" + newPosition.price + '<br>' +
+                        "<b>Zone: </b>" + newPosition.zone + '<br>' +
+                        "<b>FSR: </b>" + newPosition.fsr + '<br>' +
+                        "<b>Price Per Square Meter: </b>" + newPosition.pricePerSquareMeter + '<br>' +
+                        "<b>Price Integer: </b>" + newPosition.priceInteger + '<br>' +
+                        "<b>Land Value Integer: </b>" + newPosition.landValue + '<br>' +
+                        "<b>Area: </b>" + newPosition.area + '<br>' +
+                        "<b>Domain Listed Address: </b>" + newPosition.address + '<br>' +
+                        "<b>Planning Portal Address: </b>" + newPosition.planningPortalAddress + '<br>' +
+                        "<b>Domain URL: </b>" + "<a href=" + newPosition.listingURL + ">" + newPosition.listingURL + "</a>" + '<br>' +
+                        "<b>Land Checker URL: </b>" + "<a href=" + newPosition.landCheckerURL + ">" + newPosition.landCheckerURL + "</a>" + '<br>' +
+                        "<b>Price Checker URL: </b>" + "<a href=" + newPosition.priceCheckerURL + ">" + newPosition.priceCheckerURL + "</a>" + '<br>' +
+                        "<b>Selection Reason: </b>" + newPosition.selectionReason + '<br>' +
+                        "<b>Summary: </b>" + newPosition.summaryDescription
+
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+              hideAllInfoWindows(map);
+              this['infowindow'].open(map, this);
+            });
+          }
+        );
+      }
+
+      function hideAllInfoWindows(map) {
+   			markersArray.forEach(function(marker) {
+     		marker.infowindow.close(map, marker);
+  			}); 
+		}
+
+
+		/**
+         * Function to filter markers by category
+         */
+
+        filterMarkers = function () {
+        	var category_zone = document.getElementById('category_zone_filter').value;
+    		  var category_price = document.getElementById('category_price_filter').value;
+    		  var category_pricePerSquareMeter = document.getElementById('category_pricePerSquareMeter_filter').value;
+          var category_area = document.getElementById('category_area_filter').value;
+            for (i = 0; i < markersArray.length; i++) {
+                marker = markersArray[i];
+                var property = propertiesArray[i];
+                // If is same category or category not picked
+                if ((property.zone == category_zone || category_zone.length === 0 || (property.selectionReason && category_zone == 'Shortlisted')) 
+                	&& ( property.priceInteger <= parseInt(category_price) || category_price.length === 0 )
+                	&& ( property.pricePerSquareMeter <= parseInt(category_pricePerSquareMeter) || category_pricePerSquareMeter.length === 0)
+                  && ( property.area >= parseInt(category_area) || category_area.length === 0))
+        		{
+                    marker.setVisible(true);
+                }
+                    // Categories don't match 
+                else {
+                    marker.setVisible(false);
+                }
+            }
+        }
+
+
+    </script>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRk9mLgyRjj5dY89K0LRrKrxFbyFoS4nM&libraries=visualization&callback=initMap">
+    </script>
+  </body>
+</html>

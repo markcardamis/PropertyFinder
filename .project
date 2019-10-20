@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>gradle-getting-started</name>
-	<comment>Project gradle-getting-started created by Buildship.</comment>
+	<name>propertyfinder</name>
+	<comment>Project propertyfinder created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>

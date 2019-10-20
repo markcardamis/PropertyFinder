@@ -8,6 +8,13 @@ out
 *.iws
 .env
 .DS_Store
-src/main/java/Variables.java
-src/main/java/Services/Variables.java
+.project
+.settings
+.vscode
 serviceAccountKey.json
+src/main/resources/application.properties
+src/main/resources/application-dev.properties
+src/main/resources/application-stage.properties
+src/main/resources/data.sql
+src/main/resources/schema.sql
+src/test
