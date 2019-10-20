@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 public class CSVUtils {
 

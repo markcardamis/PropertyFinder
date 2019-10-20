@@ -11,6 +11,8 @@ import java.util.Locale;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 public class ServiceHelper implements IServiceHelper
 {
@@ -72,7 +74,7 @@ public class ServiceHelper implements IServiceHelper
                 rd = new BufferedReader(new InputStreamReader(request.getErrorStream()));
                 log.debug("HTTP Error Response : {}", rd);
             } else {
-                log.error("IllegalStateException : {} ", httpCode)
+                log.error("IllegalStateException : {} ", httpCode);
                 throw new IllegalStateException(httpCode + " : Connection closed, no ErrorStream");
             }
 
