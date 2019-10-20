@@ -16,7 +16,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 @Table(name="NOTIFICATIONS")
 public class Notifications extends AuditModel {
-
+    private static final long serialVersionUID = -4880020817874864117L;
+    
     @ManyToOne(targetEntity = Account.class)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;

@@ -1,5 +1,11 @@
 package com.majoapps.propertyfinder.business.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import com.google.gson.Gson;
 import com.majoapps.propertyfinder.business.domain.PlanningPortalAddressResponse;
 import com.majoapps.propertyfinder.business.domain.PropertyListing;
@@ -8,12 +14,9 @@ import com.majoapps.propertyfinder.utils.IServiceHelper;
 import com.majoapps.propertyfinder.utils.ServiceHelper;
 import com.majoapps.propertyfinder.utils.UrlExtensionMethods;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
 {
     private IServiceHelper mServiceHelper;// = new IServiceHelper();
@@ -44,7 +47,7 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
                 String priceHelperAddress = "http://img.ksou.cn/p.php";
                 propertyListings[i].priceCheckerURL = UrlExtensionMethods.appendParameter(priceHelperAddress, "q", propertyListings[i].priceCheckerURL);
 
-                System.out.println("PlanningPortalAddress " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
+                log.info("PlanningPortalAddress " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
             }
         }
         return propertyListings;
@@ -69,7 +72,7 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
             while (!executor.isTerminated()) {
                 //Thread.yield();
             }
-            System.out.println("Finished all planning portal address threads");
+            log.info("Finished all planning portal address threads");
         }
         int arraySize = propertyListingArrayList.size();
         propertyListings = propertyListingArrayList.toArray(new PropertyListing[arraySize]);
@@ -85,7 +88,6 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
 
         @Override
         public void run() {
-            PlanningPortalZoneSearch planningPortalZoneSearch = null;
             try {
                 long sTime = System.currentTimeMillis();
                 String address = "https://api.apps1.nsw.gov.au/planning/viewersf/V1/ePlanningApi/address";
@@ -102,18 +104,18 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
                 propertyListing.priceCheckerURL = UrlExtensionMethods.appendParameter(priceHelperAddress, "q", propertyListing.priceCheckerURL);
 
                 propertyListingArrayList.add(propertyListing);
-
-                System.out.println("PlanningPortalAddress " + propertyListingArrayList.size() + "/" + propertyListingLength);
+                log.info("PlanningPortalAddress " + propertyListingArrayList.size() + "/" + propertyListingLength);
+                
                 long endTime = System.currentTimeMillis() - startTime;
                 long eTime = System.currentTimeMillis() - sTime;
-                System.out.println("RPS " + propertyListingArrayList.size()/(endTime/1000f));
+                log.debug("RPS " + propertyListingArrayList.size()/(endTime/1000f));
                 if (eTime > 2000) {
                     eTime = 2000;
                 }
                 Thread.sleep(2000-eTime);
 
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error("Exception: " + e);
             }
 
         }

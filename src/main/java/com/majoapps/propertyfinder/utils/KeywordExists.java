@@ -1,5 +1,6 @@
 package com.majoapps.propertyfinder.utils;
 
+@Slf4j
 public class KeywordExists {
 
     public Boolean isKeywordPresent(String inputString, String[] keywords) {

@@ -1,7 +1,6 @@
-
 package com.majoapps.propertyfinder.utils;
 
-
+@Slf4j
 public class PriceMethods
 {
     public static Integer stringToInteger(String text) throws Exception {
@@ -59,6 +58,7 @@ public class PriceMethods
 
             text = removeMultipleDecimals(text);
         } catch (Exception e){
+            log.error("Exception ", e);
             return (int) Double.parseDouble(errorNumber);
         }
         return ((int) Double.parseDouble(text));
@@ -81,6 +81,7 @@ public class PriceMethods
             text = text.replaceAll("[^0-9]", "");
             return Integer.parseInt(text);
         }
+        log.debug("Convert String To Integer null passed in {}");
         return 1;
     }
 

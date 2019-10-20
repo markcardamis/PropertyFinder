@@ -1,6 +1,5 @@
 package com.majoapps.propertyfinder.utils;
 
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -9,10 +8,10 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 
+@Slf4j
 public class ServiceHelper implements IServiceHelper
 {
     private static final int HTTP_REQUEST_TIMEOUT = 60000;
@@ -55,6 +54,7 @@ public class ServiceHelper implements IServiceHelper
                 wr.flush ();
                 wr.close ();
             }catch (Exception ex) {
+                log.error("Exception ", ex);
                 throw new Exception(ex);
             }
         }
@@ -68,9 +68,11 @@ public class ServiceHelper implements IServiceHelper
 
             if (httpCode == 200 || httpCode == 201) {
                 rd = new BufferedReader(new InputStreamReader(request.getInputStream()));
-            } else if (request.getErrorStream() != null){
+            } else if (request.getErrorStream() != null) {
                 rd = new BufferedReader(new InputStreamReader(request.getErrorStream()));
+                log.debug("HTTP Error Response : {}", rd);
             } else {
+                log.error("IllegalStateException : {} ", httpCode)
                 throw new IllegalStateException(httpCode + " : Connection closed, no ErrorStream");
             }
 
@@ -84,10 +86,12 @@ public class ServiceHelper implements IServiceHelper
             result = response.toString();
 
             if(!(httpCode == 200 || httpCode == 201)) {
+                log.error("IllegalStateException {} : {}", httpCode, request.getResponseMessage());
                 throw new IllegalStateException(httpCode + " " + request.getResponseMessage());
             }
 
         } catch (SocketTimeoutException e){
+            log.error("SocketTimeoutException : {}", e);
             throw new Exception(e);
         }
         finally

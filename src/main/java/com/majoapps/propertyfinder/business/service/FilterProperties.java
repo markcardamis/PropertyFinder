@@ -5,6 +5,7 @@ import com.majoapps.propertyfinder.utils.KeywordExists;
 import com.majoapps.propertyfinder.utils.PriceMethods;
 import com.majoapps.propertyfinder.utils.StringCheck;
 
+//TODO remove static class and make dynamic load from database
 public class FilterProperties implements IFilterProperties {
 
     @Override

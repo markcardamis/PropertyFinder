@@ -1,9 +1,7 @@
 package com.majoapps.propertyfinder.business.service;
 
 import com.majoapps.propertyfinder.business.domain.PropertyListing;
-import com.majoapps.propertyfinder.utils.IServiceHelper;
 import com.majoapps.propertyfinder.utils.KeywordExists;
-import com.majoapps.propertyfinder.utils.ServiceHelper;
 import com.majoapps.propertyfinder.utils.StringCheck;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
@@ -13,13 +11,10 @@ import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 
-public class EmailService implements IEmailService {
-    private IServiceHelper mServiceHelper;// = new IServiceHelper();
-    private Integer propertyListingLength = 0;
+import lombok.extern.slf4j.Slf4j;
 
-    public EmailService() throws Exception {
-        mServiceHelper = new ServiceHelper();
-    }
+@Slf4j
+public class EmailService implements IEmailService {
 
     @Override
     public void sendEmailNotification(PropertyListing[] propertyListings) throws Exception {
@@ -66,7 +61,7 @@ public class EmailService implements IEmailService {
                     request.setEndpoint("mail/send");
                     request.setBody(mail.build());
                     Response response = sg.api(request);
-                    System.out.println(response.getStatusCode());
+                    log.info("Email send status code {}", response.getStatusCode());
                 }
             }
         }

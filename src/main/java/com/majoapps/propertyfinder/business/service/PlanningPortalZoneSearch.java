@@ -1,5 +1,11 @@
 package com.majoapps.propertyfinder.business.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import com.google.gson.Gson;
 import com.majoapps.propertyfinder.business.domain.PlanningPortalZoneResponse;
 import com.majoapps.propertyfinder.business.domain.PropertyListing;
@@ -8,12 +14,9 @@ import com.majoapps.propertyfinder.utils.IServiceHelper;
 import com.majoapps.propertyfinder.utils.ServiceHelper;
 import com.majoapps.propertyfinder.utils.UrlExtensionMethods;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
 {
     private IServiceHelper mServiceHelper;// = new IServiceHelper();
@@ -66,9 +69,9 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    log.error("Exception: " + e);
                 }
-                System.out.println("PlanningPortalZone " + propertyListings[i].zone + " " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
+                log.info("PlanningPortalZone " + propertyListings[i].zone + " " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
             }
         }
         return propertyListings;
@@ -95,7 +98,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
             while (!executor.isTerminated()) {
                 //Thread.yield();
             }
-            System.out.println("Finished all planning portal zone threads");
+            log.info("Finished all planning portal zone threads");
 
         }
         int arraySize = propertyListingArrayList.size();
@@ -112,7 +115,6 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
 
         @Override
         public void run() {
-            PlanningPortalZoneSearch planningPortalZoneSearch = null;
             try {
                 long sTime = System.currentTimeMillis();
                 propertyListing.zone = "0"; // set default values as address is not always found
@@ -148,18 +150,18 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
                     }
                 }
                 propertyListingArrayList.add(propertyListing);
-
-                System.out.println("PlanningPortalZone " + propertyListing.zone + " " + String.valueOf(propertyListingArrayList.size()) + "/" + String.valueOf(propertyListingLength));
+                log.info("PlanningPortalZone " + propertyListing.zone + " " + String.valueOf(propertyListingArrayList.size()) + "/" + String.valueOf(propertyListingLength));
+                
                 long endTime = System.currentTimeMillis() - startTime;
                 long eTime = System.currentTimeMillis() - sTime;
-                System.out.println("RPS " + propertyListingArrayList.size()/(endTime/1000f));
+                log.debug("RPS " + propertyListingArrayList.size()/(endTime/1000f));
                 if (eTime > 2000) {
                     eTime = 2000;
                 }
                 Thread.sleep(2000-eTime);
 
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error("Exception: " + e);
             }
 
         }

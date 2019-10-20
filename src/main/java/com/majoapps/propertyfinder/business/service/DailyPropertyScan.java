@@ -42,7 +42,7 @@ public class DailyPropertyScan {
     @Scheduled(fixedRate = 3600000L) // Run every hour
     public void getListingsNSW() throws Exception {
 
-        log.info("The time is now {}", dateFormat.format(new Date()));
+        log.info("Schduled run of getListing {}", dateFormat.format(new Date()));
         if (dateHelper.isBusinessDay()) {
             domainKey = 0;
             getListingsResidentialNSW();

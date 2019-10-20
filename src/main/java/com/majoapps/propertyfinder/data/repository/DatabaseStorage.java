@@ -1,5 +1,12 @@
 package com.majoapps.propertyfinder.data.repository;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -10,13 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.majoapps.propertyfinder.business.domain.PropertyListing;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+@SuppressWarnings("unused")
 public class DatabaseStorage implements IDatabaseStorage {
 
     private DatabaseReference mDatabaseReference; // Firebase database reference

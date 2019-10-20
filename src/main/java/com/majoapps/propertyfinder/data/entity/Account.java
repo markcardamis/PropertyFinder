@@ -16,8 +16,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 @Table(name="ACCOUNT")
 public class Account extends AuditModel{
-
-    @Column(name="first_name")
+    private static final long serialVersionUID = -2785806030291416426L;
+    
+    @Column(name = "first_name")
     private String firstName;
     @Column(name="last_name")
     private String lastName;

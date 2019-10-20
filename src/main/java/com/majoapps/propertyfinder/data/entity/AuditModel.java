@@ -25,6 +25,7 @@ import javax.persistence.TemporalType;
         allowGetters = true
 )
 public abstract class AuditModel implements Serializable {
+    private static final long serialVersionUID = 1815124188679661849L;
 
     @Id
     @Type(type = "pg-uuid")

@@ -3,6 +3,7 @@ package com.majoapps.propertyfinder.utils;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+@Slf4j
 public class DateHelper {
     public boolean isBusinessDay(){
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Australia/Sydney"));

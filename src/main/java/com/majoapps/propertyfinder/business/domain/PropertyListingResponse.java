@@ -3,6 +3,7 @@ package com.majoapps.propertyfinder.business.domain;
 import java.io.Serializable;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class PropertyListingResponse {
     public String type;
     public Listing listing;
