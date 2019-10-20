@@ -10,7 +10,7 @@ out
 .DS_Store
 .project
 .settings
-.vscode/
+.vscode
 serviceAccountKey.json
 src/main/resources/application.properties
 src/main/resources/application-dev.properties
