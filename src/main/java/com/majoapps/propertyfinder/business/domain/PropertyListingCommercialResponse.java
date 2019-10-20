@@ -1,12 +1,12 @@
 package com.majoapps.propertyfinder.business.domain;
 
-
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PropertyListingCommercialResponse implements Serializable {
+
     @SerializedName("ad")
     public Ad ad;
     @SerializedName("price")
@@ -33,6 +33,7 @@ public class PropertyListingCommercialResponse implements Serializable {
     public Metadata metadata;
     @SerializedName("carspaceCount")
     public Integer carspaceCount;
+    private static final long serialVersionUID = 8206906958076690619L;
 
     public static class Ad implements Serializable {
         @SerializedName("adType")
