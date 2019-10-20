@@ -10,11 +10,11 @@ out
 .DS_Store
 .project
 .settings
-.vscode
+.vscode/
 serviceAccountKey.json
 src/main/resources/application.properties
 src/main/resources/application-dev.properties
 src/main/resources/application-stage.properties
 src/main/resources/data.sql
 src/main/resources/schema.sql
-src/test
+src/test/
