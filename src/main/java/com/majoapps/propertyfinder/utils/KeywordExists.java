@@ -1,7 +1,5 @@
 package com.majoapps.propertyfinder.utils;
 
-import lombok.extern.slf4j.Slf4j;
-
 public class KeywordExists {
 
     public Boolean isKeywordPresent(String inputString, String[] keywords) {
