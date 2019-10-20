@@ -51,7 +51,6 @@ public class EmailService implements IEmailService {
                     Mail mail = new Mail(from, subject, to, content);
 
                     SendGrid sg = new SendGrid(System.getenv().get("SENDGRID_API"));
-                    System.out.println("SEND GRID "+ System.getenv().get("SENDGRID_API"));
                     if (StringCheck.isNotNullOrEmpty(propertyListings[i].planningPortalPropId)) {
                         sg.addRequestHeader("In-Reply-To",propertyListings[i].planningPortalPropId);
                     }
