@@ -18,3 +18,4 @@ src/main/resources/application-stage.properties
 src/main/resources/data.sql
 src/main/resources/schema.sql
 src/test/
+logs/spring-boot-logger-log4j2.log
