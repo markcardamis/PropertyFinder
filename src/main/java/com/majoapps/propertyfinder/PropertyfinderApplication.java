@@ -47,7 +47,7 @@ public class PropertyfinderApplication {
 					.authenticationEntryPoint(new Http403ForbiddenEntryPoint())
 					.and()
 				.authorizeRequests()
-					.antMatchers(HttpMethod.GET,"/", "/login", "/css/**", "/images/**", "/favicon.ico").permitAll()
+					.antMatchers(HttpMethod.GET,"/", "/account","/login", "/css/**", "/images/**", "/favicon.ico").permitAll()
 					.and()
 				.authorizeRequests()
 					.antMatchers("/api/**").authenticated()
