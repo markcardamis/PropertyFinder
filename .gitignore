@@ -7,6 +7,7 @@ out
 *.ipr
 *.iws
 .env
+logs/
 .DS_Store
 .project
 .settings
