@@ -19,3 +19,4 @@ src/main/resources/data.sql
 src/main/resources/schema.sql
 src/test/
 logs/spring-boot-logger-log4j2.log
+logs/spring-boot-logger-log4j2.log
