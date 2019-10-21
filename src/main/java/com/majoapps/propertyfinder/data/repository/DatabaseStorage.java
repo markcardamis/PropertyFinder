@@ -68,10 +68,10 @@ public class DatabaseStorage implements IDatabaseStorage {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     if (databaseError != null) {
-                        System.out.println("Data could not be saved " + databaseError.getMessage());
+                        log.debug("Data could not be saved {} ", databaseError.getMessage());
                         databaseComplete = true;
                     } else {
-                        System.out.println("Data saved successfully.");
+                        log.info("Data saved successfully.");
                         databaseComplete = true;
                     }
                 }
@@ -84,7 +84,7 @@ public class DatabaseStorage implements IDatabaseStorage {
                 Thread.sleep(1);
             }
 
-            System.out.println("Firebase Exit");
+            log.info("Firebase Exit");
         }
     }
 
@@ -116,13 +116,13 @@ public class DatabaseStorage implements IDatabaseStorage {
                     PropertyListing data = snapshot.getValue(PropertyListing.class);
                     propertiesRetrieved.put(snapshot.getKey(), data);
                 }
-                System.out.println("Data retrieved successfully.");
+                log.info("Data retrieved successfully.");
                 databaseComplete = true;
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                System.out.println("Data could not be retrieved " + error.getMessage());
+                log.error("Data could not be retrieved {} ", error.getMessage());
                 databaseComplete = true;
             }
         });
@@ -134,7 +134,7 @@ public class DatabaseStorage implements IDatabaseStorage {
             Thread.sleep(1);
         }
 
-        System.out.println("Firebase Exit");
+        log.info("Firebase Exit");
 
         return propertiesRetrieved;
     }

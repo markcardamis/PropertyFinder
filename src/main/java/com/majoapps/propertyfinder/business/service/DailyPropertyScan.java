@@ -1,5 +1,8 @@
 package com.majoapps.propertyfinder.business.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.majoapps.propertyfinder.business.domain.DomainTokenAuthResponse;
 import com.majoapps.propertyfinder.business.domain.PropertyListing;
 import com.majoapps.propertyfinder.business.domain.PropertySearchCommercialRequest;
@@ -12,9 +15,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Slf4j
 @Component
@@ -70,7 +70,7 @@ public class DailyPropertyScan {
         String[] propertyTypes = new String[]{"DevelopmentSite", "House", "NewLand", "VacantLand"};
 
         getDomainAuth(domainKey);
-        System.out.println("Get Domain Key " + domainKey);
+        log.info("Get Domain Key {} ", domainKey);
 
         PropertySearchRequest.Locations sydneyRegion = new PropertySearchRequest.Locations();
         sydneyRegion.state = "NSW";
@@ -88,7 +88,7 @@ public class DailyPropertyScan {
                 {sydneyRegion};
 
         for (int k = 0; k < locations.length; k++) {
-            System.out.println("Location " + locations[k].region);
+            log.info("Location {} ", locations[k].region);
             PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
             price = priceStart;
 
@@ -117,17 +117,17 @@ public class DailyPropertyScan {
                     if (domainKey >= authKey.length){
                         domainKey = 1;
                     }
-                    System.out.println("Domain Key " + domainKey);
+                    log.info("Domain Key {} ", domainKey);
                     getDomainAuth(domainKey);
                     domainSearchCount = 0;
                     propertyListings = getDomainListing();
                 }
 
                 if (propertyListingsComplete == null && propertyListings != null) {
-                    System.out.println(price + " Pages 1 " + propertyListings.length);
+                    log.info("{} Pages 1 {}", price, propertyListings.length);
                     propertyListingsComplete = propertyListings;
                 } else if (propertyListings != null && propertyListings.length > 0){
-                    System.out.println(price + " Pages 1 " + propertyListings.length);
+                    log.info("{} Pages 1 {}", price, propertyListings.length);
                     propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
                 }
                 int i = 1;
@@ -136,7 +136,7 @@ public class DailyPropertyScan {
                     propertySearchRequest.page = i;
                     propertyListings = getDomainListing();
                     if (propertyListings != null) {
-                        System.out.println(price + " Pages " + i + " " + propertyListings.length);
+                        log.info("{} Pages {} {}", price, i, propertyListings.length);
                         propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
                     }
                 }
@@ -145,7 +145,7 @@ public class DailyPropertyScan {
         }
 
         if (propertyListingsComplete != null) {
-            System.out.println("Residential property listings complete " + propertyListingsComplete.length);
+            log.info("Residential property listings complete {} ", propertyListingsComplete.length);
         }
     }
 
@@ -184,7 +184,7 @@ public class DailyPropertyScan {
                 {sydneyRegion};
 
         for (int k = 0; k < locations.length; k++) {
-            System.out.println("Location " + locations[k].region);
+            log.info("Location ", locations[k].region);
             searchJsonCommercial.locations = new PropertySearchCommercialRequest.LocationSearch[]{locations[k]};
             searchJsonCommercial.page = 1;
             getDomainAuth(domainKey);
@@ -207,7 +207,7 @@ public class DailyPropertyScan {
         }
 
         if (propertyListingsComplete != null) {
-            System.out.println("Commercial property listings complete " + propertyListingsComplete.length);
+            log.info("Commercial property listings complete {} ", propertyListingsComplete.length);
         }
     }
 
