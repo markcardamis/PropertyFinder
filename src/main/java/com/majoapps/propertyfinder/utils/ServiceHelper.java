@@ -72,7 +72,7 @@ public class ServiceHelper implements IServiceHelper
                 rd = new BufferedReader(new InputStreamReader(request.getInputStream()));
             } else if (request.getErrorStream() != null) {
                 rd = new BufferedReader(new InputStreamReader(request.getErrorStream()));
-                log.debug("HTTP Error Response : {}", rd);
+                log.warn("HTTP Error Response : {}", rd);
             } else {
                 log.error("IllegalStateException : {} ", httpCode);
                 throw new IllegalStateException(httpCode + " : Connection closed, no ErrorStream");

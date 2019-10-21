@@ -7,6 +7,7 @@ import com.majoapps.propertyfinder.business.domain.DomainTokenAuthResponse;
 import com.majoapps.propertyfinder.business.domain.PropertyListing;
 import com.majoapps.propertyfinder.business.domain.PropertySearchCommercialRequest;
 import com.majoapps.propertyfinder.business.domain.PropertySearchRequest;
+import com.majoapps.propertyfinder.business.domain.SearchLocations;
 import com.majoapps.propertyfinder.data.repository.DatabaseStorage;
 import com.majoapps.propertyfinder.utils.DateHelper;
 
@@ -41,10 +42,10 @@ public class DailyPropertyScan {
 
     @Scheduled(fixedRate = 3600000L) // Run every hour
     public void getListingsNSW() throws Exception {
-
-        log.info("Schduled run of getListing {}", dateFormat.format(new Date()));
+        log.debug("Business Day Check {}", dateFormat.format(new Date()));
         if (dateHelper.isBusinessDay()) {
-            domainKey = 0;
+            log.info("Schduled run of getListing {}", dateFormat.format(new Date()));
+            domainKey = 1;
             getListingsResidentialNSW();
             getListingsCommercialNSW();
             propertyListingsComplete = addPlanningPortalAddress(propertyListingsComplete);
@@ -70,7 +71,7 @@ public class DailyPropertyScan {
         String[] propertyTypes = new String[]{"DevelopmentSite", "House", "NewLand", "VacantLand"};
 
         getDomainAuth(domainKey);
-        log.info("Get Domain Key {} ", domainKey);
+        log.debug("Get Domain Key {} ", domainKey);
 
         PropertySearchRequest.Locations sydneyRegion = new PropertySearchRequest.Locations();
         sydneyRegion.state = "NSW";
@@ -88,7 +89,7 @@ public class DailyPropertyScan {
                 {sydneyRegion};
 
         for (int k = 0; k < locations.length; k++) {
-            log.info("Location {} ", locations[k].region);
+            log.debug("Location {} ", locations[k].region);
             PropertySearchRequest propertySearchRequest = new PropertySearchRequest();
             price = priceStart;
 
@@ -109,6 +110,7 @@ public class DailyPropertyScan {
                 propertySearchRequest.minLandArea = minLandSize;
                 propertySearchRequest.propertyTypes = propertyTypes;
                 propertySearchRequest.locations = new PropertySearchRequest.Locations[]{locations[k]};
+                searchJson = new SearchLocations().NSW(propertySearchRequest);
                 propertySearchRequest.page = 1;
                 if (domainSearchCount <= 450) {
                     propertyListings = getDomainListing();
@@ -117,17 +119,17 @@ public class DailyPropertyScan {
                     if (domainKey >= authKey.length){
                         domainKey = 1;
                     }
-                    log.info("Domain Key {} ", domainKey);
+                    log.debug("Domain Key {} ", domainKey);
                     getDomainAuth(domainKey);
                     domainSearchCount = 0;
                     propertyListings = getDomainListing();
                 }
 
                 if (propertyListingsComplete == null && propertyListings != null) {
-                    log.info("{} Pages 1 {}", price, propertyListings.length);
+                    log.debug("{} Pages 1 {}", price, propertyListings.length);
                     propertyListingsComplete = propertyListings;
                 } else if (propertyListings != null && propertyListings.length > 0){
-                    log.info("{} Pages 1 {}", price, propertyListings.length);
+                    log.debug("{} Pages 1 {}", price, propertyListings.length);
                     propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
                 }
                 int i = 1;
@@ -136,7 +138,7 @@ public class DailyPropertyScan {
                     propertySearchRequest.page = i;
                     propertyListings = getDomainListing();
                     if (propertyListings != null) {
-                        log.info("{} Pages {} {}", price, i, propertyListings.length);
+                        log.debug("{} Pages {} {}", price, i, propertyListings.length);
                         propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
                     }
                 }
@@ -184,7 +186,7 @@ public class DailyPropertyScan {
                 {sydneyRegion};
 
         for (int k = 0; k < locations.length; k++) {
-            log.info("Location ", locations[k].region);
+            log.debug("Location ", locations[k].region);
             searchJsonCommercial.locations = new PropertySearchCommercialRequest.LocationSearch[]{locations[k]};
             searchJsonCommercial.page = 1;
             getDomainAuth(domainKey);

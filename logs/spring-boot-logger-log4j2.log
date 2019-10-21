@@ -1,0 +1,56 @@
+2019-10-21 19:23:53,243 INFO o.s.b.StartupInfoLogger [main] Starting PropertyfinderApplication on localhost with PID 11274 (/Users/markcardamis/Documents/propertyfinder/build/libs/propertyfinder-0.0.1-SNAPSHOT.jar started by markcardamis in /Users/markcardamis/Documents/propertyfinder)
+2019-10-21 19:23:53,252 INFO o.s.b.SpringApplication [main] The following profiles are active: dev
+2019-10-21 19:23:54,384 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-10-21 19:23:54,487 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 90ms. Found 2 repository interfaces.
+2019-10-21 19:23:55,046 INFO o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$27333e1e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-21 19:23:55,540 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 5000 (http)
+2019-10-21 19:23:55,562 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-5000"]
+2019-10-21 19:23:55,582 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2019-10-21 19:23:55,585 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-21 19:23:55,732 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2019-10-21 19:23:55,733 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 2391 ms
+2019-10-21 19:23:55,997 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2019-10-21 19:23:56,139 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2019-10-21 19:23:56,253 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-21 19:23:56,380 INFO o.h.Version [main] HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-21 19:23:56,383 INFO o.h.c.Environment [main] HHH000206: hibernate.properties not found
+2019-10-21 19:23:56,617 INFO o.h.a.c.r.j.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-21 19:23:57,010 INFO o.h.d.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-10-21 19:23:57,105 INFO o.h.e.j.e.i.LobCreatorBuilderImpl [main] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-10-21 19:23:57,111 INFO o.h.t.BasicTypeRegistry [main] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@7d286fb6
+2019-10-21 19:23:57,934 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-21 19:23:59,030 INFO o.s.s.w.a.c.ChannelProcessingFilter [main] Validated configuration attributes
+2019-10-21 19:23:59,118 INFO o.s.s.w.DefaultSecurityFilterChain [main] Creating filter chain: any request, [org.springframework.security.web.access.channel.ChannelProcessingFilter@79da1ec0, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@239b0f9d, org.springframework.security.web.context.SecurityContextPersistenceFilter@6d304f9d, org.springframework.security.web.header.HeaderWriterFilter@5b07730f, org.springframework.security.web.csrf.CsrfFilter@4678a2eb, org.springframework.security.web.authentication.logout.LogoutFilter@4cc6fa2a, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@1e63ec0b, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@295eaa7c, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@2c88b9fc, org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter@2ece4966, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5c87bfe2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@51cd7ffc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@619bfe29, org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter@36546a22, org.springframework.security.web.session.SessionManagementFilter@a4b2d8f, org.springframework.security.web.access.ExceptionTranslationFilter@1080b026, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6c6c5427]
+2019-10-21 19:23:59,344 INFO o.s.s.c.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-21 19:23:59,418 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-10-21 19:23:59,468 INFO o.s.b.a.w.s.WelcomePageHandlerMapping [main] Adding welcome page: class path resource [static/index.html]
+2019-10-21 19:23:59,715 INFO o.s.s.c.ExecutorConfigurationSupport [main] Initializing ExecutorService 'taskScheduler'
+2019-10-21 19:23:59,779 INFO c.m.p.b.s.DailyPropertyScan [scheduling-1] Schduled run of getListing 19:23:59
+2019-10-21 19:23:59,810 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-5000"]
+2019-10-21 19:23:59,855 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 5000 (http) with context path ''
+2019-10-21 19:23:59,858 INFO o.s.b.StartupInfoLogger [main] Started PropertyfinderApplication in 7.265 seconds (JVM running for 8.895)
+2019-10-21 19:24:00,572 INFO c.m.p.b.s.DailyPropertyScan [scheduling-1] Get Domain Key 1 
+2019-10-21 19:24:00,573 INFO c.m.p.b.s.DailyPropertyScan [scheduling-1] Location Sydney Region 
+2019-10-21 19:24:00,747 ERROR c.m.p.u.ServiceHelper [scheduling-1] IllegalStateException 500 : Internal Server Error
+2019-10-21 19:24:00,748 ERROR o.s.s.s.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.IllegalStateException: 500 Internal Server Error
+	at com.majoapps.propertyfinder.utils.ServiceHelper.callHTTPService(ServiceHelper.java:92) ~[classes!/:?]
+	at com.majoapps.propertyfinder.business.service.DomainListing.getPropertyList(DomainListing.java:42) ~[classes!/:?]
+	at com.majoapps.propertyfinder.business.service.DailyPropertyScan.getDomainListing(DailyPropertyScan.java:223) ~[classes!/:?]
+	at com.majoapps.propertyfinder.business.service.DailyPropertyScan.getListingsResidentialNSW(DailyPropertyScan.java:114) ~[classes!/:?]
+	at com.majoapps.propertyfinder.business.service.DailyPropertyScan.getListingsNSW(DailyPropertyScan.java:48) ~[classes!/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_144]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_144]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_144]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_144]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.1.10.RELEASE.jar!/:5.1.10.RELEASE]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) [spring-context-5.1.10.RELEASE.jar!/:5.1.10.RELEASE]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [?:1.8.0_144]
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:308) [?:1.8.0_144]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:180) [?:1.8.0_144]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:294) [?:1.8.0_144]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_144]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_144]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_144]

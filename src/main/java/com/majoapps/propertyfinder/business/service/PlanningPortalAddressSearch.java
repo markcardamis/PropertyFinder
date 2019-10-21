@@ -47,7 +47,7 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
                 String priceHelperAddress = "http://img.ksou.cn/p.php";
                 propertyListings[i].priceCheckerURL = UrlExtensionMethods.appendParameter(priceHelperAddress, "q", propertyListings[i].priceCheckerURL);
 
-                log.info("PlanningPortalAddress " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
+                log.debug("PlanningPortalAddress " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
             }
         }
         return propertyListings;
@@ -104,7 +104,7 @@ public class PlanningPortalAddressSearch implements IPlanningPortalAddressSearch
                 propertyListing.priceCheckerURL = UrlExtensionMethods.appendParameter(priceHelperAddress, "q", propertyListing.priceCheckerURL);
 
                 propertyListingArrayList.add(propertyListing);
-                log.info("PlanningPortalAddress " + propertyListingArrayList.size() + "/" + propertyListingLength);
+                log.debug("PlanningPortalAddress " + propertyListingArrayList.size() + "/" + propertyListingLength);
                 
                 long endTime = System.currentTimeMillis() - startTime;
                 long eTime = System.currentTimeMillis() - sTime;

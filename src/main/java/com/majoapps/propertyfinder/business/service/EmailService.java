@@ -60,7 +60,7 @@ public class EmailService implements IEmailService {
                     request.setEndpoint("mail/send");
                     request.setBody(mail.build());
                     Response response = sg.api(request);
-                    log.info("Email send status code {}", response.getStatusCode());
+                    log.debug("Email send status code {}", response.getStatusCode());
                 }
             }
         }

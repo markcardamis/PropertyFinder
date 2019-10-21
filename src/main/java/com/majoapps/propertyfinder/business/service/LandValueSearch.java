@@ -20,9 +20,9 @@ public class LandValueSearch implements ILandValueSearch
                     String result = csvUtils.getPropertyField(csvFile, 0, propertyListings[i].planningPortalPropId, 1);
                     if (result != null && !result.isEmpty()) {
                         propertyListings[i].landValue = Integer.valueOf(result);
-                        log.info("landValue " + propertyListings[i].landValue + " " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
+                        log.debug("landValue " + propertyListings[i].landValue + " " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
                     } else {
-                        log.debug("Cannot find propertyID : {}", propertyListings[i].planningPortalPropId);
+                        log.warn("Cannot find propertyID : {}", propertyListings[i].planningPortalPropId);
                         propertyListings[i].landValue = 0;
                     }
                 } catch (Exception e) {

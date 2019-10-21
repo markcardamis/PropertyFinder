@@ -68,7 +68,7 @@ public class DatabaseStorage implements IDatabaseStorage {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     if (databaseError != null) {
-                        log.debug("Data could not be saved {} ", databaseError.getMessage());
+                        log.warn("Data could not be saved {} ", databaseError.getMessage());
                         databaseComplete = true;
                     } else {
                         log.info("Data saved successfully.");
@@ -84,7 +84,7 @@ public class DatabaseStorage implements IDatabaseStorage {
                 Thread.sleep(1);
             }
 
-            log.info("Firebase Exit");
+            log.debug("Firebase Exit");
         }
     }
 

@@ -71,7 +71,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
                 } catch (Exception e) {
                     log.error("Exception: " + e);
                 }
-                log.info("PlanningPortalZone " + propertyListings[i].zone + " " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
+                log.debug("PlanningPortalZone " + propertyListings[i].zone + " " + String.valueOf(i+1) + "/" + String.valueOf(propertyListings.length));
             }
         }
         return propertyListings;
@@ -150,7 +150,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
                     }
                 }
                 propertyListingArrayList.add(propertyListing);
-                log.info("PlanningPortalZone " + propertyListing.zone + " " + String.valueOf(propertyListingArrayList.size()) + "/" + String.valueOf(propertyListingLength));
+                log.debug("PlanningPortalZone " + propertyListing.zone + " " + String.valueOf(propertyListingArrayList.size()) + "/" + String.valueOf(propertyListingLength));
                 
                 long endTime = System.currentTimeMillis() - startTime;
                 long eTime = System.currentTimeMillis() - sTime;
