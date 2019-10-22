@@ -133,7 +133,7 @@ public class DailyPropertyScan {
                     propertyListingsComplete = ArrayUtils.insert(0, propertyListingsComplete, propertyListings);
                 }
                 int i = 1;
-                while (propertyListings != null && propertyListings.length >= 200 && i <= 5) {
+                while (propertyListings != null && propertyListings.length >= 200 && i < 5) {
                     i++;
                     propertySearchRequest.page = i;
                     propertyListings = getDomainListing();
@@ -198,7 +198,7 @@ public class DailyPropertyScan {
 
             }
             int i = 1;
-            while (propertyListings != null && propertyListings.length >= 200 && i <= 5) {
+            while (propertyListings != null && propertyListings.length >= 200 && i < 5) {
                 i++;
                 searchJsonCommercial.page = i;
                 getDomainListingCommercial();
