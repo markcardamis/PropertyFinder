@@ -45,7 +45,7 @@ public class DailyPropertyScan {
         log.debug("Business Day Check {}", dateFormat.format(new Date()));
         if (dateHelper.isBusinessDay()) {
             log.info("Schduled run of getListing {}", dateFormat.format(new Date()));
-            domainKey = 1;
+            domainKey = 2;
             getListingsResidentialNSW();
             getListingsCommercialNSW();
             propertyListingsComplete = addPlanningPortalAddress(propertyListingsComplete);
