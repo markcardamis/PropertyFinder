@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Property Finder</title>
+    <link rel="stylesheet" href="css/site.css"/>
+</head>
+<body>
+<table>
+    <tr>
+        <th>districtCode</th>
+        <th>districtName</th>
+        <th>propertyId</th>
+        <th>propertyType</th>
+        <th>propertyName</th>
+        <th>unitNumber</th>
+        <th>houseNumber</th>
+        <th>streetName</th>
+        <th>suburbName</th>
+        <th>zoneCode</th>
+        <th>area</th>
+        <th>areaType</th>
+        <th>baseDate1</th>
+        <th>landValue1</th>
+        <th>authority1</th>
+        <th>basis1</th>
+        <th>floorSpaceRatio</th>
+    </tr>
+    <tr th:each="property:${properties}">
+        <td th:text="${property.districtCode}"></td>
+        <td th:text="${property.districtName}"></td>
+        <td th:text="${property.propertyId}"></td>
+        <td th:text="${property.propertyType}"></td>
+        <td th:text="${property.propertyName}"></td>
+        <td th:text="${property.unitNumber}"></td>
+        <td th:text="${property.houseNumber}"></td>
+        <td th:text="${property.streetName}"></td>
+        <td th:text="${property.suburbName}"></td>
+        <td th:text="${property.zoneCode}"></td>
+        <td th:text="${property.area}"></td>
+        <td th:text="${property.areaType}"></td>
+        <td th:text="${property.baseDate1}"></td>
+        <td th:text="${property.landValue1}"></td>
+        <td th:text="${property.authority1}"></td>
+        <td th:text="${property.basis1}"></td>
+        <td th:text="${property.floorSpaceRatio}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
