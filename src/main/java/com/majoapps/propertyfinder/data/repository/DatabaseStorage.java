@@ -38,7 +38,7 @@ public class DatabaseStorage implements IDatabaseStorage {
 
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl(System.getenv().get("DATABASE_URL"))
+                    .setDatabaseUrl(System.getenv().get("FIREBASE_DATABASE_URL"))
                     .build();
 
             // Initialize the default app
@@ -99,7 +99,7 @@ public class DatabaseStorage implements IDatabaseStorage {
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl(System.getenv().get("DATABASE_URL"))
+                .setDatabaseUrl(System.getenv().get("FIREBASE_DATABASE_URL"))
                 .build();
 
         // Initialize the default app
