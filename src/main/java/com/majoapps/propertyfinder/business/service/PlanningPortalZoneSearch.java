@@ -49,8 +49,8 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
                 if (propertyInformationResponse.getMinimumLotSize() == null) {
                     propertyListing.minimumLotSize = propertyInformationResponse.getMinimumLotSize();
                 }
-            } catch (Exception e){
-                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                log.error("Exception: " + e);
             }
         }
         return propertyListings;

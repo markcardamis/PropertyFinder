@@ -1,6 +1,7 @@
 package com.majoapps.propertyfinder.business.service;
 
 import com.majoapps.propertyfinder.business.domain.PropertyListing;
+import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.utils.CSVUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,26 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LandValueSearch implements ILandValueSearch
 {
+
+    private PropertyInformationService propertyInformationService;
+
+    @Override
+    public PropertyListing[] addLandValue(PropertyListing[] propertyListings) throws Exception {
+        for (PropertyListing propertyListing : propertyListings) {
+            try {
+                Integer propertyId = Integer.valueOf(propertyListing.planningPortalPropId);
+                PropertyInformation propertyInformationResponse = propertyInformationService.getProperty(propertyId);
+                if (propertyInformationResponse.getLandValue1() == null) {
+                    propertyListing.landValue = propertyInformationResponse.getLandValue1();
+                }
+            } catch (Exception e) {
+                log.error("Exception: " + e);
+            }
+        }
+        return propertyListings;
+    }
+
+
     @Override
     public PropertyListing[] getLandValue(PropertyListing[] propertyListings) throws Exception {
         // Get Land Value info
