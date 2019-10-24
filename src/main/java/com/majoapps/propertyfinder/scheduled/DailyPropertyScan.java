@@ -251,7 +251,8 @@ public class DailyPropertyScan {
 
     private PropertyListing[] addLandValue(PropertyListing[] pListings) throws Exception {
         LandValueSearch landValueSearch = new LandValueSearch();
-        return (landValueSearch.getLandValue(pListings));
+        //return (landValueSearch.getLandValue(pListings));
+        return (landValueSearch.addLandValue(pListings));
     }
 
     private PropertyListing[] filterProperties(PropertyListing[] pListings) {
