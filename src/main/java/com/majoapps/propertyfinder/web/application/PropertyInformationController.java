@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 @Controller
 @RequestMapping(value="/propertyinformation")
 public class PropertyInformationController {
@@ -26,7 +24,7 @@ public class PropertyInformationController {
 
     @RequestMapping(method= RequestMethod.GET)
     public String getProperty(@RequestParam(value="property_id") Integer id, Model model){
-        List<PropertyInformation> getPropertyById = this.propertyInformationService.getProperty(id);
+        PropertyInformation getPropertyById = this.propertyInformationService.getProperty(id);
         model.addAttribute("properties", getPropertyById);
         return "properties";
     }

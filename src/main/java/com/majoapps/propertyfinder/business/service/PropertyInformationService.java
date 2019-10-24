@@ -6,9 +6,7 @@ import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 
 @Service
 public class PropertyInformationService {
@@ -20,14 +18,9 @@ public class PropertyInformationService {
         this.propertyInformationRepository = propertyInformationRepository;
     }
 
-    public List<PropertyInformation> getProperty(Integer id) {
-        List<PropertyInformation> properties = new ArrayList<>();
-        Optional<PropertyInformation> propertyResponse = this.propertyInformationRepository.findById(id);
-        if (propertyResponse.isPresent()) {
-            PropertyInformation account = propertyResponse.get();
-            properties.add(account);
-        }
-        return properties;
+    public PropertyInformation getProperty(Integer id) {
+        return this.propertyInformationRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(id.toString()));
     }
 
     // public ResponseEntity<PropertyInformation> updateAccount(Integer id, PropertyInformation newAccount){
