@@ -1,4 +1,4 @@
-package com.majoapps.propertyfinder.business.service;
+package com.majoapps.propertyfinder.scheduled;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,6 +8,13 @@ import com.majoapps.propertyfinder.business.domain.PropertyListing;
 import com.majoapps.propertyfinder.business.domain.PropertySearchCommercialRequest;
 import com.majoapps.propertyfinder.business.domain.PropertySearchRequest;
 import com.majoapps.propertyfinder.business.domain.SearchLocations;
+import com.majoapps.propertyfinder.business.service.DomainAuthentication;
+import com.majoapps.propertyfinder.business.service.DomainListing;
+import com.majoapps.propertyfinder.business.service.EmailService;
+import com.majoapps.propertyfinder.business.service.FilterProperties;
+import com.majoapps.propertyfinder.business.service.LandValueSearch;
+import com.majoapps.propertyfinder.business.service.PlanningPortalAddressSearch;
+import com.majoapps.propertyfinder.business.service.PlanningPortalZoneSearch;
 import com.majoapps.propertyfinder.data.repository.DatabaseStorage;
 import com.majoapps.propertyfinder.utils.DateHelper;
 
