@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import lombok.Data;
 
 @Entity
@@ -41,6 +44,7 @@ public class PropertyInformation {
     private BigDecimal area;
     @Column(name="area_type")
     private String areaType;
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="base_date_1")
     private Date baseDate1;
     @Column(name="land_value_1")
@@ -49,6 +53,7 @@ public class PropertyInformation {
     private String authority1;
     @Column(name="basis_1")
     private String basis1;
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="base_date_2")
     private Date baseDate2;
     @Column(name="land_value_2")
@@ -57,6 +62,7 @@ public class PropertyInformation {
     private String authority2;
     @Column(name="basis_2")
     private String basis2;
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="base_date_3")
     private Date baseDate3;
     @Column(name="land_value_3")
@@ -65,6 +71,7 @@ public class PropertyInformation {
     private String authority3;
     @Column(name="basis_3")
     private String basis3;
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="base_date_4")
     private Date baseDate4;
     @Column(name="land_value_4")
@@ -73,6 +80,7 @@ public class PropertyInformation {
     private String authority4;
     @Column(name="basis_4")
     private String basis4;
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="base_date_5")
     private Date baseDate5;
     @Column(name="land_value_5")
