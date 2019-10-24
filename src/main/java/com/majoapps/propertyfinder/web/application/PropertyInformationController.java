@@ -1,8 +1,6 @@
 package com.majoapps.propertyfinder.web.application;
 
-import com.majoapps.propertyfinder.business.service.AccountService;
 import com.majoapps.propertyfinder.business.service.PropertyInformationService;
-import com.majoapps.propertyfinder.data.entity.Account;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 
 import org.springframework.beans.factory.annotation.Autowired;
