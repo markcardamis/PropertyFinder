@@ -91,5 +91,7 @@ public class PropertyInformation {
     private String basis5;
     @Column(name="floor_space_ratio")
     private BigDecimal floorSpaceRatio;
+    @Column(name="minimum_lot_size")
+    private String minimumLotSize;
 
 }
