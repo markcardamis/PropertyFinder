@@ -6,6 +6,9 @@ import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 @Service
@@ -16,6 +19,13 @@ public class PropertyInformationService {
     @Autowired
     public PropertyInformationService(PropertyInformationRepository propertyInformationRepository) {
         this.propertyInformationRepository = propertyInformationRepository;
+    }
+
+    public List<PropertyInformation> getAllProperties() {
+        List<PropertyInformation> properties = new ArrayList<>();
+        Iterable<PropertyInformation> results = this.propertyInformationRepository.findAll();
+        results.forEach(properties::add);
+        return properties;
     }
 
     public PropertyInformation getProperty(Integer id) {
