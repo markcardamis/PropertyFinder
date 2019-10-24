@@ -245,7 +245,8 @@ public class DailyPropertyScan {
 
     private PropertyListing[] addPlanningPortalZone(PropertyListing[] pListings) throws Exception {
         PlanningPortalZoneSearch planningPortalZoneSearch = new PlanningPortalZoneSearch();
-        return (planningPortalZoneSearch.getPlanningZoneMultiThreaded(pListings));
+        //return (planningPortalZoneSearch.getPlanningZoneMultiThreaded(pListings));
+        return (planningPortalZoneSearch.addPlanningZone(pListings));
     }
 
     private PropertyListing[] addLandValue(PropertyListing[] pListings) throws Exception {

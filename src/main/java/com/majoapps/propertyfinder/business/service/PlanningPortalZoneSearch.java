@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import com.google.gson.Gson;
 import com.majoapps.propertyfinder.business.domain.PlanningPortalZoneResponse;
 import com.majoapps.propertyfinder.business.domain.PropertyListing;
+import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.utils.HttpMethod;
 import com.majoapps.propertyfinder.utils.IServiceHelper;
 import com.majoapps.propertyfinder.utils.ServiceHelper;
@@ -19,6 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
 {
+
+    private PropertyInformationService propertyInformationService;
+
     private IServiceHelper mServiceHelper;// = new IServiceHelper();
     private List<PropertyListing> propertyListingArrayList = Collections.synchronizedList(new ArrayList<>());
     private Integer propertyListingLength = 0;
@@ -28,8 +32,32 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
         mServiceHelper = new ServiceHelper();
     }
 
+
     @Override
-    public PropertyListing[] getPlanningZone(PropertyListing[] propertyListings) throws Exception{
+    public PropertyListing[] addPlanningZone(PropertyListing[] propertyListings) throws Exception {
+
+        for (PropertyListing propertyListing : propertyListings) {
+            try {
+                Integer propertyId = Integer.valueOf(propertyListing.planningPortalPropId);
+                PropertyInformation propertyInformationResponse = propertyInformationService.getProperty(propertyId);
+                if (propertyInformationResponse.getZoneCode() == null) {
+                    propertyListing.zone = propertyInformationResponse.getZoneCode();
+                }
+                if (propertyInformationResponse.getFloorSpaceRatio() == null) {
+                    propertyListing.fsr = propertyInformationResponse.getFloorSpaceRatio().floatValue();
+                }
+                if (propertyInformationResponse.getMinimumLotSize() == null) {
+                    propertyListing.minimumLotSize = propertyInformationResponse.getMinimumLotSize();
+                }
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return propertyListings;
+    }
+
+    @Override
+    public PropertyListing[] getPlanningZone(PropertyListing[] propertyListings) throws Exception {
 
         // Get Planning portal zone info
         if (propertyListings != null && propertyListings.length > 0){
