@@ -2,8 +2,10 @@ package com.majoapps.propertyfinder.business.service;
 
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository;
+import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,22 +30,21 @@ public class PropertyInformationService {
         return properties;
     }
 
-    public PropertyInformation getProperty(Integer id) {
+    public PropertyInformation getPropertyInformation(Integer id) {
         return this.propertyInformationRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException(id.toString()));
     }
 
-    // public ResponseEntity<PropertyInformation> updateAccount(Integer id, PropertyInformation newAccount){
+    public ResponseEntity<PropertyInformation> updatePropertyInformation(Integer id, PropertyInformation newAccount){
 
-    //     return propertyInformationRepository.findById(id).map(customer -> {
-    //         customer.setFirstName(newAccount.getFirstName());
-    //         customer.setLastName(newAccount.getLastName());
-    //         customer.setEmailAddress(newAccount.getEmailAddress());
-    //         customer.setPhoneNumber(newAccount.getPhoneNumber());
-    //         propertyInformationRepository.save(customer);
-    //         return ResponseEntity.ok(customer);
-    //     }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
+        return propertyInformationRepository.findById(id).map(propertyInformation -> {
+            propertyInformation.setZoneCode(newAccount.getZoneCode());
+            propertyInformation.setFloorSpaceRatio(newAccount.getFloorSpaceRatio());
+            propertyInformation.setMinimumLotSize(newAccount.getMinimumLotSize());
+            propertyInformationRepository.save(propertyInformation);
+            return ResponseEntity.ok(propertyInformation);
+        }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
 
-    // }
+    }
 
 }

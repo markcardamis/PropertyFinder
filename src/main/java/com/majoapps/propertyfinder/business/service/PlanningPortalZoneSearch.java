@@ -39,7 +39,7 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
         for (PropertyListing propertyListing : propertyListings) {
             try {
                 Integer propertyId = Integer.valueOf(propertyListing.planningPortalPropId);
-                PropertyInformation propertyInformationResponse = propertyInformationService.getProperty(propertyId);
+                PropertyInformation propertyInformationResponse = propertyInformationService.getPropertyInformation(propertyId);
                 if (propertyInformationResponse.getZoneCode() == null) {
                     propertyListing.zone = propertyInformationResponse.getZoneCode();
                 }

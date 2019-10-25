@@ -17,7 +17,7 @@ public class LandValueSearch implements ILandValueSearch
         for (PropertyListing propertyListing : propertyListings) {
             try {
                 Integer propertyId = Integer.valueOf(propertyListing.planningPortalPropId);
-                PropertyInformation propertyInformationResponse = propertyInformationService.getProperty(propertyId);
+                PropertyInformation propertyInformationResponse = propertyInformationService.getPropertyInformation(propertyId);
                 if (propertyInformationResponse.getLandValue1() == null) {
                     propertyListing.landValue = propertyInformationResponse.getLandValue1();
                 }

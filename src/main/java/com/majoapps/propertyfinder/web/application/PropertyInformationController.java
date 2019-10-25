@@ -24,7 +24,7 @@ public class PropertyInformationController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getProperty(@RequestParam(value = "property_id") Integer id, Model model) {
-        PropertyInformation getPropertyById = this.propertyInformationService.getProperty(id);
+        PropertyInformation getPropertyById = this.propertyInformationService.getPropertyInformation(id);
         model.addAttribute("properties", getPropertyById);
         return "properties";
     }
