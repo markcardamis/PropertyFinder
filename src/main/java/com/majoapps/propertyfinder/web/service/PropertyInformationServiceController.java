@@ -35,4 +35,9 @@ public class PropertyInformationServiceController {
         return propertyInformationService.updatePropertyInformation(propertyId, propertyInformation);
     }
 
+    @RequestMapping(value = "{id}", method= RequestMethod.PATCH)
+    public ResponseEntity<PropertyInformation> partialUpdatePropertyInformation(@PathVariable Integer propertyId, @RequestBody PropertyInformation propertyInformation){
+        return propertyInformationService.partialUpdatePropertyInformation(propertyId, propertyInformation);
+    }
+
 }
