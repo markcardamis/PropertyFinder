@@ -40,13 +40,11 @@ public class AccountService {
         return accounts;
     }
 
-
     public Account saveAccount(Account account) {
         return accountRepository.save(account);
     }
 
     public ResponseEntity<Account> updateAccount(UUID id, Account newAccount){
-
         return accountRepository.findById(id).map(customer -> {
             customer.setFirstName(newAccount.getFirstName());
             customer.setLastName(newAccount.getLastName());
@@ -55,18 +53,25 @@ public class AccountService {
             accountRepository.save(customer);
             return ResponseEntity.ok(customer);
         }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
+    }
 
+    public ResponseEntity<Account> partialUpdateAccount(UUID id, Account newAccount){
+        return accountRepository.findById(id).map(customer -> {
+            if (newAccount.getFirstName() != null) customer.setFirstName(newAccount.getFirstName());
+            if (newAccount.getLastName() != null) customer.setLastName(newAccount.getLastName());
+            if (newAccount.getEmailAddress() != null) customer.setEmailAddress(newAccount.getEmailAddress());
+            if (newAccount.getPhoneNumber() != null) customer.setPhoneNumber(newAccount.getPhoneNumber());
+            accountRepository.save(customer);
+            return ResponseEntity.ok(customer);
+        }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
     }
 
     public ResponseEntity<?> deleteAccount(UUID accountID){
-
         return this.accountRepository.findById(accountID).map(account -> {
                     accountRepository.delete(account);
                     return ResponseEntity.ok().build();
                 }
         ).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+accountID+"] can't be found"));
-
     }
-
 
 }

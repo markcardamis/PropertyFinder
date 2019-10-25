@@ -45,6 +45,11 @@ public class NotificationsServiceController {
         return notificationsService.updateNotifications(id, notifications);
     }
 
+    @RequestMapping(value = "{id}", method= RequestMethod.PATCH)
+    public ResponseEntity<Notifications> partialUpdateNotifications(@PathVariable UUID id, @RequestBody Notifications notifications){
+        return notificationsService.partialUpdateNotifications(id, notifications);
+    }
+
     @RequestMapping(value = "{id}", method= RequestMethod.DELETE)
     public ResponseEntity<?> deleteNotifications(@PathVariable UUID id){
         return notificationsService.deleteNotifications(id);

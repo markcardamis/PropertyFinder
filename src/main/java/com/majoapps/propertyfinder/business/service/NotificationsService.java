@@ -56,7 +56,6 @@ public class NotificationsService {
     }
 
     public ResponseEntity<Notifications> updateNotifications(UUID id, Notifications newNotifications){
-
         return notificationsRepository.findById(id).map(notifications -> {
             notifications.setPlanningZone(newNotifications.getPlanningZone());
             notifications.setPropertyAreaMin(newNotifications.getPropertyAreaMin());
@@ -71,17 +70,41 @@ public class NotificationsService {
             notificationsRepository.save(notifications);
             return ResponseEntity.ok(notifications);
         }).orElseThrow(() -> new ResourceNotFoundException("Notifications [ID="+id+"] can't be found"));
+    }
 
+    public ResponseEntity<Notifications> partialUpdateNotifications(UUID id, Notifications newNotifications){
+        return notificationsRepository.findById(id).map(notifications -> {
+            if (newNotifications.getPlanningZone() != null)
+                notifications.setPlanningZone(newNotifications.getPlanningZone());
+            if (newNotifications.getPropertyAreaMin() != 0)
+                notifications.setPropertyAreaMin(newNotifications.getPropertyAreaMin());
+            if (newNotifications.getPropertyAreaMax() != 0) 
+                notifications.setPropertyAreaMax(newNotifications.getPropertyAreaMax());
+            if (newNotifications.getPropertyPriceMin() != 0)
+                notifications.setPropertyPriceMin(newNotifications.getPropertyPriceMin());
+            if (newNotifications.getPropertyPriceMax() != 0)
+                notifications.setPropertyPriceMax(newNotifications.getPropertyPriceMax());
+            if (newNotifications.getPropertyPSMMin() != 0)
+                notifications.setPropertyPSMMin(newNotifications.getPropertyPSMMin());
+            if (newNotifications.getPropertyPSMMax() != 0)
+                notifications.setPropertyPSMMax(newNotifications.getPropertyPSMMax());
+            if (newNotifications.getPropertyPostCode() != null)
+                notifications.setPropertyPostCode(newNotifications.getPropertyPostCode());
+            if (newNotifications.getPropertyPriceToLandValueMin() != null)
+                notifications.setPropertyPriceToLandValueMin(newNotifications.getPropertyPriceToLandValueMin());
+            if (newNotifications.getPropertyPriceToLandValueMax() != null)
+                notifications.setPropertyPriceToLandValueMax(newNotifications.getPropertyPriceToLandValueMax());
+            notificationsRepository.save(notifications);
+            return ResponseEntity.ok(notifications);
+        }).orElseThrow(() -> new ResourceNotFoundException("Notifications [ID="+id+"] can't be found"));
     }
 
     public ResponseEntity<?> deleteNotifications(UUID notificationId){
-
         return this.notificationsRepository.findById(notificationId).map(notification -> {
                     notificationsRepository.delete(notification);
                     return ResponseEntity.ok().build();
                 }
         ).orElseThrow(() -> new ResourceNotFoundException("Notifications [ID="+notificationId+"] can't be found"));
-
     }
 
 }

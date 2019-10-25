@@ -47,6 +47,11 @@ public class AccountServiceController {
         return accountService.updateAccount(id, newAccount);
     }
 
+    @RequestMapping(value = "{id}", method= RequestMethod.PATCH)
+    public ResponseEntity<Account> partialUpdateAccount(@PathVariable(value="id") UUID id, @RequestBody Account newAccount){
+        return accountService.partialUpdateAccount(id, newAccount);
+    }
+
     @RequestMapping(value = "{id}", method= RequestMethod.DELETE)
     public ResponseEntity<?> deleteAccount(@PathVariable(value="id") UUID id){
         return this.accountService.deleteAccount(id);
