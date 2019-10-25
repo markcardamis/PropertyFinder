@@ -57,6 +57,45 @@ public class PlanningPortalZoneSearch implements IPlanningPortalZoneSearch
     }
 
     @Override
+    public PropertyListing getSinglePlanningZone(PropertyListing propertyListings) throws Exception {
+
+        // Get Planning portal zone info
+        if (propertyListings != null){
+            try {
+                propertyListings.zone = "0"; // set default values as address is not always found
+                propertyListings.lgaName = "0";
+                propertyListings.fsr = 0f;
+
+                String address = "https://api.apps1.nsw.gov.au/planning/viewersf/V1/ePlanningApi/layerintersect";
+                address = UrlExtensionMethods.appendParameter(address, "type", "property");
+                address = UrlExtensionMethods.appendParameter(address, "id", propertyListings.planningPortalPropId);
+                address = UrlExtensionMethods.appendParameter(address, "layers", "epi");
+
+                String responseJson = mServiceHelper.callHTTPService(address,
+                        HttpMethod.GET, "", false, "");
+                Gson gson = new Gson();
+                PlanningPortalZoneResponse[] planningPortalZoneResponse = gson.fromJson(responseJson, PlanningPortalZoneResponse[].class);
+                for (int j = 0; j < planningPortalZoneResponse.length; j++) {
+                    if (planningPortalZoneResponse[j].layerName.equals("Land Zoning")) {
+                        propertyListings.zone = planningPortalZoneResponse[j].results[0].Zone;
+                        propertyListings.lgaName =
+                                planningPortalZoneResponse[j].results[0].LGA_Name;
+                    } else if (planningPortalZoneResponse[j].layerName.equals("Floor Space Ratio (n:1)")){
+                        propertyListings.fsr =
+                                Float.valueOf(planningPortalZoneResponse[j].results[0].Floor_Space_Ratio);
+                    } else if (planningPortalZoneResponse[j].layerName.equals("Minimum Lot Size")){
+                        propertyListings.minimumLotSize =
+                                planningPortalZoneResponse[j].results[0].title.replaceAll("\\D", "");
+                    }
+                }
+            } catch (Exception e) {
+                log.error("Exception: " + e);
+            }            
+        }
+        return propertyListings;
+    }
+
+    @Override
     public PropertyListing[] getPlanningZone(PropertyListing[] propertyListings) throws Exception {
 
         // Get Planning portal zone info
