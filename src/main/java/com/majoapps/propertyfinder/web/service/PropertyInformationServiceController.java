@@ -25,17 +25,17 @@ public class PropertyInformationServiceController {
         return propertyInformationService.getAllProperties();
     }
 
-    @RequestMapping(value="{id}", method= RequestMethod.GET)
-    public PropertyInformation getPropertyById(@PathVariable(value="id") Integer propertyId) {
+    @RequestMapping(value="{propertyId}", method= RequestMethod.GET)
+    public PropertyInformation getPropertyById(@PathVariable(value="propertyId") Integer propertyId) {
         return propertyInformationService.getPropertyInformation(propertyId);
     }
 
-    @RequestMapping(value = "{id}", method= RequestMethod.PUT)
+    @RequestMapping(value = "{propertyId}", method= RequestMethod.PUT)
     public ResponseEntity<PropertyInformation> updatePropertyInformation(@PathVariable Integer propertyId, @RequestBody PropertyInformation propertyInformation){
         return propertyInformationService.updatePropertyInformation(propertyId, propertyInformation);
     }
 
-    @RequestMapping(value = "{id}", method= RequestMethod.PATCH)
+    @RequestMapping(value = "{propertyId}", method= RequestMethod.PATCH)
     public ResponseEntity<PropertyInformation> partialUpdatePropertyInformation(@PathVariable Integer propertyId, @RequestBody PropertyInformation propertyInformation){
         return propertyInformationService.partialUpdatePropertyInformation(propertyId, propertyInformation);
     }
