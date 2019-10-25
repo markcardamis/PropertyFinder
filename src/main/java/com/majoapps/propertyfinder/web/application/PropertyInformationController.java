@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping(value="/propertyinformation")
+@RequestMapping(value = "/propertyinformation")
 public class PropertyInformationController {
     @Autowired
     private PropertyInformationService propertyInformationService;
 
     @Autowired
-    public PropertyInformationController(PropertyInformationService propertyInformationService){
+    public PropertyInformationController(PropertyInformationService propertyInformationService) {
         super();
         this.propertyInformationService = propertyInformationService;
     }
 
-    @RequestMapping(method= RequestMethod.GET)
-    public String getProperty(@RequestParam(value="property_id") Integer id, Model model){
+    @RequestMapping(method = RequestMethod.GET)
+    public String getProperty(@RequestParam(value = "property_id") Integer id, Model model) {
         PropertyInformation getPropertyById = this.propertyInformationService.getProperty(id);
         model.addAttribute("properties", getPropertyById);
         return "properties";
