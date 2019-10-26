@@ -1,6 +1,7 @@
 package com.majoapps.propertyfinder.web.service;
 
 import com.majoapps.propertyfinder.business.domain.PropertyListing;
+import com.majoapps.propertyfinder.business.service.IPlanningPortalZoneSearch;
 import com.majoapps.propertyfinder.business.service.PlanningPortalZoneSearch;
 import com.majoapps.propertyfinder.business.service.PropertyInformationService;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
@@ -21,21 +22,24 @@ public class DataServiceController {
     private PropertyInformationService propertyInformationService;
 
     @RequestMapping(method= RequestMethod.GET)
-    public List<PropertyInformation> getAllProperties() {
+    public List<PropertyInformation> getAllProperties() throws Exception {
         PropertyInformation propertyInformation1 = null;
-        for (int i = 0; i < 4233990; i++)  {
+        PropertyListing propertyListing = new PropertyListing();
+        IPlanningPortalZoneSearch planningPortalZoneSearch = new PlanningPortalZoneSearch();
+        PropertyInformation propertyInformationNew = new PropertyInformation();
+
+        for (int i = 20800; i < 4233990; i++)  {
             try {
                 propertyInformation1 = propertyInformationService.getPropertyInformation(i);
-                PropertyListing propertyListing = new PropertyListing();
-                PlanningPortalZoneSearch planningPortalZoneSearch = new PlanningPortalZoneSearch();
                 propertyListing.planningPortalPropId = propertyInformation1.getPropertyId().toString();
-                propertyListing = planningPortalZoneSearch.getSinglePlanningZone(propertyListing);
-                PropertyInformation propertyInformationNew = new PropertyInformation();
-                propertyInformationNew.setFloorSpaceRatio(new BigDecimal(Float.toString(propertyListing.fsr)));
-                propertyInformationNew.setMinimumLotSize(propertyListing.minimumLotSize);
-                propertyInformationService.partialUpdatePropertyInformation(propertyInformation1.getPropertyId(),propertyInformationNew);
-                System.out.print(propertyListing.planningPortalPropId + " fsr " + Float.toString(propertyListing.fsr));
-                System.out.println(" lot size " + propertyListing.minimumLotSize);
+                if (propertyInformation1.getFloorSpaceRatio() == null) {
+                    propertyListing = planningPortalZoneSearch.getSinglePlanningZone(propertyListing);
+                    propertyInformationNew.setFloorSpaceRatio(new BigDecimal(Float.toString(propertyListing.fsr)));
+                    propertyInformationNew.setMinimumLotSize(propertyListing.minimumLotSize);
+                    propertyInformationService.partialUpdatePropertyInformation(propertyInformation1.getPropertyId(),propertyInformationNew);
+                    System.out.print(propertyListing.planningPortalPropId + " fsr " + Float.toString(propertyListing.fsr));
+                    System.out.println(" lot size " + propertyListing.minimumLotSize);
+                }
             } catch (Exception e) {
                 //System.out.println(e.getMessage());
             }
