@@ -4,9 +4,9 @@
   "description": "A barebones Gradle app, which can easily be deployed to Heroku.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "start": "webpack-dev-server --mode development --open --hot",
+  "build": "webpack --mode production",
+  "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

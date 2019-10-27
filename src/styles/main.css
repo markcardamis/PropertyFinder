@@ -20,3 +20,15 @@
     color: white;
     float: right;
 }
+
+.loginForm {
+    margin: 30px auto 30px auto;
+    border: 1px solid lightgrey;
+    padding: 30px;
+    width: 200px;
+}
+
+.formInput {
+    display: block;
+    margin-bottom: 8px;
+}
