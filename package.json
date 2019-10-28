@@ -1,12 +1,12 @@
 {
   "name": "propertyfinder",
   "version": "1.0.0",
-  "description": "A barebones Gradle app, which can easily be deployed to Heroku.",
+  "description": "App for finding properties written in SpringBoot",
   "main": "index.js",
   "scripts": {
-  "start": "webpack-dev-server --mode development --open --hot",
-  "build": "webpack --mode production",
-  "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

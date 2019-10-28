@@ -2,9 +2,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./src/ratpack/public/index.js",
+  //entry: "./src/main/webapp/javascript/index.js",
+  entry: "./src/main/webapp/javascript/Main.jsx",
   output: {
-    path: path.join(__dirname, "/dist"),
+    path: path.join(__dirname, "/src/main/resources/static/dist"),
     filename: "index-bundle.js",
     publicPath: '/'
   },
@@ -16,9 +17,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ["babel-loader"]
+        loader: "babel-loader",
+        options: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
+        }
       },
       {
         test: /\.css$/,
@@ -26,9 +30,12 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/ratpack/public/index.html"
+      template: "./src/main/resources/static/index.html"
     })
   ]
 };
