@@ -21,3 +21,5 @@ src/main/resources/schema.sql
 src/test/*
 logs/spring-boot-logger-log4j2.log
 node_modules/
+src/main/resources/static/dist/
+
