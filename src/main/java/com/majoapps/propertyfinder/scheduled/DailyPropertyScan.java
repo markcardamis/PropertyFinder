@@ -47,7 +47,8 @@ public class DailyPropertyScan {
             System.getenv().get("DOMAIN_KEY_5")
     };
 
-    @Scheduled(fixedRate = 3600000L) // Run every hour
+    //TODO Changed schedule to run when finish services
+    @Scheduled(fixedRate = 3600000000L) // Run every hour  3600000L
     public void getListingsNSW() throws Exception {
         log.debug("Business Day Check {}", dateFormat.format(new Date()));
         if (dateHelper.isBusinessDay()) {
