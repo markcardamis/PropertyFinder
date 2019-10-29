@@ -64,6 +64,9 @@ build.mustRunAfter clean
 
 task buildReactApp(type: NodeTask, dependsOn: 'npmInstall') {
     script = project.file('node_modules/.bin/webpack')
+	args = [
+            '--mode', 'production'
+	]
 }
 
 processResources.dependsOn 'buildReactApp'
