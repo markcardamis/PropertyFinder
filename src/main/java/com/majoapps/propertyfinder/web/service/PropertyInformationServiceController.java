@@ -20,11 +20,6 @@ public class PropertyInformationServiceController {
     @Autowired
     private PropertyInformationService propertyInformationService;
 
-    @RequestMapping(method= RequestMethod.GET)
-    public List<PropertyInformation> getAllProperties() {
-        return propertyInformationService.getAllProperties();
-    }
-
     @RequestMapping(value="{propertyId}", method= RequestMethod.GET)
     public PropertyInformation getPropertyById(@PathVariable(value="propertyId") Integer propertyId) {
         return propertyInformationService.getPropertyInformation(propertyId);
