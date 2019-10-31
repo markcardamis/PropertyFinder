@@ -7,21 +7,21 @@ export default withAuth(class LoginForm extends Component {
     super(props);
     this.state = {
       sessionToken: null,
-      email: '',
+      username: '',
       password: ''
     }
 
     this.oktaAuth = new OktaAuth({ url: props.baseUrl });
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     this.oktaAuth.signIn({
-      email: this.state.email,
+      username: this.state.username,
       password: this.state.password
     })
     .then(res => this.setState({
@@ -30,8 +30,8 @@ export default withAuth(class LoginForm extends Component {
     .catch(err => console.log('Found an error', err));
   }
 
-  handleEmailChange(e) {
-    this.setState({email: e.target.value});
+  handleUsernameChange(e) {
+    this.setState({username: e.target.value});
   }
 
   handlePasswordChange(e) {
@@ -47,12 +47,12 @@ export default withAuth(class LoginForm extends Component {
     return (
       <form className='loginForm' onSubmit={this.handleSubmit}>
         <label>
-          Email:
+        Username:
           <input
             className='formInput'
-            id="email" type="email"
-            value={this.state.email}
-            onChange={this.handleEmailChange} />
+            id="username" type="text"
+            value={this.state.username}
+            onChange={this.handleUsernameChange} />
           Password:
           <input
             className='formInput'

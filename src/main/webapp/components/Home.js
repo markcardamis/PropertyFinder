@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
 
 
@@ -30,6 +31,8 @@ export default withAuth(class Home extends Component {
 
     return (
       <div>
+        <Link to='/'>Home</Link><br/>
+        <Link to='/protected'>Protected</Link><br/>
         {button}
       </div>
     );

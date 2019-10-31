@@ -7,6 +7,7 @@ import com.majoapps.propertyfinder.business.service.PropertyInformationService;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value="/api/data")
 public class DataServiceController {
 
