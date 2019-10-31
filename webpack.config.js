@@ -31,11 +31,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx']
-  }
+  },
 
-  // plugins: [
-  // new HtmlWebpackPlugin({
-  //     template: "./src/main/resources/templates/index.html"
-  //   })
-  // ]
+  plugins: [
+  new HtmlWebpackPlugin({
+      template: "./src/main/resources/static/index.html"
+    })
+  ]
 };
