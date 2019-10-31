@@ -17,9 +17,10 @@ class App extends Component {
       <Router>
         <Nav/>
         <Security issuer='https://dev-842802.okta.com/oauth2/default'
-                  clientId='0oa1kjz045rSwS4lB357'
+                  clientId='0oa1phknm1QbQZjCh357'
                   redirectUri={window.location.origin + '/implicit/callback'}
                   onAuthRequired={onAuthRequired}
+                  scopes={['openid profile email']}
                   pkce={true} >
           <Route path='/' exact={true} component={Home} />
           <SecureRoute path='/protected' component={Protected} />
