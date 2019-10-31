@@ -1,5 +1,5 @@
 {
   "name": "Property Finder",
   "description": "A web app, which can help you find your next property.",
-  "addons": [ "heroku-postgresql" ]
+  "addons": ["heroku-postgresql"]
 }
