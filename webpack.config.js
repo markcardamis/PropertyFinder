@@ -10,18 +10,19 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    port: 3000
+    port: 5000
   },
 
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
+        // test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader",
-        options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-        }
+        // options: {
+        //     presets: ['@babel/preset-env', '@babel/preset-react']
+        // }
       },
       {
         test: /\.css$/,

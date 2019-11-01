@@ -6,6 +6,7 @@ class Nav extends React.Component {
         return (
             <div className='nav'>
                 <Link className='homeLink' to='/'>Home</Link>
+                {/* <Link className='homeLink' to='/map'>Map</Link> */}
                 <h1>Property Finder</h1>
             </div>
         )
