@@ -23,7 +23,7 @@ class Map extends React.Component {
         <div>
           <ReactMapGL 
                 className='map' 
-                mapStyle=''
+                mapStyle='mapbox://styles/mapbox/outdoors-v10'
                 {...this.state.viewport} 
                 onViewportChange={(viewport => this.setState({viewport}))} 
                 mapboxApiAccessToken='pk.eyJ1IjoiaXJhcGFsaXkiLCJhIjoiY2syZXY3ZThuMDNldDNjcWszYmF3MGVjbiJ9.XZbadn1EL3fhX47KSbcVzA'>
