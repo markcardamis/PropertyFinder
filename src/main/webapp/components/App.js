@@ -20,9 +20,10 @@ class App extends Component {
                   redirectUri={window.location.origin + '/implicit/callback'}
                   onAuthRequired={onAuthRequired}
                   pkce={true} >
-          <Route path='/' exact={true} component={Home} />
-          <Route path='/login' render={() => <Login baseUrl='https://dev-842802.okta.com' />} />
-          <Route path='/implicit/callback' component={ImplicitCallback} />
+          <Route path='/' exact component={Home} />
+          <Route path='/login' exact render={() => <Login baseUrl='https://dev-842802.okta.com' />} />
+          <Route path='/implicit/callback' component={ImplicitCallback} exact />
+          {/* <Route path='/map' exact component={Map} /> */}
         </Security>
       </Router>
     );
