@@ -36,4 +36,5 @@ export default withAuth(class Home extends Component {
       </div>
     );
   }
+  
 });
