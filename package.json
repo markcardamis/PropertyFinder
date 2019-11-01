@@ -35,6 +35,8 @@
     "@babel/runtime": "^7.6.3",
     "@okta/okta-auth-js": "^2.9.0",
     "@okta/okta-react": "^1.2.3",
+    "es6-promise": "^4.2.8",
+    "isomorphic-fetch": "^2.2.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2"

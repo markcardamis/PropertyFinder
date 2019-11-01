@@ -33,6 +33,7 @@ export default withAuth(class Home extends Component {
       <div>
         <Link to='/'>Home</Link><br/>
         <Link to='/protected'>Protected</Link><br/>
+        <Link to='/propertyinformation'>Property Information</Link><br/>
         {button}
       </div>
     );
