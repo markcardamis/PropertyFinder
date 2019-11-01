@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
+import Map from './Map';
 
 
 export default withAuth(class Home extends Component {
@@ -34,7 +35,9 @@ export default withAuth(class Home extends Component {
         <Link to='/'>Home</Link><br/>
         <Link to='/protected'>Protected</Link><br/>
         {button}
+        <Map/>
       </div>
     );
   }
+  
 });

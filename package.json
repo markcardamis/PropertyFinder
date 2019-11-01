@@ -20,6 +20,7 @@
   "homepage": "https://github.com/markcardamis/PropertyFinder#readme",
   "devDependencies": {
     "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
     "babel-loader": "^8.0.6",
@@ -31,12 +32,13 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
-    "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/runtime": "^7.6.3",
     "@okta/okta-auth-js": "^2.9.0",
     "@okta/okta-react": "^1.2.3",
+    "mapbox-gl": "^1.5.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
+    "react-map-gl": "^5.1.0",
     "react-router-dom": "^5.1.2"
   }
 }
