@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
 import Map from './Map';
 
+
 export default withAuth(class Home extends Component {
   constructor(props) {
     super(props);

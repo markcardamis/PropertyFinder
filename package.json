@@ -31,6 +31,7 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.9.0"
   },
+  
   "dependencies": {
     "@babel/runtime": "^7.6.3",
     "@okta/okta-auth-js": "^2.9.0",
