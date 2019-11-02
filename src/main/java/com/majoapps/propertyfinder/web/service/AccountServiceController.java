@@ -42,11 +42,11 @@ public class AccountServiceController {
         return this.accountService.getAccount(id);
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_profile')")
     @RequestMapping(value="/profile", method= RequestMethod.GET)
-        @PreAuthorize("hasAuthority('SCOPE_profile')")
-        public Map<String, Object> getUserDetails(JwtAuthenticationToken authentication) {
-            return authentication.getTokenAttributes();
-        }
+    public Map<String, Object> getUserDetails(JwtAuthenticationToken authentication) {
+        return authentication.getTokenAttributes();
+    }
 
     @RequestMapping(method= RequestMethod.POST)
     @ResponseStatus(code = HttpStatus.CREATED)
