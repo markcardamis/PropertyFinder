@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:5000")
 @RequestMapping(value="/api/account")
 @PreAuthorize("hasAuthority('SCOPE_profile')")
 public class AccountServiceController {
