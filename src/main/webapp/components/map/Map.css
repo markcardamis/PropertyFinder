@@ -11,3 +11,20 @@
     right: 25px;
     z-index: 15;
  }
+
+ .propertyMarker {
+   z-index: 100;
+ }
+
+ .propertyMarkerPin {
+    color: orangered;
+ }
+
+ .propertyInformation {
+   width: 350px;
+   height: 100%;
+   border: 1px grey solid;
+   position: absolute;
+   z-index: 100;
+   right: 0;
+}
