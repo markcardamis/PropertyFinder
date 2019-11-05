@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
+import './Login.css';
 
 export default withAuth(class LoginForm extends Component {
   constructor(props) {
@@ -45,23 +46,25 @@ export default withAuth(class LoginForm extends Component {
     }
 
     return (
-      <form className='loginForm' onSubmit={this.handleSubmit}>
-        <label>
-        Username:
-          <input
-            className='formInput'
-            id="username" type="text"
-            value={this.state.username}
-            onChange={this.handleUsernameChange} />
-          Password:
-          <input
-            className='formInput'
-            id="password" type="password"
-            value={this.state.password}
-            onChange={this.handlePasswordChange} />
-        </label>
-        <input id="submit" type="submit" value="Submit" />
-      </form>
+      <div className='container row col-lg-12 justify-content-center'>
+        <form className='loginForm col-sm-5 col-lg-3' onSubmit={this.handleSubmit}>
+          <label>
+          Username:
+            <input
+              className='formInput'
+              id="username" type="text"
+              value={this.state.username}
+              onChange={this.handleUsernameChange} />
+            Password:
+            <input
+              className='formInput'
+              id="password" type="password"
+              value={this.state.password}
+              onChange={this.handlePasswordChange} />
+          </label>
+          <input className='formInput' id="submit" type="submit" value="Submit" />
+        </form>
+      </div>
     );
   }
 });

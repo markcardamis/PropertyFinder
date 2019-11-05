@@ -1,0 +1,10 @@
+.loginForm {
+    margin-top: 30px;
+    border: 1px solid lightgrey;
+    padding: 60px;
+}
+
+.formInput {
+    display: block;
+    margin-bottom: 8px;
+}
