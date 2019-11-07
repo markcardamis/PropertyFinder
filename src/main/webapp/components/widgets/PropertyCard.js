@@ -3,8 +3,9 @@ import './PropertyCard';
 
 class PropertyCard extends React.Component {
     render () {
+        console.log(this.props.displayPropertyInformation)
         return (
-            <div className='propertyInformation justify-content-right'>
+            <div style={{display: this.props.displayPropertyInformation}} className='propertyInformation col-lg-4'>
                     <b> Price: </b>Position.price<br/>
                     <b>Zone: </b>Position.zone<br/>
                     <b>FSR: </b>Position.fsr<br/>

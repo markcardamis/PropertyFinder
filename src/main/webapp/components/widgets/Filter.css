@@ -1,0 +1,21 @@
+.filterWidget {
+    width: 350px;
+    position: absolute;
+    padding: 20px;
+    top: 400px;
+    z-index: 10;
+    border: 1px grey solid;
+    background-color: white;
+}
+
+.signinWidget {
+    width: 350px;
+    position: absolute;
+    padding: 20px;
+    top: 500px;
+    right: 500px;
+    z-index: 100;
+    border: 1px grey solid;
+    background-color: white;
+}
+

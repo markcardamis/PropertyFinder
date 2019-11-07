@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMapGL, {NavigationControl, Marker, Layer, Feature} from 'react-map-gl';
 import './Map.css';
-import PropertyCard from '../PropertyCard';
+import PropertyCard from '../widgets/PropertyCard';
 import { IoIosPin } from 'react-icons/io';
 
 
@@ -10,32 +10,56 @@ class Map extends React.Component {
         super(props);
         this.state= {
             viewport: {
-                width: '100%',
+                width: '100vw',
                 height: '100vh',
                 latitude: -33.865143,
                 longitude: 151.209900,
                 zoom: 13
             }, 
-            property1: {
+            property: [{
+              id: 1,
               latitude: -33.861012,
               longitude: 151.215075,
-            }, 
-            property2: {
+            }, {
+              id: 2,
               latitude: -33.88183,
               longitude: 151.227008,
-            }, 
-            property3: {
+            }, {
+              id: 3,
               latitude: -33.875491,
               longitude: 151.215855,
-            }
+            }], 
+            showPropertyInformation: true,
+            displayPropertyInformation: 'none',
         }
+        this.togglePropertyInformation=this.togglePropertyInformation.bind(this);
+    }
+
+    // renderPins () {
+    //     this.state.property.map((item) => { 
+    //     return (<Marker 
+    //                   className='propertyMarker'
+    //                   key={item.id} 
+    //                   latitude={item.latitude} 
+    //                   longitude={item.longitude}>
+    //             <IoIosPin className='propertyMarkerPin'/>
+    //             </Marker>)
+    //     })
+    // }
+
+    togglePropertyInformation () {
+
+      this.setState((prevstate)=>({
+          showPropertyInformation: !prevstate.showPropertyInformation,
+          displayPropertyInformation: this.state.showPropertyInformation ? 'block' : 'none'
+        }));
     }
   
     render() {
       return (
-        <div>
+        <div className='row'>
           <ReactMapGL 
-                className='map row col-lg-12 col-xl-12' 
+                className='map' 
                 mapStyle='mapbox://styles/mapbox/outdoors-v10'
                 {...this.state.viewport} 
                 onViewportChange={(viewport => this.setState({viewport}))} 
@@ -43,15 +67,21 @@ class Map extends React.Component {
                   <NavigationControl className='navigationControl'/>
                   <Marker 
                     className='propertyMarker'
-                    latitude={this.state.property1.latitude}
-                    longitude={this.state.property1.longitude}
+                    latitude={this.state.property[0].latitude}
+                    longitude={this.state.property[0].longitude}
                   >
-                    <IoIosPin className='propertyMarkerPin'/>
+                    <IoIosPin 
+                        onClick={this.togglePropertyInformation} 
+                        size='3em' className='propertyMarkerPin'
+                    />
                   </Marker>
+                  {/* {this.renderPins()} */}
+                  <PropertyCard displayPropertyInformation={this.state.displayPropertyInformation}/>
           </ReactMapGL>
-          <PropertyCard className='propertyCardInformation'/>
+
         </div>
       )
     }
   }
   export default Map;
+
