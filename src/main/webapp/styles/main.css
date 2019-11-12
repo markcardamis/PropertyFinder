@@ -2,10 +2,12 @@ body {
     margin: 0;
     padding: 0;
 }
-.nav {
+.navBar {
     background-color: #0288d1;
     color: white;
     padding: 40px;
+    display: flex;
+
 }
 
 .loginButton {
@@ -34,6 +36,13 @@ body {
     z-index: 2;
 }
 
-.homeLink {
+.navLink {
     color: white;
+    padding: 10px;
+
+}
+
+.navigation {
+    list-style-type: none;
+    display: flex;
 }

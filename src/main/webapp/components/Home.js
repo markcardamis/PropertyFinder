@@ -52,9 +52,6 @@ export default withAuth(class Home extends Component {
 
     return (
       <div>
-        <Link to='/'>Home</Link><br/>
-        <Link to='/protected'>Protected</Link><br/>
-        <Link to='/propertyinformation'>Property Information</Link><br/>
         {button}
         <button className='searchButton' onClick={this.toggleFilter}><GiMagnifyingGlass size='2em'/></button>
         <Filter displayFilter={this.state.displayFilter}/>
@@ -63,5 +60,5 @@ export default withAuth(class Home extends Component {
         </div>
     );
   }
-  
+
 });
