@@ -46,7 +46,7 @@ export default withAuth(class LoginForm extends Component {
     }
 
     return (
-      <div className='container row col-lg-12 justify-content-center'>
+      <div className='container col-lg-12 justify-content-center'>
         <form className='loginForm col-sm-5 col-lg-3' onSubmit={this.handleSubmit}>
           <label>
           Username:

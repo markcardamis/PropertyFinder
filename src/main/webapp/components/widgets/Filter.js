@@ -1,30 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { withAuth } from '@okta/okta-react';
 // import './Filter';
 import './Filter.css';
-import SignIn from './SignIn'
+import SignIn from './SignIn';
 
-class Filter extends React.Component {
+
+export default withAuth(class Filter extends Component {
     constructor(props) {
         super(props);
         this.state= {
-            showSignIn: true,
-            displaySignIn: 'none'
+            // showSignIn: true,
+            displaySignIn: 'none',
+            authenticated: null
         }
         this.handleSignIn=this.handleSignIn.bind(this);
+        this.checkAuthentication = this.checkAuthentication.bind(this);
+        this.checkAuthentication();
+    }
+
+    async checkAuthentication() {
+        const authenticated = await this.props.auth.isAuthenticated();
+        if (authenticated !== this.state.authenticated) {
+          this.setState({ authenticated });
+        }
+      }
+      
+    componentDidUpdate() {
+        this.checkAuthentication();
+      }
+
+    handleSignIn () {
+        this.checkAuthentication();
+
+            this.state.authenticated === true ?
+                this.setState({
+                    displaySignIn: 'none'
+                })
+            : 
+                this.setState({
+                    displaySignIn: 'block'
+                })
     }
 
 
-
-    handleSignIn () {
-        this.setState((prevstate)=>({
-            showSignIn: !prevstate.showSignIn,
-            displaySignIn: this.state.showSignIn ? 'block' : 'none'
-          }));    }
-
-
     render () {
-        console.log(this.state.displaySignIn)
-        console.log(this.state.showSignIn)
 
         return (
             <div>
@@ -50,5 +69,4 @@ class Filter extends React.Component {
         )
     }
 }
-
-export default Filter;
+)

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import './Filter';
+import Login from '../auth/Login'
 
 class SignIn extends Component {
     render () {
         return (
             <div className='signinWidget' style={{display: this.props.displaySignIn}}>
-                <label>Username<input type='text'/></label>
-                <label>Password<input type='text'/></label>
-                <button>Sign In</button>
+                <Login baseUrl='https://dev-842802.okta.com' />
             </div>
         )
     }
