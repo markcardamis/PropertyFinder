@@ -35,7 +35,8 @@ class Map extends React.Component {
                     <IoIosPin 
                         id={item.id}
                         onClick={this.togglePropertyInformation.bind(this, item.id)} 
-                        size='3em' className='propertyMarkerPin'
+                        size='3em' 
+                        className='propertyMarkerPin'
                     />
                 </Marker>
         )

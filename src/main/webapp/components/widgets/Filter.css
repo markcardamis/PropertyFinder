@@ -2,7 +2,7 @@
     width: 350px;
     position: absolute;
     padding: 20px;
-    top: 400px;
+    top: 350px;
     z-index: 10;
     border: 1px grey solid;
     background-color: white;
@@ -12,7 +12,7 @@
     width: 350px;
     position: absolute;
     padding: 20px;
-    top: 500px;
+    top: 250px;
     right: 500px;
     z-index: 100;
     border: 1px grey solid;
