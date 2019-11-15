@@ -32,6 +32,7 @@ public class DataServiceController {
             try {
                 propertyInformation1 = propertyInformationService.getPropertyInformation(i);
                 propertyListing.planningPortalPropId = propertyInformation1.getPropertyId().toString();
+                System.out.println(i);
                 if (propertyInformation1.getFloorSpaceRatio() == null) {
                     propertyListing = planningPortalZoneSearch.getSinglePlanningZone(propertyListing);
                     propertyInformationNew.setFloorSpaceRatio(new BigDecimal(Float.toString(propertyListing.fsr)));
