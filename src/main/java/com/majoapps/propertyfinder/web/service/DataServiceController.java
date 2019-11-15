@@ -28,7 +28,7 @@ public class DataServiceController {
         IPlanningPortalZoneSearch planningPortalZoneSearch = new PlanningPortalZoneSearch();
         PropertyInformation propertyInformationNew = new PropertyInformation();
 
-        for (int i = 20800; i < 4233990; i++)  {
+        for (int i = 89600; i < 4233990; i++)  {
             try {
                 propertyInformation1 = propertyInformationService.getPropertyInformation(i);
                 propertyListing.planningPortalPropId = propertyInformation1.getPropertyId().toString();
