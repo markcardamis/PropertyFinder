@@ -32,7 +32,6 @@ public class DataServiceController {
             try {
                 propertyInformation1 = propertyInformationService.getPropertyInformation(i);
                 propertyListing.planningPortalPropId = propertyInformation1.getPropertyId().toString();
-                System.out.println(i);
                 if (propertyInformation1.getFloorSpaceRatio() == null) {
                     propertyListing = planningPortalZoneSearch.getSinglePlanningZone(propertyListing);
                     propertyInformationNew.setFloorSpaceRatio(new BigDecimal(Float.toString(propertyListing.fsr)));
@@ -40,6 +39,8 @@ public class DataServiceController {
                     propertyInformationService.partialUpdatePropertyInformation(propertyInformation1.getPropertyId(),propertyInformationNew);
                     System.out.print(propertyListing.planningPortalPropId + " fsr " + Float.toString(propertyListing.fsr));
                     System.out.println(" lot size " + propertyListing.minimumLotSize);
+                } else {
+                    System.out.println(i);
                 }
             } catch (Exception e) {
                 //System.out.println(e.getMessage());
