@@ -5,8 +5,6 @@ import PropertyCard from '../widgets/PropertyCard';
 import { IoIosPin } from 'react-icons/io';
 import { PROPERTY_COORDINATES } from '../../constants';
 
-let propertyInfo;
-
 class Map extends React.Component {
     constructor(props) {
         super(props);
@@ -20,6 +18,7 @@ class Map extends React.Component {
             },              
             showPropertyInformation: true,
             displayPropertyInformation: 'none',
+            propertyInfo: ''
         }
         // this.togglePropertyInformation=this.togglePropertyInformation.bind(this, id);
         this.renderPins=this.renderPins.bind(this);
@@ -44,25 +43,31 @@ class Map extends React.Component {
 
     togglePropertyInformation (id) {
 
-      this.setState((prevstate)=>({
-          showPropertyInformation: !prevstate.showPropertyInformation,
-          displayPropertyInformation: this.state.showPropertyInformation ? 'block' : 'none'
+      this.setState((prevState)=>({
+          showPropertyInformation: !prevState.showPropertyInformation,
+          displayPropertyInformation: this.state.showPropertyInformation ? 'block' : 'none',
+          // propertyInfo: id
         }));
       propertyInfo=id;
+      id.onChange={function () {console.log('changed')}};
+      // console.log(this.state.propertyInfo)
+      // console.log(prevState)
     }
+
+
   
     render() {
       return (
         <div className='row'>
           <ReactMapGL 
-                className='map' 
+                className='map col-lg-12' 
                 mapStyle='mapbox://styles/mapbox/outdoors-v10'
                 {...this.state.viewport} 
                 onViewportChange={(viewport => this.setState({viewport}))} 
                 mapboxApiAccessToken='pk.eyJ1IjoiaXJhcGFsaXkiLCJhIjoiY2syZXY3ZThuMDNldDNjcWszYmF3MGVjbiJ9.XZbadn1EL3fhX47KSbcVzA'>
                 <NavigationControl className='navigationControl'/>
                 {this.renderPins()}
-                <PropertyCard id={propertyInfo} displayPropertyInformation={this.state.displayPropertyInformation}/>
+                <PropertyCard id={this.state.propertyInfo} displayPropertyInformation={this.state.displayPropertyInformation}/>
           </ReactMapGL>
 
         </div>

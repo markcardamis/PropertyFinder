@@ -38,10 +38,7 @@ export default withAuth(class Home extends Component {
 
   render() {
     if (this.state.authenticated === null) return null;
-    console.log(this.state.displayFilter)
-    console.log(this.state.showFilter)
-
-
+  
     const button = this.state.authenticated ?
       <button className='loginButton' onClick={() => {this.props.auth.logout()}}>Logout</button> : 
       <button className='loginButton' onClick={() => {this.props.auth.login()}}>Login</button>;
@@ -52,8 +49,7 @@ export default withAuth(class Home extends Component {
         <button className='searchButton' onClick={this.toggleFilter}><GiMagnifyingGlass size='2em'/></button>
         <Filter displayFilter={this.state.displayFilter}/>
         <Map/>
-        
-        </div>
+      </div>
     );
   }
 
