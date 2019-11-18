@@ -1,4 +1,4 @@
-export const PROPERTY_COORDINATES = [
+export const PROPERTY_DATA = [
     {
         id: 1,
         latitude: -33.861012,

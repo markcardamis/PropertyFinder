@@ -3,7 +3,7 @@ import ReactMapGL, {NavigationControl, Marker, Layer, Feature} from 'react-map-g
 import './Map.css';
 import PropertyCard from '../widgets/PropertyCard';
 import { IoIosPin } from 'react-icons/io';
-import { PROPERTY_COORDINATES } from '../../constants';
+import { PROPERTY_DATA } from '../../constants';
 
 class Map extends React.Component {
     constructor(props) {
@@ -15,9 +15,8 @@ class Map extends React.Component {
                 latitude: -33.865143,
                 longitude: 151.209900,
                 zoom: 13
-            },              
-            showPropertyInformation: true,
-            displayPropertyInformation: 'none',
+            },
+            isHidden: false,              
             propertyInfo: ''
         }
         // this.togglePropertyInformation=this.togglePropertyInformation.bind(this, id);
@@ -25,7 +24,7 @@ class Map extends React.Component {
     }
 
     renderPins () {
-        return (PROPERTY_COORDINATES.map((item) => 
+        return (PROPERTY_DATA.map((item) => 
                 <Marker 
                       className='propertyMarker'
                       key={item.id} 
@@ -44,18 +43,13 @@ class Map extends React.Component {
     togglePropertyInformation (id) {
 
       this.setState((prevState)=>({
-          showPropertyInformation: !prevState.showPropertyInformation,
-          displayPropertyInformation: this.state.showPropertyInformation ? 'block' : 'none',
-          // propertyInfo: id
+          // isHidden: !prevState.isHidden,
+          isHidden: true,
+          propertyInfo: id
         }));
-      propertyInfo=id;
-      id.onChange={function () {console.log('changed')}};
-      // console.log(this.state.propertyInfo)
-      // console.log(prevState)
     }
 
 
-  
     render() {
       return (
         <div className='row'>
@@ -67,7 +61,7 @@ class Map extends React.Component {
                 mapboxApiAccessToken='pk.eyJ1IjoiaXJhcGFsaXkiLCJhIjoiY2syZXY3ZThuMDNldDNjcWszYmF3MGVjbiJ9.XZbadn1EL3fhX47KSbcVzA'>
                 <NavigationControl className='navigationControl'/>
                 {this.renderPins()}
-                <PropertyCard id={this.state.propertyInfo} displayPropertyInformation={this.state.displayPropertyInformation}/>
+                {this.state.isHidden && <PropertyCard id={this.state.propertyInfo}/>}
           </ReactMapGL>
 
         </div>
