@@ -6,13 +6,15 @@ import { IoMdPricetags, IoMdClose } from 'react-icons/io';
 import { DEFAULT_HOUSE_IMAGE } from '../../constants';
 
 class PropertyCard extends React.Component {
+
     render () {
         const { property } = this.props
             return (
                 <div>
                     <ul className='propertyInformation col-lg-4'>
-                        <li>
+                        <li className='justify-content-between' style={{display: 'flex'}}>
                             <h4>Property ID: {property.id}</h4>
+                            <IoMdClose size='2em' onClick={this.props.onClick}/>
                         </li>
                         <li>
                             <img 

@@ -83,6 +83,12 @@ class Map extends React.Component {
         });
     }
 
+    handleClose () {
+      this.setState({
+        isHidden: false,
+      })
+    }
+
 
     render() {
       return (
@@ -95,7 +101,7 @@ class Map extends React.Component {
                 mapboxApiAccessToken='pk.eyJ1IjoiaXJhcGFsaXkiLCJhIjoiY2syZXY3ZThuMDNldDNjcWszYmF3MGVjbiJ9.XZbadn1EL3fhX47KSbcVzA'>
                 <NavigationControl className='navigationControl'/>
                 {this.renderPins()}
-                {this.state.isHidden && <PropertyCard property={this.state.property}/>}
+                {this.state.isHidden && <PropertyCard onClick={this.handleClose.bind(this)} property={this.state.property}/>}
           </ReactMapGL>
         </div>
       )
