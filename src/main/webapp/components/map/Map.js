@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactMapGL, {NavigationControl, Marker, Layer, Feature} from 'react-map-gl';
+import ReactMapGL, {NavigationControl, Marker, Popup} from 'react-map-gl';
 import './Map.css';
 import PropertyCard from '../widgets/PropertyCard';
 import { IoIosPin } from 'react-icons/io';
@@ -17,9 +17,20 @@ class Map extends React.Component {
                 zoom: 13
             },
             isHidden: false,              
-            propertyInfo: ''
+            property: {
+              id: '',
+              image: '',
+              price: '',
+              bedroom: '',
+              bathroom: '',
+              carspace: '',
+              area: '',
+              zone: '',
+              fsr: '',
+              domainurl: '',
+              landvalue: ''
+              }
         }
-        // this.togglePropertyInformation=this.togglePropertyInformation.bind(this, id);
         this.renderPins=this.renderPins.bind(this);
     }
 
@@ -27,12 +38,24 @@ class Map extends React.Component {
         return (PROPERTY_DATA.map((item) => 
                 <Marker 
                       className='propertyMarker'
-                      key={item.id} 
+                      key={item.id}
                       latitude={item.latitude} 
-                      longitude={item.longitude}>
+                      longitude={item.longitude}
+                      
+                >
                     <IoIosPin 
                         id={item.id}
-                        onClick={this.togglePropertyInformation.bind(this, item.id)} 
+                        image={item.image}
+                        price={item.price}
+                        bedroom={item.bedroom}
+                        bathroom={item.bathroom}
+                        carspace={item.carspace}
+                        area={item.area}
+                        zone={item.zone}
+                        fsr={item.fsr}
+                        domainurl={item.domainurl}
+                        landvalue={item.landvalue}
+                        onClick={this.togglePropertyInformation.bind(this, item.id, item.image, item.price, item.bedroom, item.bathroom, item.carspace, item.zone, item.fsr, item.area, item.domainurl, item.landvalue)} 
                         size='3em' 
                         className='propertyMarkerPin'
                     />
@@ -40,13 +63,24 @@ class Map extends React.Component {
         )
         )}
 
-    togglePropertyInformation (id) {
+    togglePropertyInformation (id, image, price, bedroom, bathroom, carspace, area, zone, fsr, domainurl, landvalue) {
 
-      this.setState((prevState)=>({
-          // isHidden: !prevState.isHidden,
+      this.setState({
           isHidden: true,
-          propertyInfo: id
-        }));
+          property: {
+            id: id,
+            image: image,
+            price: price,
+            bedroom: bedroom,
+            bathroom: bathroom,
+            carspace: carspace,
+            area: area,
+            zone: zone,
+            fsr: fsr,
+            domainurl: domainurl,
+            landvalue: landvalue
+            }
+        });
     }
 
 
@@ -61,12 +95,10 @@ class Map extends React.Component {
                 mapboxApiAccessToken='pk.eyJ1IjoiaXJhcGFsaXkiLCJhIjoiY2syZXY3ZThuMDNldDNjcWszYmF3MGVjbiJ9.XZbadn1EL3fhX47KSbcVzA'>
                 <NavigationControl className='navigationControl'/>
                 {this.renderPins()}
-                {this.state.isHidden && <PropertyCard id={this.state.propertyInfo}/>}
+                {this.state.isHidden && <PropertyCard property={this.state.property}/>}
           </ReactMapGL>
-
         </div>
       )
     }
   }
   export default Map;
-
