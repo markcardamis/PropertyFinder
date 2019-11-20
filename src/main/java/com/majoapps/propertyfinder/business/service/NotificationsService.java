@@ -8,6 +8,7 @@ import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -42,6 +43,27 @@ public class NotificationsService {
             notifications.add(notification);
         }
         return notifications;
+    }
+
+    public List<Notifications> getNotificationsByToken(JwtAuthenticationToken JwtAuthToken) {
+        if (JwtAuthToken.getTokenAttributes().containsKey("uid")) {
+            String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
+            if (token == null || token.isEmpty()) {
+                throw new ResourceNotFoundException("uid is null in JWT ");
+            } else {
+            //return all Notifications for the logged in user
+                List<Account> accountResponse = this.accountRepository.findByUserId(token);
+                if (accountResponse.size() == 0) {
+                    //no account for user
+                    throw new ResourceNotFoundException("Account [User ID="+token+"] can't be found");
+                } else {
+                    // get account_id for logged in account
+                    return getAllNotificationsForAccount(accountResponse.get(0).getId());
+                }
+            }
+        } else {
+            throw new ResourceNotFoundException("Cannot find uid Key in JWT ");
+        }
     }
 
 

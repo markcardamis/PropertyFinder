@@ -6,6 +6,7 @@ import com.majoapps.propertyfinder.data.entity.Notifications;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,11 @@ public class NotificationsServiceController {
     private NotificationsService notificationsService;
 
     @RequestMapping(method= RequestMethod.GET)
+    public List<Notifications> getNotificationsByToken(JwtAuthenticationToken JwtAuthToken) {
+        return this.notificationsService.getNotificationsByToken(JwtAuthToken);
+    }
+
+    @RequestMapping(value="/{account_id}",method= RequestMethod.GET)
     public Iterable<Notifications> getAllNotitifications(@RequestParam(value="account_id") UUID accountId) {
         return notificationsService.getAllNotificationsForAccount(accountId);
     }
