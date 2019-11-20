@@ -52,7 +52,7 @@ public class DailyPropertyScan {
     public void getListingsNSW() throws Exception {
         log.debug("Business Day Check {}", dateFormat.format(new Date()));
         //if (dateHelper.isBusinessDay()) {
-        if (domainKey == 99) { // TODO remove this 
+        if (domainKey == 99) { // TODO remove this
             log.info("Schduled run of getListing {}", dateFormat.format(new Date()));
             domainKey = 2;
             getListingsResidentialNSW();
