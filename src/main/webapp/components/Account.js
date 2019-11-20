@@ -12,7 +12,7 @@ export default withAuth(class MessageList extends Component {
 
   async componentDidMount() {
     try {
-      const response = await fetch('/api/propertyinformation/699866', {
+      const response = await fetch('/api/account', {
         headers: {
           Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
         }

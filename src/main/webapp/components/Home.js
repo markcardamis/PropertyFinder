@@ -34,7 +34,9 @@ export default withAuth(class Home extends Component {
       <div>
         <Link to='/'>Home</Link><br/>
         <Link to='/protected'>Protected</Link><br/>
+        <Link to='/account'>Account</Link><br/>
         <Link to='/propertyinformation'>Property Information</Link><br/>
+        <Link to='/notifications'>Notifications</Link><br/>
         {button}
         <Map/>
       </div>

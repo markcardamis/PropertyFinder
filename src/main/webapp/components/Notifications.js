@@ -6,13 +6,13 @@ export default withAuth(class MessageList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        data: null
+        notifications: []
     }
   }
 
   async componentDidMount() {
     try {
-      const response = await fetch('/api/propertyinformation/699866', {
+      const response = await fetch('/api/notifications', {
         headers: {
           Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
         }
@@ -20,14 +20,14 @@ export default withAuth(class MessageList extends Component {
       const data = await response.json();
       console.dir({ data })
 
-      this.setState({ data: JSON.stringify(data) })
+      this.setState({ notifications : JSON.stringify(data) })
     } catch (err) {
       // handle error as needed
     }
   }
 
   render() {
-    if (!this.state.data) return <div>Loading..</div>;
-    return <ul>{this.state.data}</ul>;
+    if (!this.state.notifications) return <div>Loading..</div>;
+    return <ul>{this.state.notifications}</ul>;
   }
 });
