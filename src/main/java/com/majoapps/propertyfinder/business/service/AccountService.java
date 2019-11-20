@@ -51,12 +51,13 @@ public class AccountService {
             account = new Account();
             account.setUserId(userId);
             account.setLastLogin(Date.from(Instant.now()));
+            accountResponse.add(accountRepository.save(account));
         } else {
             //edit existing event
             account = accountResponse.get(0); //there will only ever be one because we update it if it exists already
             account.setLastLogin(Date.from(Instant.now()));
+            accountRepository.save(account);
         }
-        accountRepository.save(account);
         return accountResponse;
     }
 
