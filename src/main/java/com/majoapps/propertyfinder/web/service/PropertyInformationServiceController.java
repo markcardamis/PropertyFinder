@@ -4,6 +4,7 @@ import com.majoapps.propertyfinder.business.service.PropertyInformationService;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +24,13 @@ public class PropertyInformationServiceController {
         return propertyInformationService.getPropertyInformation(propertyId);
     }
 
+    @Profile("!production")
     @RequestMapping(value = "{propertyId}", method= RequestMethod.PUT)
     public ResponseEntity<PropertyInformation> updatePropertyInformation(@PathVariable Integer propertyId, @RequestBody PropertyInformation propertyInformation){
         return propertyInformationService.updatePropertyInformation(propertyId, propertyInformation);
     }
 
+    @Profile("!production")
     @RequestMapping(value = "{propertyId}", method= RequestMethod.PATCH)
     public ResponseEntity<PropertyInformation> partialUpdatePropertyInformation(@PathVariable Integer propertyId, @RequestBody PropertyInformation propertyInformation){
         return propertyInformationService.partialUpdatePropertyInformation(propertyId, propertyInformation);
