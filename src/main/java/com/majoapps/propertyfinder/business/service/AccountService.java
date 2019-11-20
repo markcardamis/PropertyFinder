@@ -6,9 +6,12 @@ import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,6 +41,42 @@ public class AccountService {
             accounts.add(account);
         }
         return accounts;
+    }
+
+    public List<Account> getAccountByUserId(String userId) {
+        List<Account> accountResponse = this.accountRepository.findByUserId(userId);
+        Account account;
+        if (accountResponse.size() == 0) {
+            //add new account
+            account = new Account();
+            account.setUserId(userId);
+            account.setLastLogin(Date.from(Instant.now()));
+            accountResponse.add(accountRepository.save(account));
+        } else {
+            //edit existing event
+            account = accountResponse.get(0); //there will only ever be one because we update it if it exists already
+            account.setLastLogin(Date.from(Instant.now()));
+            accountRepository.save(account);
+        }
+        return accountResponse;
+    }
+
+    public List<Account> getAccountByToken(JwtAuthenticationToken JwtAuthToken) {
+        if (JwtAuthToken.getTokenAttributes().containsKey("uid")) {
+            String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
+            if (token == null || token.isEmpty()) {
+                throw new ResourceNotFoundException("uid is null in JWT ");
+            }
+            //return all Accounts if the user is an admin
+            if (JwtAuthToken.getTokenAttributes().containsKey("groups") && 
+                JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
+                return getAllAccounts();
+            } else {
+                return getAccountByUserId(token);
+            }
+        } else {
+            throw new ResourceNotFoundException("Cannot find uid Key in JWT ");
+        }
     }
 
     public Account saveAccount(Account account) {
