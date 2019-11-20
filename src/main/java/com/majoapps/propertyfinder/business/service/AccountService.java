@@ -86,9 +86,6 @@ public class AccountService {
     public ResponseEntity<Account> updateAccount(UUID id, Account newAccount){
         return accountRepository.findById(id).map(customer -> {
             customer.setFirstName(newAccount.getFirstName());
-            customer.setLastName(newAccount.getLastName());
-            customer.setEmailAddress(newAccount.getEmailAddress());
-            customer.setPhoneNumber(newAccount.getPhoneNumber());
             accountRepository.save(customer);
             return ResponseEntity.ok(customer);
         }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
@@ -97,9 +94,6 @@ public class AccountService {
     public ResponseEntity<Account> partialUpdateAccount(UUID id, Account newAccount){
         return accountRepository.findById(id).map(customer -> {
             if (newAccount.getFirstName() != null) customer.setFirstName(newAccount.getFirstName());
-            if (newAccount.getLastName() != null) customer.setLastName(newAccount.getLastName());
-            if (newAccount.getEmailAddress() != null) customer.setEmailAddress(newAccount.getEmailAddress());
-            if (newAccount.getPhoneNumber() != null) customer.setPhoneNumber(newAccount.getPhoneNumber());
             accountRepository.save(customer);
             return ResponseEntity.ok(customer);
         }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
