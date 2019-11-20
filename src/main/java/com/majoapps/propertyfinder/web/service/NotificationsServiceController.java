@@ -46,6 +46,12 @@ public class NotificationsServiceController {
         return notificationsService.saveNotifications(accountId, notifications);
     }
 
+    @RequestMapping(method= RequestMethod.POST)
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Notifications saveNotificationsByToken(JwtAuthenticationToken JwtAuthToken, @RequestBody Notifications notifications) {
+        return this.notificationsService.saveNotificationsByToken(JwtAuthToken, notifications);
+    }
+
     @RequestMapping(value = "{id}", method= RequestMethod.PUT)
     public ResponseEntity<Notifications> updateNotifications(@PathVariable UUID id, @RequestBody Notifications notifications){
         return notificationsService.updateNotifications(id, notifications);

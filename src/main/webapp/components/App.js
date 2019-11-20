@@ -8,6 +8,7 @@ import Protected from './Protected';
 import PropertyInformation from './PropertyInformation';
 import Account from './Account';
 import Notifications from './Notifications';
+import SaveNotification from './SaveNotification';
 import '../styles/main.css';
 
 function onAuthRequired({history}) {
@@ -30,6 +31,7 @@ class App extends Component {
           <SecureRoute path='/propertyinformation' component={PropertyInformation} />
           <SecureRoute path='/account' component={Account} />
           <SecureRoute path='/notifications' component={Notifications} />
+          <SecureRoute path='/savenotification' component={SaveNotification} />
           <Route path='/login' render={() => <Login baseUrl='https://dev-842802.okta.com' />} />
           <Route path='/implicit/callback' component={ImplicitCallback} />
           <Route path='/map' exact component={Map} />

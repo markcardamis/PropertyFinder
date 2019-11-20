@@ -37,6 +37,7 @@ export default withAuth(class Home extends Component {
         <Link to='/account'>Account</Link><br/>
         <Link to='/propertyinformation'>Property Information</Link><br/>
         <Link to='/notifications'>Notifications</Link><br/>
+        <Link to='/savenotification'>Save Notification</Link><br/>
         {button}
         <Map/>
       </div>

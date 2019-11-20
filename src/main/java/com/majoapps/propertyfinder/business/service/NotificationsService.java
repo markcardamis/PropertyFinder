@@ -66,6 +66,27 @@ public class NotificationsService {
         }
     }
 
+    public Notifications saveNotificationsByToken(JwtAuthenticationToken JwtAuthToken, Notifications notifications) {
+        if (JwtAuthToken.getTokenAttributes().containsKey("uid")) {
+            String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
+            if (token == null || token.isEmpty()) {
+                throw new ResourceNotFoundException("uid is null in JWT ");
+            } else {
+            //return all Notifications for the logged in user
+                List<Account> accountResponse = this.accountRepository.findByUserId(token);
+                if (accountResponse.size() == 0) {
+                    //no account for user
+                    throw new ResourceNotFoundException("Account [User ID="+token+"] can't be found");
+                } else {
+                    // save notifications for logged in account
+                    return saveNotifications(accountResponse.get(0).getId(), notifications);
+                }
+            }
+        } else {
+            throw new ResourceNotFoundException("Cannot find uid Key in JWT ");
+        }
+    }
+
 
     public Notifications saveNotifications(UUID accountId, Notifications notifications) {
         Objects.requireNonNull(accountId);
