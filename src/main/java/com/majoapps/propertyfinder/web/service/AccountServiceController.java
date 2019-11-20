@@ -39,11 +39,6 @@ public class AccountServiceController {
         return this.accountService.getAccount(id);
     }
 
-    // @RequestMapping(value="/{user_id}", method= RequestMethod.GET)
-    // public List<Account> getAccountByUserId(@RequestParam(value="user_id") String userId) {
-    //     return this.accountService.getAccountByUserId(userId);
-    // }
-
     @RequestMapping(method= RequestMethod.POST)
     @ResponseStatus(code = HttpStatus.CREATED)
     public Account saveAccount(@RequestBody Account account) {
