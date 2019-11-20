@@ -39,12 +39,6 @@ public class AccountServiceController {
         return this.accountService.getAccount(id);
     }
 
-    @RequestMapping(method= RequestMethod.POST)
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public Account saveAccount(@RequestBody Account account) {
-        return accountService.saveAccount(account);
-    }
-
     @RequestMapping(value = "{id}", method= RequestMethod.PUT)
     public ResponseEntity<Account> updateAccount(@PathVariable(value="id") UUID id, @RequestBody Account newAccount){
         return accountService.updateAccount(id, newAccount);
