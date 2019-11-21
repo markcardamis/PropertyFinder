@@ -36,12 +36,12 @@ public class NotificationsServiceController {
         return this.notificationsService.saveNotificationsByToken(JwtAuthToken, notifications);
     }
 
-    @RequestMapping(value="/{account_id}",method= RequestMethod.GET)
-    public Iterable<Notifications> getAllNotitifications(@RequestParam(value="account_id") UUID accountId) {
+    @RequestMapping(value="/account/{account_id}",method= RequestMethod.GET)
+    public Iterable<Notifications> getAllNotitifications(@PathVariable(value="account_id") UUID accountId) {
         return notificationsService.getAllNotificationsForAccount(accountId);
     }
 
-    @RequestMapping(value="{account_id}", method= RequestMethod.POST)
+    @RequestMapping(value="/account/{account_id}", method= RequestMethod.POST)
     @ResponseStatus(code = HttpStatus.CREATED)
     public Notifications saveNotifications(@PathVariable (value="account_id") UUID accountId, @RequestBody Notifications notifications) {
         return notificationsService.saveNotifications(accountId, notifications);
