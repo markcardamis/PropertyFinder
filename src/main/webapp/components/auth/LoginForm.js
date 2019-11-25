@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
+import fetch from 'isomorphic-fetch';
 import './Login.css';
 
 export default withAuth(class LoginForm extends Component {
@@ -8,6 +9,7 @@ export default withAuth(class LoginForm extends Component {
     super(props);
     this.state = {
       sessionToken: null,
+      data: null,
       username: '',
       password: ''
     }
@@ -19,8 +21,9 @@ export default withAuth(class LoginForm extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
+
     this.oktaAuth.signIn({
       username: this.state.username,
       password: this.state.password
@@ -29,6 +32,21 @@ export default withAuth(class LoginForm extends Component {
       sessionToken: res.sessionToken
     }))
     .catch(err => console.log('Found an error', err));
+
+    try {
+      const response = await fetch('/api/account', {
+        headers: {
+          Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+        }
+      });
+      const data = await response.json();
+      console.dir({ data });
+
+      this.setState({ data: JSON.stringify(data) });
+    } catch (err) {
+      console.log('error');
+      console.log('API: /account');
+    }
   }
 
   handleUsernameChange(e) {

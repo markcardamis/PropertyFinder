@@ -2,25 +2,24 @@ import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
 import Map from './map/Map';
 import { GiMagnifyingGlass} from 'react-icons/gi';
-import Filter from './widgets/Filter';
+import FilterWidget from './widgets/FilterWidget';
 
-export default withAuth(class Home extends Component {
-  constructor(props) {
-    super(props);
+export default withAuth( class Home extends Component {
+  constructor( props ) {
+    super( props );
     this.state = { 
           authenticated: null,
-          showFilter: true,
-          displayFilter: 'none',
+          isHidden: false,
           };
-    this.checkAuthentication = this.checkAuthentication.bind(this);
+    this.checkAuthentication = this.checkAuthentication.bind( this );
     this.checkAuthentication();
-    this.toggleFilter=this.toggleFilter.bind(this);
+    this.toggleFilter=this.toggleFilter.bind( this );
   }
-
+  
   async checkAuthentication() {
     const authenticated = await this.props.auth.isAuthenticated();
-    if (authenticated !== this.state.authenticated) {
-      this.setState({ authenticated });
+    if ( authenticated !== this.state.authenticated ) {
+      this.setState( { authenticated } );
     }
   }
 
@@ -28,29 +27,28 @@ export default withAuth(class Home extends Component {
     this.checkAuthentication();
   }
 
-  toggleFilter () {
+    toggleFilter () {
 
-    this.setState((prevstate)=>({
-        showFilter: !prevstate.showFilter,
-        displayFilter: this.state.showFilter ? 'block' : 'none'
-      }));
+    this.setState( ( prevstate )=>( {
+        isHidden: !prevstate.isHidden,
+      } ) );
   }
 
   render() {
-    if (this.state.authenticated === null) return null;
+    if ( this.state.authenticated === null ) return null;
   
     const button = this.state.authenticated ?
-      <button className='loginButton' onClick={() => {this.props.auth.logout()}}>Logout</button> : 
-      <button className='loginButton' onClick={() => {this.props.auth.login()}}>Login</button>;
+      <button className='loginButton' onClick={() => {this.props.auth.logout();}}>Logout</button> : 
+      <button className='loginButton' onClick={() => {this.props.auth.login();}}>Login</button>;
 
     return (
       <div>
         {button}
         <button className='searchButton' onClick={this.toggleFilter}><GiMagnifyingGlass size='2em'/></button>
-        <Filter displayFilter={this.state.displayFilter}/>
+        {this.state.isHidden && <FilterWidget/>}
         <Map/>
       </div>
     );
   }
 
-});
+} );

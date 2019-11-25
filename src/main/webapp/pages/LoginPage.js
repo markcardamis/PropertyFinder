@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Login from '../components/auth/Login';
-import Registration from '../components/auth/Registration'
-import { Tabs, Tab, TabContainer } from 'react-bootstrap-tabs';
+import Registration from '../components/auth/Registration';
+import { Tabs, Tab } from 'react-bootstrap-tabs';
 
 class LoginPage extends Component {
     render() {

@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withAuth } from '@okta/okta-react';
-// import './Filter';
+import fetch from 'isomorphic-fetch';
+
 import './Filter.css';
 import SignIn from './SignIn';
 
+export default withAuth(class Filter extends React.Component {
 
-export default withAuth(class Filter extends Component {
     constructor(props) {
         super(props);
-        this.state= {
-            // showSignIn: true,
-            displaySignIn: 'none',
-            authenticated: null
-        }
-        this.handleSignIn=this.handleSignIn.bind(this);
+        this.state = {
+            isHidden: null,
+            authenticated: null,
+            notifications: []
+        };
+        this.handleSaveFilter=this.handleSaveFilter.bind(this);
         this.checkAuthentication = this.checkAuthentication.bind(this);
         this.checkAuthentication();
     }
@@ -29,17 +30,39 @@ export default withAuth(class Filter extends Component {
         this.checkAuthentication();
       }
 
-    handleSignIn () {
+    async handleSaveFilter() {
         this.checkAuthentication();
 
-            this.state.authenticated === true ?
-                this.setState({
-                    displaySignIn: 'none'
-                })
-            : 
-                this.setState({
-                    displaySignIn: 'block'
-                })
+        this.setState({
+            isHidden: this.state.authenticated ? false : true
+        });
+
+        try {
+            const response = await fetch('/api/notifications', {
+              method: 'POST',
+              headers: {
+                Authorization: 'Bearer ' + await this.props.auth.getAccessToken(),
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                'planningZone': 'R5',
+                'propertyAreaMin': 1
+              })
+            });
+            const data = await response.json();
+            console.dir({ data }, 'API: /notifications - POST');
+      
+            this.setState({ notifications : JSON.stringify(data) });
+          } catch (err) {
+            console.log('error');   
+            console.log('API: /notifications - POST');
+          }
+    }
+
+    handleClose () {
+        this.setState ({
+            isHidden: false
+        });
     }
 
 
@@ -47,7 +70,7 @@ export default withAuth(class Filter extends Component {
 
         return (
             <div>
-            <div className='filterWidget col-lg-2' style={{display: this.props.displayFilter}}>
+            <div className='col-lg-9'>
                 <p>Filter price
                     <input type='range' min='1' max='999'/>
                 </p>
@@ -62,11 +85,12 @@ export default withAuth(class Filter extends Component {
                     <input type='text'/>
                 </p>
                 <button>Search</button>
-                <button onClick={this.handleSignIn}>Save this filter</button>
+                <button onClick={this.handleSaveFilter}>Save preferences</button>
             </div>
-            <SignIn displaySignIn={this.state.displaySignIn}/>
+            {this.state.isHidden && <SignIn onClick={this.handleClose.bind(this)}/>}
             </div>
-        )
+        );
     }
 }
-)
+
+);
