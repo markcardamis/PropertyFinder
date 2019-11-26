@@ -15,6 +15,7 @@ public class PlanningPortalZoneResponse {
         @SerializedName("Land Use") public String Land_Use;
         @SerializedName("Zone") public String Zone;
         @SerializedName("Floor Space Ratio") public String Floor_Space_Ratio;
+        @SerializedName("Maximum Building Height") public String Maximum_Building_Height;
     }
 
 }
