@@ -10,7 +10,9 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    port: 5000
+    port: 5000,
+    // host: '192.168.0.103',
+    // disableHostCheck: true
   },
 
   module: {
@@ -26,7 +28,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader", "postcss-loader"]
       }
     ]
   },
