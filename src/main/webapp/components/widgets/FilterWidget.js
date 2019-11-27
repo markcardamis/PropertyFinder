@@ -34,7 +34,7 @@ export default withAuth(class FilterWidget extends Component {
                     <Tab label='Search'>
                         <Filter/>
                     </Tab>
-                    <Tab label='Saved Filters' disabled={this.state.authenticated ? false : true }>
+                    <Tab label='Saved Filters'>
                         <SavedFilters/>
                     </Tab>
                 </Tabs>

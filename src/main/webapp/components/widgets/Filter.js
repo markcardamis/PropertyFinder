@@ -38,7 +38,8 @@ export default withAuth(class Filter extends React.Component {
         });
 
         try {
-            const response = await fetch('/api/notifications', {
+            // const response = await fetch('/api/notifications', {
+            const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
               method: 'POST',
               headers: {
                 Authorization: 'Bearer ' + await this.props.auth.getAccessToken(),
@@ -49,6 +50,7 @@ export default withAuth(class Filter extends React.Component {
                 'propertyAreaMin': 1
               })
             });
+
             const data = await response.json();
             console.dir({ data }, 'API: /notifications - POST');
       

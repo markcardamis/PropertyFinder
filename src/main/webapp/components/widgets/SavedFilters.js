@@ -1,82 +1,117 @@
-import React from 'react';
 import fetch from 'isomorphic-fetch';
+import React, { Component } from 'react';
+import { withAuth } from '@okta/okta-react';
 import { TiPencil, TiTrash } from 'react-icons/ti';
 
-class SavedFilters extends React.Component {
+export default withAuth(class SavedFilters extends Component {
 
     constructor(props) {
         super(props);
-        this.state= {
+        this.state = {
             notifications: []
         };
-    }
-
-async componentDidMount() {
+        this.renderData=this.renderData.bind(this);
+      }
+      
+  async componentDidMount() {
     try {
-        const response = await fetch('/api/notifications', {
+        //   const response = await fetch('/api/notifications', {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
             headers: {
-              Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
             }
         });
         const data = await response.json();
-        console.dir({ data }, 'API: /notifications');
-    
-        this.setState({ notifications : JSON.stringify(data) });
-        } catch (err) {
-            console.log('error');   
-            console.log('API: /notifications');
-            }
-      }
+        console.dir({ data });
+
+        //   this.setState({ notifications : JSON.stringify(data) });
+        this.setState({ notifications : data });
+    } catch (err) {
+        console.log('error');
+    }
+  }
 
 
-    render() {
-        return (
-            <div>
-                {this.state.notifications ? <ul>List of notifications</ul> : <div>Loading..</div>}
-                
-                <ul className='savedFiltersList col-lg-12'>
-                    <li className='filterItem d-flex justify-content-between'>
-                        <div>
-                            <h5>Filter 1</h5>
-                            <label style={{fontSize: '12px'}}>
-                                Date last updated/used<br/>
-                                Amount of properties found
-                            </label>
-                        </div>
-                        <div>
-                            <TiPencil className='filterItemIcon' size='1.3em'/>
-                            <TiTrash className='filterItemIcon' size='1.3em'/>
-                        </div>
-                    </li>
-                    <li className='filterItem d-flex justify-content-between'>
-                        <div>
-                            <h5>Filter 2</h5>
-                            <label style={{fontSize: '12px'}}>
-                                Date last updated/used<br/>
-                                Amount of properties found
-                            </label>
-                        </div>                    
-                        <div>
-                            <TiPencil className='filterItemIcon' size='1.3em'/>
-                            <TiTrash className='filterItemIcon' size='1.3em'/>
-                        </div>
-                    </li>
-                    <li className='filterItem d-flex justify-content-between'>
-                        <div>
-                            <h5>Filter 3</h5>
-                            <label style={{fontSize: '12px'}}>
-                                Date last updated/used<br/>
-                                Amount of properties found
-                            </label>
-                        </div>
-                        <div>
-                            <TiPencil className='filterItemIcon' size='1.3em'/>
-                            <TiTrash className='filterItemIcon' size='1.3em'/>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        );
+  async handleDeleteFilter () {
+    try {
+        //   const response = await fetch('/api/notifications/id', {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+          method: 'DELETE',
+          // headers: {
+          //   Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+          // }
+        });
+        const data = await response.json();
+        console.dir({ data });
+  
+        //   this.setState({ notifications : JSON.stringify(data) });
+        // this.setState({ notifications : data });
+    } catch (err) {
+        console.log('error');
     }
 }
-export default SavedFilters;
+
+  async handleEditFilter () {
+    try {
+        //   const response = await fetch('/api/notifications/id', {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+            method: 'PUT',
+            body: JSON.stringify({
+              id: 1,
+              title: 'foo',
+              body: 'bar',
+              userId: 1
+            }),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8'
+            }
+            // headers: {
+            //   Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            // }
+        });
+        const data = await response.json();
+        console.dir({ data });
+    
+        //   this.setState({ notifications : JSON.stringify(data) });
+        // this.setState({ notifications : data });
+    } catch (err) {
+      console.log('error');
+    }
+  }
+
+  renderData () {
+    const { notifications } = this.state;
+
+      return notifications.map((item)=>
+            <li key={item.id} className='filterItem d-flex justify-content-between'>
+                <div>
+                    <h5>Filter {notifications.indexOf(item)+1}</h5>
+                    <label style={{fontSize: '12px'}}>
+                        {item.title}<br/>
+                        {/* {item.planningZone}<br/>
+                        {item.propertyAreaMin}<br/>
+                        {item.propertyAreaMax}<br/>
+                        {item.propertyPriceMin}<br/>
+                        {item.propertyPriceMax}<br/>
+                        {item.propertyPSMMin}<br/>
+                        {item.propertyPSMMax}<br/>  
+                        {item.propertyPostCode}<br/>
+                        {item.propertyPriceToLandValueMin}<br/>
+                        {item.propertyPriceToLandValueMax}<br/>  */}
+                    </label>
+                </div>
+                <div>
+                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter}/>
+                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter}/>
+                </div>
+            </li>
+      );
+  }
+
+    render() {
+        return this.state.notifications ? 
+        <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul> :
+        <div>No saved filters</div>;
+    }
+}
+);
