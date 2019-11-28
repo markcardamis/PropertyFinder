@@ -32,10 +32,10 @@ export default withAuth(class SavedFilters extends Component {
   }
 
 
-  async handleDeleteFilter () {
+  async handleDeleteFilter (id) {
     try {
-        //   const response = await fetch('/api/notifications/id', {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+        const response = await fetch(`/api/notifications/${id}`, {
+        // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
           method: 'DELETE',
           // headers: {
           //   Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
@@ -53,21 +53,19 @@ export default withAuth(class SavedFilters extends Component {
 
   async handleEditFilter () {
     try {
-        //   const response = await fetch('/api/notifications/id', {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+        const response = await fetch('/api/notifications/id', {
+        // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
             method: 'PUT',
             body: JSON.stringify({
-              id: 1,
-              title: 'foo',
-              body: 'bar',
-              userId: 1
+              'planningZone': 'R5',
+              'propertyAreaMin': 5,
             }),
-            headers: {
-              'Content-type': 'application/json; charset=UTF-8'
-            }
             // headers: {
-            //   Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            //   'Content-type': 'application/json; charset=UTF-8'
             // }
+            headers: {
+              Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            }
         });
         const data = await response.json();
         console.dir({ data });
@@ -87,8 +85,8 @@ export default withAuth(class SavedFilters extends Component {
                 <div>
                     <h5>Filter {notifications.indexOf(item)+1}</h5>
                     <label style={{fontSize: '12px'}}>
-                        {item.title}<br/>
-                        {/* {item.planningZone}<br/>
+                        {/* {item.title}<br/> */}
+                        {item.planningZone}<br/>
                         {item.propertyAreaMin}<br/>
                         {item.propertyAreaMax}<br/>
                         {item.propertyPriceMin}<br/>
@@ -97,7 +95,7 @@ export default withAuth(class SavedFilters extends Component {
                         {item.propertyPSMMax}<br/>  
                         {item.propertyPostCode}<br/>
                         {item.propertyPriceToLandValueMin}<br/>
-                        {item.propertyPriceToLandValueMax}<br/>  */}
+                        {item.propertyPriceToLandValueMax}<br/> 
                     </label>
                 </div>
                 <div>

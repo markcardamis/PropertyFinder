@@ -34,14 +34,16 @@ export default withAuth(class LoginForm extends Component {
     .catch(err => console.log('Found an error', err));
 
     try {
-      // const response = await fetch('/api/account', {
-      //   headers: {
-      //     Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-      //   }
-      const response = await fetch ('https://jsonplaceholder.typicode.com/todos/1');
-      // });
+      const response = await fetch('/api/account', {
+        headers: {
+          Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+        }
+      // const response = await fetch ('https://jsonplaceholder.typicode.com/todos/1');
+      });
       const data = await response.json();
       console.dir({ data });
+      localStorage.setItem('id', data.id);
+      localStorage.setItem('id', data.userId);
 
       this.setState({ data: JSON.stringify(data) });
     } catch (err) {
