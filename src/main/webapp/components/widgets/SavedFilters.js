@@ -51,9 +51,9 @@ export default withAuth(class SavedFilters extends Component {
     }
 }
 
-  async handleEditFilter () {
+  async handleEditFilter (id) {
     try {
-        const response = await fetch('/api/notifications/id', {
+        const response = await fetch(`/api/notifications/${id}`, {
         // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
             method: 'PUT',
             body: JSON.stringify({
@@ -100,7 +100,7 @@ export default withAuth(class SavedFilters extends Component {
                 </div>
                 <div>
                     <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter}/>
-                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter}/>
+                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter(item.id)}/>
                 </div>
             </li>
       );
