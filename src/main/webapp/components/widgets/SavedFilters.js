@@ -99,7 +99,7 @@ export default withAuth(class SavedFilters extends Component {
                     </label>
                 </div>
                 <div>
-                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter}/>
+                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter(item.id)}/>
                     <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter(item.id)}/>
                 </div>
             </li>
