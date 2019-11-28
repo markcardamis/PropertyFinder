@@ -24,4 +24,5 @@ public class PropertyListing {
     public Double lat;
     public Double lng;
     public Integer landValue;
+    public Float maximumBuildingHeight;
 }
