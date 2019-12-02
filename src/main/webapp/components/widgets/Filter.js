@@ -69,15 +69,23 @@ export default withAuth(class Filter extends React.Component {
 
 
     render () {
-
+   
         return (
             <div>
             <div className='col-lg-9'>
                 <p>Filter price
-                    <input type='range' min='1' max='999'/>
+                    <input 
+                        type='range' 
+                        min='1' 
+                        max='999'
+                    />
                 </p>
                 <p>Filter square<br/>
-                    <input type='text' style={{width: '60px'}} placeholder='min'/> - 
+                    <input 
+                        type='text' 
+                        style={{width: '60px'}} 
+                        placeholder='min'
+                    /> - 
                     <input type='text' style={{width: '60px'}} placeholder='max'/>
                 </p> 
                 <p>Filter area              
