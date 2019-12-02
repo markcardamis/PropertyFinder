@@ -5,7 +5,6 @@ import com.majoapps.propertyfinder.data.repository.PropertyListingRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,10 +18,7 @@ public class PropertyListingService {
     }
 
     public List<PropertyListing> getAllListings() {
-        List<PropertyListing> properties = new ArrayList<>();
-        Iterable<PropertyListing> results = this.propertyListingRepository.findAll();
-        results.forEach(properties::add);
-        return properties;
+        return this.propertyListingRepository.findAll();
     }
 
     public PropertyListing getPropertyListingByPlanningPortalId(String id) {
