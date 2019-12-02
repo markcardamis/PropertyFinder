@@ -25,7 +25,7 @@ public class PropertyListingService {
         return properties;
     }
 
-    public PropertyListing getPropertyListing(Integer id) {
+    public PropertyListing getPropertyListingByPlanningPortalId(String id) {
         List<PropertyListing> propertyListingResponse = this.propertyListingRepository.findByPlanningPortalPropId(id);
         if (propertyListingResponse.size() == 0) {
             throw new ResourceNotFoundException("Listing [ID="+id+"] can't be found");
