@@ -56,8 +56,10 @@ public class PropertyListing {
     private Double longitude;
     @Column(name="summary_description")
     private String summaryDescription;
+    @JsonIgnore
     @Column(name="planning_portal_id")
     private String planningPortalPropId;
+    @JsonIgnore
     @Column(name="planning_portal_address")
     private String planningPortalAddress;
     @Column(name="zone")
