@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/api/listing")
+@RequestMapping(value="/listing")
 public class PropertyListingServiceController {
 
     @Autowired

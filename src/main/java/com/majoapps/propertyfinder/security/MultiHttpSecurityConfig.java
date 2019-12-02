@@ -39,7 +39,7 @@ public class MultiHttpSecurityConfig {
                     .authenticationEntryPoint(new Http403ForbiddenEntryPoint())
                     .and()
                 .authorizeRequests()
-                    .antMatchers(HttpMethod.GET,"/", "/api/listing*", "/dist/*", "/implicit/callback", "/login", "/login/*", "/css/**", "/images/**", "/favicon.ico").permitAll()
+                    .antMatchers(HttpMethod.GET,"/", "/listing", "/dist/*", "/implicit/callback", "/login", "/login/*", "/css/**", "/images/**", "/favicon.ico").permitAll()
                     .and()
                 .authorizeRequests()
                     .antMatchers("/api/**").authenticated()
