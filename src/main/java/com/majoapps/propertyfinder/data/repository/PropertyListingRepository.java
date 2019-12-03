@@ -7,6 +7,8 @@ import java.util.List;
 
 @Repository
 public interface PropertyListingRepository extends JpaRepository<PropertyListing, Integer> {
+    List<PropertyListing> findTop100ByOrderByIdAsc();
+    List<PropertyListing> findTop1000ByOrderByIdAsc();
     List<PropertyListing> findByDomainListingId(Integer domainListingId);
     List<PropertyListing> findByPlanningPortalPropId(String planningPortalPropId);
 }
