@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PropertyListingService {
@@ -43,14 +44,10 @@ public class PropertyListingService {
         }
     }
 
-    public PropertyListing getPropertyListingByPlanningPortalId(String id) {
-        List<PropertyListing> propertyListingResponse = this.propertyListingRepository.findByPlanningPortalPropId(id);
-        if (propertyListingResponse.size() == 0) {
-            throw new ResourceNotFoundException("Listing [ID="+id+"] can't be found");
-        } else {
-            return propertyListingResponse.get(0);
-        }
+    public PropertyListing getPropertyListingById(Integer Id) {
+        Objects.requireNonNull(Id);
+        return this.propertyListingRepository
+                .findById(Id)
+                .orElseThrow(() -> new ResourceNotFoundException(("Listing [ID="+Id+"] can't be found")));
     }
-
-
 }

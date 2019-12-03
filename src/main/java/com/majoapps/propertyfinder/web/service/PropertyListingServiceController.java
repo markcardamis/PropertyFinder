@@ -24,8 +24,8 @@ public class PropertyListingServiceController {
     }
 
     @RequestMapping(value="{id}", method= RequestMethod.GET)
-    public PropertyListing getListingById(@PathVariable(value="id") String id) {
-        return this.propertyListingService.getPropertyListingByPlanningPortalId(id);
+    public PropertyListing getListingById(@PathVariable(value="id") Integer id) {
+        return this.propertyListingService.getPropertyListingById(id);
     }
 
 }

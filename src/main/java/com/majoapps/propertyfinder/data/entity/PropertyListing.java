@@ -15,7 +15,6 @@ import lombok.Data;
 @Table(name="LISTING")
 public class PropertyListing {
     @Id
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @JsonIgnore
