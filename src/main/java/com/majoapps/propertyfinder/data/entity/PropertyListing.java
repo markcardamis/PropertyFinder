@@ -70,7 +70,7 @@ public class PropertyListing {
     private String minimumLotSize;
     @Column(name="land_value")
     private Integer landValue;
-    @JsonIgnore
-    @Column(name="geometry")
-    private Point geometry;
+    // @JsonIgnore
+    // @Column(name="geometry")
+    // private Point geometry;
 }
