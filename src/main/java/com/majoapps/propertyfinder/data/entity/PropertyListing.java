@@ -1,6 +1,7 @@
 package com.majoapps.propertyfinder.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.geo.Point;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -69,4 +70,7 @@ public class PropertyListing {
     private String minimumLotSize;
     @Column(name="land_value")
     private Integer landValue;
+    @JsonIgnore
+    @Column(name="geometry")
+    private Point geometry;
 }
