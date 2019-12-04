@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import Home from './Home';
-import Login from './Login';
 import Nav from './Nav';
 import Protected from './Protected';
+import LoginPage from '../pages/LoginPage';
 import PropertyInformation from './PropertyInformation';
 import Account from './Account';
 import Notifications from './Notifications';
@@ -29,10 +29,7 @@ class App extends Component {
           <Route path='/' exact={true} component={Home} />
           <SecureRoute path='/protected' component={Protected} />
           <SecureRoute path='/propertyinformation' component={PropertyInformation} />
-          <SecureRoute path='/account' component={Account} />
-          <SecureRoute path='/notifications' component={Notifications} />
-          <SecureRoute path='/savenotification' component={SaveNotification} />
-          <Route path='/login' render={() => <Login baseUrl='https://dev-842802.okta.com' />} />
+          <Route path='/login' exact component={LoginPage} />
           <Route path='/implicit/callback' component={ImplicitCallback} />
           <Route path='/map' exact component={Map} />
         </Security>

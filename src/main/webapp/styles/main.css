@@ -1,8 +1,19 @@
+html {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    }
 
-.nav {
+body {
+    margin: 0;
+    padding: 0;
+}
+.navBar {
     background-color: #0288d1;
     color: white;
     padding: 40px;
+    margin: 0;
+    display: flex;
+
 }
 
 .loginButton {
@@ -18,26 +29,26 @@
     z-index: 2;
 }
 
-.homeLink {
+.searchButton {
+    background-color:  #27aedb;
+    width: 60px; 
+    height: 60px; 
+    border: none; 
+    border-radius: 40px;
     color: white;
-    float: right;
+    margin-left: 80px;
+    margin-top: 120px;
+    position: absolute;
+    z-index: 2;
 }
 
-.loginForm {
-    margin: 30px auto 30px auto;
-    border: 1px solid lightgrey;
-    padding: 30px;
-    width: 200px;
+.navLink {
+    color: white;
+    padding: 10px;
+
 }
 
-.formInput {
-    display: block;
-    margin-bottom: 8px;
+.navigation {
+    list-style-type: none;
+    display: flex;
 }
- .map {
-    position: relative;
-    /* top: 0;
-    bottom: 0; */
-    width: 100%;
-    z-index: 1;
- }
