@@ -6,33 +6,34 @@ import FilterWidget from './widgets/FilterWidget';
 import { connect } from 'react-redux';
 
 
-
 class Home extends Component {
-
-  constructor( props ) {
-    super( props );
-    this.state = { 
-          authenticated: null,
-          };
-    this.checkAuthentication = this.checkAuthentication.bind( this );
-    this.checkAuthentication();
-  }
   
-  async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
-    if ( authenticated !== this.state.authenticated ) {
-      this.setState( { authenticated } );
+    handleAuthenticated = () => {
+      this.props.dispatch({type: 'AUTHENTICATED'})
+    };
+
+    handleNotAuthenticated = () => {
+      this.props.dispatch({type: 'NOT_AUTHENTICATED'})
+    };
+
+    checkAuthentication = async () => {
+      const authenticated = await this.props.auth.isAuthenticated();
+    
+      authenticated ? this.handleAuthenticated() : this.handleNotAuthenticated();
     }
+
+  componentDidMount() {
+    this.checkAuthentication();
   }
 
   componentDidUpdate() {
     this.checkAuthentication();
   }
-
-  render() {
-    if ( this.state.authenticated === null ) return null;
   
-    const button = this.state.authenticated ?
+  render() {
+    if ( this.props.home.authentication === null ) return null;
+  
+    const button = this.props.home.authentication ?
       <button className='loginButton' onClick={() => {this.props.auth.logout();}}>Logout</button> : 
       <button className='loginButton' onClick={() => {this.props.auth.login();}}>Login</button>;
 
@@ -42,7 +43,7 @@ class Home extends Component {
         <button className='searchButton' onClick={()=>this.props.dispatch({type: 'SHOW_FILTER'})}>
           <GiMagnifyingGlass size='2em'/>
         </button>
-        {this.props.filter.showFilter && <FilterWidget/>}
+        {this.props.home.showFilter && <FilterWidget/>}
         <Map/>
       </div>
     );
@@ -52,7 +53,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      filter: state
+      home: state
   };
 };
 

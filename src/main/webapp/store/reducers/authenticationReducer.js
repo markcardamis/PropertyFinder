@@ -1,4 +1,4 @@
-const authenticationReducer = (state=false, action) => {
+const authenticationReducer = (state=null, action) => {
     switch (action.type) {
         case 'AUTHENTICATED':
             return true;

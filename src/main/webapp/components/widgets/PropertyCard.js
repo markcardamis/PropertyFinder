@@ -8,15 +8,19 @@ import { connect } from 'react-redux';
 
 class PropertyCard extends React.Component {
 
+handleClose = () => {
+    this.props.dispatch({type: 'CLOSE_PROPERTY'})
+}
+
     render () {
         const { propertyData } = this.props;
             return (
+
                 <div>
-                    {console.log(this.props)}
                     <ul className='propertyInformation col-lg-4'>
                         <li className='justify-content-between' style={{display: 'flex'}}>
                             <h4>Property ID: {this.props.propertyData.id}</h4>
-                            <IoMdClose size='2em' onClick={()=>this.props.dispatch({type: 'CLOSE_PROPERTY'})}/>
+                            <IoMdClose size='2em' onClick={this.handleClose}/>
                         </li>
                         <li>
                             <img 
@@ -82,3 +86,4 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(PropertyCard);
+
