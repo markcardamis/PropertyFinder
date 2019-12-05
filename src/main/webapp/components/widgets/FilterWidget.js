@@ -2,33 +2,38 @@ import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
 import { Tabs, Tab } from 'react-bootstrap-tabs';
 import { connect } from 'react-redux';
+import { IoMdClose } from 'react-icons/io';
 
 import SavedFilters from './SavedFilters';
 import Filter from './Filter';
-import { IoMdClose } from 'react-icons/io';
 
 class FilterWidget extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state= {
-            authenticated: null
+        handleAuthenticated = () => {
+            this.props.dispatch({type: 'AUTHENTICATED'})
         };
-        this.checkAuthentication = this.checkAuthentication.bind(this);
+  
+        handleNotAuthenticated = () => {
+            this.props.dispatch({type: 'NOT_AUTHENTICATED'})
+        };
+
+        handleClick = () => {
+            this.props.dispatch({type: 'CLOSE_FILTER'});
+        }
+
+        checkAuthentication = async () => {
+            const authenticated = await this.props.auth.isAuthenticated();
+        
+            authenticated ? this.handleAuthenticated() : this.handleNotAuthenticated();
+        }
+
+    componentDidMount() {
         this.checkAuthentication();
     }
-
-    async checkAuthentication() {
-        const authenticated = await this.props.auth.isAuthenticated();
-        if (authenticated !== this.state.authenticated) {
-          this.setState({ authenticated });
-        }
-      }
       
     componentDidUpdate() {
         this.checkAuthentication();
-      }
-
+    }
 
     render () {
 
@@ -43,7 +48,7 @@ class FilterWidget extends Component {
                             <SavedFilters/>
                         </Tab>
                     </Tabs>
-                    <IoMdClose size='2em' onClick={()=>this.props.dispatch({type: 'CLOSE_FILTER'})}/>
+                    <IoMdClose size='2em' onClick={this.handleClick}/>
                 </div>
             </div>
         );

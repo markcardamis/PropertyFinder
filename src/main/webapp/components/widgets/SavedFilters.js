@@ -15,8 +15,8 @@ export default withAuth(class SavedFilters extends Component {
       
   async componentDidMount() {
     try {
-        //   const response = await fetch('/api/notifications', {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+          const response = await fetch('/api/notifications', {
+        // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
             headers: {
                 Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
             }
@@ -37,15 +37,15 @@ export default withAuth(class SavedFilters extends Component {
         const response = await fetch(`/api/notifications/${id}`, {
         // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
           method: 'DELETE',
-          // headers: {
-          //   Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-          // }
+          headers: {
+            Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+          }
         });
         const data = await response.json();
         console.dir({ data });
   
         //   this.setState({ notifications : JSON.stringify(data) });
-        // this.setState({ notifications : data });
+        this.setState({ notifications : data });
     } catch (err) {
         console.log('error');
     }
@@ -53,8 +53,8 @@ export default withAuth(class SavedFilters extends Component {
 
   async handleEditFilter (id) {
     try {
-        const response = await fetch(`/api/notifications/${id}`, {
-        // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+        // const response = await fetch(`/api/notifications/${id}`, {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
             method: 'PUT',
             body: JSON.stringify({
               'planningZone': 'R5',
@@ -71,7 +71,7 @@ export default withAuth(class SavedFilters extends Component {
         console.dir({ data });
     
         //   this.setState({ notifications : JSON.stringify(data) });
-        // this.setState({ notifications : data });
+        this.setState({ notifications : data });
     } catch (err) {
       console.log('error');
     }

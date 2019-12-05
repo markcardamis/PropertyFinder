@@ -1,9 +1,14 @@
-const showPropertyReducer = (state = false, action) => {
+// import { PROPERTY_DATA } from '../../constants/constants';
+
+// const initialState = {...PROPERTY_DATA, isHidden: false};
+const initialState = {isHidden: false};
+
+const showPropertyReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SHOW_PROPERTY': 
-            return true;
+            return {...action.payload, isHidden: true};
         case 'CLOSE_PROPERTY':
-            return false;
+            return {isHidden: false};
         default: 
             return state;
     }

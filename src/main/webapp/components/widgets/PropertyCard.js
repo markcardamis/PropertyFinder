@@ -1,10 +1,12 @@
 import React from 'react';
-import './PropertyCard';
+import { connect } from 'react-redux';
 import { FaBed, FaBath, FaCar, FaChartArea, FaBuilding, FaLink } from 'react-icons/fa';
 import { GiReceiveMoney, GiAustralia } from 'react-icons/gi';
 import { IoMdPricetags, IoMdClose } from 'react-icons/io';
+
 import { DEFAULT_HOUSE_IMAGE } from '../../constants/constants';
-import { connect } from 'react-redux';
+import './PropertyCard';
+
 
 class PropertyCard extends React.Component {
 
@@ -13,65 +15,65 @@ handleClose = () => {
 }
 
     render () {
-        const { propertyData } = this.props;
+        const { property } = this.props;
             return (
 
                 <div>
                     <ul className='propertyInformation col-lg-4'>
                         <li className='justify-content-between' style={{display: 'flex'}}>
-                            <h4>Property ID: {this.props.propertyData.id}</h4>
+                            <h4>Property ID: {property.id}</h4>
                             <IoMdClose size='2em' onClick={this.handleClose}/>
                         </li>
                         <li>
                             <img 
-                                src={propertyData.image || DEFAULT_HOUSE_IMAGE} 
+                                src={property.image || DEFAULT_HOUSE_IMAGE} 
                                 style={{width: '150px', height: '150px'}}
                             />
                         </li>
                         <li>
                             <IoMdPricetags size='1.5em'/>
                             <b> Price: </b>
-                            {propertyData.price}
+                            {property.price}
                         </li>
                         <li>
                             <FaBed size='1.5em'/>
                             <b> Bedrooms: </b>
-                            {propertyData.bedroom}
+                            {property.bedroom}
                         </li>
                         <li>
                             <FaBath size='1.5em'/>
                             <b> Bathrooms: </b>
-                            {propertyData.bathroom}
+                            {property.bathroom}
                         </li>
                         <li>
                             <FaCar size='1.5em'/>
                             <b> Car spaces: </b>
-                            {propertyData.carspace}
+                            {property.carspace}
                         </li>
                         <li>
                             <FaChartArea size='1.5em'/>
                             <b> Area: </b>
-                            {propertyData.area}
+                            {property.area}
                         </li>
                         <li>
                             <GiAustralia size='1.5em'/>
                             <b> Zone: </b>
-                            {propertyData.zone}
+                            {property.zone}
                         </li>
                         <li>
                             <FaBuilding size='1.5em'/>
                             <b> FSR: </b>
-                            {propertyData.fsr}
+                            {property.fsr}
                         </li>
                         <li>
                             <FaLink size='1.5em'/>
                             <b> Domain URL: </b>
-                            <a href='#'>{propertyData.domainurl}</a>
+                            <a href='#'>{property.domainurl}</a>
                         </li>
                         <li>
                             <GiReceiveMoney size='1.5em'/>
                             <b> Land Value: </b>
-                            {propertyData.landvalue}
+                            {property.landvalue}
                         </li>
                     </ul> 
                 </div>
@@ -81,7 +83,7 @@ handleClose = () => {
 
 const mapStateToProps = (state) => {
     return {
-        property: state
+        property: state.showProperty
     };
 };
 

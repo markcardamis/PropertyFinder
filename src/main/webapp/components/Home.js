@@ -16,6 +16,10 @@ class Home extends Component {
       this.props.dispatch({type: 'NOT_AUTHENTICATED'})
     };
 
+    handleClick = () => {
+      this.props.dispatch({type: 'SHOW_FILTER'});
+    }
+
     checkAuthentication = async () => {
       const authenticated = await this.props.auth.isAuthenticated();
     
@@ -40,7 +44,7 @@ class Home extends Component {
     return (
       <div>
         {button}
-        <button className='searchButton' onClick={()=>this.props.dispatch({type: 'SHOW_FILTER'})}>
+        <button className='searchButton' onClick={this.handleClick}>
           <GiMagnifyingGlass size='2em'/>
         </button>
         {this.props.home.showFilter && <FilterWidget/>}

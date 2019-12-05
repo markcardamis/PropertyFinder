@@ -30,7 +30,7 @@ class Registration extends React.Component {
                 <input className='formInput' type="submit" value="Register" />
             </form>
       </div>
-        )
+        );
     }
 }
 
