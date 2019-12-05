@@ -12,7 +12,7 @@ export default withAuth(class LoginForm extends Component {
       data: null,
       username: '',
       password: ''
-    }
+    };
 
     this.oktaAuth = new OktaAuth({ url: props.baseUrl });
 

@@ -1,6 +1,7 @@
-export const showProperty = () => {
+export const showProperty = (item) => {
     return {
         type: 'SHOW_PROPERTY',
+        payload: item
     };
 };
 

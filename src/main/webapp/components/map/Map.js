@@ -1,34 +1,39 @@
 import React from 'react';
 import ReactMapGL, {NavigationControl, Marker} from 'react-map-gl';
-import './Map.css';
-import PropertyCard from '../widgets/PropertyCard';
-import { IoIosPin } from 'react-icons/io';
-// import { PROPERTY_DATA } from '../../constants/constants';
 import { connect } from 'react-redux';
+import { IoIosPin } from 'react-icons/io';
+import { withAuth } from '@okta/okta-react';
+import fetch from 'isomorphic-fetch';
+
+import PropertyCard from '../widgets/PropertyCard';
+import { PROPERTY_DATA } from '../../constants/constants'
+import './Map.css';
 
 class Map extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state= {
-            property: {
-              id: '',
-              image: '',
-              price: '',
-              bedroom: '',
-              bathroom: '',
-              carspace: '',
-              area: '',
-              zone: '',
-              fsr: '',
-              domainurl: '',
-              landvalue: ''
-              }
-        };
-        this.renderPins=this.renderPins.bind(this);
-    }
 
-    renderPins () {
-        return (this.props.map.mapMarker.map((item) => 
+  async componentDidMount () {
+    try {
+        const response = await fetch('/api/listing', {
+      // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+          headers: {
+              Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+          }
+      });
+      const data = await response.json();
+      console.dir({ data });
+
+      this.props.dispatch({
+        type: 'MARKERS',
+        payload: data
+      })
+  } catch (err) {
+      console.log('error');
+  }
+  }
+
+    renderPins = () => {
+        // return (PROPERTY_DATA.map((item) =>
+        return (this.props.map.mapMarker.map((item) =>
                 <Marker 
                       className='propertyMarker'
                       key={item.id}
@@ -37,18 +42,7 @@ class Map extends React.Component {
                       
                 >
                     <IoIosPin 
-                        id={item.id}
-                        image={item.image}
-                        price={item.price}
-                        bedroom={item.bedroom}
-                        bathroom={item.bathroom}
-                        carspace={item.carspace}
-                        area={item.area}
-                        zone={item.zone}
-                        fsr={item.fsr}
-                        domainurl={item.domainurl}
-                        landvalue={item.landvalue}
-                        onClick={this.handleClick.bind(this, item.id, item.image, item.price, item.bedroom, item.bathroom, item.bathroom, item.carspace, item.area, item.zone, item.fsr, item.domainurl, item.landvalue)}
+                        onClick={this.handleClick.bind(this, item)}
                         size='3em' 
                         className='propertyMarkerPin'
                     />
@@ -56,23 +50,42 @@ class Map extends React.Component {
         )
         );}
 
-  handleClick (id, image, price, bedroom, bathroom, carspace, area, zone, fsr, domainurl, landvalue) {
-    this.props.dispatch({type: 'SHOW_PROPERTY'});
-    this.setState({
-      property: {
-        id: id,
-        image: image,
-        price: price,
-        bedroom: bedroom,
-        bathroom: bathroom,
-        carspace: carspace,
-        area: area,
-        zone: zone,
-        fsr: fsr,
-        domainurl: domainurl,
-        landvalue: landvalue
-        }
-    });
+  async handleClick (item) {
+    this.props.dispatch({type: 'SHOW_PROPERTY', payload: item});
+
+  //   try {
+  //     //   const response = await fetch(`/api/listing/${item.id}`, {
+  //     const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+  //         headers: {
+  //             Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+  //         }
+  //     });
+  //     const data = await response.json();
+  //     console.dir({ data });
+
+  // } catch (err) {
+  //     console.log('error');
+  // }
+
+    try {
+      const response = await fetch(`/api/listing/${item.id}`, {
+      // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + await this.props.auth.getAccessToken(),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'centreLatitude': this.props.map.viewport.latitude,
+          'centreLongitude': this.props.map.viewport.longitude
+        })
+      });
+
+      const data = await response.json();
+      console.dir({ data });
+    } catch (err) {
+      console.log('error'); 
+    }
   }
 
   handleViewportChange = (viewport) => {
@@ -94,7 +107,7 @@ class Map extends React.Component {
                 mapboxApiAccessToken='pk.eyJ1IjoiaXJhcGFsaXkiLCJhIjoiY2syZXY3ZThuMDNldDNjcWszYmF3MGVjbiJ9.XZbadn1EL3fhX47KSbcVzA'>
                 <NavigationControl className='navigationControl'/>
                 {this.renderPins()}
-                {this.props.map.showProperty && <PropertyCard propertyData={this.state.property}/>}
+                {this.props.map.showProperty.isHidden && <PropertyCard/>}
           </ReactMapGL>
         </div>
       );
@@ -107,4 +120,4 @@ class Map extends React.Component {
     };
 };
 
-export default connect(mapStateToProps)(Map);
+export default withAuth(connect(mapStateToProps)(Map));

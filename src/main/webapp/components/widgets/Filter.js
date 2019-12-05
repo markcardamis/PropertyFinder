@@ -72,6 +72,7 @@ export default withAuth(class Filter extends React.Component {
    
         return (
             <div>
+                <form>
             <div className='col-lg-9'>
                 <p>Filter price
                     <input 
@@ -94,10 +95,11 @@ export default withAuth(class Filter extends React.Component {
                 <p>Filter price per m<sup>2</sup>
                     <input type='text'/>
                 </p>
-                <button>Search</button>
+                <button >Search</button>
                 <button onClick={this.handleSaveFilter}>Save preferences</button>
             </div>
             {this.state.isHidden && <SignIn onClick={this.handleClose.bind(this)}/>}
+            </form>
             </div>
         );
     }
