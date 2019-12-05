@@ -34,8 +34,8 @@ class Map extends React.Component {
   }
 
     renderPins = () => {
-        // return (PROPERTY_DATA.map((item) =>
-        return (this.props.map.mapMarker.map((item) =>
+        return (PROPERTY_DATA.map((item) =>
+        // return (this.props.map.mapMarker.map((item) =>
                 <Marker 
                       className='propertyMarker'
                       key={item.id}
@@ -102,6 +102,7 @@ class Map extends React.Component {
       return (
         <div className='row'>
           {console.log(this.props.map.mapMarker)}
+          {console.log(PROPERTY_DATA)}
           <ReactMapGL 
                 className='map col-lg-12 col-md-12 col-sm-12' 
                 mapStyle='mapbox://styles/mapbox/outdoors-v10'
