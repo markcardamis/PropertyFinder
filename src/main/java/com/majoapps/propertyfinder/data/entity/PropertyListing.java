@@ -1,7 +1,7 @@
 package com.majoapps.propertyfinder.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.geo.Point;
+//import org.springframework.data.geo.Point;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
