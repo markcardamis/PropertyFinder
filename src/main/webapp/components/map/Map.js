@@ -15,9 +15,9 @@ class Map extends React.Component {
     try {
         const response = await fetch('/api/listing', {
       // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-          // headers: {
-          //     Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-          // }
+            headers: {
+              Authorization:  await this.props.auth.getAccessToken() ? 'Bearer ' + await this.props.auth.getAccessToken() : null
+              }
       });
       const data = await response.json();
       console.dir({ data });
@@ -32,8 +32,8 @@ class Map extends React.Component {
   }
 
     renderPins = () => {
-        return (PROPERTY_DATA.map((item) =>
-        // return (this.props.map.mapMarker.map((item) =>
+        // return (PROPERTY_DATA.map((item) =>
+        return (this.props.map.mapMarker.map((item) =>
                 <Marker 
                       className='propertyMarker'
                       key={item.id}
