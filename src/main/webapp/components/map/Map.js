@@ -15,9 +15,9 @@ class Map extends React.Component {
     try {
         const response = await fetch('/api/listing', {
       // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-          headers: {
-              Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-          }
+          // headers: {
+          //     Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+          // }
       });
       const data = await response.json();
       console.dir({ data });
