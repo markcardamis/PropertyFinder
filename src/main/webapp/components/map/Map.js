@@ -13,12 +13,14 @@ class Map extends React.Component {
 
   async componentDidMount () {
     try {
-        const response = await fetch('/api/listing', {
+        const response = await fetch('/api/listing', 
+        //{
       // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-            headers: {
+            // headers: {
               // Authorization:  await this.props.auth.getAccessToken() ? 'Bearer ' + await this.props.auth.getAccessToken() : null
-              }
-      });
+              // }
+        // }
+      );
       const data = await response.json();
       console.dir({ data });
 
@@ -71,10 +73,10 @@ class Map extends React.Component {
       const response = await fetch(`/api/listing/${item.id}`, {
       // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
-        headers: {
+        // headers: {
           // Authorization: 'Bearer ' + await this.props.auth.getAccessToken(),
-          'Content-Type': 'application/json',
-        },
+          // 'Content-Type': 'application/json',
+        // },
         body: JSON.stringify({
           'centreLatitude': this.props.map.viewport.latitude,
           'centreLongitude': this.props.map.viewport.longitude
