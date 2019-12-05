@@ -1,47 +1,64 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
-import Map from './Map';
+import Map from './map/Map';
+import { GiMagnifyingGlass} from 'react-icons/gi';
+import FilterWidget from './widgets/FilterWidget';
+import { connect } from 'react-redux';
 
 
-export default withAuth(class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { authenticated: null };
-    this.checkAuthentication = this.checkAuthentication.bind(this);
-    this.checkAuthentication();
-  }
+class Home extends Component {
+  
+    handleAuthenticated = () => {
+      this.props.dispatch({type: 'AUTHENTICATED'})
+    };
 
-  async checkAuthentication() {
-    const authenticated = await this.props.auth.isAuthenticated();
-    if (authenticated !== this.state.authenticated) {
-      this.setState({ authenticated });
+    handleNotAuthenticated = () => {
+      this.props.dispatch({type: 'NOT_AUTHENTICATED'})
+    };
+
+    handleClick = () => {
+      this.props.dispatch({type: 'SHOW_FILTER'});
     }
+
+    checkAuthentication = async () => {
+      const authenticated = await this.props.auth.isAuthenticated();
+    
+      authenticated ? this.handleAuthenticated() : this.handleNotAuthenticated();
+    }
+
+  componentDidMount() {
+    this.checkAuthentication();
   }
 
   componentDidUpdate() {
     this.checkAuthentication();
   }
-
+  
   render() {
-    if (this.state.authenticated === null) return null;
-
-    const button = this.state.authenticated ?
-      <button className='loginButton' onClick={() => {this.props.auth.logout()}}>Logout</button> :
-      <button className='loginButton' onClick={() => {this.props.auth.login()}}>Login</button>;
+    if ( this.props.home.authentication === null ) return null;
+  
+    const button = this.props.home.authentication ?
+      <button className='loginButton' onClick={() => {this.props.auth.logout();}}>Logout</button> : 
+      <button className='loginButton' onClick={() => {this.props.auth.login();}}>Login</button>;
 
     return (
       <div>
-        <Link to='/'>Home</Link><br/>
-        <Link to='/protected'>Protected</Link><br/>
-        <Link to='/account'>Account</Link><br/>
-        <Link to='/propertyinformation'>Property Information</Link><br/>
-        <Link to='/notifications'>Notifications</Link><br/>
-        <Link to='/savenotification'>Save Notification</Link><br/>
         {button}
+        <button className='searchButton' onClick={this.handleClick}>
+          <GiMagnifyingGlass size='2em'/>
+        </button>
+        {this.props.home.showFilter && <FilterWidget/>}
         <Map/>
       </div>
     );
   }
-  
-});
+
+} 
+
+const mapStateToProps = (state) => {
+  return {
+      home: state
+  };
+};
+
+export default withAuth(connect(mapStateToProps)(Home));

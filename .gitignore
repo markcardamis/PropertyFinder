@@ -12,7 +12,7 @@ logs/
 .project
 .settings
 .vscode
-.icloud
+*.icloud
 node_modules/
 serviceAccountKey.json
 src/main/resources/application-dev.properties

@@ -32,8 +32,13 @@ class Map extends React.Component {
   }
 
     renderPins = () => {
+<<<<<<< HEAD
         return (PROPERTY_DATA.map((item) =>
         // return (this.props.map.mapMarker.map((item) =>
+=======
+        // return (PROPERTY_DATA.map((item) =>
+        return (this.props.map.mapMarker.map((item) =>
+>>>>>>> 343bb9ed35fa2b912e665a270e79caf5905d74e9
                 <Marker 
                       className='propertyMarker'
                       key={item.id}
