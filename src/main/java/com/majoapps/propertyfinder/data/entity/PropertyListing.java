@@ -26,6 +26,9 @@ public class PropertyListing {
     private Integer domainListingId;
     @Column(name="price")
     private String price;
+    @JsonIgnore
+    @Column(name="priceInt")
+    private Integer priceInt;
     @Column(name="listing_url")
     private String listingURL;
     @Column(name="listing_photo")
