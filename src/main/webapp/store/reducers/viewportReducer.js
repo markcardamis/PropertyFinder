@@ -1,8 +1,8 @@
 const initialState = {
     width: '100vw',
     height: '100vh',
-    latitude: -33.865143,
     longitude: 151.209900,
+    latitude: -33.865143,
     zoom: 13
 };
 
