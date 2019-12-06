@@ -3,14 +3,11 @@ package com.majoapps.propertyfinder.business.service;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.EntityNotFoundException;
 
 @Service

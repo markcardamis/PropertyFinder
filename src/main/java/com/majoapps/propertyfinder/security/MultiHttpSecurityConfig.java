@@ -1,7 +1,6 @@
 package com.majoapps.propertyfinder.security;
 
 import com.okta.spring.boot.oauth.Okta;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
