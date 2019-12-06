@@ -61,10 +61,10 @@ export default withAuth(class LoginForm extends Component {
   }
 
   render() {
-    if (this.state.sessionToken) {
-      this.props.auth.redirect({sessionToken: this.state.sessionToken});
-      return null;
-    }
+    // if (this.state.sessionToken) {
+    //   this.props.auth.redirect({sessionToken: this.state.sessionToken});
+    //   return null;
+    // }
 
     return (
       <div className='container col-lg-12 justify-content-center'>
