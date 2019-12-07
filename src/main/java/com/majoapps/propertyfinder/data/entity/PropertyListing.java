@@ -26,6 +26,9 @@ public class PropertyListing {
     private Integer domainListingId;
     @Column(name="price")
     private String price;
+    @JsonIgnore
+    @Column(name="priceInt")
+    private Integer priceInt;
     @Column(name="listing_url")
     private String listingURL;
     @Column(name="listing_photo")
@@ -70,6 +73,10 @@ public class PropertyListing {
     private String minimumLotSize;
     @Column(name="land_value")
     private Integer landValue;
+    @Column(name="price_psm")
+    private Integer pricePSM;
+    @Column(name="price_to_land_value")
+    private BigDecimal priceToLandValue;
     // @JsonIgnore
     // @Column(name="geometry")
     // private Point geometry;

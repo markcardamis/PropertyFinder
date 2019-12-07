@@ -5,18 +5,15 @@ import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.repository.AccountRepository;
 import com.majoapps.propertyfinder.data.repository.NotificationsRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-
 import javax.persistence.EntityNotFoundException;
 
 @Service
@@ -100,16 +97,18 @@ public class NotificationsService {
 
     public ResponseEntity<Notifications> updateNotifications(UUID id, Notifications newNotifications){
         return notificationsRepository.findById(id).map(notifications -> {
-            notifications.setPlanningZone(newNotifications.getPlanningZone());
+            notifications.setPropertyZone(newNotifications.getPropertyZone());
             notifications.setPropertyAreaMin(newNotifications.getPropertyAreaMin());
             notifications.setPropertyAreaMax(newNotifications.getPropertyAreaMax());
             notifications.setPropertyPriceMin(newNotifications.getPropertyPriceMin());
             notifications.setPropertyPriceMax(newNotifications.getPropertyPriceMax());
-            notifications.setPropertyPSMMin(newNotifications.getPropertyPSMMin());
-            notifications.setPropertyPSMMax(newNotifications.getPropertyPSMMax());
+            notifications.setPropertyPricePSMMin(newNotifications.getPropertyPricePSMMin());
+            notifications.setPropertyPricePSMMax(newNotifications.getPropertyPricePSMMax());
             notifications.setPropertyPostCode(newNotifications.getPropertyPostCode());
             notifications.setPropertyPriceToLandValueMin(newNotifications.getPropertyPriceToLandValueMin());
             notifications.setPropertyPriceToLandValueMax(newNotifications.getPropertyPriceToLandValueMax());
+            notifications.setPropertyFloorSpaceRatioMin(newNotifications.getPropertyFloorSpaceRatioMin());
+            notifications.setPropertyFloorSpaceRatioMax(newNotifications.getPropertyFloorSpaceRatioMax());
             notificationsRepository.save(notifications);
             return ResponseEntity.ok(notifications);
         }).orElseThrow(() -> new ResourceNotFoundException("Notifications [ID="+id+"] can't be found"));
@@ -117,8 +116,8 @@ public class NotificationsService {
 
     public ResponseEntity<Notifications> partialUpdateNotifications(UUID id, Notifications newNotifications){
         return notificationsRepository.findById(id).map(notifications -> {
-            if (newNotifications.getPlanningZone() != null)
-                notifications.setPlanningZone(newNotifications.getPlanningZone());
+            if (newNotifications.getPropertyZone() != null)
+                notifications.setPropertyZone(newNotifications.getPropertyZone());
             if (newNotifications.getPropertyAreaMin() != 0)
                 notifications.setPropertyAreaMin(newNotifications.getPropertyAreaMin());
             if (newNotifications.getPropertyAreaMax() != 0) 
@@ -127,16 +126,20 @@ public class NotificationsService {
                 notifications.setPropertyPriceMin(newNotifications.getPropertyPriceMin());
             if (newNotifications.getPropertyPriceMax() != 0)
                 notifications.setPropertyPriceMax(newNotifications.getPropertyPriceMax());
-            if (newNotifications.getPropertyPSMMin() != 0)
-                notifications.setPropertyPSMMin(newNotifications.getPropertyPSMMin());
-            if (newNotifications.getPropertyPSMMax() != 0)
-                notifications.setPropertyPSMMax(newNotifications.getPropertyPSMMax());
+            if (newNotifications.getPropertyPricePSMMin() != 0)
+                notifications.setPropertyPricePSMMin(newNotifications.getPropertyPricePSMMin());
+            if (newNotifications.getPropertyPricePSMMax() != 0)
+                notifications.setPropertyPricePSMMax(newNotifications.getPropertyPricePSMMax());
             if (newNotifications.getPropertyPostCode() != null)
                 notifications.setPropertyPostCode(newNotifications.getPropertyPostCode());
             if (newNotifications.getPropertyPriceToLandValueMin() != null)
                 notifications.setPropertyPriceToLandValueMin(newNotifications.getPropertyPriceToLandValueMin());
             if (newNotifications.getPropertyPriceToLandValueMax() != null)
                 notifications.setPropertyPriceToLandValueMax(newNotifications.getPropertyPriceToLandValueMax());
+            if (newNotifications.getPropertyFloorSpaceRatioMin() != null)
+                notifications.setPropertyFloorSpaceRatioMin(newNotifications.getPropertyFloorSpaceRatioMin());
+            if (newNotifications.getPropertyFloorSpaceRatioMax() != null)
+                notifications.setPropertyFloorSpaceRatioMax(newNotifications.getPropertyFloorSpaceRatioMax());
             notificationsRepository.save(notifications);
             return ResponseEntity.ok(notifications);
         }).orElseThrow(() -> new ResourceNotFoundException("Notifications [ID="+id+"] can't be found"));
