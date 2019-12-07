@@ -3,62 +3,52 @@ import { withAuth } from '@okta/okta-react';
 import Map from './map/Map';
 import { GiMagnifyingGlass} from 'react-icons/gi';
 import FilterWidget from './widgets/FilterWidget';
-import { connect } from 'react-redux';
 
-
-class Home extends Component {
-  
-    handleAuthenticated = () => {
-      this.props.dispatch({type: 'AUTHENTICATED'})
-    };
-
-    handleNotAuthenticated = () => {
-      this.props.dispatch({type: 'NOT_AUTHENTICATED'})
-    };
-
-    handleClick = () => {
-      this.props.dispatch({type: 'SHOW_FILTER'});
-    }
-
-    checkAuthentication = async () => {
-      const authenticated = await this.props.auth.isAuthenticated();
-    
-      authenticated ? this.handleAuthenticated() : this.handleNotAuthenticated();
-    }
-
-  componentDidMount() {
+export default withAuth( class Home extends Component {
+  constructor( props ) {
+    super( props );
+    this.state = { 
+          authenticated: null,
+          isHidden: false,
+          };
+    this.checkAuthentication = this.checkAuthentication.bind( this );
     this.checkAuthentication();
+    this.toggleFilter=this.toggleFilter.bind( this );
+  }
+  
+  async checkAuthentication() {
+    const authenticated = await this.props.auth.isAuthenticated();
+    if ( authenticated !== this.state.authenticated ) {
+      this.setState( { authenticated } );
+    }
   }
 
   componentDidUpdate() {
     this.checkAuthentication();
   }
-  
+
+    toggleFilter () {
+
+    this.setState( ( prevstate )=>( {
+        isHidden: !prevstate.isHidden,
+      } ) );
+  }
+
   render() {
-    if ( this.props.home.authentication === null ) return null;
+    if ( this.state.authenticated === null ) return null;
   
-    const button = this.props.home.authentication ?
+    const button = this.state.authenticated ?
       <button className='loginButton' onClick={() => {this.props.auth.logout();}}>Logout</button> : 
       <button className='loginButton' onClick={() => {this.props.auth.login();}}>Login</button>;
 
     return (
       <div>
         {button}
-        <button className='searchButton' onClick={this.handleClick}>
-          <GiMagnifyingGlass size='2em'/>
-        </button>
-        {this.props.home.showFilter && <FilterWidget/>}
+        <button className='searchButton' onClick={this.toggleFilter}><GiMagnifyingGlass size='2em'/></button>
+        {this.state.isHidden && <FilterWidget/>}
         <Map/>
       </div>
     );
   }
 
-} 
-
-const mapStateToProps = (state) => {
-  return {
-      home: state
-  };
-};
-
-export default withAuth(connect(mapStateToProps)(Home));
+} );

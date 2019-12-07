@@ -29,7 +29,7 @@ class Map extends React.Component {
         payload: data
       })
   } catch (err) {
-      console.log('error');
+      console.log('error get listings');
   }
   }
 

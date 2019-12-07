@@ -4,10 +4,10 @@ import { withAuth } from '@okta/okta-react';
 
 export default withAuth(class MessageList extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
         notifications: []
-    }
+    };
   }
 
   async componentDidMount() {
