@@ -11,6 +11,18 @@ import './Map.css';
 
 class Map extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state= {
+        viewport: {
+            width: '100vw',
+            height: '100vh',
+            latitude: -33.865143,
+            longitude: 151.209900,
+            zoom: 13
+        }
+      }}
+
   async componentDidMount () {
     try {
         const response = await fetch('/api/listing', {
@@ -91,21 +103,21 @@ class Map extends React.Component {
   }
 
   handleViewportChange = (viewport) => {
-    this.props.dispatch ({
-      type: 'VIEWPORT_CHANGE', 
-      payload: viewport
-    });
+    // this.props.dispatch ({
+    //   type: 'VIEWPORT_CHANGE', 
+    //   payload: viewport
+    // });
+    this.setState({viewport})
   }
 
 
     render() {
       return (
         <div className='row'>
-          {console.log(typeof this.props.map.mapMarker)}
           <ReactMapGL 
                 className='map col-lg-12 col-md-12 col-sm-12' 
                 mapStyle='mapbox://styles/mapbox/outdoors-v10'
-                {...this.props.map.viewport}
+                {...this.state.viewport} 
                 onViewportChange={this.handleViewportChange} 
                 mapboxApiAccessToken='pk.eyJ1IjoiaXJhcGFsaXkiLCJhIjoiY2syZXY3ZThuMDNldDNjcWszYmF3MGVjbiJ9.XZbadn1EL3fhX47KSbcVzA'>
                 <NavigationControl className='navigationControl'/>
