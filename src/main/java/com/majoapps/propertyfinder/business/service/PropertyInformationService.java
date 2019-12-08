@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityNotFoundException;
 
 @Service
 public class PropertyInformationService {
@@ -29,7 +28,7 @@ public class PropertyInformationService {
 
     public PropertyInformation getPropertyInformation(Integer id) {
         return this.propertyInformationRepository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException(id.toString()));
+        .orElseThrow(() -> new ResourceNotFoundException(("Property Information [ID="+id+"] can't be found")));
     }
 
     public ResponseEntity<PropertyInformation> updatePropertyInformation(Integer id, PropertyInformation newAccount){

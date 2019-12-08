@@ -11,7 +11,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -31,14 +31,10 @@ public class AccountService {
         return accounts;
     }
 
-    public List<Account> getAccount(UUID id) {
-        List<Account> accounts = new ArrayList<>();
-        Optional<Account> accountResponse = this.accountRepository.findById(id);
-        if (accountResponse.isPresent()) {
-            Account account = accountResponse.get();
-            accounts.add(account);
-        }
-        return accounts;
+    public Account getAccountById(UUID id) {
+        Objects.requireNonNull(id);
+        return this.accountRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(("Account ID="+id+" can't be found")));
     }
 
     public List<Account> getAccountByUserId(String userId) {
