@@ -17,9 +17,9 @@ class Map extends React.Component {
         viewport: {
             width: '100vw',
             height: '100vh',
-            latitude: -33.887865,
-            longitude: 151.143874,
-            zoom: 11
+            latitude: -33.863823,
+            longitude: 151.018731,
+            zoom: 10
         }
       }}
 
@@ -27,18 +27,14 @@ class Map extends React.Component {
     try {
         const response = await fetch('/api/listing', 
         
-        // await this.props.auth.getAccessToken() ? {
-        //     headers: {
-        //     Authorization:  'Bearer ' + await this.props.auth.getAccessToken()
-        //     }
-        // } : null
+          await this.props.auth.getAccessToken() ? {
+              headers: {
+              Authorization:  'Bearer ' + await this.props.auth.getAccessToken()
+              }
+            } : null
       // const response = await fetch('https://jsonplaceholder.typicode.com/posts', 
-      //{
-        //     headers: {
-        //       Authorization:  await this.props.auth.getAccessToken() ? 'Bearer ' + await this.props.auth.getAccessToken() : null
-        //       }
-        // }
-      );
+        )
+  
       const data = await response.json();
       console.dir({ data });
 
