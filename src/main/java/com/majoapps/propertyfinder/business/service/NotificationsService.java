@@ -34,6 +34,7 @@ public class NotificationsService {
     }
 
     public List<Notifications> getNotificationsByToken(JwtAuthenticationToken JwtAuthToken) {
+        Objects.requireNonNull(JwtAuthToken);
         if (JwtAuthToken.getTokenAttributes().containsKey("uid")) {
             String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
             if (token == null || token.isEmpty()) {
@@ -55,6 +56,8 @@ public class NotificationsService {
     }
 
     public Notifications saveNotificationsByToken(JwtAuthenticationToken JwtAuthToken, Notifications notifications) {
+        Objects.requireNonNull(JwtAuthToken);
+        Objects.requireNonNull(notifications);
         if (JwtAuthToken.getTokenAttributes().containsKey("uid")) {
             String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
             if (token == null || token.isEmpty()) {

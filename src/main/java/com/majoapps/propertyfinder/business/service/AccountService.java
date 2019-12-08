@@ -56,6 +56,7 @@ public class AccountService {
     }
 
     public List<Account> getAccountByToken(JwtAuthenticationToken JwtAuthToken) {
+        Objects.requireNonNull(JwtAuthToken);
         if (JwtAuthToken.getTokenAttributes().containsKey("uid")) {
             String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
             if (token == null || token.isEmpty()) {
