@@ -2,44 +2,35 @@ package com.majoapps.propertyfinder.business.service;
 
 import com.majoapps.propertyfinder.data.entity.Account;
 import com.majoapps.propertyfinder.data.entity.Notifications;
-import com.majoapps.propertyfinder.data.repository.AccountRepository;
 import com.majoapps.propertyfinder.data.repository.NotificationsRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
-import javax.persistence.EntityNotFoundException;
 
 @Service
 public class NotificationsService {
     private final NotificationsRepository notificationsRepository;
-    private final AccountRepository accountRepository;
+    private final AccountService accountService;
 
     @Autowired
-    public NotificationsService(NotificationsRepository notificationsRepository, AccountRepository accountRepository){
+    public NotificationsService(NotificationsRepository notificationsRepository, AccountService accountService){
         this.notificationsRepository = notificationsRepository;
-        this.accountRepository = accountRepository;
+        this.accountService = accountService;
     }
 
     public List<Notifications> getAllNotificationsForAccount(UUID account_id){
         return this.notificationsRepository.findByAccountId(account_id);
     }
 
-
-    public List<Notifications> getNotifications(UUID id) {
-        List<Notifications> notifications = new ArrayList<>();
-        Optional<Notifications> notificationsResponse = this.notificationsRepository.findById(id);
-        if (notificationsResponse.isPresent()) {
-            Notifications notification = notificationsResponse.get();
-            notifications.add(notification);
-        }
-        return notifications;
+    public Notifications getNotificationsById(UUID id) {
+        Objects.requireNonNull(id);
+        return this.notificationsRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(("Notifications [ID="+id+"] can't be found")));
     }
 
     public List<Notifications> getNotificationsByToken(JwtAuthenticationToken JwtAuthToken) {
@@ -49,7 +40,7 @@ public class NotificationsService {
                 throw new ResourceNotFoundException("uid is null in JWT ");
             } else {
             //return all Notifications for the logged in user
-                List<Account> accountResponse = this.accountRepository.findByUserId(token);
+                List<Account> accountResponse = this.accountService.getAccountByUserId(token);
                 if (accountResponse.size() == 0) {
                     //no account for user
                     throw new ResourceNotFoundException("Account [User ID="+token+"] can't be found");
@@ -70,7 +61,7 @@ public class NotificationsService {
                 throw new ResourceNotFoundException("uid is null in JWT ");
             } else {
             //return all Notifications for the logged in user
-                List<Account> accountResponse = this.accountRepository.findByUserId(token);
+                List<Account> accountResponse = this.accountService.getAccountByUserId(token);
                 if (accountResponse.size() == 0) {
                     //no account for user
                     throw new ResourceNotFoundException("Account [User ID="+token+"] can't be found");
@@ -88,9 +79,7 @@ public class NotificationsService {
     public Notifications saveNotifications(UUID accountId, Notifications notifications) {
         Objects.requireNonNull(accountId);
         Objects.requireNonNull(notifications);
-        Account account = accountRepository
-                .findById(accountId)
-                .orElseThrow(() -> new EntityNotFoundException(accountId.toString()));
+        Account account = accountService.getAccountById(accountId);
         notifications.setAccount(account);
         return notificationsRepository.save(notifications);
     }
@@ -151,6 +140,36 @@ public class NotificationsService {
                     return ResponseEntity.ok().build();
                 }
         ).orElseThrow(() -> new ResourceNotFoundException("Notifications [ID="+notificationId+"] can't be found"));
+    }
+
+    public String getNotificationsByIdToSpecification(UUID id) {        
+        Notifications notificationsResponse = getNotificationsById(id);
+        StringBuilder sb = new StringBuilder("id>0");
+            if (notificationsResponse.getPropertyZone() != null)
+                sb.append(" AND zone:").append(notificationsResponse.getPropertyZone());
+            if (notificationsResponse.getPropertyAreaMin() != null && notificationsResponse.getPropertyAreaMin() != 0)
+                sb.append(" AND area>").append(notificationsResponse.getPropertyAreaMin());
+            if (notificationsResponse.getPropertyAreaMax() != null && notificationsResponse.getPropertyAreaMax() != 0) 
+                sb.append(" AND area<").append(notificationsResponse.getPropertyAreaMax());
+            if (notificationsResponse.getPropertyPriceMin() != null && notificationsResponse.getPropertyPriceMin() != 0)
+                sb.append(" AND priceInt>").append(notificationsResponse.getPropertyPriceMin());
+            if (notificationsResponse.getPropertyPriceMax() != null && notificationsResponse.getPropertyPriceMax() != 0)
+                sb.append(" AND priceInt<").append(notificationsResponse.getPropertyPriceMax());
+            if (notificationsResponse.getPropertyPricePSMMin() != null && notificationsResponse.getPropertyPricePSMMin() != 0)
+                sb.append(" AND pricePSM>").append(notificationsResponse.getPropertyPricePSMMin());
+            if (notificationsResponse.getPropertyPricePSMMax() != null && notificationsResponse.getPropertyPricePSMMax() != 0)
+                sb.append(" AND pricePSM<").append(notificationsResponse.getPropertyPricePSMMax());
+            if (notificationsResponse.getPropertyPostCode() != null)
+                sb.append(" AND postCode:").append(notificationsResponse.getPropertyPostCode());
+            if (notificationsResponse.getPropertyPriceToLandValueMin() != null)
+                sb.append(" AND priceToLandValue>").append(notificationsResponse.getPropertyPriceToLandValueMin());
+            if (notificationsResponse.getPropertyPriceToLandValueMax() != null)
+                sb.append(" AND priceToLandValue<").append(notificationsResponse.getPropertyPriceToLandValueMax());
+            if (notificationsResponse.getPropertyFloorSpaceRatioMin() != null)
+                sb.append(" AND floorSpaceRatio>").append(notificationsResponse.getPropertyFloorSpaceRatioMin());
+            if (notificationsResponse.getPropertyFloorSpaceRatioMax() != null)
+                sb.append(" AND floorSpaceRatio<").append(notificationsResponse.getPropertyFloorSpaceRatioMax());
+            return sb.toString();
     }
 
 }

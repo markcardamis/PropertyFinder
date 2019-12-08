@@ -45,8 +45,8 @@ public class NotificationsServiceController {
     }
 
     @RequestMapping(value="{id}", method= RequestMethod.GET)
-    public List<Notifications> getNotificationsById(@PathVariable(value="id") UUID notificationsId) {
-        return notificationsService.getNotifications(notificationsId);
+    public Notifications getNotificationsById(@PathVariable(value="id") UUID notificationsId) {
+        return notificationsService.getNotificationsById(notificationsId);
     }
 
     @RequestMapping(value = "{id}", method= RequestMethod.PUT)

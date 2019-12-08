@@ -3,7 +3,7 @@ package com.majoapps.propertyfinder.business.service;
 import com.majoapps.propertyfinder.data.entity.PropertyListing;
 import com.majoapps.propertyfinder.data.repository.PropertyListingRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
-import com.sipios.springsearch.anotation.SearchSpec;
+import com.sipios.springsearch.SpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,26 +11,29 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class PropertyListingService {
 
     private final PropertyListingRepository propertyListingRepository;
+    private final NotificationsService notificationsService;
 
     @Autowired
-    public PropertyListingService(PropertyListingRepository propertyListingRepository) {
+    public PropertyListingService(PropertyListingRepository propertyListingRepository, NotificationsService notificationsService) {
         this.propertyListingRepository = propertyListingRepository;
+        this.notificationsService = notificationsService;
     }
 
     // return different amount of listings based on account priority
     // return 100 listings for unauthenticated user
     // return 1000 listings for authenticated user
     // return 100000 listings for an admin user
-    public List<PropertyListing> getPropertyListingBySearch(JwtAuthenticationToken JwtAuthToken, @SearchSpec Specification<PropertyListing> searchSpec) {
+    public List<PropertyListing> getPropertyListingBySearch(JwtAuthenticationToken JwtAuthToken, Specification<PropertyListing> searchSpec) {
         try {
             if (JwtAuthToken != null && JwtAuthToken.getTokenAttributes().containsKey("uid")) {
                 String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
@@ -63,10 +66,21 @@ public class PropertyListingService {
         }
     }
 
-    public PropertyListing getPropertyListingById(Integer Id) {
-        Objects.requireNonNull(Id);
+    public PropertyListing getPropertyListingById(Integer id) {
+        Objects.requireNonNull(id);
         return this.propertyListingRepository
-                .findById(Id)
-                .orElseThrow(() -> new ResourceNotFoundException(("Listing [ID="+Id+"] can't be found")));
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(("Listing [ID="+id+"] can't be found")));
     }    
+
+    public List<PropertyListing> getPropertyListingsByNotificationsId(JwtAuthenticationToken JwtAuthToken, UUID notificationsId) {
+        Objects.requireNonNull(JwtAuthToken);
+        Objects.requireNonNull(notificationsId);
+        String token = this.notificationsService.getNotificationsByIdToSpecification(notificationsId);
+        
+        Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>().withSearch(token).build();
+
+        return(this.getPropertyListingBySearch(JwtAuthToken, specification));
+    }
+
 }

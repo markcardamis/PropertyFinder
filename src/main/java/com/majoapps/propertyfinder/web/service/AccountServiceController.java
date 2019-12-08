@@ -28,8 +28,8 @@ public class AccountServiceController {
     }
 
     @RequestMapping(value="{id}", method= RequestMethod.GET)
-    public List<Account> getAccountById(@PathVariable(value="id") UUID id) {
-        return this.accountService.getAccount(id);
+    public Account getAccountById(@PathVariable(value="id") UUID id) {
+        return this.accountService.getAccountById(id);
     }
 
     @RequestMapping(value = "{id}", method= RequestMethod.PUT)

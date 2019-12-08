@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value="/api/listing")
@@ -27,6 +28,11 @@ public class PropertyListingServiceController {
     @RequestMapping(value="{id}", method= RequestMethod.GET)
     public PropertyListing getListingById(@PathVariable(value="id") Integer id) {
         return this.propertyListingService.getPropertyListingById(id);
+    }
+
+    @RequestMapping(value="/notifications/{notifications_id}",method= RequestMethod.GET)
+    public List<PropertyListing> getListingsByNotificationsId(JwtAuthenticationToken JwtAuthToken, @PathVariable(value="notifications_id") UUID notificationsId) {
+        return this.propertyListingService.getPropertyListingsByNotificationsId(JwtAuthToken, notificationsId);
     }
 
 }
