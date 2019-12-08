@@ -21,6 +21,8 @@ export default withAuth(class LoginForm extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
+  
+
   async handleSubmit(e) {
     e.preventDefault();
 
@@ -33,7 +35,8 @@ export default withAuth(class LoginForm extends Component {
     }))
     .catch(err => console.log('Found an error', err));
 
-    try {
+    setTimeout(async () => {
+      try {
       const response = await fetch('/api/account', {
         headers: {
           Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
@@ -42,6 +45,7 @@ export default withAuth(class LoginForm extends Component {
       });
       const data = await response.json();
       console.dir({ data });
+      console.log('test timeout')
       localStorage.setItem('id', data.id);
       localStorage.setItem('id', data.userId);
 
@@ -50,7 +54,39 @@ export default withAuth(class LoginForm extends Component {
       console.log('error');
       console.log('API: /account');
     }
+  }, 2000);
   }
+
+  // async handleSubmit(e) {
+  //   e.preventDefault();
+
+  //   this.oktaAuth.signIn({
+  //     username: this.state.username,
+  //     password: this.state.password
+  //   })
+  //   .then(res => this.setState({
+  //     sessionToken: res.sessionToken
+  //   }))
+  //   .catch(err => console.log('Found an error', err));
+
+  //   try {
+  //     const response = await fetch('/api/account', {
+  //       headers: {
+  //         Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+  //       }
+  //     // const response = await fetch ('https://jsonplaceholder.typicode.com/todos/1');
+  //     });
+  //     const data = await response.json();
+  //     console.dir({ data });
+  //     localStorage.setItem('id', data.id);
+  //     localStorage.setItem('id', data.userId);
+
+  //     this.setState({ data: JSON.stringify(data) });
+  //   } catch (err) {
+  //     console.log('error');
+  //     console.log('API: /account');
+  //   }
+  // }
 
   handleUsernameChange(e) {
     this.setState({username: e.target.value});
