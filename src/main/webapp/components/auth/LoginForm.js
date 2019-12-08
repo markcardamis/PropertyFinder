@@ -21,6 +21,7 @@ export default withAuth(class LoginForm extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
+
   async handleSubmit(e) {
     e.preventDefault();
 
@@ -35,9 +36,9 @@ export default withAuth(class LoginForm extends Component {
 
     try {
       const response = await fetch('/api/account', {
-        headers: {
-          Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-        }
+        // headers: {
+        //   Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+        // }
       // const response = await fetch ('https://jsonplaceholder.typicode.com/todos/1');
       });
       const data = await response.json();
@@ -61,10 +62,10 @@ export default withAuth(class LoginForm extends Component {
   }
 
   render() {
-    // if (this.state.sessionToken) {
-    //   this.props.auth.redirect({sessionToken: this.state.sessionToken});
-    //   return null;
-    // }
+    if (this.state.sessionToken) {
+      this.props.auth.redirect({sessionToken: this.state.sessionToken});
+      return null;
+    }
 
     return (
       <div className='container col-lg-12 justify-content-center'>

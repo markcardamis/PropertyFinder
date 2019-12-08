@@ -1,12 +1,6 @@
-const initialState = {
-    width: '100vw',
-    height: '100vh',
-    longitude: 151.209900,
-    latitude: -33.865143,
-    zoom: 13
-};
+import { INITIAL_VIEWPORT } from '../../constants/constants'
 
-const authenticationReducer = (state=initialState, action) => {
+const authenticationReducer = (state=INITIAL_VIEWPORT, action) => {
     switch (action.type) {
         case 'VIEWPORT_CHANGE':
             return action.payload;

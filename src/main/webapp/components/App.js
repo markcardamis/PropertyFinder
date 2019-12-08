@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
+
 import Home from './Home';
 import Nav from './Nav';
 import Protected from './Protected';
 import LoginPage from '../pages/LoginPage';
 import PropertyInformation from './PropertyInformation';
-import Account from './Account';
-import Notifications from './Notifications';
-import SaveNotification from './SaveNotification';
 import '../styles/main.css';
 
 function onAuthRequired({history}) {

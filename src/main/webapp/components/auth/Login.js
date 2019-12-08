@@ -2,47 +2,31 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import { withAuth } from '@okta/okta-react';
-import { connect } from 'react-redux';
 
-
-class Login extends Component {
-
-    handleAuthenticated = () => {
-      this.props.dispatch({type: 'AUTHENTICATED'})
-    };
-
-    handleNotAuthenticated = () => {
-      this.props.dispatch({type: 'NOT_AUTHENTICATED'})
-    };
-
-    checkAuthentication = async () => {
-      const authenticated = await this.props.auth.isAuthenticated();
-    
-      authenticated ? this.handleAuthenticated() : this.handleNotAuthenticated();
-    }
-  
-  componentDidMount() {
+export default withAuth(class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { authenticated: null };
+    this.checkAuthentication = this.checkAuthentication.bind(this);
     this.checkAuthentication();
-    console.log(this.props)
   }
+
+  async checkAuthentication() {
+    const authenticated = await this.props.auth.isAuthenticated();
+    if (authenticated !== this.state.authenticated) {
+      this.setState({ authenticated });
+    }
+  }
+  
 
   componentDidUpdate() {
     this.checkAuthentication();
   }
 
   render() {
-    if ( this.props.login.authentication === null ) return null;
-
-    return this.props.login.authentication ?
+    if (this.state.authenticated === null) return null;
+    return this.state.authenticated ?
        <Redirect to={{ pathname: '/' }}/> :
       <LoginForm baseUrl={this.props.baseUrl} />;
   }
-}
-
-const mapStateToProps = (state) => {
-  return {
-      login: state
-  };
-};
-
-export default withAuth(connect(mapStateToProps)(Login));
+});

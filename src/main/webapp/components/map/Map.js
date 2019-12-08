@@ -6,21 +6,25 @@ import { withAuth } from '@okta/okta-react';
 import fetch from 'isomorphic-fetch';
 
 import PropertyCard from '../widgets/PropertyCard';
-import { PROPERTY_DATA } from '../../constants/constants'
+import { PROPERTY_DATA, MAPBOX_API, MAPBOX_STYLE } from '../../constants/constants';
 import './Map.css';
 
 class Map extends React.Component {
 
   async componentDidMount () {
     try {
-        const response = await fetch('/api/listing', {
+        const response = await fetch('/api/listing', 
+
+// error:  viewport-mercator-project - first fix auth api call
+
+          // await this.props.auth.getAccessToken() ? {
+          //     headers: {
+          //     Authorization:  'Bearer ' + await this.props.auth.getAccessToken()
+          //     }
+          //   } : null
       // const response = await fetch('https://jsonplaceholder.typicode.com/posts', 
-      //{
-            headers: {
-              Authorization:  await this.props.auth.getAccessToken() ? 'Bearer ' + await this.props.auth.getAccessToken() : null
-              }
-        }
-      );
+        )
+  
       const data = await response.json();
       console.dir({ data });
 
@@ -29,7 +33,7 @@ class Map extends React.Component {
         payload: data
       })
   } catch (err) {
-      console.log('error');
+      console.log('error get listings');
   }
   }
 
@@ -73,10 +77,10 @@ class Map extends React.Component {
       const response = await fetch(`/api/listing/${item.id}`, {
       // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
-        headers: {
-            Authorization:  await this.props.auth.getAccessToken() ? 'Bearer ' + await this.props.auth.getAccessToken() : null,
-            'Content-Type': 'application/json',
-        },
+        // headers: {
+        //     Authorization:  await this.props.auth.getAccessToken() ? 'Bearer ' + await this.props.auth.getAccessToken() : null,
+        //     'Content-Type': 'application/json',
+        // },
         body: JSON.stringify({
           'centreLatitude': this.props.map.viewport.latitude,
           'centreLongitude': this.props.map.viewport.longitude
@@ -86,7 +90,7 @@ class Map extends React.Component {
       const data = await response.json();
       console.dir({ data });
     } catch (err) {
-      console.log('error'); 
+      console.log('error POST map center coordinates'); 
     }
   }
 
@@ -101,13 +105,12 @@ class Map extends React.Component {
     render() {
       return (
         <div className='row'>
-          {console.log(typeof this.props.map.mapMarker)}
           <ReactMapGL 
                 className='map col-lg-12 col-md-12 col-sm-12' 
-                mapStyle='mapbox://styles/mapbox/outdoors-v10'
-                {...this.props.map.viewport}
+                mapStyle={MAPBOX_STYLE}
+                {...this.props.map.viewport} 
                 onViewportChange={this.handleViewportChange} 
-                mapboxApiAccessToken='pk.eyJ1IjoiaXJhcGFsaXkiLCJhIjoiY2syZXY3ZThuMDNldDNjcWszYmF3MGVjbiJ9.XZbadn1EL3fhX47KSbcVzA'>
+                mapboxApiAccessToken={MAPBOX_API} >
                 <NavigationControl className='navigationControl'/>
                 {this.renderPins()}
                 {this.props.map.showProperty.isHidden && <PropertyCard/>}

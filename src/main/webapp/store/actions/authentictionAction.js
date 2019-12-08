@@ -1,11 +1,12 @@
-export const authenticated = () => {
-    return {
-        type: 'AUTHENTICATED'
-    };
-};
+// export const authenticated = (user) => {
+//     return {
+//         type: 'AUTHENTICATED',
+//         payload: user
+//     };
+// };
 
-export const notAuthenticated = () => {
-    return {
-        type: 'NOT_AUTHENTICATED'
-    };
-};
+// export const notAuthenticated = () => {
+//     return {
+//         type: 'NOT_AUTHENTICATED'
+//     };
+// };
