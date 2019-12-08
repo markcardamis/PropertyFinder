@@ -10,16 +10,15 @@ export default withAuth(class SavedFilters extends Component {
         this.state = {
             notifications: []
         };
-        this.renderData=this.renderData.bind(this);
       }
       
   async componentDidMount() {
     try {
           const response = await fetch('/api/notifications', {
         // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-            headers: {
-                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-            }
+        //     headers: {
+        //         Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+        //     }
         });
         const data = await response.json();
         console.dir({ data });
@@ -27,19 +26,19 @@ export default withAuth(class SavedFilters extends Component {
         //   this.setState({ notifications : JSON.stringify(data) });
         this.setState({ notifications : data });
     } catch (err) {
-        console.log('error');
+        console.log('error loading list of filters');
     }
   }
 
 
-  async handleDeleteFilter (id) {
+  async handleDeleteFilter (item) {
     try {
-        const response = await fetch(`/api/notifications/${id}`, {
+        const response = await fetch(`/api/notifications/${item.id}`, {
         // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
           method: 'DELETE',
-          headers: {
-            Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-          }
+          // headers: {
+          //   Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+          // }
         });
         const data = await response.json();
         console.dir({ data });
@@ -47,14 +46,14 @@ export default withAuth(class SavedFilters extends Component {
         //   this.setState({ notifications : JSON.stringify(data) });
         this.setState({ notifications : data });
     } catch (err) {
-        console.log('error');
+        console.log('error delete filter');
     }
 }
 
-  async handleEditFilter (id) {
+  async handleEditFilter (item) {
     try {
-        // const response = await fetch(`/api/notifications/${id}`, {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+        const response = await fetch(`/api/notifications/${item.id}`, {
+        // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
             method: 'PUT',
             body: JSON.stringify({
               'planningZone': 'R5',
@@ -73,20 +72,19 @@ export default withAuth(class SavedFilters extends Component {
         //   this.setState({ notifications : JSON.stringify(data) });
         this.setState({ notifications : data });
     } catch (err) {
-      console.log('error');
+      console.log('error editing filter');
     }
   }
 
-  renderData () {
-    const { notifications } = this.state;
-
-      return notifications.map((item)=>
+  renderData = () => {
+    
+      return this.state.notifications.map((item)=>
             <li key={item.id} className='filterItem d-flex justify-content-between'>
                 <div>
-                    <h5>Filter {notifications.indexOf(item)+1}</h5>
+                    <h5>Filter {this.state.notifications.indexOf(item)+1}</h5>
                     <label style={{fontSize: '12px'}}>
                         {/* {item.title}<br/> */}
-                        {item.planningZone}<br/>
+                        {item.propertyZone}<br/>
                         {item.propertyAreaMin}<br/>
                         {item.propertyAreaMax}<br/>
                         {item.propertyPriceMin}<br/>
@@ -96,20 +94,20 @@ export default withAuth(class SavedFilters extends Component {
                         {item.propertyPostCode}<br/>
                         {item.propertyPriceToLandValueMin}<br/>
                         {item.propertyPriceToLandValueMax}<br/> 
+                        {item.propertyFloorSpaceRatioMin}<br/> 
+                        {item.propertyFloorSpaceRatioMax}<br/> 
                     </label>
                 </div>
                 <div>
-                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter(item.id)}/>
-                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter(item.id)}/>
+                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter}/>
+                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter}/>
                 </div>
             </li>
       );
   }
 
     render() {
-        return this.state.notifications ? 
-        <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul> :
-        <div>No saved filters</div>;
+      return <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul>
     }
 }
 );

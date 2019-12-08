@@ -3,13 +3,15 @@ import { withAuth } from '@okta/okta-react';
 import Map from './map/Map';
 import { GiMagnifyingGlass} from 'react-icons/gi';
 import FilterWidget from './widgets/FilterWidget';
+import { connect } from 'react-redux';
 
-export default withAuth( class Home extends Component {
+
+class Home extends Component {
   constructor( props ) {
     super( props );
     this.state = { 
           authenticated: null,
-          isHidden: false,
+          // isHidden: false,
           };
     this.checkAuthentication = this.checkAuthentication.bind( this );
     this.checkAuthentication();
@@ -29,9 +31,12 @@ export default withAuth( class Home extends Component {
 
     toggleFilter () {
 
-    this.setState( ( prevstate )=>( {
-        isHidden: !prevstate.isHidden,
-      } ) );
+    // this.setState( ( prevstate )=>( {
+    //     isHidden: !prevstate.isHidden,
+    //   } ) );
+    this.props.dispatch({type: 'SHOW_FILTER'});
+
+
   }
 
   render() {
@@ -45,10 +50,18 @@ export default withAuth( class Home extends Component {
       <div>
         {button}
         <button className='searchButton' onClick={this.toggleFilter}><GiMagnifyingGlass size='2em'/></button>
-        {this.state.isHidden && <FilterWidget/>}
+        {this.props.home.showFilter && <FilterWidget/>}
         <Map/>
       </div>
     );
   }
 
-} );
+}
+
+const mapStateToProps = (state) => {
+  return {
+      home: state
+  };
+};
+
+export default withAuth(connect(mapStateToProps)(Home));

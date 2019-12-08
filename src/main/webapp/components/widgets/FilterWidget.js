@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
-import { Tabs, Tab } from 'react-bootstrap-tabs';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import { IoMdClose } from 'react-icons/io';
+import "react-tabs/style/react-tabs.css";
 
 import SavedFilters from './SavedFilters';
 import Filter from './Filter';
@@ -35,18 +36,26 @@ class FilterWidget extends Component {
         this.checkAuthentication();
     }
 
+    handleSubmit = (value) => {
+        console.log(value)
+    }
+
     render () {
 
         return (
             <div className='filterWidget'>
                 <div className='d-flex justify-content-between'>
                     <Tabs>
-                        <Tab label='Search'>
-                            <Filter/>
-                        </Tab>
-                        <Tab label='Saved Filters'>
+                        <TabList>
+                            <Tab>Search</Tab>
+                            <Tab>Saved Filters</Tab>
+                        </TabList>
+                        <TabPanel>
+                            <Filter onSubmit={this.handleSubmit}/>
+                        </TabPanel>
+                        <TabPanel>
                             <SavedFilters/>
-                        </Tab>
+                        </TabPanel>
                     </Tabs>
                     <IoMdClose size='2em' onClick={this.handleClick}/>
                 </div>

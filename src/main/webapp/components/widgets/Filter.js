@@ -1,11 +1,14 @@
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
 import fetch from 'isomorphic-fetch';
+import {Field, reduxForm} from 'redux-form';
+import { connect } from 'react-redux';
+
 
 import './Filter.css';
 import SignIn from './SignIn';
 
-export default withAuth(class Filter extends React.Component {
+class Filter extends React.Component {
 
     constructor(props) {
         super(props);
@@ -61,41 +64,47 @@ export default withAuth(class Filter extends React.Component {
           }
     }
 
-    handleClose () {
+    handleClose = () => {
         this.setState ({
             isHidden: false
         });
     }
 
 
+
     render () {
-   
+        const { handleSubmit } = this.props;
         return (
             <div>
-                <form>
-            <div className='col-lg-9'>
-                <p>Filter price
-                    <input 
-                        type='range' 
-                        min='1' 
-                        max='999'
-                    />
-                </p>
-                <p>Filter square<br/>
-                    <input 
-                        type='text' 
-                        style={{width: '60px'}} 
-                        placeholder='min'
-                    /> - 
-                    <input type='text' style={{width: '60px'}} placeholder='max'/>
-                </p> 
-                <p>Filter area              
-                    <input type='text'/>
-                </p>
-                <p>Filter price per m<sup>2</sup>
-                    <input type='text'/>
-                </p>
-                <button >Search</button>
+               <form onSubmit={handleSubmit}>
+                     <div className='col-lg-9'>
+                        <p>Zone
+                            <Field name='propertyZone' component='input' type='text'/>
+                        </p>
+                        <p>Area<br/>
+                            <Field name='propertyAreaMin' component='input' type='text' placeholder='min' style={{width: '60px'}}/> - 
+                            <Field name='propertyAreaMax' component='input' type='text' placeholder='max' style={{width: '60px'}}/> 
+                        </p> 
+                        <p>Price<br/>
+                            <Field name='propertyPriceMin' component='input' type='text' placeholder='min' style={{width: '60px'}}/> - 
+                            <Field name='propertyPriceMax' component='input' type='text' placeholder='max' style={{width: '60px'}}/> 
+                        </p>
+                        <p>Price per m<sup>2</sup><br/>
+                            <Field name='propertyPricePSMMin' component='input' type='text' placeholder='min' style={{width: '60px'}}/> - 
+                            <Field name='propertyPricePSMMax' component='input' type='text' placeholder='max' style={{width: '60px'}}/> 
+                        </p>
+                        <p>Post Code
+                            <Field name='propertyPostCode' component='input' type='text'/>
+                        </p>
+                        <p>Price to Landvalue<br/>
+                            <Field name='propertyPriceToLandValueMin' component='input' type='text' placeholder='min' style={{width: '60px'}}/> - 
+                            <Field name='propertyPriceToLandValueMax' component='input' type='text' placeholder='max' style={{width: '60px'}}/> 
+                        </p>
+                        <p>Floorspace Ratio<br/>
+                            <Field name='propertyFloorSpaceRatioMin' component='input' type='text' placeholder='min' style={{width: '60px'}}/> - 
+                            <Field name='propertyFloorSpaceRatioMax' component='input' type='text' placeholder='max' style={{width: '60px'}}/> 
+                        </p>
+                <button type='submit'>Search</button>
                 <button onClick={this.handleSaveFilter}>Save preferences</button>
             </div>
             {this.state.isHidden && <SignIn onClick={this.handleClose.bind(this)}/>}
@@ -104,5 +113,14 @@ export default withAuth(class Filter extends React.Component {
         );
     }
 }
+Filter = reduxForm ({
+    form: 'filter',
+  }) (Filter);
 
-);
+  const mapStateToProps = (state) => {
+    return {
+        filter: state
+    };
+};
+
+  export default withAuth(connect(mapStateToProps)(Filter));
