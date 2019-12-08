@@ -118,17 +118,17 @@ public class NotificationsService {
         return notificationsRepository.findById(id).map(notifications -> {
             if (newNotifications.getPropertyZone() != null)
                 notifications.setPropertyZone(newNotifications.getPropertyZone());
-            if (newNotifications.getPropertyAreaMin() != 0)
+            if (newNotifications.getPropertyAreaMin() != null && newNotifications.getPropertyAreaMin() != 0)
                 notifications.setPropertyAreaMin(newNotifications.getPropertyAreaMin());
-            if (newNotifications.getPropertyAreaMax() != 0) 
+            if (newNotifications.getPropertyAreaMax() != null && newNotifications.getPropertyAreaMax() != 0) 
                 notifications.setPropertyAreaMax(newNotifications.getPropertyAreaMax());
-            if (newNotifications.getPropertyPriceMin() != 0)
+            if (newNotifications.getPropertyPriceMin() != null && newNotifications.getPropertyPriceMin() != 0)
                 notifications.setPropertyPriceMin(newNotifications.getPropertyPriceMin());
-            if (newNotifications.getPropertyPriceMax() != 0)
+            if (newNotifications.getPropertyPriceMax() != null && newNotifications.getPropertyPriceMax() != 0)
                 notifications.setPropertyPriceMax(newNotifications.getPropertyPriceMax());
-            if (newNotifications.getPropertyPricePSMMin() != 0)
+            if (newNotifications.getPropertyPricePSMMin() != null && newNotifications.getPropertyPricePSMMin() != 0)
                 notifications.setPropertyPricePSMMin(newNotifications.getPropertyPricePSMMin());
-            if (newNotifications.getPropertyPricePSMMax() != 0)
+            if (newNotifications.getPropertyPricePSMMax() != null && newNotifications.getPropertyPricePSMMax() != 0)
                 notifications.setPropertyPricePSMMax(newNotifications.getPropertyPricePSMMax());
             if (newNotifications.getPropertyPostCode() != null)
                 notifications.setPropertyPostCode(newNotifications.getPropertyPostCode());
