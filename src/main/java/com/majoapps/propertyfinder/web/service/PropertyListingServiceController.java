@@ -38,7 +38,7 @@ public class PropertyListingServiceController {
     }
 
     @RequestMapping(value="/notifications",method= RequestMethod.POST)
-    public List<PropertyListing> getListingsFilteringByNotifications(JwtAuthenticationToken JwtAuthToken, @RequestBody Notifications notifications) {
+    public List<PropertyListing> getListingsFilteringByNotifications(JwtAuthenticationToken JwtAuthToken, @RequestBody(required = false) Notifications notifications ) {
         return this.propertyListingService.getPropertyListingsByNotifications(JwtAuthToken, notifications);
     }
 
