@@ -99,21 +99,21 @@ export default withAuth(class SavedFilters extends Component {
             <li key={item.id} className='filterItem d-flex justify-content-between'>
                 <div>
                     <h5>Filter {this.state.notifications.indexOf(item)+1}</h5>
-                    <label style={{fontSize: '12px'}} onClick={this.handleSelectFilter}>
+                    <ul style={{fontSize: '12px', listStyle: 'none'}} onClick={this.handleSelectFilter}>
                         {/* {item.title}<br/> */}
-                        {item.propertyZone ? `Zone: ${item.propertyZone}` : null}<br/>
-                        {item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}<br/>
-                        {item.propertyAreaMax ? `Area max: ${item.propertyAreaMax}` : null}<br/>
-                        {item.propertyPriceMin ? `Price min: ${item.propertyPriceMin}` : null}<br/>
-                        {item.propertyPriceMax ? `Price max: ${item.propertyPriceMax}` : null}<br/>
-                        {item.propertyPSMMin ? `Price per m2 min: ${item.propertyPSMMin}` : null}<br/>
-                        {item.propertyPSMMax ? `Price per m2 max: ${item.propertyPSMMax}` : null}<br/>  
-                        {item.propertyPostCode ? `Post code: ${item.propertyPostCode}` : null}<br/>
-                        {item.propertyPriceToLandValueMin ? `Price to landvalue min: ${item.propertyPriceToLandValueMin}` : null}<br/>
-                        {item.propertyPriceToLandValueMax ? `Price to landvalue max: ${item.propertyPriceToLandValueMax}` : null}<br/> 
-                        {item.propertyFloorSpaceRatioMin ? `Floorspace ratio min: ${item.propertyFloorSpaceRatioMin}` : null}<br/> 
-                        {item.propertyFloorSpaceRatioMax ? `Floorspace ratio max: ${item.propertyFloorSpaceRatioMax}` : null}<br/> 
-                    </label>
+                        <li>{item.propertyZone ? `Zone: ${item.propertyZone}` : null}</li>
+                        <li>{item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}</li>
+                        <li>{item.propertyAreaMax ? `Area max: ${item.propertyAreaMax}` : null}</li>
+                        <li>{item.propertyPriceMin ? `Price min: ${item.propertyPriceMin}` : null}</li>
+                        <li>{item.propertyPriceMax ? `Price max: ${item.propertyPriceMax}` : null}</li>
+                        <li>{item.propertyPSMMin ? `Price per m2 min: ${item.propertyPSMMin}` : null}</li>
+                        <li>{item.propertyPSMMax ? `Price per m2 max: ${item.propertyPSMMax}` : null}</li>  
+                        <li>{item.propertyPostCode ? `Post code: ${item.propertyPostCode}` : null}</li>
+                        <li>{item.propertyPriceToLandValueMin ? `Price to landvalue min: ${item.propertyPriceToLandValueMin}` : null}</li>
+                        <li>{item.propertyPriceToLandValueMax ? `Price to landvalue max: ${item.propertyPriceToLandValueMax}` : null}</li> 
+                        <li>{item.propertyFloorSpaceRatioMin ? `Floorspace ratio min: ${item.propertyFloorSpaceRatioMin}` : null}</li> 
+                        <li>{item.propertyFloorSpaceRatioMax ? `Floorspace ratio max: ${item.propertyFloorSpaceRatioMax}` : null}</li> 
+                    </ul>
                 </div>
                 <div>
                     <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter.bind(this, item.id)}/>
