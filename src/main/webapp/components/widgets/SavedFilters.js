@@ -40,7 +40,8 @@ export default withAuth(class SavedFilters extends Component {
     });
     const data = await response.json();
     console.dir({ data });
-    console.log('filter selected')
+    console.log(item);
+    console.log('filter selected');
 
 } catch (err) {
     console.log('error loading list of filters');
@@ -96,8 +97,8 @@ export default withAuth(class SavedFilters extends Component {
   renderData = () => {
     
       return this.state.notifications.map((item)=>
-            <li key={item.id} onClick={this.handleSelectFilter.bind(this, item)} className='filterItem d-flex justify-content-between'>
-                <div>
+            <li key={item.id} className='filterItem d-flex justify-content-between'>
+                <div onClick={this.handleSelectFilter.bind(this, item)}>
                     <h5>Filter {this.state.notifications.indexOf(item)+1}</h5>
                     <ul style={{fontSize: '12px', listStyle: 'none'}} onClick={this.handleSelectFilter}>
                         {/* {item.title}<br/> */}
