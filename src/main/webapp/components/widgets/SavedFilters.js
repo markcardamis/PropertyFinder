@@ -11,23 +11,32 @@ export default withAuth(class SavedFilters extends Component {
             notifications: []
         };
       }
-      
-  async componentDidMount() {
-    try {
-          const response = await fetch('/api/notifications', {
-        // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-            headers: {
-                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-            }
-        });
-        const data = await response.json();
-        console.dir({ data });
 
-        //   this.setState({ notifications : JSON.stringify(data) });
-        this.setState({ notifications : data });
+  async getFilterList () {
+    try {
+        const response = await fetch('/api/notifications', {
+      // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+          headers: {
+              Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+          }
+      });
+      const data = await response.json();
+      console.dir({ data });
+      console.log('successfully loaded list of filters');
+
+      //   this.setState({ notifications : JSON.stringify(data) });
+      this.setState({ notifications : data });
     } catch (err) {
         console.log('error loading list of filters');
     }
+      }
+
+  componentDidMount() {
+    this.getFilterList();
+  }
+
+  componentDidUpdate() {
+    this.getFilterList();
   }
 
   async handleSelectFilter(item) {
