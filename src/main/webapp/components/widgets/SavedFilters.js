@@ -14,11 +14,11 @@ export default withAuth(class SavedFilters extends Component {
       
   async componentDidMount() {
     try {
-          // const response = await fetch('/api/notifications', {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-            // headers: {
-            //     Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-            // }
+          const response = await fetch('/api/notifications', {
+        // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+            headers: {
+                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            }
         });
         const data = await response.json();
         console.dir({ data });
@@ -48,7 +48,7 @@ export default withAuth(class SavedFilters extends Component {
   
   }
 
-  async handleDeleteFilter (item) {
+  async handleDeleteFilter (id) {
     try {
         const response = await fetch(`/api/notifications/${item.id}`, {
         // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
@@ -59,7 +59,6 @@ export default withAuth(class SavedFilters extends Component {
         });
         const data = await response.json();
         console.dir({ data });
-        console.log('filter deleted')
   
         //   this.setState({ notifications : JSON.stringify(data) });
         this.setState({ notifications : data });
@@ -68,9 +67,9 @@ export default withAuth(class SavedFilters extends Component {
     }
 }
 
-  async handleEditFilter (item) {
+  async handleEditFilter (id) {
     try {
-        const response = await fetch(`/api/notifications/${item.id}`, {
+        const response = await fetch(`/api/notifications/${id}`, {
         // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
             method: 'PUT',
             body: JSON.stringify({
@@ -117,8 +116,8 @@ export default withAuth(class SavedFilters extends Component {
                     </label>
                 </div>
                 <div>
-                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter}/>
-                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter}/>
+                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter.bind(this, item.id)}/>
+                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter.bind(this, item.id)}/>
                 </div>
             </li>
       );
