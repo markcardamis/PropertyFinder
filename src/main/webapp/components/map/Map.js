@@ -15,8 +15,6 @@ class Map extends React.Component {
     try {
         const response = await fetch('/api/listing', 
 
-// error:  viewport-mercator-project - first fix auth api call
-
           // await this.props.auth.getAccessToken() ? {
           //     headers: {
           //     Authorization:  'Bearer ' + await this.props.auth.getAccessToken()

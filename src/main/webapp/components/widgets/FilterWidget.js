@@ -36,8 +36,42 @@ class FilterWidget extends Component {
         this.checkAuthentication();
     }
 
-    handleSubmit = (value) => {
-        console.log(value)
+    handleSubmit = async (value) => {
+
+        const emptyQuery = '';
+        const zone = value.propertyZone ? ` AND zone:${value.propertyZone}` : '';
+        const areaMin = value.propertyAreaMin ? ` AND area>${value.propertyAreaMin}` : '';
+        const areaMax = value.propertyAreaMax ? ` AND area<${value.propertyAreaMax}` : '';
+        const priceMin = value.propertyPriceMin ? ` AND priceInt>${value.propertyPriceMin}` : '';
+        const priceMax = value.propertyPriceMax ? ` AND priceInt>${value.propertyPriceMax}` : '';
+        const pricePSMMin = value.propertyPricePSMMin ? ` AND pricePSM>${value.propertyPricePSMMin}` : '';
+        const pricePSMMax = value.propertyPricePSMMax ? ` AND pricePSM<${value.propertyPricePSMMax}` : '';
+        const postCode = value.propertyPostCode ? ` AND postCode:${value.propertyPostCode}` : '';
+        const landvalueMin = value.propertyPriceToLandValueMin ? ` AND priceToLandValue>${value.propertyPriceToLandValueMin}` : '';
+        const landvalueMax = value.propertyPriceToLandValueMax ? ` AND priceToLandValue<${value.propertyPriceToLandValueMax}` : '';
+        const floorMin = value.propertyFloorSpaceRatioMin ? ` AND floorSpaceRatio>${value.propertyFloorSpaceRatioMin}` : '';
+        const floorMax = value.propertyPriceToLandValueMax ? ` AND floorSpaceRatio<${value.propertyFloorSpaceRatioMax}` : '';
+
+        const query = emptyQuery.concat(zone, areaMin, areaMax, priceMin, priceMax, pricePSMMin, pricePSMMax, postCode, landvalueMin, landvalueMax, floorMax, floorMin)
+
+        try {
+            const response = await fetch(`/api/listing?search=${query}`, {
+        // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+            //   headers: {
+            //       Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            //   }
+          });
+          const data = await response.json();
+          console.dir({ data });
+
+          this.props.dispatch({
+            type: 'MARKERS',
+            payload: data
+          })
+      } catch (err) {
+          console.log('error loading list of filters');
+      }
+        
     }
 
     render () {

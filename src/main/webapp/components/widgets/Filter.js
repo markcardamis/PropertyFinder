@@ -1,12 +1,19 @@
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
 import fetch from 'isomorphic-fetch';
-import {Field, reduxForm} from 'redux-form';
+import {Field, reduxForm, formValueSelector} from 'redux-form';
 import { connect } from 'react-redux';
-
 
 import './Filter.css';
 import SignIn from './SignIn';
+
+// const savedFilterExample = {
+//     'propertyZone': 4,
+//     'propertyAreaMax': 'Sydney',
+//     'propertyPriceMin': 1000,
+//     'propertyPriceMax': 1000000,
+//     'propertyPostCode': 55555,
+// }
 
 class Filter extends React.Component {
 
@@ -43,14 +50,27 @@ class Filter extends React.Component {
         try {
             const response = await fetch('/api/notifications', {
             // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-              method: 'POST',
+                method: 'POST',
               headers: {
                 Authorization: 'Bearer ' + await this.props.auth.getAccessToken(),
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({
-                'planningZone': 'R5',
-                'propertyAreaMin': 1
+                // headers: {
+                //     "Content-type": "application/json; charset=UTF-8"
+                // },
+                body: JSON.stringify({
+                    'propertyZone': this.props.propertyZone,
+                    'propertyAreaMin': this.props.propertyAreaMin,
+                    'propertyAreaMax': this.props.propertyAreaMax,
+                    'propertyPriceMin': this.props.propertyPriceMin,
+                    'propertyPriceMax': this.props.propertyPriceMax,
+                    'propertyPricePSMMin': this.props.propertyPricePSMMin,
+                    'propertyPricePSMMax': this.props.propertyPricePSMMax,
+                    'propertyPostCode': this.props.propertyPostCode,
+                    'propertyPriceToLandValueMin': this.props.propertyPriceToLandValueMin,
+                    'propertyPriceToLandValueMax': this.props.propertyPriceToLandValueMax,
+                    'propertyFloorSpaceRatioMin': this.props.propertyFloorSpaceRatioMin,
+                    'propertyFloorSpaceRatioMax': this.props.propertyFloorSpaceRatioMax
               })
             });
 
@@ -59,8 +79,7 @@ class Filter extends React.Component {
       
             this.setState({ notifications : JSON.stringify(data) });
           } catch (err) {
-            console.log('error');   
-            console.log('API: /notifications - POST');
+            console.log('error API: filter - POST');   
           }
     }
 
@@ -70,13 +89,12 @@ class Filter extends React.Component {
         });
     }
 
-
-
     render () {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, load } = this.props;
         return (
             <div>
                <form onSubmit={handleSubmit}>
+                   {/* <div onClick={()=>load(savedFilterExample)}> Get saved values</div> */}
                      <div className='col-lg-9'>
                         <p>Zone
                             <Field name='propertyZone' component='input' type='text'/>
@@ -107,20 +125,40 @@ class Filter extends React.Component {
                 <button type='submit'>Search</button>
                 <button onClick={this.handleSaveFilter}>Save preferences</button>
             </div>
-            {this.state.isHidden && <SignIn onClick={this.handleClose.bind(this)}/>}
+            {/* {this.state.isHidden && <SignIn onClick={this.handleClose.bind(this)}/>} */}
             </form>
             </div>
         );
     }
 }
-Filter = reduxForm ({
-    form: 'filter',
-  }) (Filter);
 
-  const mapStateToProps = (state) => {
-    return {
-        filter: state
+Filter = reduxForm({
+    form: "filter" 
+  })(Filter);
+
+  const selector = formValueSelector("filter");
+Filter = connect(state => {
+ 
+  const { propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
+        propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
+        propertyPriceToLandValueMax, propertyFloorSpaceRatioMin,propertyFloorSpaceRatioMax
+    } = selector(state, 'propertyZone', 'propertyAreaMin', 'propertyAreaMax', 'propertyPriceMin',
+        'propertyPriceMax', 'propertyPricePSMMin', 'propertyPricePSMMax', 'propertyPostCode',
+        'propertyPriceToLandValueMin', 'propertyPriceToLandValueMax','propertyFloorSpaceRatioMin',
+        'propertyFloorSpaceRatioMax');
+
+  return {
+        propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
+        propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
+        propertyPriceToLandValueMax, propertyFloorSpaceRatioMin, propertyFloorSpaceRatioMax
     };
-};
+})(Filter);
 
-  export default withAuth(connect(mapStateToProps)(Filter));
+// Filter = connect(
+//     state => ({
+//       initialValues: savedFilterExample
+//     }),
+//     // { load: loadAccount } // bind account loading action creator
+//   )(Filter)
+
+  export default withAuth(Filter);

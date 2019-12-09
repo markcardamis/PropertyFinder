@@ -30,6 +30,23 @@ export default withAuth(class SavedFilters extends Component {
     }
   }
 
+  async handleSelectFilter(item) {
+    try {
+      const response = await fetch(`/api/listing/notifications/${item.id}`, {
+  // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        headers: {
+            Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+        }
+    });
+    const data = await response.json();
+    console.dir({ data });
+    console.log('filter selected')
+
+} catch (err) {
+    console.log('error loading list of filters');
+}
+  
+  }
 
   async handleDeleteFilter (item) {
     try {
@@ -42,6 +59,7 @@ export default withAuth(class SavedFilters extends Component {
         });
         const data = await response.json();
         console.dir({ data });
+        console.log('filter deleted')
   
         //   this.setState({ notifications : JSON.stringify(data) });
         this.setState({ notifications : data });
@@ -82,7 +100,7 @@ export default withAuth(class SavedFilters extends Component {
             <li key={item.id} className='filterItem d-flex justify-content-between'>
                 <div>
                     <h5>Filter {this.state.notifications.indexOf(item)+1}</h5>
-                    <label style={{fontSize: '12px'}}>
+                    <label style={{fontSize: '12px'}} onClick={this.handleSelectFilter}>
                         {/* {item.title}<br/> */}
                         {item.propertyZone}<br/>
                         {item.propertyAreaMin}<br/>

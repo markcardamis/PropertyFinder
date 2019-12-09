@@ -11,7 +11,6 @@ class Home extends Component {
     super( props );
     this.state = { 
           authenticated: null,
-          // isHidden: false,
           };
     this.checkAuthentication = this.checkAuthentication.bind( this );
     this.checkAuthentication();
@@ -30,13 +29,7 @@ class Home extends Component {
   }
 
     toggleFilter () {
-
-    // this.setState( ( prevstate )=>( {
-    //     isHidden: !prevstate.isHidden,
-    //   } ) );
     this.props.dispatch({type: 'SHOW_FILTER'});
-
-
   }
 
   render() {
