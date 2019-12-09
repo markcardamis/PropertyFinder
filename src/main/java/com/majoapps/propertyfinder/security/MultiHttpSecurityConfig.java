@@ -28,6 +28,7 @@ public class MultiHttpSecurityConfig {
                     .and()
                 .csrf()
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                    .ignoringAntMatchers("/api/listing/notifications")
                     .and()
                 .cors()
                     .and()
