@@ -14,11 +14,11 @@ export default withAuth(class SavedFilters extends Component {
       
   async componentDidMount() {
     try {
-          const response = await fetch('/api/notifications', {
-        // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-            headers: {
-                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-            }
+          // const response = await fetch('/api/notifications', {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+            // headers: {
+            //     Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            // }
         });
         const data = await response.json();
         console.dir({ data });
@@ -102,18 +102,18 @@ export default withAuth(class SavedFilters extends Component {
                     <h5>Filter {this.state.notifications.indexOf(item)+1}</h5>
                     <label style={{fontSize: '12px'}} onClick={this.handleSelectFilter}>
                         {/* {item.title}<br/> */}
-                        {item.propertyZone} ? <b>Zone: </b>{item.propertyZone} : {null}<br/>
-                        {item.propertyAreaMin} ? <b>Area min: </b>{item.propertyAreaMin} : {null}<br/>
-                        {item.propertyAreaMax} ? <b>Area max: </b>{item.propertyAreaMax} : {null}<br/>
-                        {item.propertyPriceMin} ? <b>Price min: </b>{item.propertyPriceMin} : {null}<br/>
-                        {item.propertyPriceMax} ? <b>Price max: </b>{item.propertyPriceMax} : {null}<br/>
-                        {item.propertyPSMMin} ? <b>Price per m<sup>2</sup> min: </b>{item.propertyPSMMin} : {null}<br/>
-                        {item.propertyPSMMax} ? <b>Price per m<sup>2</sup> max: </b>{item.propertyPSMMax} : {null}<br/>  
-                        {item.propertyPostCode} ? <b>Post code: </b>{item.propertyPostCode} : {null}<br/>
-                        {item.propertyPriceToLandValueMin} ? <b>Price to landvalue min: </b>{item.propertyPriceToLandValueMin} : {null}<br/>
-                        {item.propertyPriceToLandValueMax} ? <b>Price to landvalue max: </b>{item.propertyPriceToLandValueMax} : {null}<br/> 
-                        {item.propertyFloorSpaceRatioMin} ? <b>Floorspace ratio min: </b>{item.propertyFloorSpaceRatioMin} : {null}<br/> 
-                        {item.propertyFloorSpaceRatioMax} ? <b>Floorspace ratio max: </b>{item.propertyFloorSpaceRatioMax} : {null}<br/> 
+                        {item.propertyZone ? `Zone: ${item.propertyZone}` : null}<br/>
+                        {item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}<br/>
+                        {item.propertyAreaMax ? `Area max: ${item.propertyAreaMax}` : null}<br/>
+                        {item.propertyPriceMin ? `Price min: ${item.propertyPriceMin}` : null}<br/>
+                        {item.propertyPriceMax ? `Price max: ${item.propertyPriceMax}` : null}<br/>
+                        {item.propertyPSMMin ? `Price per m2 min: ${item.propertyPSMMin}` : null}<br/>
+                        {item.propertyPSMMax ? `Price per m2 max: ${item.propertyPSMMax}` : null}<br/>  
+                        {item.propertyPostCode ? `Post code: ${item.propertyPostCode}` : null}<br/>
+                        {item.propertyPriceToLandValueMin ? `Price to landvalue min: ${item.propertyPriceToLandValueMin}` : null}<br/>
+                        {item.propertyPriceToLandValueMax ? `Price to landvalue max: ${item.propertyPriceToLandValueMax}` : null}<br/> 
+                        {item.propertyFloorSpaceRatioMin ? `Floorspace ratio min: ${item.propertyFloorSpaceRatioMin}` : null}<br/> 
+                        {item.propertyFloorSpaceRatioMax ? `Floorspace ratio max: ${item.propertyFloorSpaceRatioMax}` : null}<br/> 
                     </label>
                 </div>
                 <div>
