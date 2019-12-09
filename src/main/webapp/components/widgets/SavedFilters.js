@@ -14,7 +14,7 @@ export default withAuth(class SavedFilters extends Component {
 
   async getFilterList () {
     try {
-        const response = await fetch('/api/notifications', {
+        const response = await fetch('/api/listing/notifications', {
       // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
           headers: {
               Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
@@ -35,9 +35,9 @@ export default withAuth(class SavedFilters extends Component {
     this.getFilterList();
   }
 
-  componentDidUpdate() {
-    this.getFilterList();
-  }
+  // componentDidUpdate() {
+  //   this.getFilterList();
+  // }
 
   async handleSelectFilter(item) {
     try {
@@ -55,7 +55,7 @@ export default withAuth(class SavedFilters extends Component {
 } catch (err) {
     console.log('error loading list of filters');
 }
-  
+  this.getFilterList();
   }
 
   async handleDeleteFilter (item) {
@@ -75,6 +75,7 @@ export default withAuth(class SavedFilters extends Component {
     } catch (err) {
         console.log('error delete filter');
     }
+    this.getFilterList();
 }
 
   async handleEditFilter (item) {
@@ -101,15 +102,20 @@ export default withAuth(class SavedFilters extends Component {
     } catch (err) {
       console.log('error editing filter');
     }
+    this.getFilterList();
   }
 
   renderData = () => {
     
       return this.state.notifications.map((item)=>
             <li key={item.id} className='filterItem d-flex justify-content-between'>
-                <div onClick={this.handleSelectFilter.bind(this, item)}>
-                    <h5>Filter {this.state.notifications.indexOf(item)+1}</h5>
-                    <ul style={{fontSize: '12px', listStyle: 'none'}} onClick={this.handleSelectFilter}>
+                <div>
+                  <div>
+                    <h5 onClick={this.handleSelectFilter.bind(this, item)}>Filter {this.state.notifications.indexOf(item)+1}</h5>
+                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter.bind(this, item)}/>
+                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter.bind(this, item)}/>
+                  </div>
+                    <ul  onClick={this.handleSelectFilter.bind(this, item)} style={{fontSize: '12px', listStyle: 'none'}}>
                         {/* {item.title}<br/> */}
                         <li>{item.propertyZone ? `Zone: ${item.propertyZone}` : null}</li>
                         <li>{item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}</li>
@@ -124,10 +130,6 @@ export default withAuth(class SavedFilters extends Component {
                         <li>{item.propertyFloorSpaceRatioMin ? `Floorspace ratio min: ${item.propertyFloorSpaceRatioMin}` : null}</li> 
                         <li>{item.propertyFloorSpaceRatioMax ? `Floorspace ratio max: ${item.propertyFloorSpaceRatioMax}` : null}</li> 
                     </ul>
-                </div>
-                <div>
-                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter.bind(this, item)}/>
-                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter.bind(this, item)}/>
                 </div>
             </li>
       );
