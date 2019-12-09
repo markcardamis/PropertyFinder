@@ -14,7 +14,7 @@ export default withAuth(class SavedFilters extends Component {
 
   async getFilterList () {
     try {
-        const response = await fetch('/api/listing/notifications', {
+        const response = await fetch('/api/notifications', {
       // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
           headers: {
               Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
