@@ -16,9 +16,9 @@ export default withAuth(class SavedFilters extends Component {
     try {
           const response = await fetch('/api/notifications', {
         // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-        //     headers: {
-        //         Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-        //     }
+            headers: {
+                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            }
         });
         const data = await response.json();
         console.dir({ data });
@@ -36,9 +36,9 @@ export default withAuth(class SavedFilters extends Component {
         const response = await fetch(`/api/notifications/${item.id}`, {
         // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
           method: 'DELETE',
-          // headers: {
-          //   Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-          // }
+          headers: {
+            Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+          }
         });
         const data = await response.json();
         console.dir({ data });
