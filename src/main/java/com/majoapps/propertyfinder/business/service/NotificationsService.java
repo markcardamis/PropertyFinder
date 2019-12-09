@@ -145,34 +145,4 @@ public class NotificationsService {
         ).orElseThrow(() -> new ResourceNotFoundException("Notifications [ID="+notificationId+"] can't be found"));
     }
 
-    public String getNotificationsByIdToSpecification(UUID id) {        
-        Notifications notificationsResponse = getNotificationsById(id);
-        StringBuilder sb = new StringBuilder("id>0");
-            if (notificationsResponse.getPropertyZone() != null)
-                sb.append(" AND zone:").append(notificationsResponse.getPropertyZone());
-            if (notificationsResponse.getPropertyAreaMin() != null && notificationsResponse.getPropertyAreaMin() != 0)
-                sb.append(" AND area>").append(notificationsResponse.getPropertyAreaMin());
-            if (notificationsResponse.getPropertyAreaMax() != null && notificationsResponse.getPropertyAreaMax() != 0) 
-                sb.append(" AND area<").append(notificationsResponse.getPropertyAreaMax());
-            if (notificationsResponse.getPropertyPriceMin() != null && notificationsResponse.getPropertyPriceMin() != 0)
-                sb.append(" AND priceInt>").append(notificationsResponse.getPropertyPriceMin());
-            if (notificationsResponse.getPropertyPriceMax() != null && notificationsResponse.getPropertyPriceMax() != 0)
-                sb.append(" AND priceInt<").append(notificationsResponse.getPropertyPriceMax());
-            if (notificationsResponse.getPropertyPricePSMMin() != null && notificationsResponse.getPropertyPricePSMMin() != 0)
-                sb.append(" AND pricePSM>").append(notificationsResponse.getPropertyPricePSMMin());
-            if (notificationsResponse.getPropertyPricePSMMax() != null && notificationsResponse.getPropertyPricePSMMax() != 0)
-                sb.append(" AND pricePSM<").append(notificationsResponse.getPropertyPricePSMMax());
-            if (notificationsResponse.getPropertyPostCode() != null)
-                sb.append(" AND postCode:").append(notificationsResponse.getPropertyPostCode());
-            if (notificationsResponse.getPropertyPriceToLandValueMin() != null)
-                sb.append(" AND priceToLandValue>").append(notificationsResponse.getPropertyPriceToLandValueMin());
-            if (notificationsResponse.getPropertyPriceToLandValueMax() != null)
-                sb.append(" AND priceToLandValue<").append(notificationsResponse.getPropertyPriceToLandValueMax());
-            if (notificationsResponse.getPropertyFloorSpaceRatioMin() != null)
-                sb.append(" AND floorSpaceRatio>").append(notificationsResponse.getPropertyFloorSpaceRatioMin());
-            if (notificationsResponse.getPropertyFloorSpaceRatioMax() != null)
-                sb.append(" AND floorSpaceRatio<").append(notificationsResponse.getPropertyFloorSpaceRatioMax());
-            return sb.toString();
-    }
-
 }
