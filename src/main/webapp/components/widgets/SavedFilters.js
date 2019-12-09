@@ -48,7 +48,7 @@ export default withAuth(class SavedFilters extends Component {
   
   }
 
-  async handleDeleteFilter (id) {
+  async handleDeleteFilter (item) {
     try {
         const response = await fetch(`/api/notifications/${item.id}`, {
         // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
@@ -67,9 +67,9 @@ export default withAuth(class SavedFilters extends Component {
     }
 }
 
-  async handleEditFilter (id) {
+  async handleEditFilter (item) {
     try {
-        const response = await fetch(`/api/notifications/${id}`, {
+        const response = await fetch(`/api/notifications/${item.id}`, {
         // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
             method: 'PUT',
             body: JSON.stringify({
@@ -96,7 +96,7 @@ export default withAuth(class SavedFilters extends Component {
   renderData = () => {
     
       return this.state.notifications.map((item)=>
-            <li key={item.id} className='filterItem d-flex justify-content-between'>
+            <li key={item.id} onClick={this.handleSelectFilter.bind(this, item)} className='filterItem d-flex justify-content-between'>
                 <div>
                     <h5>Filter {this.state.notifications.indexOf(item)+1}</h5>
                     <ul style={{fontSize: '12px', listStyle: 'none'}} onClick={this.handleSelectFilter}>
@@ -116,8 +116,8 @@ export default withAuth(class SavedFilters extends Component {
                     </ul>
                 </div>
                 <div>
-                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter.bind(this, item.id)}/>
-                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter.bind(this, item.id)}/>
+                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter.bind(this, item)}/>
+                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter.bind(this, item)}/>
                 </div>
             </li>
       );
