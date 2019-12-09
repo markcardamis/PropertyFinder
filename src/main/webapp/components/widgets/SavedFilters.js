@@ -102,18 +102,18 @@ export default withAuth(class SavedFilters extends Component {
                     <h5>Filter {this.state.notifications.indexOf(item)+1}</h5>
                     <label style={{fontSize: '12px'}} onClick={this.handleSelectFilter}>
                         {/* {item.title}<br/> */}
-                        {item.propertyZone}<br/>
-                        {item.propertyAreaMin}<br/>
-                        {item.propertyAreaMax}<br/>
-                        {item.propertyPriceMin}<br/>
-                        {item.propertyPriceMax}<br/>
-                        {item.propertyPSMMin}<br/>
-                        {item.propertyPSMMax}<br/>  
-                        {item.propertyPostCode}<br/>
-                        {item.propertyPriceToLandValueMin}<br/>
-                        {item.propertyPriceToLandValueMax}<br/> 
-                        {item.propertyFloorSpaceRatioMin}<br/> 
-                        {item.propertyFloorSpaceRatioMax}<br/> 
+                        {item.propertyZone} ? <b>Zone: </b>{item.propertyZone} : {null}<br/>
+                        {item.propertyAreaMin} ? <b>Area min: </b>{item.propertyAreaMin} : {null}<br/>
+                        {item.propertyAreaMax} ? <b>Area max: </b>{item.propertyAreaMax} : {null}<br/>
+                        {item.propertyPriceMin} ? <b>Price min: </b>{item.propertyPriceMin} : {null}<br/>
+                        {item.propertyPriceMax} ? <b>Price max: </b>{item.propertyPriceMax} : {null}<br/>
+                        {item.propertyPSMMin} ? <b>Price per m<sup>2</sup> min: </b>{item.propertyPSMMin} : {null}<br/>
+                        {item.propertyPSMMax} ? <b>Price per m<sup>2</sup> max: </b>{item.propertyPSMMax} : {null}<br/>  
+                        {item.propertyPostCode} ? <b>Post code: </b>{item.propertyPostCode} : {null}<br/>
+                        {item.propertyPriceToLandValueMin} ? <b>Price to landvalue min: </b>{item.propertyPriceToLandValueMin} : {null}<br/>
+                        {item.propertyPriceToLandValueMax} ? <b>Price to landvalue max: </b>{item.propertyPriceToLandValueMax} : {null}<br/> 
+                        {item.propertyFloorSpaceRatioMin} ? <b>Floorspace ratio min: </b>{item.propertyFloorSpaceRatioMin} : {null}<br/> 
+                        {item.propertyFloorSpaceRatioMax} ? <b>Floorspace ratio max: </b>{item.propertyFloorSpaceRatioMax} : {null}<br/> 
                     </label>
                 </div>
                 <div>

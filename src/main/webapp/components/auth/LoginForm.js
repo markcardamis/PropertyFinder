@@ -42,7 +42,6 @@ export default withAuth(class LoginForm extends Component {
       // const response = await fetch ('https://jsonplaceholder.typicode.com/todos/1');
       });
       const access = await this.props.auth.getAccessToken();
-      alert(access)
       const data = await response.json();
       console.dir({ data });
       localStorage.setItem('id', data.id);
