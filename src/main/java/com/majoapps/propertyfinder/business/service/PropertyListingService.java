@@ -1,8 +1,10 @@
 package com.majoapps.propertyfinder.business.service;
 
+import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.entity.PropertyListing;
 import com.majoapps.propertyfinder.data.repository.PropertyListingRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
+import com.majoapps.propertyfinder.web.util.SpecificationUtil;
 import com.sipios.springsearch.SpecificationsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -76,10 +78,17 @@ public class PropertyListingService {
     public List<PropertyListing> getPropertyListingsByNotificationsId(JwtAuthenticationToken JwtAuthToken, UUID notificationsId) {
         Objects.requireNonNull(JwtAuthToken);
         Objects.requireNonNull(notificationsId);
-        String token = this.notificationsService.getNotificationsByIdToSpecification(notificationsId);
-        
+        Notifications notifications = this.notificationsService.getNotificationsById(notificationsId);
+        String token = SpecificationUtil.ConvertNotificationsToPropertyListingSpecification(notifications);        
         Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>().withSearch(token).build();
+        return(this.getPropertyListingBySearch(JwtAuthToken, specification));
+    }
 
+    public List<PropertyListing> getPropertyListingsByNotifications(JwtAuthenticationToken JwtAuthToken, Notifications notifications) {
+        // Users can search without being logged in Objects.requireNonNull(JwtAuthToken);
+        // Passing in a null notification will just return all Objects.requireNonNull(notifications);
+        String token = SpecificationUtil.ConvertNotificationsToPropertyListingSpecification(notifications);        
+        Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>().withSearch(token).build();
         return(this.getPropertyListingBySearch(JwtAuthToken, specification));
     }
 
