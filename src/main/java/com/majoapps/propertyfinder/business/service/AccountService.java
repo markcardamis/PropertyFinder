@@ -1,10 +1,16 @@
 package com.majoapps.propertyfinder.business.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.majoapps.propertyfinder.business.domain.OktaUser;
+import com.majoapps.propertyfinder.business.domain.OktaUserDTO;
 import com.majoapps.propertyfinder.data.entity.Account;
 import com.majoapps.propertyfinder.data.repository.AccountRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import java.time.Instant;
@@ -18,10 +24,13 @@ import java.util.UUID;
 public class AccountService {
 
     private final AccountRepository accountRepository;
+    private final RestTemplateService restTemplateService;
+    private static final ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository, RestTemplateService restTemplateService) {
         this.accountRepository = accountRepository;
+        this.restTemplateService = restTemplateService;
     }
 
     public List<Account> getAllAccounts() {
@@ -72,6 +81,16 @@ public class AccountService {
         } else {
             throw new ResourceNotFoundException("Cannot find uid Key in JWT ");
         }
+    }
+
+    public Account saveAccountwithCredentials(@NonNull OktaUserDTO oktaUserDTO) {
+        // ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println(oktaUserDTO);
+        OktaUser oktaUser = modelMapper.map(oktaUserDTO, OktaUser.class);
+
+        System.out.println(oktaUser);
+
+        return null;
     }
 
     public Account saveAccount(Account account) {
