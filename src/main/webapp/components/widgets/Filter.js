@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 import './Filter.css';
 import SignIn from './SignIn';
-import {filterFormAction} from '../../store/actions/filterFormAction'
 
 const savedFilterExample = {
     propertyZone: 4,

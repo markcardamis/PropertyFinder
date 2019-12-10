@@ -50,22 +50,22 @@ class SavedFilters extends Component {
       console.dir({ data });
       console.log(item);
       console.log('filter selected');
-
+      this.props.dispatch(change('filter', 'propertyZone', data.propertyZone));
+      this.props.dispatch(change('filter', 'propertyAreaMin', data.propertyAreaMin));
+      this.props.dispatch(change('filter', 'propertyAreaMax', data.propertyAreaMax));
+      this.props.dispatch(change('filter', 'propertyPriceMin', data.propertyPriceMin));
+      this.props.dispatch(change('filter', 'propertyPriceMax', data.propertyPriceMax));
+      this.props.dispatch(change('filter', 'propertyPricePSMMin', data.propertyPricePSMMin));
+      this.props.dispatch(change('filter', 'propertyPricePSMMax', data.propertyPricePSMMax));
+      this.props.dispatch(change('filter', 'propertyPostCode', data.propertyPostCode));
+      this.props.dispatch(change('filter', 'propertyPriceToLandValueMin', data.propertyPriceToLandValueMin));
+      this.props.dispatch(change('filter', 'propertyPriceToLandValueMax', data.propertyPriceToLandValueMax));
+      this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMin', data.propertyFloorSpaceRatioMin));
+      this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', data.propertyPriceToLandValueMin));
     } catch (err) {
         console.log('error loading list of filters');
     };
-    this.props.dispatch(change('filter', 'propertyZone', data.propertyZone));
-    this.props.dispatch(change('filter', 'propertyAreaMin', data.propertyAreaMin));
-    this.props.dispatch(change('filter', 'propertyAreaMax', data.propertyAreaMax));
-    this.props.dispatch(change('filter', 'propertyPriceMin', data.propertyPriceMin));
-    this.props.dispatch(change('filter', 'propertyPriceMax', data.propertyPriceMax));
-    this.props.dispatch(change('filter', 'propertyPricePSMMin', data.propertyPricePSMMin));
-    this.props.dispatch(change('filter', 'propertyPricePSMMax', data.propertyPricePSMMax));
-    this.props.dispatch(change('filter', 'propertyPostCode', data.propertyPostCode));
-    this.props.dispatch(change('filter', 'propertyPriceToLandValueMin', data.propertyPriceToLandValueMin));
-    this.props.dispatch(change('filter', 'propertyPriceToLandValueMax', data.propertyPriceToLandValueMax));
-    this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMin', data.propertyFloorSpaceRatioMin));
-    this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', data.propertyPriceToLandValueMin));
+   
   }
 
   async handleDeleteFilter (item) {
@@ -120,7 +120,7 @@ class SavedFilters extends Component {
       return this.state.notifications.map((item)=>
             <li key={item.id} className='filterItem d-flex justify-content-between'>
                 <div>
-                  <div>
+                  <div style={{display: 'flex'}}>
                     <h5 onClick={this.handleSelectFilter.bind(this, item)}>Filter {this.state.notifications.indexOf(item)+1}</h5>
                     <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter.bind(this, item)}/>
                     <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter.bind(this, item)}/>
