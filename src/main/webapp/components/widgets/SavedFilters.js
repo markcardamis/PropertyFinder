@@ -96,8 +96,18 @@ class SavedFilters extends Component {
         // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
             method: 'PUT',
             body: JSON.stringify({
-              'planningZone': 'R5',
-              'propertyAreaMin': 5,
+              'propertyZone': item.propertyZone,
+              'propertyAreaMin': item.propertyAreaMin,
+              'propertyAreaMax': item.propertyAreaMax,
+              'propertyPriceMin': item.propertyPriceMin,
+              'propertyPriceMax': item.propertyPriceMax,
+              'propertyPricePSMMin': item.propertyPricePSMMin,
+              'propertyPricePSMMax': item.propertyPricePSMMax,
+              'propertyPostCode': item.propertyPostCode,
+              'propertyPriceToLandValueMin': item.propertyPriceToLandValueMin,
+              'propertyPriceToLandValueMax': item.propertyPriceToLandValueMax,
+              'propertyFloorSpaceRatioMin': item.propertyFloorSpaceRatioMin,
+              'propertyFloorSpaceRatioMax': item.propertyPriceToLandValueMin
             }),
             // headers: {
             //   'Content-type': 'application/json; charset=UTF-8'
@@ -110,7 +120,7 @@ class SavedFilters extends Component {
         console.dir({ data });
         this.displayFilterParameters(item);
         //   this.setState({ notifications : JSON.stringify(data) });
-        this.setState({ notifications : data });
+        // this.setState({ notifications : data });
     } catch (err) {
       console.log('error editing filter');
     }

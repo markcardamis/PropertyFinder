@@ -94,7 +94,6 @@ class Filter extends React.Component {
         return (
             <div>
                <form onSubmit={handleSubmit}>
-                   <button onClick={()=>this.props.dispatch(change('filter', 'propertyZone', 'Bob'))}> Get saved values</button>
                      <div className='col-lg-9'>
                         <p>Zone
                             <Field name='propertyZone' component='input' type='text'/>
