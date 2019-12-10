@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
-import fetch from 'isomorphic-fetch';
 import './Login.css';
 
 export default withAuth(class LoginForm extends Component {
@@ -33,25 +32,6 @@ export default withAuth(class LoginForm extends Component {
       sessionToken: res.sessionToken
     }))
     .catch(err => console.log('Found an error', err));
-
-    try {
-      const response = await fetch('/api/account', {
-        // headers: {
-        //   Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-        // }
-      // const response = await fetch ('https://jsonplaceholder.typicode.com/todos/1');
-      });
-      const access = await this.props.auth.getAccessToken();
-      const data = await response.json();
-      console.dir({ data });
-      localStorage.setItem('id', data.id);
-      localStorage.setItem('id', data.userId);
-
-      this.setState({ data: JSON.stringify(data) });
-    } catch (err) {
-      console.log('error');
-      console.log('API: /account');
-    }
   }
 
   handleUsernameChange(e) {
