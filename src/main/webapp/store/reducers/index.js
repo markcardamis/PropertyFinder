@@ -5,6 +5,7 @@ import showFilterReducer from './showFilterReducer';
 import viewportReducer from './viewportReducer';
 import { combineReducers } from 'redux';
 import {reducer as formReducer} from 'redux-form';
+import filterFormReducer from './filterFormReducer';
 
 const reducers = combineReducers({
     showProperty: showPropertyReducer,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
     showFilter: showFilterReducer,
     mapMarker: mapMarkerReducer,
     viewport: viewportReducer,
-    form: formReducer
+    form: formReducer,
+    filter: filterFormReducer
 });
 
 export default reducers; 

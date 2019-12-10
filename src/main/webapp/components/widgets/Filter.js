@@ -1,19 +1,20 @@
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
 import fetch from 'isomorphic-fetch';
-import {Field, reduxForm, formValueSelector} from 'redux-form';
+import {Field, reduxForm, formValueSelector, change} from 'redux-form';
 import { connect } from 'react-redux';
 
 import './Filter.css';
 import SignIn from './SignIn';
+import {filterFormAction} from '../../store/actions/filterFormAction'
 
-// const savedFilterExample = {
-//     'propertyZone': 4,
-//     'propertyAreaMax': 'Sydney',
-//     'propertyPriceMin': 1000,
-//     'propertyPriceMax': 1000000,
-//     'propertyPostCode': 55555,
-// }
+const savedFilterExample = {
+    propertyZone: 4,
+    propertyAreaMax: 'Sydney',
+    propertyPriceMin: 1000,
+    propertyPriceMax: 1000000,
+    propertyPostCode: 55555,
+}
 
 class Filter extends React.Component {
 
@@ -94,7 +95,7 @@ class Filter extends React.Component {
         return (
             <div>
                <form onSubmit={handleSubmit}>
-                   {/* <div onClick={()=>load(savedFilterExample)}> Get saved values</div> */}
+                   <button onClick={()=>this.props.dispatch(change('filter', 'propertyZone', 'Bob'))}> Get saved values</button>
                      <div className='col-lg-9'>
                         <p>Zone
                             <Field name='propertyZone' component='input' type='text'/>
@@ -155,10 +156,10 @@ Filter = connect(state => {
 })(Filter);
 
 // Filter = connect(
-//     state => ({
+//     savedFilterExample => ({
 //       initialValues: savedFilterExample
 //     }),
-//     // { load: loadAccount } // bind account loading action creator
+//     { load: filterFormAction } // bind account loading action creator
 //   )(Filter)
 
   export default withAuth(Filter);

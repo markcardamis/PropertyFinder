@@ -2,8 +2,10 @@ import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
 import { TiPencil, TiTrash } from 'react-icons/ti';
+import { change } from 'redux-form';
+import { connect } from 'react-redux';
 
-export default withAuth(class SavedFilters extends Component {
+class SavedFilters extends Component {
 
     constructor(props) {
         super(props);
@@ -31,13 +33,10 @@ export default withAuth(class SavedFilters extends Component {
     }
       }
 
+
   componentDidMount() {
     this.getFilterList();
   }
-
-  // componentDidUpdate() {
-  //   this.getFilterList();
-  // }
 
   async handleSelectFilter(item) {
     try {
@@ -47,15 +46,26 @@ export default withAuth(class SavedFilters extends Component {
             Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
         }
     });
-    const data = await response.json();
-    console.dir({ data });
-    console.log(item);
-    console.log('filter selected');
+      const data = await response.json();
+      console.dir({ data });
+      console.log(item);
+      console.log('filter selected');
 
-} catch (err) {
-    console.log('error loading list of filters');
-}
-  this.getFilterList();
+    } catch (err) {
+        console.log('error loading list of filters');
+    };
+    this.props.dispatch(change('filter', 'propertyZone', data.propertyZone));
+    this.props.dispatch(change('filter', 'propertyAreaMin', data.propertyAreaMin));
+    this.props.dispatch(change('filter', 'propertyAreaMax', data.propertyAreaMax));
+    this.props.dispatch(change('filter', 'propertyPriceMin', data.propertyPriceMin));
+    this.props.dispatch(change('filter', 'propertyPriceMax', data.propertyPriceMax));
+    this.props.dispatch(change('filter', 'propertyPricePSMMin', data.propertyPricePSMMin));
+    this.props.dispatch(change('filter', 'propertyPricePSMMax', data.propertyPricePSMMax));
+    this.props.dispatch(change('filter', 'propertyPostCode', data.propertyPostCode));
+    this.props.dispatch(change('filter', 'propertyPriceToLandValueMin', data.propertyPriceToLandValueMin));
+    this.props.dispatch(change('filter', 'propertyPriceToLandValueMax', data.propertyPriceToLandValueMax));
+    this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMin', data.propertyFloorSpaceRatioMin));
+    this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', data.propertyPriceToLandValueMin));
   }
 
   async handleDeleteFilter (item) {
@@ -136,7 +146,14 @@ export default withAuth(class SavedFilters extends Component {
   }
 
     render() {
-      return <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul>
+      return <ul className='savedFiltersList col-lg-12'>{console.log(this.props)}{this.renderData()}</ul>
     }
 }
-);
+
+const mapStateToProps = (state) => {
+  return {
+      savedFilters: state
+  };
+};
+
+export default withAuth(connect(mapStateToProps)(SavedFilters));
