@@ -124,6 +124,7 @@ class SavedFilters extends Component {
     } catch (err) {
       console.log('error editing filter');
     }
+    this.handleDeleteFilter(item);
     this.getFilterList();
   }
 

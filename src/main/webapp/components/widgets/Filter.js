@@ -7,13 +7,6 @@ import { connect } from 'react-redux';
 import './Filter.css';
 import SignIn from './SignIn';
 
-const savedFilterExample = {
-    propertyZone: 4,
-    propertyAreaMax: 'Sydney',
-    propertyPriceMin: 1000,
-    propertyPriceMax: 1000000,
-    propertyPostCode: 55555,
-}
 
 class Filter extends React.Component {
 
@@ -90,7 +83,7 @@ class Filter extends React.Component {
     }
 
     render () {
-        const { handleSubmit, load } = this.props;
+        const { handleSubmit } = this.props;
         return (
             <div>
                <form onSubmit={handleSubmit}>
@@ -124,7 +117,7 @@ class Filter extends React.Component {
                 <button type='submit'>Search</button>
                 <button onClick={this.handleSaveFilter}>Save preferences</button>
             </div>
-            {/* {this.state.isHidden && <SignIn onClick={this.handleClose.bind(this)}/>} */}
+            {this.state.isHidden && <SignIn onClick={this.handleClose.bind(this)}/>}
             </form>
             </div>
         );
@@ -152,12 +145,5 @@ Filter = connect(state => {
         propertyPriceToLandValueMax, propertyFloorSpaceRatioMin, propertyFloorSpaceRatioMax
     };
 })(Filter);
-
-// Filter = connect(
-//     savedFilterExample => ({
-//       initialValues: savedFilterExample
-//     }),
-//     { load: filterFormAction } // bind account loading action creator
-//   )(Filter)
 
   export default withAuth(Filter);
