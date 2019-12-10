@@ -33,6 +33,20 @@ class SavedFilters extends Component {
     }
       }
 
+  displayFilterParameters (item) {
+      this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
+      this.props.dispatch(change('filter', 'propertyAreaMin', item.propertyAreaMin));
+      this.props.dispatch(change('filter', 'propertyAreaMax', item.propertyAreaMax));
+      this.props.dispatch(change('filter', 'propertyPriceMin', item.propertyPriceMin));
+      this.props.dispatch(change('filter', 'propertyPriceMax', item.propertyPriceMax));
+      this.props.dispatch(change('filter', 'propertyPricePSMMin', item.propertyPricePSMMin));
+      this.props.dispatch(change('filter', 'propertyPricePSMMax', item.propertyPricePSMMax));
+      this.props.dispatch(change('filter', 'propertyPostCode', item.propertyPostCode));
+      this.props.dispatch(change('filter', 'propertyPriceToLandValueMin', item.propertyPriceToLandValueMin));
+      this.props.dispatch(change('filter', 'propertyPriceToLandValueMax', item.propertyPriceToLandValueMax));
+      this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMin', item.propertyFloorSpaceRatioMin));
+      this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', item.propertyPriceToLandValueMin));
+  }
 
   componentDidMount() {
     this.getFilterList();
@@ -50,22 +64,10 @@ class SavedFilters extends Component {
       console.dir({ data });
       console.log(item);
       console.log('filter selected');
-      this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
-      this.props.dispatch(change('filter', 'propertyAreaMin', item.propertyAreaMin));
-      this.props.dispatch(change('filter', 'propertyAreaMax', item.propertyAreaMax));
-      this.props.dispatch(change('filter', 'propertyPriceMin', item.propertyPriceMin));
-      this.props.dispatch(change('filter', 'propertyPriceMax', item.propertyPriceMax));
-      this.props.dispatch(change('filter', 'propertyPricePSMMin', item.propertyPricePSMMin));
-      this.props.dispatch(change('filter', 'propertyPricePSMMax', item.propertyPricePSMMax));
-      this.props.dispatch(change('filter', 'propertyPostCode', item.propertyPostCode));
-      this.props.dispatch(change('filter', 'propertyPriceToLandValueMin', item.propertyPriceToLandValueMin));
-      this.props.dispatch(change('filter', 'propertyPriceToLandValueMax', item.propertyPriceToLandValueMax));
-      this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMin', item.propertyFloorSpaceRatioMin));
-      this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', item.propertyPriceToLandValueMin));
+      this.displayFilterParameters(item);
     } catch (err) {
         console.log('error loading list of filters');
     };
-   
   }
 
   async handleDeleteFilter (item) {
@@ -106,7 +108,7 @@ class SavedFilters extends Component {
         });
         const data = await response.json();
         console.dir({ data });
-    
+        this.displayFilterParameters(item);
         //   this.setState({ notifications : JSON.stringify(data) });
         this.setState({ notifications : data });
     } catch (err) {
