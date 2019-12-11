@@ -91,9 +91,9 @@ class SavedFilters extends Component {
 }
 
   async handleEditFilter (item) {
+    this.displayFilterParameters(item);
     try {
         const response = await fetch(`/api/notifications/${item.id}`, {
-        // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
             method: 'PUT',
             body: JSON.stringify({
               'propertyZone': item.propertyZone,
@@ -109,16 +109,12 @@ class SavedFilters extends Component {
               'propertyFloorSpaceRatioMin': item.propertyFloorSpaceRatioMin,
               'propertyFloorSpaceRatioMax': item.propertyPriceToLandValueMin
             }),
-            // headers: {
-            //   'Content-type': 'application/json; charset=UTF-8'
-            // }
             headers: {
               Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
             }
         });
         const data = await response.json();
         console.dir({ data });
-        this.displayFilterParameters(item);
         //   this.setState({ notifications : JSON.stringify(data) });
         // this.setState({ notifications : data });
     } catch (err) {

@@ -10,6 +10,11 @@ import Filter from './Filter';
 
 class FilterWidget extends Component {
 
+    // constructor(props) {
+    //     super(props);
+    //     this.state = { tabIndex: 0 };
+    // }
+
         handleAuthenticated = () => {
             this.props.dispatch({type: 'AUTHENTICATED'})
         };
@@ -79,7 +84,8 @@ class FilterWidget extends Component {
         return (
             <div className='filterWidget'>
                 <div className='d-flex justify-content-between'>
-                    <Tabs>
+                    {/* <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}> */}
+                        <Tabs>
                         <TabList>
                             <Tab>Search</Tab>
                             <Tab>Saved Filters</Tab>
