@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RestService {
 
-    private final String NEW_USER_ENDPOINT = "/api/v1/users?activate=false";
+    private final String NEW_USER_ENDPOINT = "/api/v1/users?activate=true";
     
     private final RestTemplate restTemplate;
 
