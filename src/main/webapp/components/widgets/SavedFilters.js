@@ -17,7 +17,6 @@ class SavedFilters extends Component {
   async getFilterList () {
     try {
         const response = await fetch('/api/notifications', {
-      // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
           headers: {
               Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
           }
@@ -55,15 +54,11 @@ class SavedFilters extends Component {
   async handleSelectFilter(item) {
     try {
       const response = await fetch(`/api/listing/notifications/${item.id}`, {
-  // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
         headers: {
             Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
         }
     });
       const data = await response.json();
-      console.dir({ data });
-      console.log(item);
-      console.log('filter selected');
       this.displayFilterParameters(item);
     } catch (err) {
         console.log('error loading list of filters');
@@ -73,7 +68,6 @@ class SavedFilters extends Component {
   async handleDeleteFilter (item) {
     try {
         const response = await fetch(`/api/notifications/${item.id}`, {
-        // const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
           method: 'DELETE',
           headers: {
             Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
@@ -91,7 +85,6 @@ class SavedFilters extends Component {
 }
 
   async handleEditFilter (item) {
-    this.displayFilterParameters(item);
     try {
         const response = await fetch(`/api/notifications/${item.id}`, {
             method: 'PUT',
@@ -117,6 +110,7 @@ class SavedFilters extends Component {
         console.dir({ data });
         //   this.setState({ notifications : JSON.stringify(data) });
         // this.setState({ notifications : data });
+        this.displayFilterParameters(item);
     } catch (err) {
       console.log('error editing filter');
     }
@@ -134,7 +128,6 @@ class SavedFilters extends Component {
                     <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter.bind(this, item)}/>
                   </div>
                     <ul  onClick={this.handleSelectFilter.bind(this, item)} style={{fontSize: '12px', listStyle: 'none'}}>
-                        {/* {item.title}<br/> */}
                         <li>{item.propertyZone ? `Zone: ${item.propertyZone}` : null}</li>
                         <li>{item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}</li>
                         <li>{item.propertyAreaMax ? `Area max: ${item.propertyAreaMax}` : null}</li>
@@ -154,7 +147,7 @@ class SavedFilters extends Component {
   }
 
     render() {
-      return <ul className='savedFiltersList col-lg-12'>{console.log(this.props)}{this.renderData()}</ul>
+      return <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul>
     }
 }
 

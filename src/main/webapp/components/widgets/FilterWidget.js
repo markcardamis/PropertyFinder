@@ -10,35 +10,39 @@ import Filter from './Filter';
 
 class FilterWidget extends Component {
 
-    // constructor(props) {
-    //     super(props);
-    //     this.state = { tabIndex: 0 };
-    // }
-
-        handleAuthenticated = () => {
-            this.props.dispatch({type: 'AUTHENTICATED'})
+    constructor(props) {
+        super(props);
+        this.state = { 
+            // tabIndex: 0 
+            authenticated: null,
         };
-  
-        handleNotAuthenticated = () => {
-            this.props.dispatch({type: 'NOT_AUTHENTICATED'})
-        };
-
-        handleClick = () => {
-            this.props.dispatch({type: 'CLOSE_FILTER'});
-        }
-
-        checkAuthentication = async () => {
-            const authenticated = await this.props.auth.isAuthenticated();
-        
-            authenticated ? this.handleAuthenticated() : this.handleNotAuthenticated();
-        }
-
-    componentDidMount() {
         this.checkAuthentication();
     }
-      
+
+        // handleAuthenticated = () => {
+        //     this.props.dispatch({type: 'AUTHENTICATED'})
+        // };
+  
+        // handleNotAuthenticated = () => {
+        //     this.props.dispatch({type: 'NOT_AUTHENTICATED'})
+        // };
+
+    checkAuthentication = async () => {
+            const authenticated = await this.props.auth.isAuthenticated();
+
+            if (authenticated !== this.state.authenticated) {
+                this.setState({ authenticated });
+              }
+        
+            // authenticated ? this.handleAuthenticated() : this.handleNotAuthenticated();
+        }
+     
     componentDidUpdate() {
         this.checkAuthentication();
+    }
+
+    handleClick = () => {
+        this.props.dispatch({type: 'CLOSE_FILTER'});
     }
 
     handleSubmit = async (value) => {
@@ -61,13 +65,8 @@ class FilterWidget extends Component {
 
         try {
             const response = await fetch(`/api/listing?search=${query}`, {
-        // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-            //   headers: {
-            //       Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-            //   }
           });
           const data = await response.json();
-          console.dir({ data });
 
           this.props.dispatch({
             type: 'MARKERS',
@@ -75,6 +74,23 @@ class FilterWidget extends Component {
           })
       } catch (err) {
           console.log('error loading list of filters');
+      }
+
+      sendCenterCoordinates = async () => {
+        try {
+          const response = await fetch(`/api/listing/${item.id}`, {
+            method: 'POST',
+            body: JSON.stringify({
+              'centreLatitude': this.props.filter.viewport.latitude,
+              'centreLongitude': this.props.filter.viewport.longitude
+            })
+          });
+    
+          const data = await response.json();
+          console.dir(this.props.filter.viewport.longitude);
+        } catch (err) {
+          console.log('error POST map center coordinates'); 
+        }
       }
         
     }

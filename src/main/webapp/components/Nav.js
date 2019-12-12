@@ -9,8 +9,6 @@ class Nav extends React.Component {
                     <h1 className='col-lg-3'>Property Finder</h1>
                     <ul className='navigation col-lg-4'>
                         <li><Link className='navLink' to='/'>Home</Link></li>
-                        <li><Link className='navLink' to='/protected'>Protected</Link></li>
-                        <li><Link className='navLink' to='/propertyinformation'>Property Information</Link></li>
                     </ul>
                 </div>
             </div>

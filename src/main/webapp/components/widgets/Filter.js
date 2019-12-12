@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import './Filter.css';
 import SignIn from './SignIn';
+import { FILTER_PARAMETERS } from '../../constants/constants'
 
 
 class Filter extends React.Component {
@@ -17,12 +18,10 @@ class Filter extends React.Component {
             authenticated: null,
             notifications: []
         };
-        this.handleSaveFilter=this.handleSaveFilter.bind(this);
-        this.checkAuthentication = this.checkAuthentication.bind(this);
         this.checkAuthentication();
     }
 
-    async checkAuthentication() {
+   checkAuthentication =  async () => {
         const authenticated = await this.props.auth.isAuthenticated();
         if (authenticated !== this.state.authenticated) {
           this.setState({ authenticated });
@@ -33,7 +32,7 @@ class Filter extends React.Component {
         this.checkAuthentication();
       }
 
-    async handleSaveFilter() {
+    handleSaveFilter = async () => {
         this.checkAuthentication();
 
         this.setState({
@@ -42,15 +41,11 @@ class Filter extends React.Component {
 
         try {
             const response = await fetch('/api/notifications', {
-            // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
                 method: 'POST',
               headers: {
                 Authorization: 'Bearer ' + await this.props.auth.getAccessToken(),
                 'Content-Type': 'application/json',
               },
-                // headers: {
-                //     "Content-type": "application/json; charset=UTF-8"
-                // },
                 body: JSON.stringify({
                     'propertyZone': this.props.propertyZone,
                     'propertyAreaMin': this.props.propertyAreaMin,
@@ -134,10 +129,11 @@ Filter = connect(state => {
   const { propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
         propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
         propertyPriceToLandValueMax, propertyFloorSpaceRatioMin,propertyFloorSpaceRatioMax
-    } = selector(state, 'propertyZone', 'propertyAreaMin', 'propertyAreaMax', 'propertyPriceMin',
-        'propertyPriceMax', 'propertyPricePSMMin', 'propertyPricePSMMax', 'propertyPostCode',
-        'propertyPriceToLandValueMin', 'propertyPriceToLandValueMax','propertyFloorSpaceRatioMin',
-        'propertyFloorSpaceRatioMax');
+    // } = selector(state, 'propertyZone', 'propertyAreaMin', 'propertyAreaMax', 'propertyPriceMin',
+    //     'propertyPriceMax', 'propertyPricePSMMin', 'propertyPricePSMMax', 'propertyPostCode',
+    //     'propertyPriceToLandValueMin', 'propertyPriceToLandValueMax','propertyFloorSpaceRatioMin',
+    //     'propertyFloorSpaceRatioMax');
+} = selector(state, ...FILTER_PARAMETERS);
 
   return {
         propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,

@@ -4,9 +4,7 @@ import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 
 import Home from './Home';
 import Nav from './Nav';
-import Protected from './Protected';
 import LoginPage from '../pages/LoginPage';
-import PropertyInformation from './PropertyInformation';
 import '../styles/main.css';
 
 function onAuthRequired({history}) {
@@ -25,8 +23,6 @@ class App extends Component {
                   scopes={['openid profile email']}
                   pkce={true} >
           <Route path='/' exact={true} component={Home} />
-          <SecureRoute path='/protected' component={Protected} />
-          <SecureRoute path='/propertyinformation' component={PropertyInformation} />
           <Route path='/login' exact component={LoginPage} />
           <Route path='/implicit/callback' component={ImplicitCallback} />
           <Route path='/map' exact component={Map} />
