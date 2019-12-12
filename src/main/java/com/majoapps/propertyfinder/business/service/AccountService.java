@@ -1,36 +1,32 @@
 package com.majoapps.propertyfinder.business.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.majoapps.propertyfinder.business.domain.OktaUser;
 import com.majoapps.propertyfinder.business.domain.OktaUserDTO;
 import com.majoapps.propertyfinder.data.entity.Account;
 import com.majoapps.propertyfinder.data.repository.AccountRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final RestTemplateService restTemplateService;
-    private static final ModelMapper modelMapper = new ModelMapper();
+    private final RestService restService;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository, RestTemplateService restTemplateService) {
+    public AccountService(AccountRepository accountRepository, RestService restService) {
         this.accountRepository = accountRepository;
-        this.restTemplateService = restTemplateService;
+        this.restService = restService;
     }
 
     public List<Account> getAllAccounts() {
@@ -43,21 +39,21 @@ public class AccountService {
     public Account getAccountById(UUID id) {
         Objects.requireNonNull(id);
         return this.accountRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(("Account ID="+id+" can't be found")));
+                .orElseThrow(() -> new ResourceNotFoundException(("Account ID=" + id + " can't be found")));
     }
 
     public List<Account> getAccountByUserId(String userId) {
         List<Account> accountResponse = this.accountRepository.findByUserId(userId);
         Account account;
         if (accountResponse.size() == 0) {
-            //add new account
+            // add new account
             account = new Account();
             account.setUserId(userId);
             account.setLastLogin(Date.from(Instant.now()));
             accountResponse.add(accountRepository.save(account));
         } else {
-            //edit existing event
-            account = accountResponse.get(0); //there will only ever be one because we update it if it exists already
+            // edit existing event
+            account = accountResponse.get(0); // there will only ever be one because we update it if it exists already
             account.setLastLogin(Date.from(Instant.now()));
             accountRepository.save(account);
         }
@@ -71,9 +67,9 @@ public class AccountService {
             if (token == null || token.isEmpty()) {
                 throw new ResourceNotFoundException("uid is null in JWT ");
             }
-            //return all Accounts if the user is an admin
-            if (JwtAuthToken.getTokenAttributes().containsKey("groups") && 
-                JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
+            // return all Accounts if the user is an admin
+            if (JwtAuthToken.getTokenAttributes().containsKey("groups")
+                    && JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
                 return getAllAccounts();
             } else {
                 return getAccountByUserId(token);
@@ -84,13 +80,11 @@ public class AccountService {
     }
 
     public Account saveAccountwithCredentials(@NonNull OktaUserDTO oktaUserDTO) {
-        // ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(oktaUserDTO);
-        OktaUser oktaUser = modelMapper.map(oktaUserDTO, OktaUser.class);
-
-        System.out.println(oktaUser);
-
-        return null;
+        OktaUser oktaUserCreated = restService.postNewUser(OktaUserDTO.convertToOktaUser(oktaUserDTO));
+        Account accountCreated = new Account();
+        accountCreated.setUserId(oktaUserCreated.getId());
+        accountCreated.setFirstName(oktaUserDTO.getFirstName());
+        return saveAccount(accountCreated);
     }
 
     public Account saveAccount(Account account) {

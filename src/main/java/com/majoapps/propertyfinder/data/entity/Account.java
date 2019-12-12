@@ -20,12 +20,6 @@ public class Account extends AuditModel{
     private String userId;
     @Column(name = "first_name")
     private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
-    @Column(name = "email")
-    private String email;
-    @Column(name = "password")
-    private String password;
     @Column(name="last_login")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
