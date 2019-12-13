@@ -94,6 +94,7 @@ export default withAuth(
             />
             <label>Last Name:</label>
             <input
+              className='formInput'
               id="lastName"
               type="text"
               value={this.state.lastName}
