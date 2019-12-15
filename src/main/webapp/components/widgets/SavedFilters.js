@@ -109,11 +109,11 @@ class SavedFilters extends Component {
     this.getFilterList();
   }
 
-  componentDidUpdate() {
-    console.log('filter list updated')
-    this.checkAuthentication();
-    this.getFilterList();
-  }
+  // componentDidUpdate() {
+  //   console.log('filter list updated')
+  //   this.checkAuthentication();
+  //   this.getFilterList();
+  // }
 
     render() {
       return (
