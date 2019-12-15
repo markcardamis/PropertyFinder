@@ -5,7 +5,6 @@ import {Field, reduxForm, formValueSelector, change} from 'redux-form';
 import { connect } from 'react-redux';
 
 import './Filter.css';
-import SignIn from './SignIn';
 import { FILTER_PARAMETERS } from '../../constants/constants'
 
 
@@ -14,7 +13,7 @@ class Filter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isHidden: null,
+            // isHidden: null,
             authenticated: null,
             notifications: []
         };
@@ -31,57 +30,103 @@ class Filter extends React.Component {
     componentDidUpdate() {
         this.checkAuthentication();
       }
+  
+      sendCenterCoordinates = async (item) => {
+        try {
+          const response = await fetch(`/api/listing/${item.id}`, {
+            method: 'POST',
+            body: JSON.stringify({
+              'centreLatitude': this.props.filter.viewport.latitude,
+              'centreLongitude': this.props.filter.viewport.longitude
+            })
+          });
+    
+          const data = await response.json();
+          console.dir(this.props.filter.viewport.longitude);
+        } catch (err) {
+          console.log('error POST map center coordinates'); 
+        }
+      }
 
-    handleSaveFilter = async () => {
-        this.checkAuthentication();
+    // handleClose = () => {
+    //     this.setState ({
+    //         isHidden: false
+    //     });
+    // }
 
-        this.setState({
-            isHidden: this.state.authenticated ? false : true
-        });
+    handleSearch = async (value) => {
+
+        this.sendCenterCoordinates(value);
+
+        const emptyQuery = '';
+        const zone = value.propertyZone ? ` AND zone:${value.propertyZone}` : '';
+        const areaMin = value.propertyAreaMin ? ` AND area>${value.propertyAreaMin}` : '';
+        const areaMax = value.propertyAreaMax ? ` AND area<${value.propertyAreaMax}` : '';
+        const priceMin = value.propertyPriceMin ? ` AND priceInt>${value.propertyPriceMin}` : '';
+        const priceMax = value.propertyPriceMax ? ` AND priceInt>${value.propertyPriceMax}` : '';
+        const pricePSMMin = value.propertyPricePSMMin ? ` AND pricePSM>${value.propertyPricePSMMin}` : '';
+        const pricePSMMax = value.propertyPricePSMMax ? ` AND pricePSM<${value.propertyPricePSMMax}` : '';
+        const postCode = value.propertyPostCode ? ` AND postCode:${value.propertyPostCode}` : '';
+        const landvalueMin = value.propertyPriceToLandValueMin ? ` AND priceToLandValue>${value.propertyPriceToLandValueMin}` : '';
+        const landvalueMax = value.propertyPriceToLandValueMax ? ` AND priceToLandValue<${value.propertyPriceToLandValueMax}` : '';
+        const floorMin = value.propertyFloorSpaceRatioMin ? ` AND floorSpaceRatio>${value.propertyFloorSpaceRatioMin}` : '';
+        const floorMax = value.propertyPriceToLandValueMax ? ` AND floorSpaceRatio<${value.propertyFloorSpaceRatioMax}` : '';
+
+        const query = emptyQuery.concat(zone, areaMin, areaMax, priceMin, priceMax, pricePSMMin, pricePSMMax, postCode, landvalueMin, landvalueMax, floorMax, floorMin)
 
         try {
-            const response = await fetch('/api/notifications', {
-                method: 'POST',
+            const response = await fetch(`/api/listing?search=${query}`, {
+          });
+          const data = await response.json();
+
+          this.props.dispatch({
+            type: 'MARKERS',
+            payload: data
+          })
+      } catch (err) {
+          console.log('error loading list of filters');
+      }
+
+        
+    }
+
+    handleSaveEditedFilter = async (item) => {
+      try {
+          const response = await fetch(`/api/notifications/${item.id}`, {
+              method: 'PUT',
+              body: JSON.stringify({
+                'propertyZone': item.propertyZone,
+                'propertyAreaMin': item.propertyAreaMin,
+                'propertyAreaMax': item.propertyAreaMax,
+                'propertyPriceMin': item.propertyPriceMin,
+                'propertyPriceMax': item.propertyPriceMax,
+                'propertyPricePSMMin': item.propertyPricePSMMin,
+                'propertyPricePSMMax': item.propertyPricePSMMax,
+                'propertyPostCode': item.propertyPostCode,
+                'propertyPriceToLandValueMin': item.propertyPriceToLandValueMin,
+                'propertyPriceToLandValueMax': item.propertyPriceToLandValueMax,
+                'propertyFloorSpaceRatioMin': item.propertyFloorSpaceRatioMin,
+                'propertyFloorSpaceRatioMax': item.propertyPriceToLandValueMin
+              }),
               headers: {
-                Authorization: 'Bearer ' + await this.props.auth.getAccessToken(),
-                'Content-Type': 'application/json',
-              },
-                body: JSON.stringify({
-                    'propertyZone': this.props.propertyZone,
-                    'propertyAreaMin': this.props.propertyAreaMin,
-                    'propertyAreaMax': this.props.propertyAreaMax,
-                    'propertyPriceMin': this.props.propertyPriceMin,
-                    'propertyPriceMax': this.props.propertyPriceMax,
-                    'propertyPricePSMMin': this.props.propertyPricePSMMin,
-                    'propertyPricePSMMax': this.props.propertyPricePSMMax,
-                    'propertyPostCode': this.props.propertyPostCode,
-                    'propertyPriceToLandValueMin': this.props.propertyPriceToLandValueMin,
-                    'propertyPriceToLandValueMax': this.props.propertyPriceToLandValueMax,
-                    'propertyFloorSpaceRatioMin': this.props.propertyFloorSpaceRatioMin,
-                    'propertyFloorSpaceRatioMax': this.props.propertyFloorSpaceRatioMax
-              })
-            });
+                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+              }
+          });
+          const data = await response.json();
+          console.dir({ data });
+          //   this.setState({ notifications : JSON.stringify(data) });
+          // this.setState({ notifications : data });
+      } catch (err) {
+        console.log('error editing filter');
+      }
+  }
 
-            const data = await response.json();
-            console.dir({ data });
-      
-            this.setState({ notifications : JSON.stringify(data) });
-          } catch (err) {
-            console.log('error API: filter - POST');   
-          }
-    }
-
-    handleClose = () => {
-        this.setState ({
-            isHidden: false
-        });
-    }
 
     render () {
-        const { handleSubmit } = this.props;
+        const { onClick } = this.props;
         return (
             <div>
-               <form onSubmit={handleSubmit}>
+               <form onSubmit={this.handleSave}>
                      <div className='col-lg-9'>
                         <p>Zone
                             <Field name='propertyZone' component='input' type='text'/>
@@ -109,11 +154,11 @@ class Filter extends React.Component {
                             <Field name='propertyFloorSpaceRatioMin' component='input' type='text' placeholder='min' style={{width: '60px'}}/> - 
                             <Field name='propertyFloorSpaceRatioMax' component='input' type='text' placeholder='max' style={{width: '60px'}}/> 
                         </p>
-                <button type='submit'>Search</button>
-                <button onClick={this.handleSaveFilter}>Save preferences</button>
-            </div>
-            {this.state.isHidden && <SignIn onClick={this.handleClose.bind(this)}/>}
-            </form>
+                        <button type='submit' name='search' value='search'>Search</button>
+                        <button type='button' name='editFilter' value='editFilter' onClick={this.handleSaveEditedFilter}>Edit Filter</button>
+                        <button type='button' name='saveFilter' value='saveFilter' onClick={onClick}>Save Filter</button>
+                    </div>
+                </form>
             </div>
         );
     }
@@ -129,11 +174,7 @@ Filter = connect(state => {
   const { propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
         propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
         propertyPriceToLandValueMax, propertyFloorSpaceRatioMin,propertyFloorSpaceRatioMax
-    // } = selector(state, 'propertyZone', 'propertyAreaMin', 'propertyAreaMax', 'propertyPriceMin',
-    //     'propertyPriceMax', 'propertyPricePSMMin', 'propertyPricePSMMax', 'propertyPostCode',
-    //     'propertyPriceToLandValueMin', 'propertyPriceToLandValueMax','propertyFloorSpaceRatioMin',
-    //     'propertyFloorSpaceRatioMax');
-} = selector(state, ...FILTER_PARAMETERS);
+        } = selector(state, ...FILTER_PARAMETERS);
 
   return {
         propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,

@@ -10,11 +10,20 @@ class SavedFilters extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            authenticted: null,
             notifications: []
         };
       }
 
+   checkAuthentication =  async () => {
+        const authenticated = await this.props.auth.isAuthenticated();
+        if (authenticated !== this.state.authenticated) {
+          this.setState({ authenticated });
+        }
+    }
+      
   async getFilterList () {
+    if (this.state.authenticted) {
     try {
         const response = await fetch('/api/notifications', {
           headers: {
@@ -30,7 +39,8 @@ class SavedFilters extends Component {
     } catch (err) {
         console.log('error loading list of filters');
     }
-      }
+      } else {<p>No saved filters</p>}
+    }
 
   displayFilterParameters (item) {
       this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
@@ -48,6 +58,7 @@ class SavedFilters extends Component {
   }
 
   componentDidMount() {
+    this.checkAuthentication();
     this.getFilterList();
   }
 
@@ -85,36 +96,9 @@ class SavedFilters extends Component {
 }
 
   async handleEditFilter (item) {
-    try {
-        const response = await fetch(`/api/notifications/${item.id}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-              'propertyZone': item.propertyZone,
-              'propertyAreaMin': item.propertyAreaMin,
-              'propertyAreaMax': item.propertyAreaMax,
-              'propertyPriceMin': item.propertyPriceMin,
-              'propertyPriceMax': item.propertyPriceMax,
-              'propertyPricePSMMin': item.propertyPricePSMMin,
-              'propertyPricePSMMax': item.propertyPricePSMMax,
-              'propertyPostCode': item.propertyPostCode,
-              'propertyPriceToLandValueMin': item.propertyPriceToLandValueMin,
-              'propertyPriceToLandValueMax': item.propertyPriceToLandValueMax,
-              'propertyFloorSpaceRatioMin': item.propertyFloorSpaceRatioMin,
-              'propertyFloorSpaceRatioMax': item.propertyPriceToLandValueMin
-            }),
-            headers: {
-              Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-            }
-        });
-        const data = await response.json();
-        console.dir({ data });
-        //   this.setState({ notifications : JSON.stringify(data) });
-        // this.setState({ notifications : data });
-        this.displayFilterParameters(item);
-    } catch (err) {
-      console.log('error editing filter');
-    }
-    this.getFilterList();
+ 
+    this.displayFilterParameters(item);
+    // this.getFilterList();
   }
 
   renderData = () => {
@@ -147,7 +131,11 @@ class SavedFilters extends Component {
   }
 
     render() {
-      return <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul>
+      const someObject = [{name: 'Ira', lastName: 'Paliy'}, {name: 'Alina', lastName: 'hello'}];
+      console.log(someObject.find(name => name.name==='Albina'));
+      return (
+      <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul>
+      )
     }
 }
 
