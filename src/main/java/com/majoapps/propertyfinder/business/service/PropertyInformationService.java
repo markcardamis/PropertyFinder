@@ -66,6 +66,7 @@ public class PropertyInformationService {
             propertyInformation.setBasis5(newAccount.getBasis5());
             propertyInformation.setFloorSpaceRatio(newAccount.getFloorSpaceRatio());
             propertyInformation.setMinimumLotSize(newAccount.getMinimumLotSize());
+            propertyInformation.setBuildingHeight(newAccount.getBuildingHeight());
             propertyInformationRepository.save(propertyInformation);
             return ResponseEntity.ok(propertyInformation);
         }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
@@ -139,6 +140,8 @@ public class PropertyInformationService {
                 propertyInformation.setFloorSpaceRatio(newAccount.getFloorSpaceRatio());
             if(newAccount.getMinimumLotSize() != null) 
                 propertyInformation.setMinimumLotSize(newAccount.getMinimumLotSize());
+            if(newAccount.getBuildingHeight() != null) 
+                propertyInformation.setBuildingHeight(newAccount.getBuildingHeight());
             propertyInformationRepository.save(propertyInformation);
             return ResponseEntity.ok(propertyInformation);
         }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
