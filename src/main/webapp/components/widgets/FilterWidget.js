@@ -4,6 +4,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import { IoMdClose } from 'react-icons/io';
 import "react-tabs/style/react-tabs.css";
+import { change } from 'redux-form';
+
 
 import SavedFilters from './SavedFilters';
 import SignIn from './SignIn';
@@ -75,6 +77,7 @@ class FilterWidget extends Component {
     }
 
     displayFilterParameters = (item) => {
+        console.log(this.props)
         this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
         this.props.dispatch(change('filter', 'propertyAreaMin', item.propertyAreaMin));
         this.props.dispatch(change('filter', 'propertyAreaMax', item.propertyAreaMax));
@@ -144,6 +147,7 @@ class FilterWidget extends Component {
 
     componentDidUpdate() {
         this.checkAuthentication();
+        this.displayFilterParameters();
         }
 
     render () {
