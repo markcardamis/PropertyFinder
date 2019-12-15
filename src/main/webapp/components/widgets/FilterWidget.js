@@ -143,7 +143,24 @@ class FilterWidget extends Component {
             // this.getFilterList();
           }
 
+    async handleSelectFilter(item) {
+        try {
+              const response = await fetch(`/api/listing/notifications/${item.id}`, {
+                headers: {
+                    Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+                }
+            });
+              const data = await response.json();
+              this.displayFilterParameters(item);
+            } catch (err) {
+                console.log('error loading list of filters');
+            };
+        }
 
+componentDidMount() {
+    this.displayFilterParameters();
+
+}
        
 
     componentDidUpdate() {
@@ -165,7 +182,7 @@ class FilterWidget extends Component {
                             <Filter onClick={this.handleSave}/>
                         </TabPanel>
                         <TabPanel>
-                            <SavedFilters onClick={this.handleEditFilter}/>
+                            <SavedFilters onClick={this.handleEditFilter} onClick={this.handleSelectFilter}/>
                         </TabPanel>
                     </Tabs>
                     <IoMdClose size='2em' onClick={this.handleClick}/>
@@ -178,7 +195,7 @@ class FilterWidget extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        filter: state
+        filterWidget: state
     };
 };
 
