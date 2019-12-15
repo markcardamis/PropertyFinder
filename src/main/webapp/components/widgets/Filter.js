@@ -91,6 +91,7 @@ class Filter extends React.Component {
     }
 
     async handleSaveEditedFilter (item) {
+      console.log(item);
       try {
           const response = await fetch(`/api/notifications/${item.id}`, {
               method: 'PUT',

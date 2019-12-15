@@ -55,11 +55,6 @@ class SavedFilters extends Component {
       this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', item.propertyPriceToLandValueMin));
   }
 
-  componentDidMount() {
-    this.checkAuthentication();
-    this.getFilterList();
-  }
-
   async handleSelectFilter(item) {
     try {
       const response = await fetch(`/api/listing/notifications/${item.id}`, {
@@ -126,6 +121,17 @@ class SavedFilters extends Component {
                 </div>
             </li>
       );
+  }
+  
+  componentDidMount() {
+    this.checkAuthentication();
+    this.getFilterList();
+  }
+
+  componentDidUpdate() {
+    console.log('filter list updated')
+    this.checkAuthentication();
+    this.getFilterList();
   }
 
     render() {
