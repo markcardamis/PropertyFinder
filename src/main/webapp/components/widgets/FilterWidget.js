@@ -147,7 +147,6 @@ class FilterWidget extends Component {
 
     componentDidUpdate() {
         this.checkAuthentication();
-        this.displayFilterParameters();
         }
 
     render () {
