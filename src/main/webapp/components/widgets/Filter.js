@@ -156,7 +156,7 @@ class Filter extends React.Component {
                             <Field name='propertyFloorSpaceRatioMax' component='input' type='text' placeholder='max' style={{width: '60px'}}/> 
                         </p>
                         <button type='submit' name='search' value='search'>Search</button>
-                        <button type='button' name='editFilter' value='editFilter' onClick={this.handleSaveEditedFilter.bind(this.item)}>Edit Filter</button>
+                        <button type='button' name='editFilter' value='editFilter' onClick={this.handleSaveEditedFilter.bind(this, item)}>Edit Filter</button>
                         <button type='button' name='saveFilter' value='saveFilter' onClick={onClick}>Save Filter</button>
                     </div>
                 </form>
