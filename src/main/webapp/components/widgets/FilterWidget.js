@@ -31,8 +31,9 @@ class FilterWidget extends Component {
               }
         }
 
-        handleEditFilter = async (item) => {
+        handleEditFilter = (item) => {
         console.log('edit filter works');
+        console.log(item);
 
         this.setState({editedFilter: item})
 
