@@ -82,7 +82,7 @@ class SavedFilters extends Component {
                 <div>
                   <div style={{display: 'flex'}}>
                     <h5>Filter {this.state.notifications.indexOf(item)+1}</h5>
-                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.props.onClick(item)}/>
+                    <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.props.onClick(item)}/>
                     <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter.bind(this, item)}/>
                   </div>
                     <ul style={{fontSize: '12px', listStyle: 'none'}}>
