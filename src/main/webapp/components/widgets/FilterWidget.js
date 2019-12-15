@@ -162,8 +162,6 @@ displayFilterParameters = (item) => {
 
     componentDidMount() {
         this.checkAuthentication();
-        this.displayFilterParameters();
-
     }
       
     componentDidUpdate() {
