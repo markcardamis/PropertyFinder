@@ -40,7 +40,7 @@ class SavedFilters extends Component {
     }
       }
 
-  displayFilterParameters (item) {
+  displayFilterParameters = (item) => {
       this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
       this.props.dispatch(change('filter', 'propertyAreaMin', item.propertyAreaMin));
       this.props.dispatch(change('filter', 'propertyAreaMax', item.propertyAreaMax));
