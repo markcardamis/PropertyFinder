@@ -85,42 +85,8 @@ class Filter extends React.Component {
           })
       } catch (err) {
           console.log('error loading list of filters');
-      }
-
-        
+      }        
     }
-
-    async handleSaveEditedFilter (item) {
-      console.log(item);
-      try {
-          const response = await fetch(`/api/notifications/${item.id}`, {
-              method: 'PUT',
-              body: JSON.stringify({
-                'propertyZone': item.propertyZone,
-                'propertyAreaMin': item.propertyAreaMin,
-                'propertyAreaMax': item.propertyAreaMax,
-                'propertyPriceMin': item.propertyPriceMin,
-                'propertyPriceMax': item.propertyPriceMax,
-                'propertyPricePSMMin': item.propertyPricePSMMin,
-                'propertyPricePSMMax': item.propertyPricePSMMax,
-                'propertyPostCode': item.propertyPostCode,
-                'propertyPriceToLandValueMin': item.propertyPriceToLandValueMin,
-                'propertyPriceToLandValueMax': item.propertyPriceToLandValueMax,
-                'propertyFloorSpaceRatioMin': item.propertyFloorSpaceRatioMin,
-                'propertyFloorSpaceRatioMax': item.propertyPriceToLandValueMin
-              }),
-              headers: {
-                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-              }
-          });
-          const data = await response.json();
-          console.dir({ data });
-          //   this.setState({ notifications : JSON.stringify(data) });
-          // this.setState({ notifications : data });
-      } catch (err) {
-        console.log('error editing filter');
-      }
-  }
 
 
     render () {
@@ -156,7 +122,6 @@ class Filter extends React.Component {
                             <Field name='propertyFloorSpaceRatioMax' component='input' type='text' placeholder='max' style={{width: '60px'}}/> 
                         </p>
                         <button type='submit' name='search' value='search'>Search</button>
-                        <button type='button' name='editFilter' value='editFilter' onClick={this.handleSaveEditedFilter.bind(this, item)}>Edit Filter</button>
                         <button type='button' name='saveFilter' value='saveFilter' onClick={onClick}>Save Filter</button>
                     </div>
                 </form>

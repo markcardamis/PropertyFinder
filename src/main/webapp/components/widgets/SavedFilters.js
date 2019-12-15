@@ -88,20 +88,13 @@ class SavedFilters extends Component {
     this.getFilterList();
 }
 
-  async handleEditFilter (item) {
- 
-    this.displayFilterParameters(item);
-    // this.getFilterList();
-  }
-
   renderData = () => {
-    
       return this.state.notifications.map((item)=>
             <li key={item.id} className='filterItem d-flex justify-content-between'>
                 <div>
                   <div style={{display: 'flex'}}>
                     <h5 onClick={this.handleSelectFilter.bind(this, item)}>Filter {this.state.notifications.indexOf(item)+1}</h5>
-                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.handleEditFilter.bind(this, item)}/>
+                    <TiPencil className='filterItemIcon' size='1.3em' onClick={this.props.onClick(item)}/>
                     <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter.bind(this, item)}/>
                   </div>
                     <ul  onClick={this.handleSelectFilter.bind(this, item)} style={{fontSize: '12px', listStyle: 'none'}}>
@@ -122,7 +115,7 @@ class SavedFilters extends Component {
             </li>
       );
   }
-  
+
   componentDidMount() {
     this.checkAuthentication();
     this.getFilterList();
