@@ -23,7 +23,6 @@ class SavedFilters extends Component {
     }
       
   async getFilterList () {
-    if (this.state.authenticted) {
     try {
         const response = await fetch('/api/notifications', {
           headers: {
@@ -39,8 +38,7 @@ class SavedFilters extends Component {
     } catch (err) {
         console.log('error loading list of filters');
     }
-      } else {<p>No saved filters</p>}
-    }
+      }
 
   displayFilterParameters (item) {
       this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
@@ -131,8 +129,6 @@ class SavedFilters extends Component {
   }
 
     render() {
-      const someObject = [{name: 'Ira', lastName: 'Paliy'}, {name: 'Alina', lastName: 'hello'}];
-      console.log(someObject.find(name => name.name==='Albina'));
       return (
       <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul>
       )
