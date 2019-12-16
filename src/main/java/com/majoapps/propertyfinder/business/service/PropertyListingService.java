@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -24,6 +25,9 @@ public class PropertyListingService {
 
     private final PropertyListingRepository propertyListingRepository;
     private final NotificationsService notificationsService;
+    private static final Integer adminResultsLimit = 100000;
+    private static final Integer authorisedResultsLimit = 1000;
+    private static final Integer unauthorisedResultsLimit = 100;
 
     @Autowired
     public PropertyListingService(PropertyListingRepository propertyListingRepository, NotificationsService notificationsService) {
@@ -35,34 +39,36 @@ public class PropertyListingService {
     // return 100 listings for unauthenticated user
     // return 1000 listings for authenticated user
     // return 100000 listings for an admin user
-    public List<PropertyListing> getPropertyListingBySearch(JwtAuthenticationToken JwtAuthToken, Specification<PropertyListing> searchSpec) {
+    public List<PropertyListing> getPropertyListingBySearch(JwtAuthenticationToken JwtAuthToken, Specification<PropertyListing> searchSpec, Sort sort) {
         try {
             if (JwtAuthToken != null && JwtAuthToken.getTokenAttributes().containsKey("uid")) {
                 String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
                 // unauthenticated
                 if (token == null || token.isEmpty()) { 
-                    Pageable pageable = PageRequest.of(0, 100, Sort.by("Id").ascending());
+                    Pageable pageable = PageRequest.of(0, unauthorisedResultsLimit, sort);
                     return this.propertyListingRepository.findAll(Specification.where(searchSpec), pageable).getContent();
                 }
                 // admin
                 if (JwtAuthToken.getTokenAttributes().containsKey("groups") && 
                     JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
-                        Pageable pageable = PageRequest.of(0, 100000, Sort.by("Id").ascending());
+                        Pageable pageable = PageRequest.of(0, adminResultsLimit, sort);
                         return this.propertyListingRepository.findAll(Specification.where(searchSpec), pageable).getContent(); 
                 } else { // authenticated
-                    Pageable pageable = PageRequest.of(0, 1000, Sort.by("Id").ascending());
+                    Pageable pageable = PageRequest.of(0, authorisedResultsLimit, sort);
                     return this.propertyListingRepository.findAll(Specification.where(searchSpec), pageable).getContent();
                 }
             } else {
                 // unauthenticated
-                Pageable pageable = PageRequest.of(0, 100, Sort.by("Id").ascending());
+                Pageable pageable = PageRequest.of(0, unauthorisedResultsLimit, sort);
                 return this.propertyListingRepository.findAll(Specification.where(searchSpec), pageable).getContent();
             }
         } catch (IllegalArgumentException ae) {
             log.error("IllegalArgumentException: ", ae);
             throw new ResourceNotFoundException("Malformed search query");
-        }
-        catch (Exception e) {
+        } catch (PropertyReferenceException pe) {
+            log.error("IllegalArgumentException: ", pe);
+            throw new ResourceNotFoundException("Malformed search query");
+        } catch (Exception e) {
             log.error("Exception: ", e);
             throw new ResourceNotFoundException("Error retrieving results");
         }
@@ -81,7 +87,7 @@ public class PropertyListingService {
         Notifications notifications = this.notificationsService.getNotificationsById(notificationsId);
         String token = SpecificationUtil.ConvertNotificationsToPropertyListingSpecification(notifications);        
         Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>().withSearch(token).build();
-        return(this.getPropertyListingBySearch(JwtAuthToken, specification));
+        return(this.getPropertyListingBySearch(JwtAuthToken, specification, null));
     }
 
     public List<PropertyListing> getPropertyListingsByNotifications(JwtAuthenticationToken JwtAuthToken, Notifications notifications) {
@@ -89,7 +95,7 @@ public class PropertyListingService {
         // Passing in a null notification will just return all Objects.requireNonNull(notifications);
         String token = SpecificationUtil.ConvertNotificationsToPropertyListingSpecification(notifications);        
         Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>().withSearch(token).build();
-        return(this.getPropertyListingBySearch(JwtAuthToken, specification));
+        return(this.getPropertyListingBySearch(JwtAuthToken, specification, null));
     }
 
 }

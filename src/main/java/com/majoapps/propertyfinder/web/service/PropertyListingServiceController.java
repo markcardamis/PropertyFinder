@@ -5,7 +5,9 @@ import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.entity.PropertyListing;
 import com.sipios.springsearch.anotation.SearchSpec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.SortDefault;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +25,8 @@ public class PropertyListingServiceController {
     private PropertyListingService propertyListingService;
 
     @RequestMapping(method= RequestMethod.GET)
-    public List<PropertyListing> getListingsBySearch(JwtAuthenticationToken JwtAuthToken, @SearchSpec Specification<PropertyListing> searchSpec) {
-        return this.propertyListingService.getPropertyListingBySearch(JwtAuthToken, searchSpec);
+    public List<PropertyListing> getListingsBySearch(JwtAuthenticationToken JwtAuthToken, @SearchSpec Specification<PropertyListing> searchSpec, @SortDefault(sort="Id",direction = Sort.Direction.ASC) Sort sort) {
+        return this.propertyListingService.getPropertyListingBySearch(JwtAuthToken, searchSpec, sort);
     }
 
     @RequestMapping(value="{id}", method= RequestMethod.GET)
