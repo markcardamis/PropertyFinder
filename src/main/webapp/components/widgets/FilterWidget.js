@@ -151,13 +151,13 @@ class FilterWidget extends Component {
         this.checkAuthentication();
     }
       
-    componentDidUpdate() {
-        this.checkAuthentication();
-    }
+    // componentDidUpdate() {
+    //     this.checkAuthentication();
+    // }
 
         sendCenterCoordinates = async () => {
         try {
-          const response = await fetch(`/api/listing/`, {
+          const response = await fetch(`/api/listing`, {
             method: 'POST',
             body: JSON.stringify({
               'centreLatitude': this.props.filterWdget.viewport.latitude,
