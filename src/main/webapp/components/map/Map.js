@@ -6,7 +6,7 @@ import { withAuth } from '@okta/okta-react';
 import fetch from 'isomorphic-fetch';
 
 import PropertyInformation from '../widgets/PropertyInformation';
-import { PROPERTY_DATA, MAPBOX_API, MAPBOX_STYLE } from '../../constants/constants';
+import { PROPERTY_DATA, MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
 import './Map.css';
 
 class Map extends React.Component {

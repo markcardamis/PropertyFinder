@@ -4,7 +4,7 @@ import { FaBed, FaBath, FaCar, FaChartArea, FaBuilding, FaLink } from 'react-ico
 import { GiReceiveMoney, GiAustralia } from 'react-icons/gi';
 import { IoMdPricetags, IoMdClose } from 'react-icons/io';
 
-import { DEFAULT_HOUSE_IMAGE } from '../../constants/constants';
+import { DEFAULT_HOUSE_IMAGE } from '../../shared/constants';
 
 
 class PropertyInformation extends React.Component {

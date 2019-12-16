@@ -1,4 +1,4 @@
-import { INITIAL_VIEWPORT } from '../../constants/constants'
+import { INITIAL_VIEWPORT } from '../../shared/constants';
 
 const authenticationReducer = (state=INITIAL_VIEWPORT, action) => {
     switch (action.type) {
