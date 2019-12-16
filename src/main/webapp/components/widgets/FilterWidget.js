@@ -8,7 +8,7 @@ import "react-tabs/style/react-tabs.css";
 
 import SavedFilters from './SavedFilters';
 import Filter from './Filter';
-import { FILTER_PARAMETERS } from '../../constants/constants'
+import { FILTER_PARAMETERS } from '../../shared/constants'
 
 
 class FilterWidget extends Component {
@@ -133,7 +133,7 @@ class FilterWidget extends Component {
                     this.setState({
                         isHidden: this.state.authenticated ? false : true
                         });
-
+//change
                     this.state.editedFilter===null ? this.saveNewFilter() : this.saveEditedFilter();
                     }
 
@@ -150,10 +150,6 @@ class FilterWidget extends Component {
     componentDidMount() {
         this.checkAuthentication();
     }
-      
-    // componentDidUpdate() {
-    //     this.checkAuthentication();
-    // }
 
         sendCenterCoordinates = async () => {
         try {
@@ -194,9 +190,6 @@ class FilterWidget extends Component {
 
         try {
             const response = await fetch(`/api/listing?search=${query}`, {
-            //   headers: {
-            //       Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-            //   }
           });
           const data = await response.json();
           console.dir({ data });
@@ -212,7 +205,6 @@ class FilterWidget extends Component {
     }
 
     render () {
-
         return (
             <div className='filterWidget'>
                 <div className='d-flex justify-content-between'>
@@ -230,6 +222,7 @@ class FilterWidget extends Component {
                     </Tabs>
                     <IoMdClose size='2em' onClick={this.handleClick}/>
                 </div>
+                {console.log(this.props)}
             </div>
         );
     }
