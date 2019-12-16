@@ -96,7 +96,7 @@ class FilterWidget extends Component {
             console.log('save edited filter')
             console.log(this.state.editedFilter);
             try {
-                const response = await fetch(`/api/notifications/${this.state.editedFilter.id}`, {
+                const response = await fetch(`/api/notifications`, {
                     method: 'PUT',
                     body: JSON.stringify({
                         'propertyZone': this.props.propertyZone,
