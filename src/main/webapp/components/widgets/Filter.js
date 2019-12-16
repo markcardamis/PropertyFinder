@@ -25,23 +25,6 @@ class Filter extends React.Component {
           this.setState({ authenticated });
         }
       }
-  
-      // sendCenterCoordinates = async (item) => {
-      //   try {
-      //     const response = await fetch(`/api/listing/${item.id}`, {
-      //       method: 'POST',
-      //       body: JSON.stringify({
-      //         'centreLatitude': this.props.filter.viewport.latitude,
-      //         'centreLongitude': this.props.filter.viewport.longitude
-      //       })
-      //     });
-    
-      //     const data = await response.json();
-      //     console.dir(this.props.filter.viewport.longitude);
-      //   } catch (err) {
-      //     console.log('error POST map center coordinates'); 
-      //   }
-      // }
           
     componentDidUpdate() {
         this.checkAuthentication();
