@@ -35,7 +35,7 @@ class FilterWidget extends Component {
         console.log('edit filter works');
         console.log(item);
 
-        this.setState({editedFilter: item})
+        // this.setState({editedFilter: item})
 
         this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
         this.props.dispatch(change('filter', 'propertyAreaMin', item.propertyAreaMin));
@@ -53,6 +53,8 @@ class FilterWidget extends Component {
 
                 
         saveNewFilter = async () => {
+            this.setState({editedFilter: 'test'});
+            console.log('saved new filter')
             try {
                 const response = await fetch('/api/notifications', {
                     method: 'POST',
@@ -86,6 +88,7 @@ class FilterWidget extends Component {
         }
 
         saveEditedFilter = async (item) => {
+            console.log('save edited filter')
             console.log(item);
             try {
                 const response = await fetch(`/api/notifications/${item.id}`, {
@@ -117,7 +120,7 @@ class FilterWidget extends Component {
             }
         }
 
-        handleSave = async () => {
+        handleSave = async (item) => {
                         console.log('saved')
 
                     this.checkAuthentication();
@@ -126,7 +129,7 @@ class FilterWidget extends Component {
                         isHidden: this.state.authenticated ? false : true
                         });
 
-                    this.state.editedFilter===null ? this.saveNewFilter() : this.saveEditedFilter(this.state.editedFilter);
+                    this.state.editedFilter===null ? this.saveNewFilter(item) : this.saveEditedFilter(item);
                     }
 
         handleClose = () => {
