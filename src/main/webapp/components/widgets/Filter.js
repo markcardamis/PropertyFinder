@@ -48,7 +48,7 @@ class Filter extends React.Component {
       }
 
     render () {
-        const { handleSubmit, onClick } = this.props;
+        const { handleSubmit } = this.props;
 
         return (
             <div>
@@ -81,7 +81,7 @@ class Filter extends React.Component {
                              <Field name='propertyFloorSpaceRatioMax' component='input' type='text' placeholder='max' style={{width: '60px'}}/> 
                          </p>
                         <button type='submit'>Search</button>
-                        <button type='button' onClick={onClick}>Save preferences</button>
+                        <button type='button' onClick={()=>this.props.onClick(item)}>Save preferences</button>
               </div>
              </form>
             </div>

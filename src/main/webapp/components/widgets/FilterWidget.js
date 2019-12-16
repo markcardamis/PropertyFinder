@@ -99,18 +99,18 @@ class FilterWidget extends Component {
                 const response = await fetch(`/api/notifications/${item.id}`, {
                     method: 'PUT',
                     body: JSON.stringify({
-                      'propertyZone': item.propertyZone,
-                      'propertyAreaMin': item.propertyAreaMin,
-                      'propertyAreaMax': item.propertyAreaMax,
-                      'propertyPriceMin': item.propertyPriceMin,
-                      'propertyPriceMax': item.propertyPriceMax,
-                      'propertyPricePSMMin': item.propertyPricePSMMin,
-                      'propertyPricePSMMax': item.propertyPricePSMMax,
-                      'propertyPostCode': item.propertyPostCode,
-                      'propertyPriceToLandValueMin': item.propertyPriceToLandValueMin,
-                      'propertyPriceToLandValueMax': item.propertyPriceToLandValueMax,
-                      'propertyFloorSpaceRatioMin': item.propertyFloorSpaceRatioMin,
-                      'propertyFloorSpaceRatioMax': item.propertyPriceToLandValueMin
+                        'propertyZone': this.props.propertyZone,
+                        'propertyAreaMin': this.props.propertyAreaMin,
+                        'propertyAreaMax': this.props.propertyAreaMax,
+                        'propertyPriceMin': this.props.propertyPriceMin,
+                        'propertyPriceMax': this.props.propertyPriceMax,
+                        'propertyPricePSMMin': this.props.propertyPricePSMMin,
+                        'propertyPricePSMMax': this.props.propertyPricePSMMax,
+                        'propertyPostCode': this.props.propertyPostCode,
+                        'propertyPriceToLandValueMin': this.props.propertyPriceToLandValueMin,
+                        'propertyPriceToLandValueMax': this.props.propertyPriceToLandValueMax,
+                        'propertyFloorSpaceRatioMin': this.props.propertyFloorSpaceRatioMin,
+                        'propertyFloorSpaceRatioMax': this.props.propertyFloorSpaceRatioMax
                     }),
                     headers: {
                       Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
@@ -135,7 +135,7 @@ class FilterWidget extends Component {
                         isHidden: this.state.authenticated ? false : true
                         });
 
-                    this.state.editedFilter===null ? this.saveNewFilter(values) : this.saveEditedFilter(values);
+                    this.state.editedFilter===null ? this.saveNewFilter() : this.saveEditedFilter(values);
                     }
 
         handleClose = () => {
