@@ -1,6 +1,3 @@
-// import { PROPERTY_DATA } from '../../constants/constants';
-
-// const initialState = {...PROPERTY_DATA, isHidden: false};
 const initialState = {isHidden: false};
 
 const showPropertyReducer = (state = initialState, action) => {

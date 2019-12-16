@@ -5,10 +5,9 @@ import { GiReceiveMoney, GiAustralia } from 'react-icons/gi';
 import { IoMdPricetags, IoMdClose } from 'react-icons/io';
 
 import { DEFAULT_HOUSE_IMAGE } from '../../constants/constants';
-import './PropertyCard';
 
 
-class PropertyCard extends React.Component {
+class PropertyInformation extends React.Component {
 
 handleClose = () => {
     this.props.dispatch({type: 'CLOSE_PROPERTY'})
@@ -87,5 +86,5 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(PropertyCard);
+export default connect(mapStateToProps)(PropertyInformation);
 

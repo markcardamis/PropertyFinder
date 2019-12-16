@@ -5,7 +5,7 @@ import { IoIosPin } from 'react-icons/io';
 import { withAuth } from '@okta/okta-react';
 import fetch from 'isomorphic-fetch';
 
-import PropertyCard from '../widgets/PropertyCard';
+import PropertyInformation from '../widgets/PropertyInformation';
 import { PROPERTY_DATA, MAPBOX_API, MAPBOX_STYLE } from '../../constants/constants';
 import './Map.css';
 
@@ -45,7 +45,7 @@ class Map extends React.Component {
                       
                 >
                     <IoIosPin 
-                        onClick={this.handleClick.bind(this, item)}
+                        onClick={()=>this.handleClick(item)}
                         size='3em' 
                         className='propertyMarkerPin'
                     />
@@ -53,22 +53,20 @@ class Map extends React.Component {
         )
         );}
 
-  async handleClick (item) {
-    this.props.dispatch({type: 'SHOW_PROPERTY', payload: item});
+  handleClick = async (item) => {
+        try {
+            const response = await fetch(`/api/listing/${item.id}`, {
+              // headers: {
+              //     Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+              // }
+          });
+          const data = await response.json();
+          console.dir({ data });
+          this.props.dispatch({type: 'SHOW_PROPERTY', payload: data});
 
-  //   try {
-  //     //   const response = await fetch(`/api/listing/${item.id}`, {
-  //     const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-  //         headers: {
-  //             Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-  //         }
-  //     });
-  //     const data = await response.json();
-  //     console.dir({ data });
-
-  // } catch (err) {
-  //     console.log('error');
-  // }  
+      } catch (err) {
+          console.log('error');
+      }  
   }
 
   handleViewportChange = (viewport) => {
@@ -90,7 +88,7 @@ class Map extends React.Component {
                 mapboxApiAccessToken={MAPBOX_API} >
                 <NavigationControl className='navigationControl'/>
                 {this.renderPins()}
-                {this.props.map.showProperty.isHidden && <PropertyCard/>}
+                {this.props.map.showProperty.isHidden && <PropertyInformation/>}
           </ReactMapGL>
         </div>
       );
