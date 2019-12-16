@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { FaBed, FaBath, FaCar, FaChartArea, FaBuilding, FaDoorOpen, FaInfo, FaFileInvoiceDollar, FaBalanceScale } from 'react-icons/fa';
+import { FaBed, FaBath, FaCar, FaChartArea, FaBuilding, FaDoorOpen, FaLink, FaInfo, FaFileInvoiceDollar, FaBalanceScale } from 'react-icons/fa';
 import { GiReceiveMoney, GiAustralia } from 'react-icons/gi';
 import { IoMdPricetags, IoMdClose, IoMdResize } from 'react-icons/io';
 
