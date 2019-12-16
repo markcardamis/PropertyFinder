@@ -3,11 +3,13 @@ import { withAuth } from '@okta/okta-react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import { IoMdClose } from 'react-icons/io';
-import { change } from 'redux-form';
+import { change, formValueSelector } from 'redux-form';
 import "react-tabs/style/react-tabs.css";
 
 import SavedFilters from './SavedFilters';
 import Filter from './Filter';
+import { FILTER_PARAMETERS } from '../../constants/constants'
+
 
 class FilterWidget extends Component {
 
@@ -52,11 +54,12 @@ class FilterWidget extends Component {
           }
 
                 
-        saveNewFilter = async (value) => {
+        saveNewFilter = async () => {
             this.setState({editedFilter: 'test'});
             console.log('saved new filter')
-            console.log(value);
             console.log(this.props)
+            const value = this.props.filter.form.filter.values
+            console.log(value);
             try {
                 const response = await fetch('/api/notifications', {
                     method: 'POST',
@@ -252,5 +255,20 @@ const mapStateToProps = (state) => {
         filter: state
     };
 };
+
+const selector = formValueSelector("filter");
+FilterWidget = connect(state => {
+ 
+  const { propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
+        propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
+        propertyPriceToLandValueMax, propertyFloorSpaceRatioMin,propertyFloorSpaceRatioMax
+        } = selector(state, ...FILTER_PARAMETERS);
+
+  return {
+        propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
+        propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
+        propertyPriceToLandValueMax, propertyFloorSpaceRatioMin, propertyFloorSpaceRatioMax
+    };
+})(FilterWidget);
 
 export default withAuth(connect(mapStateToProps)(FilterWidget));

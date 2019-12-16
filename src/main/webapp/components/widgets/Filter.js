@@ -93,19 +93,19 @@ Filter = reduxForm({
     form: "filter" 
   })(Filter);
 
-  const selector = formValueSelector("filter");
-Filter = connect(state => {
+//   const selector = formValueSelector("filter");
+// Filter = connect(state => {
  
-  const { propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
-        propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
-        propertyPriceToLandValueMax, propertyFloorSpaceRatioMin,propertyFloorSpaceRatioMax
-        } = selector(state, ...FILTER_PARAMETERS);
+//   const { propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
+//         propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
+//         propertyPriceToLandValueMax, propertyFloorSpaceRatioMin,propertyFloorSpaceRatioMax
+//         } = selector(state, ...FILTER_PARAMETERS);
 
-  return {
-        propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
-        propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
-        propertyPriceToLandValueMax, propertyFloorSpaceRatioMin, propertyFloorSpaceRatioMax
-    };
-})(Filter);
+//   return {
+//         propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
+//         propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
+//         propertyPriceToLandValueMax, propertyFloorSpaceRatioMin, propertyFloorSpaceRatioMax
+//     };
+// })(Filter);
 
   export default withAuth(Filter);
