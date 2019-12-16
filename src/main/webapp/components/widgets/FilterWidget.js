@@ -52,9 +52,11 @@ class FilterWidget extends Component {
           }
 
                 
-        saveNewFilter = async () => {
+        saveNewFilter = async (value) => {
             this.setState({editedFilter: 'test'});
             console.log('saved new filter')
+            console.log(value);
+            console.log(this.props)
             try {
                 const response = await fetch('/api/notifications', {
                     method: 'POST',
@@ -120,7 +122,8 @@ class FilterWidget extends Component {
             }
         }
 
-        handleSave = async (item) => {
+        handleSave = async (values) => {
+            console.log(values)
                         console.log('saved')
 
                     this.checkAuthentication();
@@ -129,7 +132,7 @@ class FilterWidget extends Component {
                         isHidden: this.state.authenticated ? false : true
                         });
 
-                    this.state.editedFilter===null ? this.saveNewFilter(item) : this.saveEditedFilter(item);
+                    this.state.editedFilter===null ? this.saveNewFilter(values) : this.saveEditedFilter(values);
                     }
 
         handleClose = () => {
@@ -203,7 +206,6 @@ class FilterWidget extends Component {
 
         try {
             const response = await fetch(`/api/listing?search=${query}`, {
-        // const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
             //   headers: {
             //       Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
             //   }
