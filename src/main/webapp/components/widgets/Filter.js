@@ -81,7 +81,7 @@ class Filter extends React.Component {
                              <Field name='propertyFloorSpaceRatioMax' component='input' type='text' placeholder='max' style={{width: '60px'}}/> 
                          </p>
                         <button type='submit'>Search</button>
-                        <button type='button' onClick={()=>this.props.onClick(item)}>Save preferences</button>
+                        <button type='button' onClick={this.props.onClick}>Save preferences</button>
               </div>
              </form>
             </div>
