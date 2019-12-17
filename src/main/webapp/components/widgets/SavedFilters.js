@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
 import { TiPencil, TiTrash } from 'react-icons/ti';
-import { connect } from 'react-redux';
+import { connect, change } from 'react-redux';
 // import { displayFilterParameters } from '../../shared/methods/displayFilterParameters';
 // import { listSavedFilters } from '../../shared/api/api'
 
