@@ -23,7 +23,7 @@ class SavedFilters extends Component {
         }
     }
       
-  async listSavedFilters () {
+  listSavedFilters = async () => {
     try {
         const response = await fetch('/api/notifications', {
           headers: {
@@ -41,7 +41,7 @@ class SavedFilters extends Component {
     }
   }
 
-  async handleSelectFilter (item) {
+  handleSelectFilter = async (item) => {
       console.log('select filter works')
       try {
         const response = await fetch(`/api/listing/notifications/${item.id}`, {
@@ -56,7 +56,7 @@ class SavedFilters extends Component {
         };
     }
 
-  async handleDeleteFilter (item) {
+  handleDeleteFilter = async (item) => {
       try {
           const response = await fetch(`/api/notifications/${item.id}`, {
             method: 'DELETE',
@@ -80,9 +80,9 @@ class SavedFilters extends Component {
             <li key={item.id} className='filterItem d-flex justify-content-between'>
                 <div>
                   <div style={{display: 'flex'}}>
-                    <h5 onClick={this.handleSelectFilter.bind(this, item)}>Filter {this.state.notifications.indexOf(item)+1}</h5>
+                    <h5 onClick={()=>this.handleSelectFilter(item)}>Filter {this.state.notifications.indexOf(item)+1}</h5>
                     <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.props.onClick(item)}/>
-                    <TiTrash className='filterItemIcon' size='1.3em' onClick={this.handleDeleteFilter.bind(this, item)}/>
+                    <TiTrash className='filterItemIcon' size='1.3em' onClick={()=>this.handleDeleteFilter(item)}/>
                   </div>
                     <ul onClick={this.handleSelectFilter.bind(this, item)} style={{fontSize: '12px', listStyle: 'none'}}>
                         <li>{item.propertyZone ? `Zone: ${item.propertyZone}` : null}</li>
