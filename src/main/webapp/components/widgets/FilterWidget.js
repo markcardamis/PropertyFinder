@@ -9,8 +9,8 @@ import "react-tabs/style/react-tabs.css";
 import SavedFilters from './SavedFilters';
 import Filter from './Filter';
 import { FILTER_PARAMETERS } from '../../shared/constants'
-import { displayFilterParameters } from '../../shared/methods/displayFilterParameters';
-import { listSavedFilters } from '../../shared/api/api';
+// import { displayFilterParameters } from '../../shared/methods/displayFilterParameters';
+// import { listSavedFilters } from '../../shared/api/api';
 
 
 
@@ -48,7 +48,7 @@ class FilterWidget extends Component {
                 }
             });
                 const data = await response.json();
-                displayFilterParameters(data);
+                this.displayFilterParameters(data);
             } catch (err) {
                 console.log('error loading list of filters');
             };
@@ -56,6 +56,21 @@ class FilterWidget extends Component {
             this.setState({editedFilter: data})
 
           }
+
+          displayFilterParameters = (item) => {
+            this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
+            this.props.dispatch(change('filter', 'propertyAreaMin', item.propertyAreaMin));
+            this.props.dispatch(change('filter', 'propertyAreaMax', item.propertyAreaMax));
+            this.props.dispatch(change('filter', 'propertyPriceMin', item.propertyPriceMin));
+            this.props.dispatch(change('filter', 'propertyPriceMax', item.propertyPriceMax));
+            this.props.dispatch(change('filter', 'propertyPricePSMMin', item.propertyPricePSMMin));
+            this.props.dispatch(change('filter', 'propertyPricePSMMax', item.propertyPricePSMMax));
+            this.props.dispatch(change('filter', 'propertyPostCode', item.propertyPostCode));
+            this.props.dispatch(change('filter', 'propertyPriceToLandValueMin', item.propertyPriceToLandValueMin));
+            this.props.dispatch(change('filter', 'propertyPriceToLandValueMax', item.propertyPriceToLandValueMax));
+            this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMin', item.propertyFloorSpaceRatioMin));
+            this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', item.propertyPriceToLandValueMin));
+        };
                 
         saveFilter = async (method) => {
             this.setState({editedFilter: 'test'});
@@ -103,8 +118,23 @@ class FilterWidget extends Component {
         this.setState({
             isHidden: this.state.authenticated ? false : true
             });
+//listSavedFilters
+            try {
+                const response = await fetch('/api/notifications', {
+                  headers: {
+                      Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+                  }
+              });
+              const data = await response.json();
+              console.dir({ data });
+              console.log('successfully loaded list of filters');
+        
+              //   this.setState({ notifications : JSON.stringify(data) });
+              this.setState({ savedFilters : data });
+            } catch (err) {
+                console.log('error loading list of filters');
+            }
 
-        listSavedFilters();
         console.log(this.state.savedFilters);
 
         const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
@@ -131,8 +161,8 @@ class FilterWidget extends Component {
           const response = await fetch(`/api/listing`, {
             method: 'POST',
             body: JSON.stringify({
-              'centreLatitude': this.props.filterWidget.viewport.latitude,
-              'centreLongitude': this.props.filterWidget.viewport.longitude
+              'centreLatitude': this.props.filter.viewport.latitude,
+              'centreLongitude': this.props.filter.viewport.longitude
             })
           });
     
