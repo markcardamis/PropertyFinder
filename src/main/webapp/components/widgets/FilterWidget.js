@@ -45,7 +45,7 @@ class FilterWidget extends Component {
           }
         });
         const data = await response.json();
-        this.displayFilterParameters(data);
+        this.displayFilterParameters(item);
         this.setState({editedFilter: data})
 
       } catch (err) {
@@ -68,14 +68,14 @@ class FilterWidget extends Component {
       this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', item.propertyPriceToLandValueMin));
     };
                 
-    saveFilter = async (method) => {
+    saveFilter = async (method, path) => {
       this.setState({editedFilter: 'test'});
       console.log('saved new filter')
       console.log(this.props)
       const value = this.props.filter.form.filter.values
       console.log(value);
       try {
-        const response = await fetch('/api/notifications', {
+        const response = await fetch(path, {
           method: method,
           headers: {
             Authorization: 'Bearer ' + await this.props.auth.getAccessToken(),
@@ -136,7 +136,7 @@ class FilterWidget extends Component {
 
       const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
       console.log('result is: '+result);
-      result ? this.saveFilter('PUT') : this.saveFilter('POST');
+      result ? this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.saveFilter('POST', '/api/notifications');
     }
 
     handleClose = () => {

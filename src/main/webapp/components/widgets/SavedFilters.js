@@ -55,7 +55,7 @@ class SavedFilters extends Component {
         payload: data
       });
 
-      this.displayFilterParameters(data);
+      this.displayFilterParameters(item);
     } catch (err) {
       console.log('error loading list of filters');
     }
