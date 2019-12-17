@@ -42,8 +42,10 @@ public class PropertyListingService {
     // return 100 listings for unauthenticated user
     // return 1000 listings for authenticated user
     // return 100000 listings for an admin user
-    public List<PropertyListingDTO> getPropertyListingBySearch(JwtAuthenticationToken JwtAuthToken,
-            Specification<PropertyListing> searchSpec, Sort sort) {
+    public List<PropertyListingDTO> getPropertyListingBySearch(
+            JwtAuthenticationToken JwtAuthToken,
+            Specification<PropertyListing> searchSpec, 
+            Sort sort) {
         try {
             if (JwtAuthToken != null && JwtAuthToken.getTokenAttributes().containsKey("uid")) {
                 String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
@@ -94,24 +96,28 @@ public class PropertyListingService {
     }    
 
     public List<PropertyListingDTO> getPropertyListingsByNotificationsId(
-            JwtAuthenticationToken JwtAuthToken, UUID id) {
+            JwtAuthenticationToken JwtAuthToken, 
+            UUID id, 
+            Sort sort) {
         Objects.requireNonNull(JwtAuthToken);
         Objects.requireNonNull(id);
         Notifications notifications = this.notificationsService.getNotificationsById(id);
         String token = SpecificationUtil.createSpecificationString(notifications);  
         Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>()
             .withSearch(token).build();
-        return (this.getPropertyListingBySearch(JwtAuthToken, specification, null));
+        return (this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
     }
 
     public List<PropertyListingDTO> getPropertyListingsByNotifications(
-            JwtAuthenticationToken JwtAuthToken, Notifications notifications) {
+            JwtAuthenticationToken JwtAuthToken, 
+            Notifications notifications, 
+            Sort sort) {
         // Users can search without being logged in Objects.requireNonNull(JwtAuthToken);
         // Passing in a null notification will just return all Objects.requireNonNull(notifications);
         String token = SpecificationUtil.createSpecificationString(notifications);        
         Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>()
             .withSearch(token).build();
-        return(this.getPropertyListingBySearch(JwtAuthToken, specification, null));
+        return(this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
     }
 
 }

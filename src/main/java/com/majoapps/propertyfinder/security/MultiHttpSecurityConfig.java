@@ -45,7 +45,8 @@ public class MultiHttpSecurityConfig {
                                 "/images/**", "/favicon.ico").permitAll()
                     .and()
                 .authorizeRequests()
-                    .antMatchers(HttpMethod.POST,"/api/listing/notifications", 
+                    .antMatchers(HttpMethod.POST,
+                                "/api/listing/notifications", 
                                 "/api/account").permitAll()
                     .and()
                 .authorizeRequests()

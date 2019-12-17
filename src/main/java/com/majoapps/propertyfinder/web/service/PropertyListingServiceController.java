@@ -41,15 +41,17 @@ public class PropertyListingServiceController {
     @RequestMapping(value = "/notifications/{notifications_id}", method = RequestMethod.GET)
     public List<PropertyListingDTO> getListingsFilteringByNotificationsId(
             JwtAuthenticationToken JwtAuthToken, 
-            @PathVariable(value="notifications_id") UUID notificationsId) {
-        return this.propertyListingService.getPropertyListingsByNotificationsId(JwtAuthToken, notificationsId);
+            @PathVariable(value="notifications_id") UUID notificationsId, 
+            @SortDefault(sort="Id",direction = Sort.Direction.ASC) Sort sort) {
+        return this.propertyListingService.getPropertyListingsByNotificationsId(JwtAuthToken, notificationsId, sort);
     }
 
     @RequestMapping(value = "/notifications", method = RequestMethod.POST)
     public List<PropertyListingDTO> getListingsFilteringByNotifications(
             JwtAuthenticationToken JwtAuthToken, 
-            @RequestBody(required = false) Notifications notifications) {
-        return this.propertyListingService.getPropertyListingsByNotifications(JwtAuthToken, notifications);
+            @RequestBody(required = false) Notifications notifications,
+            @SortDefault(sort="Id",direction = Sort.Direction.ASC) Sort sort) {
+        return this.propertyListingService.getPropertyListingsByNotifications(JwtAuthToken, notifications, sort);
     }
 
 }
