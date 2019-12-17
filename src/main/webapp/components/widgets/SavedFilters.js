@@ -2,8 +2,9 @@ import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
 import { TiPencil, TiTrash } from 'react-icons/ti';
-import { change } from 'redux-form';
 import { connect } from 'react-redux';
+import { displayFilterParameters } from '../../shared/methods/displayFilterParameters';
+import { listSavedFilters } from '../../shared/api/api'
 
 class SavedFilters extends Component {
 
@@ -11,7 +12,7 @@ class SavedFilters extends Component {
         super(props);
         this.state = {
             authenticted: null,
-            notifications: []
+            savedFilters: []
         };
       }
 
@@ -22,77 +23,60 @@ class SavedFilters extends Component {
         }
     }
       
-  async getFilterList () {
-    try {
-        const response = await fetch('/api/notifications', {
-          headers: {
+  // async listSavedFilters () {
+  //   try {
+  //       const response = await fetch('/api/notifications', {
+  //         headers: {
+  //             Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+  //         }
+  //     });
+  //     const data = await response.json();
+  //     console.dir({ data });
+  //     console.log('successfully loaded list of filters');
+
+  //     //   this.setState({ notifications : JSON.stringify(data) });
+  //     this.setState({ savedFilters : data });
+  //   } catch (err) {
+  //       console.log('error loading list of filters');
+  //   }
+  // }
+
+  async handleSelectFilter (item) {
+      console.log('select filter works')
+      try {
+        const response = await fetch(`/api/listing/notifications/${item.id}`, {
+            headers: {
               Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-          }
-      });
-      const data = await response.json();
-      console.dir({ data });
-      console.log('successfully loaded list of filters');
-
-      //   this.setState({ notifications : JSON.stringify(data) });
-      this.setState({ notifications : data });
-    } catch (err) {
-        console.log('error loading list of filters');
-    }
-      }
-
-  displayFilterParameters = (item) => {
-      this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
-      this.props.dispatch(change('filter', 'propertyAreaMin', item.propertyAreaMin));
-      this.props.dispatch(change('filter', 'propertyAreaMax', item.propertyAreaMax));
-      this.props.dispatch(change('filter', 'propertyPriceMin', item.propertyPriceMin));
-      this.props.dispatch(change('filter', 'propertyPriceMax', item.propertyPriceMax));
-      this.props.dispatch(change('filter', 'propertyPricePSMMin', item.propertyPricePSMMin));
-      this.props.dispatch(change('filter', 'propertyPricePSMMax', item.propertyPricePSMMax));
-      this.props.dispatch(change('filter', 'propertyPostCode', item.propertyPostCode));
-      this.props.dispatch(change('filter', 'propertyPriceToLandValueMin', item.propertyPriceToLandValueMin));
-      this.props.dispatch(change('filter', 'propertyPriceToLandValueMax', item.propertyPriceToLandValueMax));
-      this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMin', item.propertyFloorSpaceRatioMin));
-      this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', item.propertyPriceToLandValueMin));
-  }
-
-    async handleSelectFilter (item) {
-        console.log('select filter works')
-        try {
-              const response = await fetch(`/api/listing/notifications/${item.id}`, {
-                headers: {
-                    Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-                }
+            }
             });
-              const data = await response.json();
-        this.displayFilterParameters(item);
-            } catch (err) {
-                console.log('error loading list of filters');
-            };
-        }
-
-
+        const data = await response.json();
+        displayFilterParameters(data);
+      } catch (err) {
+          console.log('error loading list of filters');
+        };
+    }
 
   async handleDeleteFilter (item) {
-    try {
-        const response = await fetch(`/api/notifications/${item.id}`, {
-          method: 'DELETE',
-          headers: {
-            Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-          }
-        });
-        const data = await response.json();
-        console.dir({ data });
-  
-        //   this.setState({ notifications : JSON.stringify(data) });
-        this.setState({ notifications : data });
-    } catch (err) {
-        console.log('error delete filter');
+      try {
+          const response = await fetch(`/api/notifications/${item.id}`, {
+            method: 'DELETE',
+            headers: {
+              Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            }
+          });
+          const data = await response.json();
+          console.dir({ data });
+    
+          //   this.setState({ notifications : JSON.stringify(data) });
+          // this.setState({ savedFilters : data });
+      } catch (err) {
+          console.log('error delete filter');
+      }
+      listSavedFilters();
     }
-    this.getFilterList();
-}
 
   renderData = () => {
-      return this.state.notifications.map((item)=>
+      return this.state.savedFilters.map((item)=>
             <li key={item.id} className='filterItem d-flex justify-content-between'>
                 <div>
                   <div style={{display: 'flex'}}>
@@ -121,14 +105,8 @@ class SavedFilters extends Component {
 
   componentDidMount() {
     this.checkAuthentication();
-    this.getFilterList();
+    listSavedFilters();
   }
-
-  // componentDidUpdate() {
-  //   console.log('filter list updated')
-  //   this.checkAuthentication();
-  //   this.getFilterList();
-  // }
 
     render() {
       return (

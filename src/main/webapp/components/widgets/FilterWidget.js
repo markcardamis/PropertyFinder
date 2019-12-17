@@ -9,6 +9,9 @@ import "react-tabs/style/react-tabs.css";
 import SavedFilters from './SavedFilters';
 import Filter from './Filter';
 import { FILTER_PARAMETERS } from '../../shared/constants'
+import { displayFilterParameters } from '../../shared/methods/displayFilterParameters';
+import { listSavedFilters } from '../../shared/api/api';
+
 
 
 class FilterWidget extends Component {
@@ -19,7 +22,8 @@ class FilterWidget extends Component {
                     // tabIndex: 0 
                     authenticated: null,
                     isHidden: null,
-                    editedFilter: null
+                    savedFilters: [],
+                    editedFilter: []
                 };
                 this.checkAuthentication();
             }
@@ -33,27 +37,27 @@ class FilterWidget extends Component {
               }
         }
 
-        handleEditFilter = (item) => {
+        handleEditFilter = async (item) => {
         console.log('edit filter works');
         console.log(item);
 
-        this.setState({editedFilter: item})
+            try {
+                const response = await fetch(`/api/listing/notifications/${item.id}`, {
+                headers: {
+                    Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+                }
+            });
+                const data = await response.json();
+                displayFilterParameters(data);
+            } catch (err) {
+                console.log('error loading list of filters');
+            };
 
-        this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
-        this.props.dispatch(change('filter', 'propertyAreaMin', item.propertyAreaMin));
-        this.props.dispatch(change('filter', 'propertyAreaMax', item.propertyAreaMax));
-        this.props.dispatch(change('filter', 'propertyPriceMin', item.propertyPriceMin));
-        this.props.dispatch(change('filter', 'propertyPriceMax', item.propertyPriceMax));
-        this.props.dispatch(change('filter', 'propertyPricePSMMin', item.propertyPricePSMMin));
-        this.props.dispatch(change('filter', 'propertyPricePSMMax', item.propertyPricePSMMax));
-        this.props.dispatch(change('filter', 'propertyPostCode', item.propertyPostCode));
-        this.props.dispatch(change('filter', 'propertyPriceToLandValueMin', item.propertyPriceToLandValueMin));
-        this.props.dispatch(change('filter', 'propertyPriceToLandValueMax', item.propertyPriceToLandValueMax));
-        this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMin', item.propertyFloorSpaceRatioMin));
-        this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', item.propertyPriceToLandValueMin));            
+            this.setState({editedFilter: data})
+
           }
                 
-        saveNewFilter = async () => {
+        saveFilter = async (method) => {
             this.setState({editedFilter: 'test'});
             console.log('saved new filter')
             console.log(this.props)
@@ -61,7 +65,7 @@ class FilterWidget extends Component {
             console.log(value);
             try {
                 const response = await fetch('/api/notifications', {
-                    method: 'POST',
+                    method: method,
                 headers: {
                     Authorization: 'Bearer ' + await this.props.auth.getAccessToken(),
                     'Content-Type': 'application/json',
@@ -79,7 +83,7 @@ class FilterWidget extends Component {
                         'propertyPriceToLandValueMax': this.props.propertyPriceToLandValueMax,
                         'propertyFloorSpaceRatioMin': this.props.propertyFloorSpaceRatioMin,
                         'propertyFloorSpaceRatioMax': this.props.propertyFloorSpaceRatioMax
-                })
+                     })
                 });
 
                 const data = await response.json();
@@ -87,57 +91,28 @@ class FilterWidget extends Component {
         
                 this.setState({ notifications : JSON.stringify(data) });
             } catch (err) {
-                console.log('error API: filter - POST');   
+                console.log('error API: filter - POST/PUT');   
             }
         }
 
-        saveEditedFilter = async () => {
-            console.log('save edited filter')
-            console.log(this.state.editedFilter);
-            try {
-                const response = await fetch(`/api/listing/notifications`, {
-                    method: 'PUT',
-                    body: JSON.stringify({
-                        'propertyZone': this.props.propertyZone,
-                        'propertyAreaMin': this.props.propertyAreaMin,
-                        'propertyAreaMax': this.props.propertyAreaMax,
-                        'propertyPriceMin': this.props.propertyPriceMin,
-                        'propertyPriceMax': this.props.propertyPriceMax,
-                        'propertyPricePSMMin': this.props.propertyPricePSMMin,
-                        'propertyPricePSMMax': this.props.propertyPricePSMMax,
-                        'propertyPostCode': this.props.propertyPostCode,
-                        'propertyPriceToLandValueMin': this.props.propertyPriceToLandValueMin,
-                        'propertyPriceToLandValueMax': this.props.propertyPriceToLandValueMax,
-                        'propertyFloorSpaceRatioMin': this.props.propertyFloorSpaceRatioMin,
-                        'propertyFloorSpaceRatioMax': this.props.propertyFloorSpaceRatioMax
-                    }),
-                    headers: {
-                      Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-                    }
-                });
-                const data = await response.json();
-                console.dir({ data });
-                //   this.setState({ notifications : JSON.stringify(data) });
-                // this.setState({ notifications : data });
-            } catch (err) {
-              console.log('error editing filter');
-            }
+    handleSave = async (values) => {
+        console.log(values)
+        console.log('saved')
+
+        this.checkAuthentication();            
+        this.setState({
+            isHidden: this.state.authenticated ? false : true
+            });
+
+        listSavedFilters();
+        console.log(this.state.savedFilters);
+
+        const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
+        console.log('result is: '+result);
+        result ? this.saveFilter('PUT') : this.saveFilter('POST');
         }
 
-        handleSave = async (values) => {
-            console.log(values)
-                        console.log('saved')
-
-                    this.checkAuthentication();
-            
-                    this.setState({
-                        isHidden: this.state.authenticated ? false : true
-                        });
-//change
-                    this.state.editedFilter===null ? this.saveNewFilter() : this.saveEditedFilter();
-                    }
-
-        handleClose = () => {
+    handleClose = () => {
         this.setState ({
             isHidden: false
         });
@@ -151,12 +126,12 @@ class FilterWidget extends Component {
         this.checkAuthentication();
     }
 
-        sendCenterCoordinates = async () => {
+    sendCenterCoordinates = async () => {
         try {
           const response = await fetch(`/api/listing`, {
             method: 'POST',
             body: JSON.stringify({
-              'centreLatitude': this.props.filterWdget.viewport.latitude,
+              'centreLatitude': this.props.filterWidget.viewport.latitude,
               'centreLongitude': this.props.filterWidget.viewport.longitude
             })
           });
@@ -166,7 +141,7 @@ class FilterWidget extends Component {
         } catch (err) {
           console.log('error POST map center coordinates'); 
         }
-      }
+    }
 
     handleSubmit = async (value) => {
         this.sendCenterCoordinates();

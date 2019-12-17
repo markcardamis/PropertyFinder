@@ -1,11 +1,10 @@
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
 import fetch from 'isomorphic-fetch';
-import {Field, reduxForm, formValueSelector, change} from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 import { connect } from 'react-redux';
 
 import './Filter.css';
-import { FILTER_PARAMETERS } from '../../shared/constants';
 import { renderField, onlyNumber, minValue, maxValue } from '../../shared/formValidation';
 
 
@@ -41,33 +40,33 @@ class Filter extends React.Component {
                               <Field name='propertyZone' label='Zone' component={renderField} type='text'/>
                          <div>Area<br/>
                          <span style={{display: 'flex'}}>
-                             <Field name='propertyAreaMin' component={renderField} validate={onlyNumber} type='text' placeholder='min' style={{width: '60px'}}/> - 
-                             <Field name='propertyAreaMax' component={renderField} validate={onlyNumber} type='text' placeholder='max' style={{width: '60px'}}/> 
+                             <Field name='propertyAreaMin' component={renderField} validate={onlyNumber, minValue(0)} type='text' placeholder='min' style={{width: '60px'}}/> - 
+                             <Field name='propertyAreaMax' component={renderField} validate={onlyNumber, maxValue(1000000)} type='text' placeholder='max' style={{width: '60px'}}/> 
                              </span>
                          </div> 
                          <div>Price<br/>
                             <span style={{display: 'flex'}}>
-                              <Field name='propertyPriceMin' component={renderField} type='text' validate={onlyNumber, minValue(1)} placeholder='min' style={{width: '60px'}}/> - 
-                              <Field name='propertyPriceMax' component={renderField} type='text' validate={onlyNumber} placeholder='max' style={{width: '60px'}}/> 
+                              <Field name='propertyPriceMin' component={renderField} type='text' validate={onlyNumber, minValue(0)} placeholder='min' style={{width: '60px'}}/> - 
+                              <Field name='propertyPriceMax' component={renderField} type='text' validate={onlyNumber, maxValue(50000000)} placeholder='max' style={{width: '60px'}}/> 
                               </span>
                          </div>
                          <div>Price per m<sup>2</sup><br/>
                             <span style={{display: 'flex'}}>
-                              <Field name='propertyPricePSMMin' component={renderField} type='text' validate={onlyNumber, minValue(1)} placeholder='min' style={{width: '60px'}}/> - 
-                              <Field name='propertyPricePSMMax' component={renderField} type='text' validate={onlyNumber} placeholder='max' style={{width: '60px'}}/> 
+                              <Field name='propertyPricePSMMin' component={renderField} type='text' validate={onlyNumber, minValue(0)} placeholder='min' style={{width: '60px'}}/> - 
+                              <Field name='propertyPricePSMMax' component={renderField} type='text' validate={onlyNumber, maxValue(1000000)} placeholder='max' style={{width: '60px'}}/> 
                               </span>
                          </div>
                         <Field name='propertyPostCode' label='Post Code' component={renderField} validate={onlyNumber} type='text'/>
                          <div>Price to Landvalue<br/>
                             <span style={{display: 'flex'}}>
-                             <Field name='propertyPriceToLandValueMin' component={renderField} validate={onlyNumber, minValue(1)} type='text' placeholder='min' style={{width: '60px'}}/> - 
-                             <Field name='propertyPriceToLandValueMax' component={renderField} validate={onlyNumber} type='text' placeholder='max' style={{width: '60px'}}/> 
+                             <Field name='propertyPriceToLandValueMin' component={renderField} validate={onlyNumber, minValue(0)} type='text' placeholder='min' style={{width: '60px'}}/> - 
+                             <Field name='propertyPriceToLandValueMax' component={renderField} validate={onlyNumber, maxValue(999.90)} type='text' placeholder='max' style={{width: '60px'}}/> 
                             </span>
                          </div>
                          <div>Floorspace Ratio<br/>
                             <span style={{display: 'flex'}}>
-                             <Field name='propertyFloorSpaceRatioMin' component={renderField} validate={onlyNumber, minValue(1)} type='text' placeholder='min' style={{width: '60px'}}/> - 
-                             <Field name='propertyFloorSpaceRatioMax' component={renderField} validate={onlyNumber} type='text' placeholder='max' style={{width: '60px'}}/> 
+                             <Field name='propertyFloorSpaceRatioMin' component={renderField} validate={onlyNumber, minValue(0)} type='text' placeholder='min' style={{width: '60px'}}/> - 
+                             <Field name='propertyFloorSpaceRatioMax' component={renderField} validate={onlyNumber, maxValue(99)} type='text' placeholder='max' style={{width: '60px'}}/> 
                             </span>
                          </div>
                         <button type='submit'>Search</button>
@@ -78,17 +77,6 @@ class Filter extends React.Component {
         );
     }
 }
-
-// const onlyNumber = value => value && isNaN(Number(value)) ? 'Must be a number' : undefined;
-// const renderField = ({ input, label, type, placeholder, meta: { touched, error} }) => (
-//   <div>
-//     {label && <label>{label}</label>}
-//     <div>
-//       <input {...input} type={type} placeholder={placeholder? placeholder : ''}/>
-//       {touched && (error && <p>{error}</p>)}
-//     </div>
-//   </div>
-// )
 
 Filter = reduxForm({
     form: "filter", 
