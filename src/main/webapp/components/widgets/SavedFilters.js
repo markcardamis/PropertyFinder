@@ -106,7 +106,7 @@ class SavedFilters extends Component {
             <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.props.onClick(item)}/>
             <TiTrash className='filterItemIcon' size='1.3em' onClick={()=>this.handleDeleteFilter(item)}/>
           </div>
-          <ul onClick={this.handleSelectFilter.bind(this, item)} style={{fontSize: '12px', listStyle: 'none'}}>
+          <ul onClick={()=>this.handleSelectFilter(item)} style={{fontSize: '12px', listStyle: 'none'}}>
             <li>{item.propertyZone ? `Zone: ${item.propertyZone}` : null}</li>
             <li>{item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}</li>
             <li>{item.propertyAreaMax ? `Area max: ${item.propertyAreaMax}` : null}</li>

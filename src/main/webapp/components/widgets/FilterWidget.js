@@ -37,8 +37,8 @@ class FilterWidget extends Component {
     handleEditFilter = async (item) => {
       console.log('edit filter works');
       console.log(item);
+      this.setState({editedFilter: item});
       this.displayFilterParameters(item);
-      this.setState({editedFilter: item})
 
       try {
         const response = await fetch(`/api/listing/notifications/${item.id}`, {
@@ -68,7 +68,6 @@ class FilterWidget extends Component {
     };
                 
     saveFilter = async (method, path) => {
-      this.setState({editedFilter: 'test'});
       console.log('saved new filter')
       console.log(this.props)
       const value = this.props.filter.form.filter.values
@@ -134,7 +133,7 @@ class FilterWidget extends Component {
       console.log(this.state.savedFilters);
 
       const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
-      console.log('result is: '+result);
+      console.log(result);
       result ? this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.saveFilter('POST', '/api/notifications');
     }
 
@@ -199,6 +198,7 @@ class FilterWidget extends Component {
     }
 
     render () {
+
       return (
         <div className='filterWidget'>
           <div className='d-flex justify-content-between'>
@@ -217,6 +217,7 @@ class FilterWidget extends Component {
             <IoMdClose size='2em' onClick={this.handleClick}/>
           </div>
           {console.log(this.props)}
+          {console.log(this.state)}
         </div>
       );
    }
