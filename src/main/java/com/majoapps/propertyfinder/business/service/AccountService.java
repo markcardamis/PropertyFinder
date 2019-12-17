@@ -39,7 +39,7 @@ public class AccountService {
     public Account getAccountById(UUID id) {
         Objects.requireNonNull(id);
         return this.accountRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(("Account ID=" + id + " can't be found")));
+                .orElseThrow(() -> new ResourceNotFoundException("Account " + id + " not found"));
     }
 
     public List<Account> getAccountByUserId(String userId) {
@@ -53,7 +53,7 @@ public class AccountService {
             accountResponse.add(accountRepository.save(account));
         } else {
             // edit existing event
-            account = accountResponse.get(0); // there will only ever be one because we update it if it exists already
+            account = accountResponse.get(0); // get first as there will only ever be one
             account.setLastLogin(Date.from(Instant.now()));
             accountRepository.save(account);
         }
@@ -68,8 +68,8 @@ public class AccountService {
                 throw new ResourceNotFoundException("uid is null in JWT ");
             }
             // return all Accounts if the user is an admin
-            if (JwtAuthToken.getTokenAttributes().containsKey("groups")
-                    && JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
+            if (JwtAuthToken.getTokenAttributes().containsKey("groups") &&
+                    JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
                 return getAllAccounts();
             } else {
                 return getAccountByUserId(token);
@@ -80,9 +80,9 @@ public class AccountService {
     }
 
     public Account saveAccountwithCredentials(@NonNull OktaUserDTO oktaUserDTO) {
-        OktaUser oktaUserCreated = restService.postNewUser(OktaUserDTO.convertToOktaUser(oktaUserDTO));
+        OktaUser userCreated = restService.postNewUser(OktaUserDTO.convertToOktaUser(oktaUserDTO));
         Account accountCreated = new Account();
-        accountCreated.setUserId(oktaUserCreated.getId());
+        accountCreated.setUserId(userCreated.getId());
         accountCreated.setFirstName(oktaUserDTO.getFirstName());
         return saveAccount(accountCreated);
     }
@@ -96,23 +96,23 @@ public class AccountService {
             customer.setFirstName(newAccount.getFirstName());
             accountRepository.save(customer);
             return ResponseEntity.ok(customer);
-        }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("Account " + id + " not found"));
     }
 
     public ResponseEntity<Account> partialUpdateAccount(UUID id, Account newAccount){
         return accountRepository.findById(id).map(customer -> {
-            if (newAccount.getFirstName() != null) customer.setFirstName(newAccount.getFirstName());
+            if (newAccount.getFirstName() != null) {
+                customer.setFirstName(newAccount.getFirstName());
+            }
             accountRepository.save(customer);
             return ResponseEntity.ok(customer);
-        }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("Account " + id + " not found"));
     }
 
-    public ResponseEntity<?> deleteAccount(UUID accountID){
-        return this.accountRepository.findById(accountID).map(account -> {
+    public ResponseEntity<?> deleteAccount(UUID id){
+        return this.accountRepository.findById(id).map(account -> {
                     accountRepository.delete(account);
-                    return ResponseEntity.ok().build();
-                }
-        ).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+accountID+"] can't be found"));
+                    return ResponseEntity.ok().build();     
+        }).orElseThrow(() -> new ResourceNotFoundException("Account " + id + " not found"));
     }
-
 }

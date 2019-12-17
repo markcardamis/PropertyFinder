@@ -25,23 +25,30 @@ public class PropertyListingServiceController {
     @Autowired
     private PropertyListingService propertyListingService;
 
-    @RequestMapping(method= RequestMethod.GET)
-    public List<PropertyListingDTO> getListingsBySearch(JwtAuthenticationToken JwtAuthToken, @SearchSpec Specification<PropertyListing> searchSpec, @SortDefault(sort="Id",direction = Sort.Direction.ASC) Sort sort) {
+    @RequestMapping(method = RequestMethod.GET)
+    public List<PropertyListingDTO> getListingsBySearch(
+            JwtAuthenticationToken JwtAuthToken, 
+            @SearchSpec Specification<PropertyListing> searchSpec, 
+            @SortDefault(sort="Id",direction = Sort.Direction.ASC) Sort sort) {
         return this.propertyListingService.getPropertyListingBySearch(JwtAuthToken, searchSpec, sort);
     }
 
-    @RequestMapping(value="{id}", method= RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public PropertyListing getListingById(@PathVariable(value="id") Integer id) {
         return this.propertyListingService.getPropertyListingById(id);
     }
 
-    @RequestMapping(value="/notifications/{notifications_id}",method= RequestMethod.GET)
-    public List<PropertyListingDTO> getListingsFilteringByNotificationsId(JwtAuthenticationToken JwtAuthToken, @PathVariable(value="notifications_id") UUID notificationsId) {
+    @RequestMapping(value = "/notifications/{notifications_id}", method = RequestMethod.GET)
+    public List<PropertyListingDTO> getListingsFilteringByNotificationsId(
+            JwtAuthenticationToken JwtAuthToken, 
+            @PathVariable(value="notifications_id") UUID notificationsId) {
         return this.propertyListingService.getPropertyListingsByNotificationsId(JwtAuthToken, notificationsId);
     }
 
-    @RequestMapping(value="/notifications",method= RequestMethod.POST)
-    public List<PropertyListingDTO> getListingsFilteringByNotifications(JwtAuthenticationToken JwtAuthToken, @RequestBody(required = false) Notifications notifications ) {
+    @RequestMapping(value = "/notifications", method = RequestMethod.POST)
+    public List<PropertyListingDTO> getListingsFilteringByNotifications(
+            JwtAuthenticationToken JwtAuthToken, 
+            @RequestBody(required = false) Notifications notifications) {
         return this.propertyListingService.getPropertyListingsByNotifications(JwtAuthToken, notifications);
     }
 

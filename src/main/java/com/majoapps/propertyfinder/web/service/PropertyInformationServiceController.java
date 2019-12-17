@@ -18,21 +18,25 @@ public class PropertyInformationServiceController {
     @Autowired
     private PropertyInformationService propertyInformationService;
 
-    @RequestMapping(value="{propertyId}", method= RequestMethod.GET)
-    public PropertyInformation getPropertyById(@PathVariable(value="propertyId") Integer propertyId) {
-        return propertyInformationService.getPropertyInformation(propertyId);
+    @RequestMapping(value = "{propertyId}", method = RequestMethod.GET)
+    public PropertyInformation getPropertyById(@PathVariable(value="propertyId") Integer id) {
+        return propertyInformationService.getPropertyInformation(id);
     }
 
     @Profile("!production")
-    @RequestMapping(value = "{propertyId}", method= RequestMethod.PUT)
-    public ResponseEntity<PropertyInformation> updatePropertyInformation(@PathVariable Integer propertyId, @RequestBody PropertyInformation propertyInformation){
-        return propertyInformationService.updatePropertyInformation(propertyId, propertyInformation);
+    @RequestMapping(value = "{propertyId}", method = RequestMethod.PUT)
+    public ResponseEntity<PropertyInformation> updatePropertyInformation(
+            @PathVariable Integer id, 
+            @RequestBody PropertyInformation propertyInformation) {
+        return propertyInformationService.updatePropertyInformation(id, propertyInformation);
     }
 
     @Profile("!production")
-    @RequestMapping(value = "{propertyId}", method= RequestMethod.PATCH)
-    public ResponseEntity<PropertyInformation> partialUpdatePropertyInformation(@PathVariable Integer propertyId, @RequestBody PropertyInformation propertyInformation){
-        return propertyInformationService.partialUpdatePropertyInformation(propertyId, propertyInformation);
+    @RequestMapping(value = "{propertyId}", method = RequestMethod.PATCH)
+    public ResponseEntity<PropertyInformation> partialUpdatePropertyInformation(
+            @PathVariable Integer id, 
+            @RequestBody PropertyInformation propertyInformation) {
+        return propertyInformationService.partialUpdatePropertyInformation(id, propertyInformation);
     }
 
 }

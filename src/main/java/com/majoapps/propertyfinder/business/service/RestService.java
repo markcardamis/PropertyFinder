@@ -41,7 +41,8 @@ public class RestService {
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(oktaUser, headers);
 
         // use `exchange` method for HTTP call
-        ResponseEntity<OktaUser> response = this.restTemplate.exchange(url, HttpMethod.POST, entity, OktaUser.class);
+        ResponseEntity<OktaUser> response = this.restTemplate.exchange(url, HttpMethod.POST, 
+            entity, OktaUser.class);
         if(response.getStatusCode() == HttpStatus.OK) {
             return response.getBody();
         } else {
