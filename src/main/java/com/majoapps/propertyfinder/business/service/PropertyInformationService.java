@@ -3,11 +3,11 @@ package com.majoapps.propertyfinder.business.service;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class PropertyInformationService {
@@ -28,10 +28,11 @@ public class PropertyInformationService {
 
     public PropertyInformation getPropertyInformation(Integer id) {
         return this.propertyInformationRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(("Property Information [ID="+id+"] can't be found")));
+        .orElseThrow(() -> new ResourceNotFoundException("Property ID " + id + "not found"));
     }
 
-    public ResponseEntity<PropertyInformation> updatePropertyInformation(Integer id, PropertyInformation newAccount){
+    public ResponseEntity<PropertyInformation> updatePropertyInformation(Integer id, 
+            PropertyInformation newAccount) {
         return propertyInformationRepository.findById(id).map(propertyInformation -> {
             propertyInformation.setDistrictCode(newAccount.getDistrictCode());
             propertyInformation.setDistrictName(newAccount.getDistrictName());
@@ -69,10 +70,11 @@ public class PropertyInformationService {
             propertyInformation.setBuildingHeight(newAccount.getBuildingHeight());
             propertyInformationRepository.save(propertyInformation);
             return ResponseEntity.ok(propertyInformation);
-        }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("Account ID " + id + " not found"));
     }
 
-    public ResponseEntity<PropertyInformation> partialUpdatePropertyInformation(Integer id, PropertyInformation newAccount){
+    public ResponseEntity<PropertyInformation> partialUpdatePropertyInformation(Integer id, 
+            PropertyInformation newAccount) {
         return propertyInformationRepository.findById(id).map(propertyInformation -> {
             if(newAccount.getDistrictCode() != 0) 
                 propertyInformation.setDistrictCode(newAccount.getDistrictCode());
@@ -144,7 +146,7 @@ public class PropertyInformationService {
                 propertyInformation.setBuildingHeight(newAccount.getBuildingHeight());
             propertyInformationRepository.save(propertyInformation);
             return ResponseEntity.ok(propertyInformation);
-        }).orElseThrow(() -> new ResourceNotFoundException("Account [ID="+id+"] can't be found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("Account ID " + id + " not found"));
     }
 
 }
