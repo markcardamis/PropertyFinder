@@ -72,7 +72,7 @@ class SavedFilters extends Component {
       } catch (err) {
           console.log('error delete filter');
       }
-      listSavedFilters();
+      this.listSavedFilters();
     }
 
   renderData = () => {
@@ -105,7 +105,7 @@ class SavedFilters extends Component {
 
   componentDidMount() {
     this.checkAuthentication();
-    listSavedFilters();
+    this.listSavedFilters();
   }
 
     render() {
