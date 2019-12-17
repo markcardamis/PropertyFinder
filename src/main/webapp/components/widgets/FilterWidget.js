@@ -49,11 +49,11 @@ class FilterWidget extends Component {
             });
                 const data = await response.json();
                 this.displayFilterParameters(data);
+                this.setState({editedFilter: data})
             } catch (err) {
                 console.log('error loading list of filters');
             };
 
-            this.setState({editedFilter: data})
 
           }
 

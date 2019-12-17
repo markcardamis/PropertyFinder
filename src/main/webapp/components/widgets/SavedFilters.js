@@ -50,6 +50,7 @@ class SavedFilters extends Component {
             }
             });
         const data = await response.json();
+        console.log(data)
         this.displayFilterParameters(data);
       } catch (err) {
           console.log('error loading list of filters');
