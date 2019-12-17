@@ -182,7 +182,7 @@ class FilterWidget extends Component {
         const areaMin = value.propertyAreaMin ? ` AND area>${value.propertyAreaMin}` : '';
         const areaMax = value.propertyAreaMax ? ` AND area<${value.propertyAreaMax}` : '';
         const priceMin = value.propertyPriceMin ? ` AND priceInt>${value.propertyPriceMin}` : '';
-        const priceMax = value.propertyPriceMax ? ` AND priceInt>${value.propertyPriceMax}` : '';
+        const priceMax = value.propertyPriceMax ? ` AND priceInt<${value.propertyPriceMax}` : '';
         const pricePSMMin = value.propertyPricePSMMin ? ` AND pricePSM>${value.propertyPricePSMMin}` : '';
         const pricePSMMax = value.propertyPricePSMMax ? ` AND pricePSM<${value.propertyPricePSMMax}` : '';
         const postCode = value.propertyPostCode ? ` AND postCode:${value.propertyPostCode}` : '';
