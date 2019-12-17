@@ -80,7 +80,7 @@ class SavedFilters extends Component {
             <li key={item.id} className='filterItem d-flex justify-content-between'>
                 <div>
                   <div style={{display: 'flex'}}>
-                    <h5 onClick={()=>this.handleSelectFilter(item)}>Filter {this.state.notifications.indexOf(item)+1}</h5>
+                    <h5 onClick={()=>this.handleSelectFilter(item)}>Filter {this.state.savedFilters.indexOf(item)+1}</h5>
                     <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.props.onClick(item)}/>
                     <TiTrash className='filterItemIcon' size='1.3em' onClick={()=>this.handleDeleteFilter(item)}/>
                   </div>
