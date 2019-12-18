@@ -11,8 +11,6 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     port: 5000,
-    // host: '192.168.0.103',
-    // disableHostCheck: true
   },
 
   module: {
@@ -21,9 +19,6 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: "babel-loader",
-        // options: {
-        //     presets: ['@babel/preset-env', '@babel/preset-react']
-        // }
       },
       {
         test: /\.css$/,
