@@ -40,43 +40,6 @@ class SavedFilters extends Component {
     }
   }
 
-  handleSelectFilter = async (item) => {
-    console.log('select filter works');
-    console.log(item);
-    this.displayFilterParameters(item);
-
-    try {
-      const response = await fetch(`/api/listing/notifications/${item.id}`, {
-        headers: {
-          Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-        }
-      });
-      const data = await response.json();
-      
-      this.props.dispatch({
-        type: 'MARKERS',
-        payload: data
-      });
-
-    } catch (err) {
-      console.log('error loading list of filters');
-    }
-  }
-
-  displayFilterParameters = (item) => {
-    this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
-    this.props.dispatch(change('filter', 'propertyAreaMin', item.propertyAreaMin));
-    this.props.dispatch(change('filter', 'propertyAreaMax', item.propertyAreaMax));
-    this.props.dispatch(change('filter', 'propertyPriceMin', item.propertyPriceMin));
-    this.props.dispatch(change('filter', 'propertyPriceMax', item.propertyPriceMax));
-    this.props.dispatch(change('filter', 'propertyPricePSMMin', item.propertyPricePSMMin));
-    this.props.dispatch(change('filter', 'propertyPricePSMMax', item.propertyPricePSMMax));
-    this.props.dispatch(change('filter', 'propertyPostCode', item.propertyPostCode));
-    this.props.dispatch(change('filter', 'propertyPriceToLandValueMin', item.propertyPriceToLandValueMin));
-    this.props.dispatch(change('filter', 'propertyPriceToLandValueMax', item.propertyPriceToLandValueMax));
-    this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMin', item.propertyFloorSpaceRatioMin));
-    this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', item.propertyPriceToLandValueMin));
-  };
 
   handleDeleteFilter = async (item) => {
     try {
@@ -102,11 +65,11 @@ class SavedFilters extends Component {
       <li key={item.id} className='filterItem d-flex justify-content-between'>
         <div>
           <div style={{display: 'flex'}}>
-            <h5 onClick={()=>this.handleSelectFilter(item)}>Filter {this.state.savedFilters.indexOf(item)+1}</h5>
-            <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.props.onClick(item)}/>
+            <h5 onClick={()=>this.props.handleSelectFilter(item)}>Filter {this.state.savedFilters.indexOf(item)+1}</h5>
+            <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.props.handleEditFilter(item)}/>
             <TiTrash className='filterItemIcon' size='1.3em' onClick={()=>this.handleDeleteFilter(item)}/>
           </div>
-          <ul onClick={()=>this.handleSelectFilter(item)} style={{fontSize: '12px', listStyle: 'none'}}>
+          <ul onClick={()=>this.props.handleSelectFilter(item)} style={{fontSize: '12px', listStyle: 'none'}}>
             <li>{item.propertyZone ? `Zone: ${item.propertyZone}` : null}</li>
             <li>{item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}</li>
             <li>{item.propertyAreaMax ? `Area max: ${item.propertyAreaMax}` : null}</li>

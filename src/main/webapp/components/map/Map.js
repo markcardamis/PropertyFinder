@@ -33,7 +33,7 @@ class Map extends React.Component {
           return (notClicked.map((item) =>
               <div>
                   <Marker className='propertyMarker' key={item.id} latitude={item.latitude} longitude={item.longitude}>
-                    <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin' style={{color: 'orangered'}}/>
+                    <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin'/>
                   </Marker>
                   <Marker className='propertyMarker' latitude={this.props.map.showProperty.latitude} longitude={this.props.map.showProperty.longitude}>
                    <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin' style={{color: 'blue', paddingTop: 0}}/>
@@ -42,7 +42,7 @@ class Map extends React.Component {
           ))} else {
           return (this.props.map.mapMarker.map((item) =>
             <Marker className='propertyMarker' key={item.id} latitude={item.latitude} longitude={item.longitude}>
-              <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin' style={{color: 'orangered'}}/>
+              <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin'/>
             </Marker> 
           ))}
         }

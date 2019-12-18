@@ -34,8 +34,31 @@ class FilterWidget extends Component {
       }
     }
 
+    handleSelectFilter = async (item) => {
+      alert('select filter works');
+      console.log(item);
+      this.displayFilterParameters(item);
+  
+      try {
+        const response = await fetch(`/api/listing/notifications/${item.id}`, {
+          headers: {
+            Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+          }
+        });
+        const data = await response.json();
+        
+        this.props.dispatch({
+          type: 'MARKERS',
+          payload: data
+        });
+  
+      } catch (err) {
+        console.log('error loading list of filters');
+      }
+    }
+
     handleEditFilter = async (item) => {
-      console.log('edit filter works');
+      alert('edit filter works');
       console.log(item);
       this.setState({editedFilter: item});
       this.displayFilterParameters(item);
@@ -104,9 +127,9 @@ class FilterWidget extends Component {
       }
     }
 
-    handleSave = async (values) => {
+    handleSaveFilter = async (values) => {
       console.log(values)
-      console.log('saved')
+      alert('saved')
 
       this.checkAuthentication();            
       this.setState({
@@ -198,6 +221,9 @@ class FilterWidget extends Component {
       }
     }
 
+    sayHurray= () => {
+      alert('hurray')
+    }
     render () {
 
       return (
@@ -209,15 +235,14 @@ class FilterWidget extends Component {
                 <Tab>Saved Filters</Tab>
               </TabList>
               <TabPanel>
-                <Filter onSubmit={this.handleSubmit} onClick={this.handleSave}/>
+                <Filter onSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
               </TabPanel>
               <TabPanel>
-                <SavedFilters onClick={this.handleEditFilter}/>
+                <SavedFilters handleSelectFilter={this.handleSelectFilter} handleEditFilter={this.handleEditFilter}/>
               </TabPanel>
             </Tabs>
             <IoMdClose size='2em' onClick={this.handleClick}/>
           </div>
-          {console.log(this.props)}
           {console.log(this.state)}
         </div>
       );

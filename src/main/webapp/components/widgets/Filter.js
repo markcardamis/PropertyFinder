@@ -31,7 +31,7 @@ class Filter extends React.Component {
       }
 
     render () {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, handleSaveFilter } = this.props;
     
         return (
             <div>
@@ -70,7 +70,7 @@ class Filter extends React.Component {
                             </span>
                          </div>
                         <button type='submit'>Search</button>
-                        <button type='button' onClick={this.props.onClick}>Save preferences</button>
+                        <button type='button' onClick={handleSaveFilter}>Save preferences</button>
               </div>
              </form>
             </div>
