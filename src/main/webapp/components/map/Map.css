@@ -14,10 +14,16 @@
 
  .propertyMarker {
    z-index: 2;
+
  }
 
  .propertyMarkerPin {
-    color: orangered;
+    padding-top: 10px;
+    font-size: 3em;
+ }
+ .propertyMarkerPin:hover {
+    color: blue;
+    padding-top: 0;
  }
 
  .propertyInformation {

@@ -6,7 +6,7 @@ import { withAuth } from '@okta/okta-react';
 import fetch from 'isomorphic-fetch';
 
 import PropertyInformation from '../widgets/PropertyInformation';
-import { PROPERTY_DATA, MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
+import { MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
 import './Map.css';
 
 class Map extends React.Component {
@@ -14,17 +14,8 @@ class Map extends React.Component {
   async componentDidMount () {
     try {
         const response = await fetch('/api/listing', 
-
-          // await this.props.auth.getAccessToken() ? {
-          //     headers: {
-          //     Authorization:  'Bearer ' + await this.props.auth.getAccessToken()
-          //     }
-          //   } : null
-      // const response = await fetch('https://jsonplaceholder.typicode.com/posts', 
         )
-  
       const data = await response.json();
-      console.dir({ data });
 
       this.props.dispatch({
         type: 'MARKERS',
@@ -35,30 +26,30 @@ class Map extends React.Component {
   }
   }
 
-   renderPins = () => {
-        return (this.props.map.mapMarker.map((item) =>
-                <Marker 
-                      className='propertyMarker'
-                      key={item.id}
-                      latitude={item.latitude} 
-                      longitude={item.longitude}
-                      
-                >
-                    <IoIosPin 
-                        onClick={()=>this.handleClick(item)}
-                        size='3em' 
-                        className='propertyMarkerPin'
-                    />
-                </Marker>
-        )
-        );}
+    renderPins = () => {
+        if (this.props.map.showProperty.id) {
+          const notClicked = this.props.map.mapMarker.filter(item=>item.id!== this.props.map.showProperty.id);
+          console.log(notClicked)
+          return (notClicked.map((item) =>
+              <div>
+                  <Marker className='propertyMarker' key={item.id} latitude={item.latitude} longitude={item.longitude}>
+                    <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin' style={{color: 'orangered'}}/>
+                  </Marker>
+                  <Marker className='propertyMarker' latitude={this.props.map.showProperty.latitude} longitude={this.props.map.showProperty.longitude}>
+                   <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin' style={{color: 'blue', paddingTop: 0}}/>
+                 </Marker>
+              </div> 
+          ))} else {
+          return (this.props.map.mapMarker.map((item) =>
+            <Marker className='propertyMarker' key={item.id} latitude={item.latitude} longitude={item.longitude}>
+              <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin' style={{color: 'orangered'}}/>
+            </Marker> 
+          ))}
+        }
 
-  handleClick = async (item) => {
+    handleMarkerClick = async (item) => {
         try {
             const response = await fetch(`/api/listing/${item.id}`, {
-              // headers: {
-              //     Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-              // }
           });
           const data = await response.json();
           console.dir({ data });
@@ -67,7 +58,7 @@ class Map extends React.Component {
       } catch (err) {
           console.log('error');
       }  
-  }
+    }
 
   handleViewportChange = (viewport) => {
     this.props.dispatch ({

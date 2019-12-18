@@ -135,6 +135,7 @@ class FilterWidget extends Component {
       const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
       console.log(result);
       result ? this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.saveFilter('POST', '/api/notifications');
+      this.setState({ editedFilter: [] });
     }
 
     handleClose = () => {
