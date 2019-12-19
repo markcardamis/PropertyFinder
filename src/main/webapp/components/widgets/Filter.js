@@ -27,9 +27,9 @@ class Filter extends React.Component {
         this.checkAuthentication();
       }
 
-    render () {
+    render (props) {
         const { handleSubmit, handleSaveFilter } = this.props;
-    
+
         return (
             <div>
                 <form onSubmit={handleSubmit}>

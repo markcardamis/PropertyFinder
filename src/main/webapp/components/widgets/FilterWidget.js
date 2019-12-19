@@ -34,9 +34,7 @@ class FilterWidget extends Component {
     }
 
     handleSelectFilter = async (item) => {
-      alert('select filter works');
-      console.log(item);
-      this.displayFilterParameters(item);
+      this.displayFilterValues(item);
   
       try {
         const response = await fetch(`/api/listing/notifications/${item.id}`, {
@@ -45,22 +43,16 @@ class FilterWidget extends Component {
           }
         });
         const data = await response.json();
-        
-        this.props.dispatch({
-          type: 'MARKERS',
-          payload: data
-        });
-  
+        this.props.dispatch({type: 'MARKERS', payload: data});
+
       } catch (err) {
         console.log('error loading list of filters');
       }
     }
 
     handleEditFilter = async (item) => {
-      alert('edit filter works');
-      console.log(item);
       this.setState({editedFilter: item});
-      this.displayFilterParameters(item);
+      this.displayFilterValues(item);
 
       try {
         const response = await fetch(`/api/listing/notifications/${item.id}`, {
@@ -69,12 +61,13 @@ class FilterWidget extends Component {
           }
         });
         const data = await response.json();
+
       } catch (err) {
         console.log('error loading list of filters');
       };
     }
 
-    displayFilterParameters = (item) => {
+    displayFilterValues = (item) => {
       this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
       this.props.dispatch(change('filter', 'propertyAreaMin', item.propertyAreaMin));
       this.props.dispatch(change('filter', 'propertyAreaMax', item.propertyAreaMax));
@@ -127,34 +120,27 @@ class FilterWidget extends Component {
     }
 
     handleSaveFilter = async (values) => {
-      console.log(values)
-      alert('saved')
 
       this.checkAuthentication();            
       this.state.authenticated ? null : this.props.dispatch({type: 'SHOW_SIGNIN'});
 
-      try {
-        const response = await fetch('/api/notifications', {
-          headers: {
-              Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-          }
-        });
-
-      const data = await response.json();
-      console.dir({ data });
-      console.log('successfully loaded list of filters');
-
-      //   this.setState({ notifications : JSON.stringify(data) });
-      this.setState({ savedFilters : data });
-      } catch (err) {
+        try {
+          const response = await fetch('/api/notifications', {
+            headers: {
+                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            }
+          });
+          const data = await response.json();
+          console.dir({ data });
+          console.log('successfully loaded list of filters');
+          this.setState({ savedFilters : data });
+        } catch (err) {
           console.log('error loading list of filters');
-      }
+        }
 
-      console.log(this.state.savedFilters);
-
-      const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
-      console.log(result);
-      result ? this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.saveFilter('POST', '/api/notifications');
+        const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
+        result ? this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.saveFilter('POST', '/api/notifications');
+      
       this.setState({ editedFilter: [] });
     }
 
@@ -163,21 +149,15 @@ class FilterWidget extends Component {
     }
 
     handleSubmit = async () => {
-      var headers = {};
-      if (this.state.authenticated) {
-        headers = {
-          'Content-Type': 'application/json',
-          'centreLatitude': this.props.filter.viewport.latitude,
-          'centreLongitude': this.props.filter.viewport.longitude,
-          'Authorization': 'Bearer ' + await this.props.auth.getAccessToken()
-        };
-      } else {
-        headers = {
-          'Content-Type': 'application/json',
-          'centreLatitude': this.props.filter.viewport.latitude,
-          'centreLongitude': this.props.filter.viewport.longitude
-        };
-      }
+
+      let headers = {
+        'Content-Type': 'application/json',
+        'centreLatitude': this.props.filter.viewport.latitude,
+        'centreLongitude': this.props.filter.viewport.longitude
+      };
+      headers = this.state.authenticated===false ?  
+          headers : { ...headers, 'Authorization': 'Bearer ' + await this.props.auth.getAccessToken()}
+
       try {
         const response = await fetch('/api/listing/notifications', {
           method: 'POST',
@@ -204,19 +184,21 @@ class FilterWidget extends Component {
           payload: data
         });
       } catch (err) {
-        console.log('error searching ' + err);   
+        console.log('error searching ');   
       }
     }
 
     render () {
         const { handleCloseFilter } = this.props;
+        const { authenticated } = this.state;
+
       return (
         <div className='filterWidget'>
           <div className='d-flex justify-content-between'>
             <Tabs>
               <TabList>
                 <Tab>Search</Tab>
-                <Tab>Saved Filters</Tab>
+                <Tab disabled={!authenticated}>Saved Filters</Tab>
               </TabList>
               <TabPanel>
                 <Filter onSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
@@ -227,7 +209,6 @@ class FilterWidget extends Component {
             </Tabs>
             <IoMdClose size='2em' onClick={handleCloseFilter}/>
           </div>
-          {console.log(this.state)}
         </div>
       );
    }
