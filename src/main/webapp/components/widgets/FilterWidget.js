@@ -21,9 +21,7 @@ class FilterWidget extends Component {
         savedFilters: [],
         editedFilter: []
       };
-      this.checkAuthentication();
     }
-
 
     checkAuthentication = async () => {
       const authenticated = await this.props.auth.isAuthenticated();
@@ -31,6 +29,10 @@ class FilterWidget extends Component {
       if (authenticated !== this.state.authenticated) {
         this.setState({ authenticated });
       }
+    }
+
+    componentDidMount() {
+      this.checkAuthentication();
     }
 
     handleSelectFilter = async (item) => {
@@ -55,17 +57,16 @@ class FilterWidget extends Component {
       this.setState({editedFilter: item, tabIndex : 0});
       this.displayFilterValues(item);
 
-      try {
-        const response = await fetch(`/api/listing/notifications/${item.id}`, {
-          headers: {
-            Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-          }
-        });
-        const data = await response.json();
-
-      } catch (err) {
-        console.log('error loading list of filters');
-      };
+        try {
+          const response = await fetch(`/api/listing/notifications/${item.id}`, {
+            headers: {
+              Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            }
+          });
+          const data = await response.json();
+        } catch (err) {
+          console.log('error loading list of filters');
+        };
     }
 
 
@@ -100,8 +101,6 @@ class FilterWidget extends Component {
         });
 
         const data = await response.json();
-        console.dir({ data });
-
         this.setState({ notifications : JSON.stringify(data) });
       } catch (err) {
         console.log('error API: filter - POST/PUT');   
@@ -111,7 +110,10 @@ class FilterWidget extends Component {
     handleSaveFilter = async (values) => {
 
       this.checkAuthentication();            
-      this.state.authenticated ? this.setState({ tabIndex : 1 }) : this.props.dispatch({type: 'SHOW_SIGNIN'});
+      if (this.state.authenticated == false) {
+        this.props.dispatch({type: 'SHOW_SIGNIN'})
+      } else {
+        this.setState({ tabIndex : 1 })
 
         try {
           const response = await fetch('/api/notifications', {
@@ -119,9 +121,8 @@ class FilterWidget extends Component {
                 Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
             }
           });
+
           const data = await response.json();
-          console.dir({ data });
-          console.log('successfully loaded list of filters');
           this.setState({ savedFilters : data });
         } catch (err) {
           console.log('error loading list of filters');
@@ -131,11 +132,9 @@ class FilterWidget extends Component {
         result ? this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.saveFilter('POST', '/api/notifications');
       
       this.setState({ editedFilter: [] });
+      }
     }
 
-    componentDidMount() {
-      this.checkAuthentication();
-    }
 
     handleSubmit = async () => {
 
@@ -198,7 +197,6 @@ class FilterWidget extends Component {
             </Tabs>
             <IoMdClose size='2em' onClick={handleCloseFilter}/>
           </div>
-          {console.log(this.props)}
         </div>
       );
    }

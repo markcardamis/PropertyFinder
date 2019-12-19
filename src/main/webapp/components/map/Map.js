@@ -27,7 +27,6 @@ class Map extends React.Component {
     renderPins = () => {
         if (this.props.map.showProperty.id) {
           const notClicked = this.props.map.mapMarker.filter(item=>item.id!== this.props.map.showProperty.id);
-          console.log(notClicked)
           return (notClicked.map((item) =>
               <div>
                   <Marker className='propertyMarker' key={item.id} latitude={item.latitude} longitude={item.longitude}>
@@ -50,9 +49,8 @@ class Map extends React.Component {
             const response = await fetch(`/api/listing/${item.id}`, {
           });
           const data = await response.json();
-          console.dir({ data });
-          this.props.dispatch({type: 'SHOW_PROPERTY', payload: data});
 
+          this.props.dispatch({type: 'SHOW_PROPERTY', payload: data});
       } catch (err) {
           console.log('error');
       }  
