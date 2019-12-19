@@ -17,4 +17,8 @@ public class LoginController {
         return "index";
     }
 
+    @RequestMapping(value = "/**/{path:[^\\.]*}", method = RequestMethod.GET)
+    public String forward() {
+        return "forward:/";
+    }
 }
