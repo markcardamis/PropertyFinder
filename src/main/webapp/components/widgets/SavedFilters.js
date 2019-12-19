@@ -11,7 +11,6 @@ class SavedFilters extends Component {
         authenticted: null,
         savedFilters: []
     };
-    this.checkAuthentication();
   }
 
   checkAuthentication =  async () => {
@@ -29,7 +28,8 @@ class SavedFilters extends Component {
         }
       });
       const data = await response.json();
-
+      console.log('loaded filetrs')
+      console.log(data)
       this.setState({ savedFilters : data });
     } catch (err) {
       console.log('error loading list of filters');
@@ -82,6 +82,8 @@ class SavedFilters extends Component {
   }
 
   componentDidMount() {
+    this.checkAuthentication();
+
     if (this.state.authenticated) {
     this.listSavedFilters();
     }
@@ -91,6 +93,7 @@ class SavedFilters extends Component {
     return (
       <div>
         <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul>
+        {console.log(this.state)}
       </div>
     )
   }
