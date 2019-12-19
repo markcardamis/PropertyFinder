@@ -5,7 +5,6 @@ import { IoIosPin } from 'react-icons/io';
 import { withAuth } from '@okta/okta-react';
 import fetch from 'isomorphic-fetch';
 
-import PropertyInformation from '../widgets/PropertyInformation';
 import { MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
 import './Map.css';
 
@@ -79,7 +78,6 @@ class Map extends React.Component {
                 mapboxApiAccessToken={MAPBOX_API} >
                 <NavigationControl className='navigationControl'/>
                 {this.renderPins()}
-                {this.props.map.showProperty.isHidden && <PropertyInformation/>}
           </ReactMapGL>
         </div>
       );

@@ -1,8 +1,6 @@
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
-import fetch from 'isomorphic-fetch';
 import {Field, reduxForm} from 'redux-form';
-import { connect } from 'react-redux';
 
 import './Filter.css';
 import { renderField, onlyNumber, minValue, maxValue } from '../../shared/formValidation';
@@ -14,7 +12,6 @@ class Filter extends React.Component {
         super(props);
         this.state = {
             authenticated: null,
-            notifications: []
         };
         this.checkAuthentication();
     }
@@ -35,9 +32,9 @@ class Filter extends React.Component {
     
         return (
             <div>
-              <form onSubmit={handleSubmit}>
-                      <div className='col-lg-9'>
-                              <Field name='propertyZone' label='Zone' component={renderField} type='text'/>
+                <form onSubmit={handleSubmit}>
+                    <div className='col-lg-9'>
+                             <Field name='propertyZone' label='Zone' component={renderField} type='text'/>
                          <div>Area<br/>
                          <span style={{display: 'flex'}}>
                              <Field name='propertyAreaMin' component={renderField} validate={onlyNumber, minValue(0)} type='text' placeholder='min' style={{width: '60px'}}/> - 
@@ -71,9 +68,9 @@ class Filter extends React.Component {
                          </div>
                         <button type='submit'>Search</button>
                         <button type='button' onClick={handleSaveFilter}>Save preferences</button>
+                    </div>
+                  </form>
               </div>
-             </form>
-            </div>
         );
     }
 }

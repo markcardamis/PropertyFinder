@@ -9,22 +9,18 @@ import { DEFAULT_HOUSE_IMAGE } from '../../shared/constants';
 
 class PropertyInformation extends React.Component {
 
-handleClose = () => {
-    this.props.dispatch({type: 'CLOSE_PROPERTY'})
-}
-
     render () {
-        const { property } = this.props;
+        const { handleClosePropertyInfo, property } = this.props;
             return (
 
                 <div>
                     <ul className='propertyInformation col-lg-4'>
                         <li><h4>Property ID: {property.id}</h4>
-                            <IoMdClose size='2em' onClick={this.handleClose}/>
+                            <IoMdClose size='2em' onClick={handleClosePropertyInfo}/>
                         </li>
                         <li><img src={property.listingPhoto || DEFAULT_HOUSE_IMAGE} style={{width: '150px', height: '150px'}}/></li>
                         {property.price && <li><IoMdPricetags size='1.5em'/><b> Price: </b>{property.price}</li>}
-                        {property.listingURL && <li><FaLink size='1.5em'/><b> URL: </b><a href={property.listingURL}>{property.listingURL}</a></li>}
+                        {property.listingURL && <li><FaLink size='1.5em'/><b> URL: </b><a target='_blank' href={property.listingURL}>{property.listingURL}</a></li>}
                         {property.address && <li><FaDoorOpen size='1.5em'/><b> Address: </b>{property.address}</li>}
                         {property.area && <li><FaChartArea size='1.5em'/><b> Area: </b>{property.area}</li>}
                         {property.bathrooms && <li><FaBath size='1.5em'/><b> Bathrooms: </b>{property.bathrooms}</li>}
@@ -39,7 +35,7 @@ handleClose = () => {
                         {property.summaryDescription && <li><FaInfo size='1.5em'/><b> Description: </b>{property.summaryDescription}</li>}      
                     </ul> 
                 </div>
-            )
+            );
     }
 }
 

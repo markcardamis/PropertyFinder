@@ -10,7 +10,7 @@ class SignIn extends Component {
         return (
             <div className='signinWidget'>
                 <div className='d-flex justify-content-end'>
-                    <IoMdClose onClick={this.props.onClick}/>
+                    <IoMdClose onClick={this.props.handleCloseSignIn}/>
                 </div>
                 <Login baseUrl='https://dev-842802.okta.com' />
                 <hr/>

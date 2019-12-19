@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
-import Map from './map/Map';
 import { GiMagnifyingGlass} from 'react-icons/gi';
-import FilterWidget from './widgets/FilterWidget';
 import { connect } from 'react-redux';
 
+import PropertyInformation from '../components/widgets/PropertyInformation';
+import FilterWidget from './widgets/FilterWidget';
+import SignIn from './widgets/SignIn';
+import Map from './map/Map';
 
 class Home extends Component {
   constructor( props ) {
@@ -12,12 +14,10 @@ class Home extends Component {
     this.state = { 
           authenticated: null,
           };
-    this.checkAuthentication = this.checkAuthentication.bind( this );
     this.checkAuthentication();
-    this.toggleFilter=this.toggleFilter.bind( this );
   }
   
-  async checkAuthentication() {
+  checkAuthentication = async () => {
     const authenticated = await this.props.auth.isAuthenticated();
     if ( authenticated !== this.state.authenticated ) {
       this.setState( { authenticated } );
@@ -28,9 +28,21 @@ class Home extends Component {
     this.checkAuthentication();
   }
 
-    toggleFilter () {
+  toggleFilter = () => {
     this.props.dispatch({type: 'SHOW_FILTER'});
   }
+
+  handleCloseFilter = () => {
+    this.props.dispatch({type: 'CLOSE_FILTER'});
+  } 
+
+  handleClosePropertyInfo = () => {
+    this.props.dispatch({type: 'CLOSE_PROPERTY'})
+}
+
+  handleCloseSignIn = () => {
+    this.props.dispatch({type: 'CLOSE_SIGNIN'})
+}
 
   render() {
     if ( this.state.authenticated === null ) return null;
@@ -42,8 +54,12 @@ class Home extends Component {
     return (
       <div>
         {button}
-        <button className='searchButton' onClick={this.toggleFilter}><GiMagnifyingGlass size='2em'/></button>
-        {this.props.home.showFilter && <FilterWidget/>}
+        <button className='searchButton' onClick={this.toggleFilter}>
+          <GiMagnifyingGlass size='2em'/>
+        </button>
+        {this.props.home.showFilter && <FilterWidget handleCloseFilter={this.handleCloseFilter}/>}
+        {this.props.home.showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}
+        {this.props.home.showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>}
         <Map/>
       </div>
     );

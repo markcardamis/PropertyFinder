@@ -2,9 +2,7 @@ import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
 import { TiPencil, TiTrash } from 'react-icons/ti';
-import { connect, change } from 'react-redux';
-// import { displayFilterParameters } from '../../shared/methods/displayFilterParameters';
-// import { listSavedFilters } from '../../shared/api/api'
+import { connect } from 'react-redux';
 
 class SavedFilters extends Component {
   constructor(props) {
@@ -13,6 +11,7 @@ class SavedFilters extends Component {
         authenticted: null,
         savedFilters: []
     };
+    this.checkAuthentication();
   }
 
   checkAuthentication =  async () => {
@@ -30,10 +29,7 @@ class SavedFilters extends Component {
         }
       });
       const data = await response.json();
-      console.dir({ data });
-      console.log('successfully loaded list of filters');
 
-      //   this.setState({ notifications : JSON.stringify(data) });
       this.setState({ savedFilters : data });
     } catch (err) {
       console.log('error loading list of filters');
@@ -50,10 +46,7 @@ class SavedFilters extends Component {
         }
       });
       const data = await response.json();
-      console.dir({ data });
 
-      // this.setState({ notifications : JSON.stringify(data) });
-      // this.setState({ savedFilters : data });
     } catch (err) {
       console.log('error delete filter');
     }
@@ -89,7 +82,6 @@ class SavedFilters extends Component {
   }
 
   componentDidMount() {
-    this.checkAuthentication();
     this.listSavedFilters();
   }
 

@@ -18,7 +18,6 @@ class FilterWidget extends Component {
       this.state = { 
         // tabIndex: 0 
         authenticated: null,
-        isHidden: null,
         savedFilters: [],
         editedFilter: []
       };
@@ -132,9 +131,7 @@ class FilterWidget extends Component {
       alert('saved')
 
       this.checkAuthentication();            
-      this.setState({
-        isHidden: this.state.authenticated ? false : true
-      });
+      this.state.authenticated ? null : this.props.dispatch({type: 'SHOW_SIGNIN'});
 
       try {
         const response = await fetch('/api/notifications', {
@@ -160,16 +157,6 @@ class FilterWidget extends Component {
       result ? this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.saveFilter('POST', '/api/notifications');
       this.setState({ editedFilter: [] });
     }
-
-    handleClose = () => {
-      this.setState ({
-        isHidden: false
-      });
-    }
-
-    handleClick = () => {
-      this.props.dispatch({type: 'CLOSE_FILTER'});
-    } 
 
     componentDidMount() {
       this.checkAuthentication();
@@ -221,11 +208,8 @@ class FilterWidget extends Component {
       }
     }
 
-    sayHurray= () => {
-      alert('hurray')
-    }
     render () {
-
+        const { handleCloseFilter } = this.props;
       return (
         <div className='filterWidget'>
           <div className='d-flex justify-content-between'>
@@ -241,7 +225,7 @@ class FilterWidget extends Component {
                 <SavedFilters handleSelectFilter={this.handleSelectFilter} handleEditFilter={this.handleEditFilter}/>
               </TabPanel>
             </Tabs>
-            <IoMdClose size='2em' onClick={this.handleClick}/>
+            <IoMdClose size='2em' onClick={handleCloseFilter}/>
           </div>
           {console.log(this.state)}
         </div>
