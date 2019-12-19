@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { IoMdClose } from 'react-icons/io';
 
-import './Filter';
 import Login from '../auth/Login';
 
 class SignIn extends Component {

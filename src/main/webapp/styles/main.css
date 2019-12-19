@@ -52,3 +52,93 @@ body {
     list-style-type: none;
     display: flex;
 }
+
+.map {
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+ }
+
+ .navigationControl {
+    position: absolute;
+    bottom: 10px;
+    right: 25px;
+    z-index: 15;
+ }
+
+ .propertyMarker {
+   z-index: 2;
+ }
+
+ .propertyMarkerPin {
+    padding-top: 10px;
+    font-size: 3em;
+    color: orangered;
+ }
+ .propertyMarkerPin:hover {
+    color: blue;
+    padding-top: 0;
+ }
+
+ .propertyInformation {
+   width: 330px;
+   height: auto;
+   border: 1px grey solid;
+   background-color: white;
+   position: absolute;
+   z-index: 100;
+   right: 0;
+   list-style: none;
+   cursor: default;
+}
+
+.loginForm {
+    padding: 30px;
+}
+
+.formInput {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.filterWidget {
+    width: 350px;
+    position: absolute;
+    padding: 20px;
+    top: 350px;
+    z-index: 10;
+    border: 1px grey solid;
+    background-color: white;
+}
+
+.signinWidget {
+    width: 350px;
+    position: absolute;
+    padding: 10px;
+    top: 250px;
+    left: 450px;
+    z-index: 11;
+    border: 1px grey solid;
+    background-color: white;
+}
+
+.savedFiltersList {
+    list-style: none;
+}
+
+.filterItem {
+padding-top: 10px;
+padding-bottom: 10px;
+border-bottom: 1px solid grey;
+}
+.filterItem:hover {
+    font-weight: 900;
+}
+
+.filterItemIcon:hover {
+    color: orangered;
+}
+
+.login {
+    margin: 40px;
+}

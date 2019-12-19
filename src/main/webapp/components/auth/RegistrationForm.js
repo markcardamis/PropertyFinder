@@ -2,7 +2,6 @@ import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
-import './Login.css';
 
 export default withAuth(
   class RegistrationForm extends Component {

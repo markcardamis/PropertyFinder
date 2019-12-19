@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Login from '../components/auth/Login';
-import Registration from '../components/auth/RegistrationForm';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
+import Registration from '../components/auth/RegistrationForm';
+import Login from '../components/auth/Login';
 
 class LoginPage extends Component {
     render() {

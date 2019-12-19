@@ -67,26 +67,14 @@ class FilterWidget extends Component {
       };
     }
 
+
     displayFilterValues = (item) => {
-      this.props.dispatch(change('filter', 'propertyZone', item.propertyZone));
-      this.props.dispatch(change('filter', 'propertyAreaMin', item.propertyAreaMin));
-      this.props.dispatch(change('filter', 'propertyAreaMax', item.propertyAreaMax));
-      this.props.dispatch(change('filter', 'propertyPriceMin', item.propertyPriceMin));
-      this.props.dispatch(change('filter', 'propertyPriceMax', item.propertyPriceMax));
-      this.props.dispatch(change('filter', 'propertyPricePSMMin', item.propertyPricePSMMin));
-      this.props.dispatch(change('filter', 'propertyPricePSMMax', item.propertyPricePSMMax));
-      this.props.dispatch(change('filter', 'propertyPostCode', item.propertyPostCode));
-      this.props.dispatch(change('filter', 'propertyPriceToLandValueMin', item.propertyPriceToLandValueMin));
-      this.props.dispatch(change('filter', 'propertyPriceToLandValueMax', item.propertyPriceToLandValueMax));
-      this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMin', item.propertyFloorSpaceRatioMin));
-      this.props.dispatch(change('filter', 'propertyFloorSpaceRatioMax', item.propertyPriceToLandValueMin));
+      for (const prop in item) {
+        this.props.dispatch(change('filter', `${prop}`, item[prop]));
+      }    
     };
                 
     saveFilter = async (method, path) => {
-      console.log('saved new filter')
-      console.log(this.props)
-      const value = this.props.filter.form.filter.values
-      console.log(value);
       try {
         const response = await fetch(path, {
           method: method,
@@ -163,18 +151,18 @@ class FilterWidget extends Component {
           method: 'POST',
           headers: headers,
           body: JSON.stringify({
-            'propertyZone': this.props.propertyZone,
-            'propertyAreaMin': this.props.propertyAreaMin,
-            'propertyAreaMax': this.props.propertyAreaMax,
-            'propertyPriceMin': this.props.propertyPriceMin,
-            'propertyPriceMax': this.props.propertyPriceMax,
-            'propertyPricePSMMin': this.props.propertyPricePSMMin,
-            'propertyPricePSMMax': this.props.propertyPricePSMMax,
-            'propertyPostCode': this.props.propertyPostCode,
-            'propertyPriceToLandValueMin': this.props.propertyPriceToLandValueMin,
-            'propertyPriceToLandValueMax': this.props.propertyPriceToLandValueMax,
-            'propertyFloorSpaceRatioMin': this.props.propertyFloorSpaceRatioMin,
-            'propertyFloorSpaceRatioMax': this.props.propertyFloorSpaceRatioMax
+            'propertyZone': this.props.propertyZone ? this.props.propertyZone : null,
+            'propertyAreaMin': this.props.propertyAreaMin ? this.props.propertyAreaMin : null,
+            'propertyAreaMax': this.props.propertyAreaMax ? this.props.propertyAreaMax : null,
+            'propertyPriceMin': this.props.propertyPriceMin ? this.props.propertyPriceMin : null,
+            'propertyPriceMax': this.props.propertyPriceMax ? this.props.propertyPriceMax : null,
+            'propertyPricePSMMin': this.props.propertyPricePSMMin ? this.props.propertyPricePSMMin : null,
+            'propertyPricePSMMax': this.props.propertyPricePSMMax ? this.props.propertyPricePSMMax : null,
+            'propertyPostCode': this.props.propertyPostCode ? this.props.propertyPostCode : null,
+            'propertyPriceToLandValueMin': this.props.propertyPriceToLandValueMin ? this.props.propertyPriceToLandValueMin : null,
+            'propertyPriceToLandValueMax': this.props.propertyPriceToLandValueMax ? this.props.propertyPriceToLandValueMax : null,
+            'propertyFloorSpaceRatioMin': this.props.propertyFloorSpaceRatioMin ? this.props.propertyFloorSpaceRatioMin : null,
+            'propertyFloorSpaceRatioMax': this.props.propertyFloorSpaceRatioMax ? this.props.propertyFloorSpaceRatioMax : null
           })
         });
 
@@ -209,6 +197,7 @@ class FilterWidget extends Component {
             </Tabs>
             <IoMdClose size='2em' onClick={handleCloseFilter}/>
           </div>
+          {console.log(this.props)}
         </div>
       );
    }

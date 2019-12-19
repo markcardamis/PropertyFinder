@@ -2,7 +2,6 @@ import React from 'react';
 import { withAuth } from '@okta/okta-react';
 import {Field, reduxForm} from 'redux-form';
 
-import './Filter.css';
 import { renderField, onlyNumber, minValue, maxValue } from '../../shared/formValidation';
 
 
@@ -27,9 +26,9 @@ class Filter extends React.Component {
         this.checkAuthentication();
       }
 
-    render (props) {
+    render () {
         const { handleSubmit, handleSaveFilter } = this.props;
-
+    
         return (
             <div>
                 <form onSubmit={handleSubmit}>
