@@ -84,9 +84,9 @@ class SavedFilters extends Component {
   componentDidMount() {
     this.checkAuthentication();
 
-    if (this.state.authenticated) {
+    // if (this.state.authenticated) {
     this.listSavedFilters();
-    }
+    // }
   }
 
   render() {
