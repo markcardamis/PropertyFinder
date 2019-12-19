@@ -15,17 +15,10 @@ export default withAuth(
         sessionToken: null
       };
       this.oktaAuth = new OktaAuth({ url: props.baseUrl });
-      this.checkAuthentication = this.checkAuthentication.bind(this);
       this.checkAuthentication();
-
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-      this.handleLastNameChange = this.handleLastNameChange.bind(this);
-      this.handleEmailChange = this.handleEmailChange.bind(this);
-      this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
-    async checkAuthentication() {
+    checkAuthentication = async () => {
       const sessionToken = await this.props.auth.getIdToken();
       if (sessionToken) {
         this.setState({ sessionToken });
@@ -36,35 +29,29 @@ export default withAuth(
       this.checkAuthentication();
     }
 
-    handleFirstNameChange(e) {
-      this.setState({ firstName: e.target.value });
-    }
-    handleLastNameChange(e) {
-      this.setState({ lastName: e.target.value });
-    }
-    handleEmailChange(e) {
-      this.setState({ email: e.target.value });
-    }
-    handlePasswordChange(e) {
-      this.setState({ password: e.target.value });
+    handleChange = (e) => {
+      const { id, value } = e.target;
+      this.setState({
+        [id]: value
+      })
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
       e.preventDefault();
-      fetch('/api/account', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(this.state)
-      })
-      .then(user => {
-        this.oktaAuth
-          .signIn({
-            username: this.state.email,
-            password: this.state.password
+          fetch('/api/account', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state)
           })
+          .then(user => {
+            this.oktaAuth
+              .signIn({
+                username: this.state.email,
+                password: this.state.password
+              })
           .then(res =>
             this.setState({
               sessionToken: res.sessionToken
@@ -81,15 +68,15 @@ export default withAuth(
       }
 
       return (
-        <div className='container col-lg-12 justify-content-center'>
-          <form className='loginForm col-sm-5 col-lg-3' onSubmit={this.handleSubmit}>
+        <div>
+          <form className='loginForm' onSubmit={this.handleSubmit}>
             <label>First Name:</label>  
             <input
               className='formInput'
               id="firstName"
               type="text"
               value={this.state.firstName}
-              onChange={this.handleFirstNameChange}
+              onChange={this.handleChange}
             />
             <label>Last Name:</label>
             <input
@@ -97,7 +84,7 @@ export default withAuth(
               id="lastName"
               type="text"
               value={this.state.lastName}
-              onChange={this.handleLastNameChange}
+              onChange={this.handleChange}
             />
             <label>Email:</label>
             <input
@@ -105,7 +92,7 @@ export default withAuth(
               id="email"
               type="email"
               value={this.state.email}
-              onChange={this.handleEmailChange}
+              onChange={this.handleChange}
             />
             <label>Password:</label>
             <input
@@ -113,7 +100,7 @@ export default withAuth(
               id="password"
               type="password"
               value={this.state.password}
-              onChange={this.handlePasswordChange}
+              onChange={this.handleChange}
             />
             <input className='formInput' id="submit" type="submit" value="Register" />
           </form>

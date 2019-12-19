@@ -68,9 +68,9 @@ class Map extends React.Component {
 
     render() {
       return (
-        <div className='row'>
+        <div>
           <ReactMapGL 
-                className='map col-lg-12 col-md-12 col-sm-12' 
+                className='map' 
                 mapStyle={MAPBOX_STYLE}
                 {...this.props.map.viewport} 
                 onViewportChange={this.handleViewportChange} 

@@ -14,7 +14,7 @@ class PropertyInformation extends React.Component {
             return (
 
                 <div>
-                    <ul className='propertyInformation col-lg-4'>
+                    <ul className='propertyInformation'>
                         <li><h4>Property ID: {property.id}</h4>
                             <IoMdClose size='2em' onClick={handleClosePropertyInfo}/>
                         </li>

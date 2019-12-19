@@ -12,15 +12,10 @@ export default withAuth(
         username: '',
         password: ''
       };
-
       this.oktaAuth = new OktaAuth({ url: props.baseUrl });
-
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleUsernameChange = this.handleUsernameChange.bind(this);
-      this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
-    async handleSubmit(e) {
+  handleSubmit = async (e) => {
       e.preventDefault();
 
       this.oktaAuth.signIn({
@@ -33,12 +28,11 @@ export default withAuth(
       .catch(err => console.log(err.statusCode + ' error', err));
     }
 
-    handleUsernameChange(e) {
-      this.setState({username: e.target.value});
-    }
-
-    handlePasswordChange(e) {
-      this.setState({password: e.target.value});
+    handleChange = (e) => {
+      const { id, value } = e.target;
+      this.setState({
+        [id]: value
+      })
     }
 
     render() {
@@ -48,15 +42,15 @@ export default withAuth(
       }
 
       return (
-        <div className='container col-lg-12 justify-content-center'>
-          <form className='loginForm col-sm-5 col-lg-3' onSubmit={this.handleSubmit}>
+        <div>
+          <form className='loginForm' onSubmit={this.handleSubmit}>
             <label>Username:</label>
             <input
               className='formInput'
               id="username"
               type="text"
               value={this.state.username}
-              onChange={this.handleUsernameChange}
+              onChange={this.handleChange}
             />
             <label>Password:</label>
             <input
@@ -64,7 +58,7 @@ export default withAuth(
               id="password"
               type="password"
               value={this.state.password}
-              onChange={this.handlePasswordChange}
+              onChange={this.handleChange}
             />
             <input className='formInput' id="submit" type="submit" value="Submit" />
           </form>

@@ -8,7 +8,7 @@ import Login from '../components/auth/Login';
 class LoginPage extends Component {
     render() {
         return (
-            <div className='row col-lg-12 justify-content-center'>
+            <div>
                 <Tabs>
                     <TabList>
                         <Tab>Sign In</Tab>

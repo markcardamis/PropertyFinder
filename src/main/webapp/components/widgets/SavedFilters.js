@@ -55,7 +55,7 @@ class SavedFilters extends Component {
 
   renderData = () => {
     return this.state.savedFilters.map((item)=>
-      <li key={item.id} className='filterItem d-flex justify-content-between'>
+      <li key={item.id} className='filterItem'>
         <div>
           <div style={{display: 'flex'}}>
             <h5 onClick={()=>this.props.handleSelectFilter(item)}>Filter {this.state.savedFilters.indexOf(item)+1}</h5>
@@ -83,10 +83,7 @@ class SavedFilters extends Component {
 
   componentDidMount() {
     this.checkAuthentication();
-
-    // if (this.state.authenticated) {
     this.listSavedFilters();
-    // }
   }
 
   render() {

@@ -8,7 +8,7 @@ class SignIn extends Component {
     render () {
         return (
             <div className='signinWidget'>
-                <div className='d-flex justify-content-end'>
+                <div>
                     <IoMdClose onClick={this.props.handleCloseSignIn}/>
                 </div>
                 <Login baseUrl='https://dev-842802.okta.com' />

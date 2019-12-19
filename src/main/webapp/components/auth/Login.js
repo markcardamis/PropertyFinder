@@ -7,12 +7,13 @@ export default withAuth(
   class Login extends Component {
     constructor(props) {
       super(props);
-      this.state = { authenticated: null };
-      this.checkAuthentication = this.checkAuthentication.bind(this);
+      this.state = { 
+        authenticated: null 
+      };
       this.checkAuthentication();
     }
 
-    async checkAuthentication() {
+  checkAuthentication = async () => {
       const authenticated = await this.props.auth.isAuthenticated();
       if (authenticated !== this.state.authenticated) {
         this.setState({ authenticated });

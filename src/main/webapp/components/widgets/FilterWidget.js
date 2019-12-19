@@ -35,7 +35,7 @@ class FilterWidget extends Component {
 
     handleSelectFilter = async (item) => {
       this.displayFilterValues(item);
-      this.setState({ tabIndex : 1 });
+      this.setState({ tabIndex : 0 });
   
       try {
         const response = await fetch(`/api/listing/notifications/${item.id}`, {
@@ -52,7 +52,7 @@ class FilterWidget extends Component {
     }
 
     handleEditFilter = async (item) => {
-      this.setState({editedFilter: item, tabIndex : 1});
+      this.setState({editedFilter: item, tabIndex : 0});
       this.displayFilterValues(item);
 
       try {
@@ -183,7 +183,7 @@ class FilterWidget extends Component {
 
       return (
         <div className='filterWidget'>
-          <div className='d-flex justify-content-between'>
+          <div>
             <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
               <TabList>
                 <Tab>Search</Tab>
