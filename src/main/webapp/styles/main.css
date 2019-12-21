@@ -72,7 +72,10 @@ body {
 
  .propertyMarkerPin {
     padding-top: 10px;
-    font-size: 3em;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
     color: orangered;
  }
  .propertyMarkerPin:hover {

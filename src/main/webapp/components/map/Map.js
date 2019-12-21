@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { IoIosPin } from 'react-icons/io';
 import { withAuth } from '@okta/okta-react';
 import fetch from 'isomorphic-fetch';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
 
@@ -29,17 +30,35 @@ class Map extends React.Component {
           const notClicked = this.props.map.mapMarker.filter(item=>item.id!== this.props.map.showProperty.id);
           return (notClicked.map((item) =>
               <div>
-                  <Marker className='propertyMarker' key={item.id} latitude={item.latitude} longitude={item.longitude}>
-                    <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin'/>
+                  <Marker 
+                    className='propertyMarker' 
+                    key={item.id} 
+                    latitude={item.latitude} 
+                    longitude={item.longitude}
+                    offsetTop={-50}
+                    offsetLeft={-25}>
+                      <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin'/>
                   </Marker>
-                  <Marker className='propertyMarker' latitude={this.props.map.showProperty.latitude} longitude={this.props.map.showProperty.longitude}>
-                   <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin' style={{color: 'blue', paddingTop: 0}}/>
+                  <Marker 
+                    className='propertyMarker' 
+                    latitude={this.props.map.showProperty.latitude} 
+                    longitude={this.props.map.showProperty.longitude} 
+                    offsetTop={-50}
+                    offsetLeft={-25}>
+                      <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin' style={{color: 'blue', paddingTop: 0}}/>
                  </Marker>
-              </div> 
+              </div>
+
           ))} else {
           return (this.props.map.mapMarker.map((item) =>
-            <Marker className='propertyMarker' key={item.id} latitude={item.latitude} longitude={item.longitude}>
-              <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin'/>
+            <Marker 
+              className='propertyMarker' 
+              key={item.id} 
+              latitude={item.latitude} 
+              longitude={item.longitude}
+              offsetTop={-50}
+              offsetLeft={-25}>
+                <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin'/>
             </Marker> 
           ))}
         }

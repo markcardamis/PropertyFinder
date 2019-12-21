@@ -101,7 +101,7 @@ class FilterWidget extends Component {
         });
 
         const data = await response.json();
-        this.setState({ notifications : JSON.stringify(data) });
+        // this.setState({ notifications : JSON.stringify(data) });
       } catch (err) {
         console.log('error API: filter - POST/PUT');   
       }
@@ -186,7 +186,8 @@ class FilterWidget extends Component {
             <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
               <TabList>
                 <Tab>Search</Tab>
-                <Tab disabled={!authenticated}>Saved Filters</Tab>
+                {/* <Tab disabled={!authenticated}>Saved Filters</Tab> */}
+                <Tab>Saved Filters</Tab>
               </TabList>
               <TabPanel>
                 <Filter onSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>

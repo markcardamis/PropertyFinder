@@ -80,14 +80,15 @@ class SavedFilters extends Component {
   }
 
   componentDidMount() {
-    this.checkAuthentication();
     this.listSavedFilters();
+    this.checkAuthentication();
   }
 
   render() {
     return (
       <div>
         <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul>
+        {console.log(this.state)}
       </div>
     )
   }
