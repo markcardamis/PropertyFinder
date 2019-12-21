@@ -85,7 +85,7 @@ class FilterWidget extends Component {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            'propertyZone': this.props.propertyZone,
+            'propertyZone': 'test',
             'propertyAreaMin': this.props.propertyAreaMin,
             'propertyAreaMax': this.props.propertyAreaMax,
             'propertyPriceMin': this.props.propertyPriceMin,
@@ -195,6 +195,7 @@ class FilterWidget extends Component {
             </Tabs>
             <IoMdClose size='2em' onClick={handleCloseFilter}/>
           </div>
+          {console.log(this.props)}
         </div>
       );
    }
