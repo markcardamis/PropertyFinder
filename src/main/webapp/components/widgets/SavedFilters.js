@@ -28,8 +28,8 @@ class SavedFilters extends Component {
           Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
         }
       });
-
       const data = await response.json();
+      console.log(data)
       this.setState({ savedFilters : data });
     } catch (err) {
       console.log('error loading list of filters');
@@ -82,7 +82,7 @@ class SavedFilters extends Component {
 
   componentDidMount() {
     this.checkAuthentication();
-    if (this.state.authenticated) {
+    if (!this.state.authenticated) {
         this.listSavedFilters();
         }
       }
@@ -91,6 +91,7 @@ class SavedFilters extends Component {
     return (
       <div>
         <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul>
+        {console.log(this.state)}
       </div>
     )
   }
