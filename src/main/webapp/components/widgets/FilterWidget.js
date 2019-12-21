@@ -49,7 +49,7 @@ class FilterWidget extends Component {
         this.props.dispatch({type: 'MARKERS', payload: data});
 
       } catch (err) {
-        console.log('error loading list of filters');
+        // add notification;
       }
     }
 
@@ -65,7 +65,7 @@ class FilterWidget extends Component {
           });
           const data = await response.json();
         } catch (err) {
-          console.log('error loading list of filters');
+          // add notification
         };
     }
 
@@ -101,39 +101,37 @@ class FilterWidget extends Component {
         });
 
         const data = await response.json();
-        // this.setState({ notifications : JSON.stringify(data) });
       } catch (err) {
-        console.log('error API: filter - POST/PUT');   
+        // add notification 
       }
     }
 
     handleSaveFilter = async (values) => {
+      this.checkAuthentication();    
 
-      this.checkAuthentication();            
-      if (this.state.authenticated == false) {
-        this.props.dispatch({type: 'SHOW_SIGNIN'})
-      } else {
+      if (this.state.authenticated == true) {
         this.setState({ tabIndex : 1 })
 
-        try {
-          const response = await fetch('/api/notifications', {
-            headers: {
-                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            try {
+              const response = await fetch('/api/notifications', {
+                headers: {
+                    Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+                }
+              });
+              const data = await response.json();
+              this.setState({ savedFilters : data });
+            } catch (err) {
+              // add notification
             }
-          });
-
-          const data = await response.json();
-          this.setState({ savedFilters : data });
-        } catch (err) {
-          console.log('error loading list of filters');
-        }
 
         const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
         result ? this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.saveFilter('POST', '/api/notifications');
       
-      this.setState({ editedFilter: [] });
-      }
+        this.setState({ editedFilter: [] });
+      } else {
+        this.props.dispatch({type: 'SHOW_SIGNIN'})
     }
+  }
 
 
     handleSubmit = async () => {
@@ -172,7 +170,7 @@ class FilterWidget extends Component {
           payload: data
         });
       } catch (err) {
-        console.log('error searching ');   
+        // add notification  
       }
     }
 
@@ -186,8 +184,7 @@ class FilterWidget extends Component {
             <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
               <TabList>
                 <Tab>Search</Tab>
-                {/* <Tab disabled={!authenticated}>Saved Filters</Tab> */}
-                <Tab>Saved Filters</Tab>
+                <Tab disabled={!authenticated}>Saved Filters</Tab>
               </TabList>
               <TabPanel>
                 <Filter onSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>

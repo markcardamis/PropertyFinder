@@ -50,17 +50,17 @@ class Map extends React.Component {
               </div>
 
           ))} else {
-          return (this.props.map.mapMarker.map((item) =>
-            <Marker 
-              className='propertyMarker' 
-              key={item.id} 
-              latitude={item.latitude} 
-              longitude={item.longitude}
-              offsetTop={-50}
-              offsetLeft={-25}>
-                <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin'/>
-            </Marker> 
-          ))}
+              return (this.props.map.mapMarker.map((item) =>
+                  <Marker 
+                    className='propertyMarker' 
+                    key={item.id} 
+                    latitude={item.latitude} 
+                    longitude={item.longitude}
+                    offsetTop={-50}
+                    offsetLeft={-25}>
+                      <IoIosPin onClick={()=>this.handleMarkerClick(item)} className='propertyMarkerPin'/>
+                  </Marker> 
+              ))}
         }
 
     handleMarkerClick = async (item) => {
@@ -71,7 +71,7 @@ class Map extends React.Component {
 
           this.props.dispatch({type: 'SHOW_PROPERTY', payload: data});
       } catch (err) {
-          console.log('error');
+          // add notification
       }  
     }
 
