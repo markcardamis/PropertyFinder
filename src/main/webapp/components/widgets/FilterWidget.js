@@ -85,7 +85,7 @@ class FilterWidget extends Component {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            'propertyZone': 'test',
+            'propertyZone': this.props.propertyZone,
             'propertyAreaMin': this.props.propertyAreaMin,
             'propertyAreaMax': this.props.propertyAreaMax,
             'propertyPriceMin': this.props.propertyPriceMin,
@@ -127,7 +127,7 @@ class FilterWidget extends Component {
         const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
         result ? this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.saveFilter('POST', '/api/notifications');
       
-        this.setState({ editedFilter: [] });
+        this.setState({ editedFilter: [], tabIndex : 1 });
       } else {
         this.props.dispatch({type: 'SHOW_SIGNIN'})
     }
@@ -195,7 +195,6 @@ class FilterWidget extends Component {
             </Tabs>
             <IoMdClose size='2em' onClick={handleCloseFilter}/>
           </div>
-          {console.log(this.props)}
         </div>
       );
    }
