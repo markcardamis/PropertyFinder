@@ -8,13 +8,14 @@ class SavedFilters extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        authenticated: null,
-        savedFilters: []
+      authenticated: null,
+      savedFilters: []
     };
   }
 
-  checkAuthentication =  async () => {
+  checkAuthentication = async () => {
     const authenticated = await this.props.auth.isAuthenticated();
+    
     if (authenticated !== this.state.authenticated) {
       this.setState({ authenticated });
     }
@@ -90,7 +91,6 @@ class SavedFilters extends Component {
     return (
       <div>
         <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul>
-        {console.log(this.state)}
       </div>
     )
   }
