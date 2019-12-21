@@ -30,7 +30,6 @@ class SavedFilters extends Component {
       });
 
       const data = await response.json();
-      console.log(data)
       this.setState({ savedFilters : data });
     } catch (err) {
       // add notification

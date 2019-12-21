@@ -124,7 +124,7 @@ class FilterWidget extends Component {
             }
 
         const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
-        result ? this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.saveFilter('POST', '/api/notifications');
+        result ? await this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : await this.saveFilter('POST', '/api/notifications');
       
         this.setState({ editedFilter: [], tabIndex : 1 });
       } else {
@@ -183,7 +183,9 @@ class FilterWidget extends Component {
             <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
               <TabList>
                 <Tab>Search</Tab>
-                <Tab disabled={!authenticated}>Saved Filters</Tab>
+                <Tab>Search</Tab>
+
+                {/* <Tab disabled={!authenticated}>Saved Filters</Tab> */}
               </TabList>
               <TabPanel>
                 <Filter onSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
