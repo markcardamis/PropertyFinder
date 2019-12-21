@@ -8,7 +8,7 @@ class SavedFilters extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        authenticted: null,
+        authenticated: null,
         savedFilters: []
     };
   }
@@ -80,9 +80,11 @@ class SavedFilters extends Component {
   }
 
   componentDidMount() {
-    this.listSavedFilters();
     this.checkAuthentication();
-  }
+    if (this.state.authenticated) {
+        this.listSavedFilters();
+        }
+      }
 
   render() {
     return (
