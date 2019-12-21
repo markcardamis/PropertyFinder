@@ -110,7 +110,6 @@ class FilterWidget extends Component {
       this.checkAuthentication();    
 
       if (this.state.authenticated == true) {
-        this.setState({ tabIndex : 1 })
 
             try {
               const response = await fetch('/api/notifications', {
