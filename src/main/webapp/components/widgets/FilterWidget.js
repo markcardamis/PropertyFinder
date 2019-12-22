@@ -183,9 +183,7 @@ class FilterWidget extends Component {
             <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
               <TabList>
                 <Tab>Search</Tab>
-                <Tab>Search</Tab>
-
-                {/* <Tab disabled={!authenticated}>Saved Filters</Tab> */}
+                <Tab disabled={!authenticated}>Saved Filters</Tab>
               </TabList>
               <TabPanel>
                 <Filter onSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
