@@ -39,29 +39,33 @@ export default withAuth(
 
     handleSubmit = (e) => {
       e.preventDefault();
-          fetch('/api/account', {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state)
-          })
-          .then(user => {
-            this.oktaAuth
-              .signIn({
-                username: this.state.email,
-                password: this.state.password
-              })
-          .then(res =>
-            this.setState({
-              sessionToken: res.sessionToken
-            })
-          );
+
+      fetch('/api/account', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.state)
+      })
+      .then(response => {
+        return response.json().then(json => {
+          return response.ok ? json : Promise.reject(json);
+        });
+      })
+      .then(user => {
+        this.oktaAuth.signIn({
+          username: this.state.email,
+          password: this.state.password
+        })
+        .then(res =>
+          this.setState({
+            sessionToken: res.sessionToken
+          }))
       })
       .catch(err => {
-        this.setState({errorMessage: err.errorSummary});
-        console.log(err.statusCode + ' error', err);
+        console.log(err.message);
+        this.setState({errorMessage: err.message});
       })
     }
     

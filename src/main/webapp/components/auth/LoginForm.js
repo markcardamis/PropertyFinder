@@ -27,8 +27,8 @@ export default withAuth(
         sessionToken: res.sessionToken
       }))
       .catch(err => {
+        console.log(err.errorSummary);
         this.setState({errorMessage: err.errorSummary});
-        console.log(err.statusCode + ' error', err);
       })
     }
 

@@ -20,19 +20,21 @@ public class OktaUserDTO implements Serializable {
     @JsonProperty("password") private String password;
     
     public static JSONObject convertToOktaUser (OktaUserDTO oktaUserDTO) {
+        
+        if (oktaUserDTO.getFirstName() == null || oktaUserDTO.getFirstName().isEmpty()) {
+            throw new MethodArgumentNotValidException("First name cannot be null");
+        }
+        if (oktaUserDTO.getLastName() == null || oktaUserDTO.getLastName().isEmpty()) {
+            throw new MethodArgumentNotValidException("Last name cannot be null");
+        }
+        if (oktaUserDTO.getEmail() == null || oktaUserDTO.getEmail().isEmpty()) {
+            throw new MethodArgumentNotValidException("Email cannot be null");
+        }
+        if (oktaUserDTO.getPassword() == null || oktaUserDTO.getPassword().isEmpty()) {
+            throw new MethodArgumentNotValidException("Password cannot be null");
+        }
+        
         try {
-            if (oktaUserDTO.getFirstName() == null || oktaUserDTO.getFirstName().isEmpty()) {
-                throw new MethodArgumentNotValidException("First name cannot be null");
-            }
-            if (oktaUserDTO.getLastName() == null || oktaUserDTO.getLastName().isEmpty()) {
-                throw new MethodArgumentNotValidException("Last name cannot be null");
-            }
-            if (oktaUserDTO.getEmail() == null || oktaUserDTO.getEmail().isEmpty()) {
-                throw new MethodArgumentNotValidException("Email cannot be null");
-            }
-            if (oktaUserDTO.getPassword() == null || oktaUserDTO.getPassword().isEmpty()) {
-                throw new MethodArgumentNotValidException("Password cannot be null");
-            }
             JSONObject jsonObject = new JSONObject(); // Host object
             JSONObject profile = new JSONObject();     
             JSONObject credentials = new JSONObject();
@@ -53,7 +55,7 @@ public class OktaUserDTO implements Serializable {
 
             return jsonObject;
         } catch (Exception e) {
-            throw new ResourceNotFoundException("Cannot create new user : " + e.getLocalizedMessage());
+            throw new MethodArgumentNotValidException("Cannot create new user : " + e.getLocalizedMessage());
         }
     }
 
