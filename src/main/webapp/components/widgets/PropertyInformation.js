@@ -12,7 +12,6 @@ class PropertyInformation extends React.Component {
     render () {
         const { handleClosePropertyInfo, property } = this.props;
             return (
-
                 <div>
                     <ul className='propertyInformation'>
                         <li><h4>Property ID: {property.id}</h4>

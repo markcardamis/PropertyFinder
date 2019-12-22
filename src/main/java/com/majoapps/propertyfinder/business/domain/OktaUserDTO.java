@@ -2,6 +2,7 @@ package com.majoapps.propertyfinder.business.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.majoapps.propertyfinder.exception.MethodArgumentNotValidException;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 import java.io.Serializable;
 import lombok.Data;
@@ -20,17 +21,17 @@ public class OktaUserDTO implements Serializable {
     
     public static JSONObject convertToOktaUser (OktaUserDTO oktaUserDTO) {
         try {
-            if (oktaUserDTO.getFirstName() == null) {
-                throw new ResourceNotFoundException("First name cannot be null");
+            if (oktaUserDTO.getFirstName() == null || oktaUserDTO.getFirstName().isEmpty()) {
+                throw new MethodArgumentNotValidException("First name cannot be null");
             }
-            if (oktaUserDTO.getLastName() == null) {
-                throw new ResourceNotFoundException("Last name cannot be null");
+            if (oktaUserDTO.getLastName() == null || oktaUserDTO.getLastName().isEmpty()) {
+                throw new MethodArgumentNotValidException("Last name cannot be null");
             }
-            if (oktaUserDTO.getEmail() == null) {
-                throw new ResourceNotFoundException("Email cannot be null");
+            if (oktaUserDTO.getEmail() == null || oktaUserDTO.getEmail().isEmpty()) {
+                throw new MethodArgumentNotValidException("Email cannot be null");
             }
-            if (oktaUserDTO.getPassword() == null) {
-                throw new ResourceNotFoundException("Password cannot be null");
+            if (oktaUserDTO.getPassword() == null || oktaUserDTO.getPassword().isEmpty()) {
+                throw new MethodArgumentNotValidException("Password cannot be null");
             }
             JSONObject jsonObject = new JSONObject(); // Host object
             JSONObject profile = new JSONObject();     

@@ -10,7 +10,8 @@ export default withAuth(
         sessionToken: null,
         data: null,
         username: '',
-        password: ''
+        password: '',
+        errorMessage: ''
       };
       this.oktaAuth = new OktaAuth({ url: props.baseUrl });
     }
@@ -25,7 +26,10 @@ export default withAuth(
       .then(res => this.setState({
         sessionToken: res.sessionToken
       }))
-      .catch(err => console.log(err.statusCode + ' error', err));
+      .catch(err => {
+        this.setState({errorMessage: err.errorSummary});
+        console.log(err.statusCode + ' error', err);
+      })
     }
 
     handleChange = (e) => {
@@ -43,6 +47,7 @@ export default withAuth(
 
       return (
         <div>
+          { this.state.errorMessage && <h3 className="error"> { this.state.errorMessage } </h3> }
           <form className='loginForm' onSubmit={this.handleSubmit}>
             <label>Username:</label>
             <input
