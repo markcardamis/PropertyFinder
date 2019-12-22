@@ -27,7 +27,7 @@ class PropertyInformation extends React.Component {
                         {property.bedrooms && <li><FaBed size='1.5em'/><b> Bedrooms: </b>{property.bedrooms}</li>}
                         {property.carspaces && <li><FaCar size='1.5em'/><b> Car spaces: </b>{property.carspaces}</li>}
                         {property.zone && <li><GiAustralia size='1.5em'/><b> Zone: </b>{property.zone}</li>}
-                        {property.floorSpaceRatio && <li><FaBuilding size='1.5em'/><b> Floor Space Ratio: </b>{property.floorSpaceRatio}</li>}
+                        {(property.floorSpaceRatio>0) && <li><FaBuilding size='1.5em'/><b> Floor Space Ratio: </b>{property.floorSpaceRatio}</li>}
                         {property.minimumLotSize && <li><IoMdResize size='1.5em'/><b> Minimum Lot Size: </b>{property.minimumLotSize}</li>}
                         {property.landValue && <li><GiReceiveMoney size='1.5em'/><b> Land Value: </b>{property.landValue}</li>}
                         {property.pricePSM && <li><FaFileInvoiceDollar size='1.5em'/><b> Price per m<sup>2</sup>: </b>{property.pricePSM}</li>}
