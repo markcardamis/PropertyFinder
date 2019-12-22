@@ -2,7 +2,7 @@ import React from 'react';
 import { withAuth } from '@okta/okta-react';
 import {Field, reduxForm} from 'redux-form';
 
-import { renderField, onlyNumber, minValue0, maxValue99, maxValue999, maxValue1000000, maxValue50000000 } from '../../shared/formValidation';
+import { renderField, onlyNumber, minValue0, maxValue99, maxValue999, maxValue9999, maxValue1000000, maxValue50000000 } from '../../shared/formValidation';
 
 
 class Filter extends React.Component {
@@ -52,7 +52,7 @@ class Filter extends React.Component {
                               <Field name='propertyPricePSMMax' component={renderField} type='text' validate={[onlyNumber, maxValue1000000]} placeholder='max' style={{width: '60px'}}/> 
                               </span>
                          </div>
-                        <Field name='propertyPostCode' label='Post Code' component={renderField} validate={onlyNumber} type='text'/>
+                        <Field name='propertyPostCode' label='Post Code' component={renderField} validate={onlyNumber, maxValue9999} type='text'/>
                          <div>Price to Landvalue<br/>
                             <span style={{display: 'flex'}}>
                              <Field name='propertyPriceToLandValueMin' component={renderField} validate={[onlyNumber, minValue0]} type='text' placeholder='min' style={{width: '60px'}}/> - 
