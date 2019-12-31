@@ -81,7 +81,7 @@ class Map extends React.Component {
       payload: viewport
     });
   }
-
+  //markcardamis.8hlm5toy layer details
 
     render() {
       return (
