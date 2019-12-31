@@ -3,7 +3,6 @@ package com.majoapps.propertyfinder.business.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.majoapps.propertyfinder.exception.MethodArgumentNotValidException;
-import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 import java.io.Serializable;
 import lombok.Data;
 import net.minidev.json.JSONArray;

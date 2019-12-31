@@ -26,7 +26,7 @@ public class PropertyInformationServiceController {
     @Profile("!production")
     @RequestMapping(value = "{propertyId}", method = RequestMethod.PUT)
     public ResponseEntity<PropertyInformation> updatePropertyInformation(
-            @PathVariable Integer id, 
+            @PathVariable(value="propertyId") Integer id, 
             @RequestBody PropertyInformation propertyInformation) {
         return propertyInformationService.updatePropertyInformation(id, propertyInformation);
     }
@@ -34,7 +34,7 @@ public class PropertyInformationServiceController {
     @Profile("!production")
     @RequestMapping(value = "{propertyId}", method = RequestMethod.PATCH)
     public ResponseEntity<PropertyInformation> partialUpdatePropertyInformation(
-            @PathVariable Integer id, 
+            @PathVariable(value="propertyId") Integer id, 
             @RequestBody PropertyInformation propertyInformation) {
         return propertyInformationService.partialUpdatePropertyInformation(id, propertyInformation);
     }
