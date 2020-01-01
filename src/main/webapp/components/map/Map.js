@@ -20,9 +20,9 @@ class Map extends React.Component {
         type: 'MARKERS',
         payload: data
       })
-  } catch (err) {
-      console.log('error get listings');
-  }
+    } catch (err) {
+        console.log('error get listings');
+    }
   }
 
     renderPins = () => {
