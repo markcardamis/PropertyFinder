@@ -40,6 +40,7 @@
     "@okta/okta-auth-js": "^2.9.0",
     "@okta/okta-react": "^1.2.3",
     "autoprefixer": "^9.7.2",
+    "dotenv-webpack": "^1.7.0",
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^2.2.1",
     "mapbox-gl": "^1.5.0",
