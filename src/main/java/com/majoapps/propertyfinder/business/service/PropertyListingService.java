@@ -120,4 +120,14 @@ public class PropertyListingService {
         return(this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
     }
 
+    public List<PropertyListing> findAllLocationsWithin(Double latitude, Double longitude) {
+        if (latitude == null && longitude == null) {
+            return this.propertyListingRepository.findWithinDefault();
+        } else {
+            String pointGeoString = "ST_Point("+ latitude + ", " + longitude + ")";
+            System.out.println(pointGeoString);
+            return this.propertyListingRepository.findWithin(pointGeoString);
+        }
+    }
+
 }

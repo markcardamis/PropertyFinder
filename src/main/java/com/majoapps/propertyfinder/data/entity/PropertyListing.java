@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
-//import org.springframework.data.geo.Point;
+import org.locationtech.jts.geom.Geometry;
 
 @Entity
 @Data
@@ -77,7 +77,7 @@ public class PropertyListing {
     private Integer pricePSM;
     @Column(name="price_to_land_value")
     private BigDecimal priceToLandValue;
-    // @JsonIgnore
-    // @Column(name="geometry")
-    // private Point geometry;
+    @JsonIgnore
+    @Column(name="geometry")
+    private Geometry geometry;
 }

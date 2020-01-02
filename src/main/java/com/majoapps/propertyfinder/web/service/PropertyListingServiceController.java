@@ -14,6 +14,7 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +53,14 @@ public class PropertyListingServiceController {
             @RequestBody(required = false) Notifications notifications,
             @SortDefault(sort="Id",direction = Sort.Direction.ASC) Sort sort) {
         return this.propertyListingService.getPropertyListingsByNotifications(JwtAuthToken, notifications, sort);
+    }
+
+    @RequestMapping(value = "/within", method = RequestMethod.GET)
+    public List<PropertyListing> getLocationsByGeometry(
+            @RequestHeader(value = "centreLatitude") Double latitude,
+            @RequestHeader(value = "centreLongitude") Double longitude) {
+
+        return this.propertyListingService.findAllLocationsWithin(latitude, longitude);
     }
 
 }
