@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +35,7 @@ public class PropertyListingService {
     private static final Integer unauthorisedResultsLimit = 100;
 
     @Autowired
-    public PropertyListingService(PropertyListingRepository propertyListingRepository, 
+    public PropertyListingService(PropertyListingRepository propertyListingRepository,
             NotificationsService notificationsService) {
         this.propertyListingRepository = propertyListingRepository;
         this.notificationsService = notificationsService;
@@ -42,38 +45,36 @@ public class PropertyListingService {
     // return 100 listings for unauthenticated user
     // return 1000 listings for authenticated user
     // return 100000 listings for an admin user
-    public List<PropertyListingDTO> getPropertyListingBySearch(
-            JwtAuthenticationToken JwtAuthToken,
-            Specification<PropertyListing> searchSpec, 
-            Sort sort) {
+    public List<PropertyListingDTO> getPropertyListingBySearch(JwtAuthenticationToken JwtAuthToken,
+            Specification<PropertyListing> searchSpec, Sort sort) {
         try {
             if (JwtAuthToken != null && JwtAuthToken.getTokenAttributes().containsKey("uid")) {
                 String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
                 // unauthenticated
-                if (token == null || token.isEmpty()) { 
+                if (token == null || token.isEmpty()) {
                     Pageable pageable = PageRequest.of(0, unauthorisedResultsLimit, sort);
-                    List<PropertyListing> propertyListing = this.propertyListingRepository.findAll(
-                        Specification.where(searchSpec), pageable).getContent();
+                    List<PropertyListing> propertyListing = this.propertyListingRepository
+                            .findAll(Specification.where(searchSpec), pageable).getContent();
                     return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
                 }
                 // admin
-                if (JwtAuthToken.getTokenAttributes().containsKey("groups") && 
-                        JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
+                if (JwtAuthToken.getTokenAttributes().containsKey("groups")
+                        && JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
                     Pageable pageable = PageRequest.of(0, adminResultsLimit, sort);
-                    List<PropertyListing> propertyListing = this.propertyListingRepository.findAll(
-                        Specification.where(searchSpec), pageable).getContent();
+                    List<PropertyListing> propertyListing = this.propertyListingRepository
+                            .findAll(Specification.where(searchSpec), pageable).getContent();
                     return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
                 } else { // authenticated
                     Pageable pageable = PageRequest.of(0, authorisedResultsLimit, sort);
-                    List<PropertyListing> propertyListing = this.propertyListingRepository.findAll(
-                        Specification.where(searchSpec), pageable).getContent();
+                    List<PropertyListing> propertyListing = this.propertyListingRepository
+                            .findAll(Specification.where(searchSpec), pageable).getContent();
                     return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
                 }
             } else {
                 // unauthenticated
                 Pageable pageable = PageRequest.of(0, unauthorisedResultsLimit, sort);
-                List<PropertyListing> propertyListing = this.propertyListingRepository.findAll(
-                    Specification.where(searchSpec), pageable).getContent();
+                List<PropertyListing> propertyListing = this.propertyListingRepository
+                        .findAll(Specification.where(searchSpec), pageable).getContent();
                 return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
             }
         } catch (IllegalArgumentException ae) {
@@ -90,43 +91,55 @@ public class PropertyListingService {
 
     public PropertyListing getPropertyListingById(Integer id) {
         Objects.requireNonNull(id);
-        return this.propertyListingRepository
-                .findById(id)
+        return this.propertyListingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Listing " + id + " not found"));
-    }    
+    }
 
-    public List<PropertyListingDTO> getPropertyListingsByNotificationsId(
-            JwtAuthenticationToken JwtAuthToken, 
-            UUID id, 
+    public List<PropertyListingDTO> getPropertyListingsByNotificationsId(JwtAuthenticationToken JwtAuthToken, UUID id,
             Sort sort) {
         Objects.requireNonNull(JwtAuthToken);
         Objects.requireNonNull(id);
         Notifications notifications = this.notificationsService.getNotificationsById(id);
-        String token = SpecificationUtil.createSpecificationString(notifications);  
-        Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>()
-            .withSearch(token).build();
+        String token = SpecificationUtil.createSpecificationString(notifications);
+        Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>().withSearch(token)
+                .build();
         return (this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
     }
 
-    public List<PropertyListingDTO> getPropertyListingsByNotifications(
-            JwtAuthenticationToken JwtAuthToken, 
-            Notifications notifications, 
-            Sort sort) {
-        // Users can search without being logged in Objects.requireNonNull(JwtAuthToken);
-        // Passing in a null notification will just return all Objects.requireNonNull(notifications);
-        String token = SpecificationUtil.createSpecificationString(notifications);        
-        Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>()
-            .withSearch(token).build();
-        return(this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
+    public List<PropertyListingDTO> getPropertyListingsByNotifications(JwtAuthenticationToken JwtAuthToken,
+            Notifications notifications, Sort sort) {
+        // Users can search without being logged in
+        // Objects.requireNonNull(JwtAuthToken);
+        // Passing in a null notification will just return all
+        // Objects.requireNonNull(notifications);
+        String token = SpecificationUtil.createSpecificationString(notifications);
+        Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>().withSearch(token)
+                .build();
+        return (this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
     }
 
     public List<PropertyListing> findAllLocationsWithin(Double latitude, Double longitude) {
         if (latitude == null && longitude == null) {
             return this.propertyListingRepository.findWithinDefault();
         } else {
-            String pointGeoString = "ST_Point("+ latitude + ", " + longitude + ")";
+            //String pointGeoString = "ST_Point(" + latitude + ", " + longitude + ")";
+            String pointGeoStringCircle = "Point(" + latitude + " " + longitude + ")";
+            //POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))
+            String pointGeoString = "Polygon(" + (latitude-0.5) + " " + (longitude-0.5) + ", " + 
+                                                (latitude-0.5) + " " + (longitude+0.5) + ", " + 
+                                                (latitude+0.5) + " " + (longitude-0.5) + ", " + 
+                                                (latitude+0.5) + " " + (longitude+0.5) + ")"; 
             System.out.println(pointGeoString);
-            return this.propertyListingRepository.findWithin(pointGeoString);
+            try {
+                Geometry geometry = new WKTReader().read(pointGeoString);
+                System.out.println(geometry.toString());
+                return this.propertyListingRepository.findWithin(geometry);
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return this.propertyListingRepository.findWithinDefault();
+            }
+            
         }
     }
 

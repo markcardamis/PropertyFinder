@@ -143,25 +143,30 @@ class FilterWidget extends Component {
       headers = this.state.authenticated===false ?  
           headers : { ...headers, 'Authorization': 'Bearer ' + await this.props.auth.getAccessToken()}
 
+      
       try {
-        const response = await fetch('/api/listing/notifications', {
-          method: 'POST',
+
+        const response = await fetch('/api/listing/within', {
           headers: headers,
-          body: JSON.stringify({
-            'propertyZone': this.props.propertyZone ? this.props.propertyZone : null,
-            'propertyAreaMin': this.props.propertyAreaMin ? this.props.propertyAreaMin : null,
-            'propertyAreaMax': this.props.propertyAreaMax ? this.props.propertyAreaMax : null,
-            'propertyPriceMin': this.props.propertyPriceMin ? this.props.propertyPriceMin : null,
-            'propertyPriceMax': this.props.propertyPriceMax ? this.props.propertyPriceMax : null,
-            'propertyPricePSMMin': this.props.propertyPricePSMMin ? this.props.propertyPricePSMMin : null,
-            'propertyPricePSMMax': this.props.propertyPricePSMMax ? this.props.propertyPricePSMMax : null,
-            'propertyPostCode': this.props.propertyPostCode ? this.props.propertyPostCode : null,
-            'propertyPriceToLandValueMin': this.props.propertyPriceToLandValueMin ? this.props.propertyPriceToLandValueMin : null,
-            'propertyPriceToLandValueMax': this.props.propertyPriceToLandValueMax ? this.props.propertyPriceToLandValueMax : null,
-            'propertyFloorSpaceRatioMin': this.props.propertyFloorSpaceRatioMin ? this.props.propertyFloorSpaceRatioMin : null,
-            'propertyFloorSpaceRatioMax': this.props.propertyFloorSpaceRatioMax ? this.props.propertyFloorSpaceRatioMax : null
-          })
         });
+        // const response = await fetch('/api/listing/notifications', {
+        //   method: 'POST',
+        //   headers: headers,
+        //   body: JSON.stringify({
+        //     'propertyZone': this.props.propertyZone ? this.props.propertyZone : null,
+        //     'propertyAreaMin': this.props.propertyAreaMin ? this.props.propertyAreaMin : null,
+        //     'propertyAreaMax': this.props.propertyAreaMax ? this.props.propertyAreaMax : null,
+        //     'propertyPriceMin': this.props.propertyPriceMin ? this.props.propertyPriceMin : null,
+        //     'propertyPriceMax': this.props.propertyPriceMax ? this.props.propertyPriceMax : null,
+        //     'propertyPricePSMMin': this.props.propertyPricePSMMin ? this.props.propertyPricePSMMin : null,
+        //     'propertyPricePSMMax': this.props.propertyPricePSMMax ? this.props.propertyPricePSMMax : null,
+        //     'propertyPostCode': this.props.propertyPostCode ? this.props.propertyPostCode : null,
+        //     'propertyPriceToLandValueMin': this.props.propertyPriceToLandValueMin ? this.props.propertyPriceToLandValueMin : null,
+        //     'propertyPriceToLandValueMax': this.props.propertyPriceToLandValueMax ? this.props.propertyPriceToLandValueMax : null,
+        //     'propertyFloorSpaceRatioMin': this.props.propertyFloorSpaceRatioMin ? this.props.propertyFloorSpaceRatioMin : null,
+        //     'propertyFloorSpaceRatioMax': this.props.propertyFloorSpaceRatioMax ? this.props.propertyFloorSpaceRatioMax : null
+        //   })
+        // });
 
         const data = await response.json();    
         this.props.dispatch({
