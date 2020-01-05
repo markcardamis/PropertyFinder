@@ -56,10 +56,9 @@ public class PropertyListingServiceController {
     }
 
     @RequestMapping(value = "/within", method = RequestMethod.GET)
-    public List<PropertyListing> getLocationsByGeometry(
+    public List<PropertyListingDTO> getLocationsByGeometry(
             @RequestHeader(value = "centreLatitude") Double latitude,
             @RequestHeader(value = "centreLongitude") Double longitude) {
-
         return this.propertyListingService.findAllLocationsWithin(latitude, longitude);
     }
 

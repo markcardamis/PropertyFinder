@@ -118,28 +118,27 @@ public class PropertyListingService {
         return (this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
     }
 
-    public List<PropertyListing> findAllLocationsWithin(Double latitude, Double longitude) {
+    public List<PropertyListingDTO> findAllLocationsWithin(Double latitude, Double longitude) {
+        Pageable pageable = PageRequest.of(0, unauthorisedResultsLimit, Sort.by(Sort.Direction.ASC, "id"));
         if (latitude == null && longitude == null) {
-            return this.propertyListingRepository.findWithinDefault();
+            List<PropertyListing> propertyListing = this.propertyListingRepository.findWithinDefault(pageable);
+            return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class); 
         } else {
-            //String pointGeoString = "ST_Point(" + latitude + ", " + longitude + ")";
             String pointGeoStringCircle = "Point(" + latitude + " " + longitude + ")";
-            //POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))
-            String pointGeoString = "Polygon(" + (latitude-0.5) + " " + (longitude-0.5) + ", " + 
-                                                (latitude-0.5) + " " + (longitude+0.5) + ", " + 
+            String pointGeoString = "POLYGON((" + (latitude-0.5) + " " + (longitude+0.5) + ", " + 
+                                                (latitude-0.5) + " " + (longitude-0.5) + ", " + 
                                                 (latitude+0.5) + " " + (longitude-0.5) + ", " + 
-                                                (latitude+0.5) + " " + (longitude+0.5) + ")"; 
-            System.out.println(pointGeoString);
+                                                (latitude+0.5) + " " + (longitude+0.5) + ", " +
+                                                (latitude-0.5) + " " + (longitude+0.5) + "))"; 
             try {
                 Geometry geometry = new WKTReader().read(pointGeoString);
                 System.out.println(geometry.toString());
-                return this.propertyListingRepository.findWithin(geometry);
+                List<PropertyListing> propertyListing = this.propertyListingRepository.findWithin(geometry, pageable);
+                return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class); 
             } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return this.propertyListingRepository.findWithinDefault();
+                log.error("ParseException: ", e);
+                return null;
             }
-            
         }
     }
 
