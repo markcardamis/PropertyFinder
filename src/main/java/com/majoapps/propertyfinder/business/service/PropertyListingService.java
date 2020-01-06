@@ -119,7 +119,7 @@ public class PropertyListingService {
     }
 
     public List<PropertyListingDTO> findAllLocationsWithin(Double latitude, Double longitude) {
-        Pageable pageable = PageRequest.of(0, unauthorisedResultsLimit, Sort.by(Sort.Direction.ASC, "id"));
+        Pageable pageable = PageRequest.of(0, authorisedResultsLimit, Sort.by(Sort.Direction.ASC, "id"));
         if (latitude == null && longitude == null) {
             List<PropertyListing> propertyListing = this.propertyListingRepository.findWithinDefault(pageable);
             return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class); 
