@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -119,21 +120,21 @@ public class PropertyListingService {
     }
 
     public List<PropertyListingDTO> findAllLocationsWithin(Double latitude, Double longitude) {
-        Pageable pageable = PageRequest.of(0, authorisedResultsLimit, Sort.by(Sort.Direction.ASC, "id"));
-        if (latitude == null && longitude == null) {
+        if (latitude == null || longitude == null) {
+            Pageable pageable = PageRequest.of(0, authorisedResultsLimit, Sort.by(Sort.Direction.ASC, "id"));
             List<PropertyListing> propertyListing = this.propertyListingRepository.findWithinDefault(pageable);
             return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class); 
         } else {
-            String pointGeoStringCircle = "Point(" + latitude + " " + longitude + ")";
-            String pointGeoString = "POLYGON((" + (latitude-0.5) + " " + (longitude+0.5) + ", " + 
+            String geoStringBoundingBox = "POLYGON((" + (latitude-0.5) + " " + (longitude+0.5) + ", " + 
                                                 (latitude-0.5) + " " + (longitude-0.5) + ", " + 
                                                 (latitude+0.5) + " " + (longitude-0.5) + ", " + 
                                                 (latitude+0.5) + " " + (longitude+0.5) + ", " +
                                                 (latitude-0.5) + " " + (longitude+0.5) + "))"; 
             try {
-                Geometry geometry = new WKTReader().read(pointGeoString);
-                System.out.println(geometry.toString());
-                List<PropertyListing> propertyListing = this.propertyListingRepository.findWithin(geometry, pageable);
+                Geometry geometryBoundingBox = new WKTReader().read(geoStringBoundingBox);
+                String sort = "distance(l.geometry, 'POINT("+ latitude + " " + longitude + ")')";
+                Pageable pageable = PageRequest.of(0, authorisedResultsLimit, JpaSort.unsafe(Sort.Direction.ASC, sort));
+                List<PropertyListing> propertyListing = this.propertyListingRepository.findWithin(geometryBoundingBox, pageable);
                 return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class); 
             } catch (ParseException e) {
                 log.error("ParseException: ", e);
