@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -28,9 +29,15 @@ public class PropertyListingServiceController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<PropertyListingDTO> getListingsBySearch(
+            @RequestHeader(value = "centreLatitude", required = false) Double latitude,
+            @RequestHeader(value = "centreLongitude", required = false) Double longitude,        
             JwtAuthenticationToken JwtAuthToken, 
             @SearchSpec Specification<PropertyListing> searchSpec, 
             @SortDefault(sort="Id",direction = Sort.Direction.ASC) Sort sort) {
+        if (latitude != null && longitude != null) { //Sort by distance from centre of viewport
+            String sortString = "distance(PropertyListing_.geometry, 'POINT("+ latitude + " " + longitude + ")')";
+            sort = JpaSort.unsafe(Sort.Direction.ASC, sortString);
+        }
         return this.propertyListingService.getPropertyListingBySearch(JwtAuthToken, searchSpec, sort);
     }
 
