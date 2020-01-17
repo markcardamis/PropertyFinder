@@ -64,4 +64,54 @@ public class SpecificationUtil {
         }
         return sb.toString();
     }
+
+    public static String createQueryString (
+            Notifications notifications, 
+            Double latitude, 
+            Double longitude) {
+        StringBuilder sb = new StringBuilder("SELECT l FROM PropertyListing l WHERE l.id>0");
+        if (notifications != null) {
+            if (notifications.getPropertyZone() != null) {
+                sb.append(" AND l.zone = :zone");
+            }
+            if (notifications.getPropertyAreaMin() != null) {
+                sb.append(" AND l.area > :areaMin");
+            }
+            if (notifications.getPropertyAreaMax() != null ) {
+                sb.append(" AND l.area < :areaMax");
+            }
+            if (notifications.getPropertyPriceMin() != null) {
+                sb.append(" AND l.priceInt > :priceIntMin");
+            }
+            if (notifications.getPropertyPriceMax() != null) {
+                sb.append(" AND  l.priceInt < :priceIntMax");
+            }
+            if (notifications.getPropertyPricePSMMin() != null) {
+                sb.append(" AND l.pricePSM > :pricePSMMin");
+            }
+            if (notifications.getPropertyPricePSMMax() != null) {
+                sb.append(" AND l.pricePSM < :pricePSMMax");
+            }
+            if (notifications.getPropertyPostCode() != null) {
+                sb.append(" AND l.postCode = :postCode");
+            }
+            if (notifications.getPropertyPriceToLandValueMin() != null) {
+                sb.append(" AND l.priceToLandValue > :priceToLandValueMin");
+            }
+            if (notifications.getPropertyPriceToLandValueMax() != null) {
+                sb.append(" AND l.priceToLandValue < :priceToLandValueMax");
+            }
+            if (notifications.getPropertyFloorSpaceRatioMin() != null) {
+                sb.append(" AND l.floorSpaceRatio > :floorSpaceRatioMin");
+            }
+            if (notifications.getPropertyFloorSpaceRatioMax() != null) {
+                sb.append(" AND l.floorSpaceRatio < :floorSpaceRatioMax");
+            }
+        }
+        if (latitude != null && longitude != null) {
+            sb.append(" ORDER BY distance(l.geometry, 'POINT("+ latitude + " " + longitude + ")')");
+        }
+        System.out.println(sb.toString());
+        return sb.toString();
+    }
 }

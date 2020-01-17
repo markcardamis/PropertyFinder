@@ -28,7 +28,7 @@ public class MultiHttpSecurityConfig {
                     .and()
                 .csrf()
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                    .ignoringAntMatchers("/api/listing/notifications", "/api/account")
+                    .ignoringAntMatchers("/api/listing/notifications", "/api/account", "/api/listing/query")
                     .and()
                 .cors()
                     .and()
@@ -46,7 +46,8 @@ public class MultiHttpSecurityConfig {
                     .and()
                 .authorizeRequests()
                     .antMatchers(HttpMethod.POST,
-                                "/api/listing/notifications", 
+                                "/api/listing/notifications",
+                                "/api/listing/query", 
                                 "/api/account").permitAll()
                     .and()
                 .authorizeRequests()

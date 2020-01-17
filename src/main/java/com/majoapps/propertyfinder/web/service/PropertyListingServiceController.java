@@ -68,5 +68,14 @@ public class PropertyListingServiceController {
             @RequestHeader(value = "centreLongitude", required = false) Double longitude) {
         return this.propertyListingService.findAllLocationsWithin(latitude, longitude);
     }
+    
+
+    @RequestMapping(value = "/query", method = RequestMethod.POST)
+    public List<PropertyListingDTO> postLocationsByGeometry(
+            @RequestHeader(value = "centreLatitude", required = false) Double latitude,
+            @RequestHeader(value = "centreLongitude", required = false) Double longitude,
+            @RequestBody(required = false) Notifications notifications) {
+        return this.propertyListingService.queryHQL(notifications, latitude, longitude);
+    }
 
 }

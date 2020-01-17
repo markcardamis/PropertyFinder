@@ -8,10 +8,19 @@ import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 import com.majoapps.propertyfinder.web.util.ObjectMapperUtils;
 import com.majoapps.propertyfinder.web.util.SpecificationUtil;
 import com.sipios.springsearch.SpecificationsBuilder;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 import lombok.extern.slf4j.Slf4j;
+
+
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
@@ -29,11 +38,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class PropertyListingService {
 
+    @PersistenceContext
+    private EntityManager em;
+
     private final PropertyListingRepository propertyListingRepository;
     private final NotificationsService notificationsService;
     private static final Integer adminResultsLimit = 100000;
     private static final Integer authorisedResultsLimit = 1000;
     private static final Integer unauthorisedResultsLimit = 100;
+
 
     @Autowired
     public PropertyListingService(PropertyListingRepository propertyListingRepository,
@@ -120,6 +133,7 @@ public class PropertyListingService {
     }
 
     public List<PropertyListingDTO> findAllLocationsWithin(Double latitude, Double longitude) {
+
         if (latitude == null || longitude == null) {
             Pageable pageable = PageRequest.of(0, authorisedResultsLimit, Sort.by(Sort.Direction.ASC, "id"));
             List<PropertyListing> propertyListing = this.propertyListingRepository.findWithinDefault(pageable);
@@ -140,6 +154,47 @@ public class PropertyListingService {
                 log.error("ParseException: ", e);
                 return null;
             }
+        }
+    }
+
+    public List<PropertyListingDTO> queryHQL(Notifications notifications, Double latitude, Double longitude) {
+        
+        try {
+            
+            String queryString = SpecificationUtil.createQueryString(notifications, latitude, longitude);
+            TypedQuery<PropertyListing> query = em.createQuery(queryString, PropertyListing.class);
+            query.setMaxResults(10);
+            if (notifications.getPropertyZone() != null)
+                query.setParameter("zone", notifications.getPropertyZone());
+            if (notifications.getPropertyAreaMin() != null)
+                query.setParameter("areaMin", notifications.getPropertyAreaMin());
+            if (notifications.getPropertyAreaMax() != null)
+                query.setParameter("areaMax", notifications.getPropertyAreaMax());
+            if (notifications.getPropertyPriceMin() != null)
+                query.setParameter("priceIntMin", notifications.getPropertyPriceMin());
+            if (notifications.getPropertyPriceMax() != null)
+                query.setParameter("priceIntMax", notifications.getPropertyPriceMax());
+            if (notifications.getPropertyPricePSMMin() != null)
+                query.setParameter("pricePSMMin", notifications.getPropertyPricePSMMin());
+            if (notifications.getPropertyPricePSMMax() != null)
+                query.setParameter("pricePSMMax", notifications.getPropertyPricePSMMax());
+            if (notifications.getPropertyPostCode() != null)
+                query.setParameter("postCode", notifications.getPropertyPostCode());
+            if (notifications.getPropertyPriceToLandValueMin() != null)
+                query.setParameter("priceToLandValueMin", notifications.getPropertyPriceToLandValueMin());
+            if (notifications.getPropertyPriceToLandValueMax() != null)
+                query.setParameter("priceToLandValueMax", notifications.getPropertyPriceToLandValueMax());
+            if (notifications.getPropertyFloorSpaceRatioMin() != null)
+                query.setParameter("floorSpaceRatioMin", notifications.getPropertyFloorSpaceRatioMin());
+            if (notifications.getPropertyFloorSpaceRatioMax() != null)
+                query.setParameter("floorSpaceRatioMax", notifications.getPropertyFloorSpaceRatioMax());
+
+            List<PropertyListing> propertyListing = (List<PropertyListing>) query.getResultList();
+            return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class); 
+
+        } catch (Exception ex) {
+            System.out.println("Query exception "+ ex.getMessage());
+            return null;
         }
     }
 
