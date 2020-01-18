@@ -8,27 +8,17 @@ import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 import com.majoapps.propertyfinder.web.util.ObjectMapperUtils;
 import com.majoapps.propertyfinder.web.util.SpecificationUtil;
 import com.sipios.springsearch.SpecificationsBuilder;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-
 import lombok.extern.slf4j.Slf4j;
-
-
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.io.ParseException;
-import org.locationtech.jts.io.WKTReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -129,67 +119,19 @@ public class PropertyListingService {
         String token = SpecificationUtil.createSpecificationString(notifications);
         Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>().withSearch(token)
                 .build();
+
+        System.out.println(specification.toString());
         return (this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
-    }
-
-    public List<PropertyListingDTO> findAllLocationsWithin(Double latitude, Double longitude) {
-
-        if (latitude == null || longitude == null) {
-            Pageable pageable = PageRequest.of(0, authorisedResultsLimit, Sort.by(Sort.Direction.ASC, "id"));
-            List<PropertyListing> propertyListing = this.propertyListingRepository.findWithinDefault(pageable);
-            return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class); 
-        } else {
-            String geoStringBoundingBox = "POLYGON((" + (latitude-0.5) + " " + (longitude+0.5) + ", " + 
-                                                (latitude-0.5) + " " + (longitude-0.5) + ", " + 
-                                                (latitude+0.5) + " " + (longitude-0.5) + ", " + 
-                                                (latitude+0.5) + " " + (longitude+0.5) + ", " +
-                                                (latitude-0.5) + " " + (longitude+0.5) + "))"; 
-            try {
-                Geometry geometryBoundingBox = new WKTReader().read(geoStringBoundingBox);
-                String sort = "distance(l.geometry, 'POINT("+ latitude + " " + longitude + ")')";
-                Pageable pageable = PageRequest.of(0, authorisedResultsLimit, JpaSort.unsafe(Sort.Direction.ASC, sort));
-                List<PropertyListing> propertyListing = this.propertyListingRepository.findWithin(geometryBoundingBox, pageable);
-                return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class); 
-            } catch (ParseException e) {
-                log.error("ParseException: ", e);
-                return null;
-            }
-        }
     }
 
     public List<PropertyListingDTO> queryHQL(Notifications notifications, Double latitude, Double longitude) {
         
         try {
-            
             String queryString = SpecificationUtil.createQueryString(notifications, latitude, longitude);
             TypedQuery<PropertyListing> query = em.createQuery(queryString, PropertyListing.class);
-            query.setMaxResults(10);
-            if (notifications.getPropertyZone() != null)
-                query.setParameter("zone", notifications.getPropertyZone());
-            if (notifications.getPropertyAreaMin() != null)
-                query.setParameter("areaMin", notifications.getPropertyAreaMin());
-            if (notifications.getPropertyAreaMax() != null)
-                query.setParameter("areaMax", notifications.getPropertyAreaMax());
-            if (notifications.getPropertyPriceMin() != null)
-                query.setParameter("priceIntMin", notifications.getPropertyPriceMin());
-            if (notifications.getPropertyPriceMax() != null)
-                query.setParameter("priceIntMax", notifications.getPropertyPriceMax());
-            if (notifications.getPropertyPricePSMMin() != null)
-                query.setParameter("pricePSMMin", notifications.getPropertyPricePSMMin());
-            if (notifications.getPropertyPricePSMMax() != null)
-                query.setParameter("pricePSMMax", notifications.getPropertyPricePSMMax());
-            if (notifications.getPropertyPostCode() != null)
-                query.setParameter("postCode", notifications.getPropertyPostCode());
-            if (notifications.getPropertyPriceToLandValueMin() != null)
-                query.setParameter("priceToLandValueMin", notifications.getPropertyPriceToLandValueMin());
-            if (notifications.getPropertyPriceToLandValueMax() != null)
-                query.setParameter("priceToLandValueMax", notifications.getPropertyPriceToLandValueMax());
-            if (notifications.getPropertyFloorSpaceRatioMin() != null)
-                query.setParameter("floorSpaceRatioMin", notifications.getPropertyFloorSpaceRatioMin());
-            if (notifications.getPropertyFloorSpaceRatioMax() != null)
-                query.setParameter("floorSpaceRatioMax", notifications.getPropertyFloorSpaceRatioMax());
-
-            List<PropertyListing> propertyListing = (List<PropertyListing>) query.getResultList();
+            query = SpecificationUtil.queryBuilder(query, notifications);
+            query.setMaxResults(unauthorisedResultsLimit);
+            List<PropertyListing> propertyListing = query.getResultList();
             return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class); 
 
         } catch (Exception ex) {

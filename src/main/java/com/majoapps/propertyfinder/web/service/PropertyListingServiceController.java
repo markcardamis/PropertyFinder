@@ -57,18 +57,12 @@ public class PropertyListingServiceController {
     @RequestMapping(value = "/notifications", method = RequestMethod.POST)
     public List<PropertyListingDTO> getListingsFilteringByNotifications(
             JwtAuthenticationToken JwtAuthToken, 
+            @RequestHeader(value = "centreLatitude", required = false) Double latitude,
+            @RequestHeader(value = "centreLongitude", required = false) Double longitude,
             @RequestBody(required = false) Notifications notifications,
             @SortDefault(sort="Id",direction = Sort.Direction.ASC) Sort sort) {
         return this.propertyListingService.getPropertyListingsByNotifications(JwtAuthToken, notifications, sort);
     }
-
-    @RequestMapping(value = "/within", method = RequestMethod.GET)
-    public List<PropertyListingDTO> getLocationsByGeometry(
-            @RequestHeader(value = "centreLatitude", required = false) Double latitude,
-            @RequestHeader(value = "centreLongitude", required = false) Double longitude) {
-        return this.propertyListingService.findAllLocationsWithin(latitude, longitude);
-    }
-    
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public List<PropertyListingDTO> postLocationsByGeometry(

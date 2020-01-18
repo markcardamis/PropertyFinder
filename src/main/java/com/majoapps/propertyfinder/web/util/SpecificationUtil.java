@@ -1,6 +1,9 @@
 package com.majoapps.propertyfinder.web.util;
 
+import javax.persistence.TypedQuery;
+
 import com.majoapps.propertyfinder.data.entity.Notifications;
+import com.majoapps.propertyfinder.data.entity.PropertyListing;
 
 public class SpecificationUtil {
 
@@ -71,47 +74,40 @@ public class SpecificationUtil {
             Double longitude) {
         StringBuilder sb = new StringBuilder("SELECT l FROM PropertyListing l WHERE l.id>0");
         if (notifications != null) {
-            if (notifications.getPropertyZone() != null) {
-                sb.append(" AND l.zone = :zone");
-            }
-            if (notifications.getPropertyAreaMin() != null) {
-                sb.append(" AND l.area > :areaMin");
-            }
-            if (notifications.getPropertyAreaMax() != null ) {
-                sb.append(" AND l.area < :areaMax");
-            }
-            if (notifications.getPropertyPriceMin() != null) {
-                sb.append(" AND l.priceInt > :priceIntMin");
-            }
-            if (notifications.getPropertyPriceMax() != null) {
-                sb.append(" AND  l.priceInt < :priceIntMax");
-            }
-            if (notifications.getPropertyPricePSMMin() != null) {
-                sb.append(" AND l.pricePSM > :pricePSMMin");
-            }
-            if (notifications.getPropertyPricePSMMax() != null) {
-                sb.append(" AND l.pricePSM < :pricePSMMax");
-            }
-            if (notifications.getPropertyPostCode() != null) {
-                sb.append(" AND l.postCode = :postCode");
-            }
-            if (notifications.getPropertyPriceToLandValueMin() != null) {
-                sb.append(" AND l.priceToLandValue > :priceToLandValueMin");
-            }
-            if (notifications.getPropertyPriceToLandValueMax() != null) {
-                sb.append(" AND l.priceToLandValue < :priceToLandValueMax");
-            }
-            if (notifications.getPropertyFloorSpaceRatioMin() != null) {
-                sb.append(" AND l.floorSpaceRatio > :floorSpaceRatioMin");
-            }
-            if (notifications.getPropertyFloorSpaceRatioMax() != null) {
-                sb.append(" AND l.floorSpaceRatio < :floorSpaceRatioMax");
-            }
+            sb.append(" AND ( :zone IS NULL OR l.zone = :zone)");
+            sb.append(" AND ( :areaMin IS NULL OR l.area > :areaMin)");
+            sb.append(" AND ( :areaMax IS NULL OR l.area < :areaMax)");
+            sb.append(" AND ( :priceIntMin IS NULL OR l.priceInt > :priceIntMin)");
+            sb.append(" AND ( :priceIntMax IS NULL OR l.priceInt < :priceIntMax)");
+            sb.append(" AND ( :pricePSMMin IS NULL OR l.pricePSM > :pricePSMMin)");
+            sb.append(" AND ( :pricePSMMax IS NULL OR l.pricePSM < :pricePSMMax)");
+            sb.append(" AND ( :postCode IS NULL OR l.postCode = :postCode)");
+            sb.append(" AND ( :priceToLandValueMin IS NULL OR l.priceToLandValue > :priceToLandValueMin)");
+            sb.append(" AND ( :priceToLandValueMax IS NULL OR l.priceToLandValue < :priceToLandValueMax)");
+            sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio > :floorSpaceRatioMin)");
+            sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio < :floorSpaceRatioMax)");
         }
         if (latitude != null && longitude != null) {
-            sb.append(" ORDER BY distance(l.geometry, 'POINT("+ latitude + " " + longitude + ")')");
+            sb.append(" ORDER BY distance(l.geometry, 'SRID=4326;POINT("+ latitude + " " + longitude + ")')");
         }
-        System.out.println(sb.toString());
         return sb.toString();
+    }
+
+    public static TypedQuery<PropertyListing> queryBuilder(
+            TypedQuery<PropertyListing> query,
+            Notifications notifications) {
+        query.setParameter("zone", notifications.getPropertyZone());
+        query.setParameter("areaMin", notifications.getPropertyAreaMin());
+        query.setParameter("areaMax", notifications.getPropertyAreaMax());
+        query.setParameter("priceIntMin", notifications.getPropertyPriceMin());
+        query.setParameter("priceIntMax", notifications.getPropertyPriceMax());
+        query.setParameter("pricePSMMin", notifications.getPropertyPricePSMMin());
+        query.setParameter("pricePSMMax", notifications.getPropertyPricePSMMax());
+        query.setParameter("postCode", notifications.getPropertyPostCode());
+        query.setParameter("priceToLandValueMin", notifications.getPropertyPriceToLandValueMin());
+        query.setParameter("priceToLandValueMax", notifications.getPropertyPriceToLandValueMax());
+        query.setParameter("floorSpaceRatioMin", notifications.getPropertyFloorSpaceRatioMin());
+        query.setParameter("floorSpaceRatioMax", notifications.getPropertyFloorSpaceRatioMax());
+        return query;
     }
 }
