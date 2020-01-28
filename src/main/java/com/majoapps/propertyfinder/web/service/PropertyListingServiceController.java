@@ -4,13 +4,10 @@ import com.majoapps.propertyfinder.business.domain.PropertyListingDTO;
 import com.majoapps.propertyfinder.business.service.PropertyListingService;
 import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.entity.PropertyListing;
-import com.sipios.springsearch.anotation.SearchSpec;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.JpaSort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,20 +23,6 @@ public class PropertyListingServiceController {
 
     @Autowired
     private PropertyListingService propertyListingService;
-
-    @RequestMapping(method = RequestMethod.GET)
-    public List<PropertyListingDTO> getListingsBySearch(
-            @RequestHeader(value = "centreLatitude", required = false) Double latitude,
-            @RequestHeader(value = "centreLongitude", required = false) Double longitude,        
-            JwtAuthenticationToken JwtAuthToken, 
-            @SearchSpec Specification<PropertyListing> searchSpec, 
-            @SortDefault(sort="Id",direction = Sort.Direction.ASC) Sort sort) {
-        if (latitude != null && longitude != null) { //Sort by distance from centre of viewport
-            String sortString = "distance(PropertyListing_.geometry, 'POINT("+ latitude + " " + longitude + ")')";
-            sort = JpaSort.unsafe(Sort.Direction.ASC, sortString);
-        }
-        return this.propertyListingService.getPropertyListingBySearch(JwtAuthToken, searchSpec, sort);
-    }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public PropertyListing getListingById(@PathVariable(value="id") Integer id) {
@@ -66,10 +49,11 @@ public class PropertyListingServiceController {
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public List<PropertyListingDTO> postLocationsByGeometry(
+            JwtAuthenticationToken JwtAuthToken, 
             @RequestHeader(value = "centreLatitude", required = false) Double latitude,
             @RequestHeader(value = "centreLongitude", required = false) Double longitude,
             @RequestBody(required = false) Notifications notifications) {
-        return this.propertyListingService.queryHQL(notifications, latitude, longitude);
+        return this.propertyListingService.queryHQL(JwtAuthToken, notifications, latitude, longitude);
     }
 
 }

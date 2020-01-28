@@ -124,19 +124,63 @@ public class PropertyListingService {
         return (this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
     }
 
-    public List<PropertyListingDTO> queryHQL(Notifications notifications, Double latitude, Double longitude) {
-        
+    public List<PropertyListingDTO> queryHQL(
+            JwtAuthenticationToken JwtAuthToken, 
+            Notifications notifications, 
+            Double latitude, 
+            Double longitude) {
         try {
             String queryString = SpecificationUtil.createQueryString(notifications, latitude, longitude);
             TypedQuery<PropertyListing> query = em.createQuery(queryString, PropertyListing.class);
             query = SpecificationUtil.queryBuilder(query, notifications);
-            query.setMaxResults(unauthorisedResultsLimit);
-            List<PropertyListing> propertyListing = query.getResultList();
-            return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class); 
-
+            return this.getPropertyListingByQuery(JwtAuthToken, query);
         } catch (Exception ex) {
             System.out.println("Query exception "+ ex.getMessage());
             return null;
+        }
+    }
+
+    // return different amount of listings based on account priority
+    // return 100 listings for unauthenticated user
+    // return 1000 listings for authenticated user
+    // return 100000 listings for an admin user
+    public List<PropertyListingDTO> getPropertyListingByQuery(JwtAuthenticationToken JwtAuthToken,
+            TypedQuery<PropertyListing> query) {
+        try {
+            if (JwtAuthToken != null && JwtAuthToken.getTokenAttributes().containsKey("uid")) {
+                String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
+                // unauthenticated
+                if (token == null || token.isEmpty()) {
+                    query.setMaxResults(unauthorisedResultsLimit);
+                    List<PropertyListing> propertyListing = query.getResultList();
+                    return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
+                }
+                // admin
+                if (JwtAuthToken.getTokenAttributes().containsKey("groups")
+                        && JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
+                    query.setMaxResults(adminResultsLimit);
+                    List<PropertyListing> propertyListing = query.getResultList();
+                    return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
+                } else { // authenticated
+                    query.setMaxResults(authorisedResultsLimit);
+                    List<PropertyListing> propertyListing = query.getResultList();
+                    return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
+                }
+            } else {
+                // unauthenticated
+                query.setMaxResults(unauthorisedResultsLimit);
+                List<PropertyListing> propertyListing = query.getResultList();
+                return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
+            }
+        } catch (IllegalArgumentException ae) {
+            log.error("IllegalArgumentException: ", ae);
+            throw new ResourceNotFoundException("Malformed search query");
+        } catch (PropertyReferenceException pe) {
+            log.error("IllegalArgumentException: ", pe);
+            throw new ResourceNotFoundException("Malformed search query");
+        } catch (Exception e) {
+            log.error("Exception: ", e);
+            throw new ResourceNotFoundException("Error retrieving results");
         }
     }
 
