@@ -78,7 +78,7 @@ public class SpecificationUtil {
             sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio < :floorSpaceRatioMax)");
         }
         if (latitude != null && longitude != null) {
-            sb.append(" ORDER BY distance(l.geometry, 'SRID=4326;POINT("+ longitude + " " + latitude + ")')");
+            sb.append(" ORDER BY distance(l.geometry, 'SRID=4326;Point("+ longitude + " " + latitude + ")')");
         }
         return sb.toString();
     }
