@@ -24,6 +24,15 @@ public class PropertyListingServiceController {
     @Autowired
     private PropertyListingService propertyListingService;
 
+    @RequestMapping(method = RequestMethod.GET)
+    public List<PropertyListingDTO> getListingsPageLoad(
+            JwtAuthenticationToken JwtAuthToken, 
+            @RequestHeader(value = "centreLatitude", required = false) Double latitude,
+            @RequestHeader(value = "centreLongitude", required = false) Double longitude) {
+        return this.propertyListingService.queryHQL(JwtAuthToken, null, latitude, longitude);
+    }
+
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public PropertyListing getListingById(@PathVariable(value="id") Integer id) {
         return this.propertyListingService.getPropertyListingById(id);

@@ -86,18 +86,20 @@ public class SpecificationUtil {
     public static TypedQuery<PropertyListing> queryBuilder(
             TypedQuery<PropertyListing> query,
             Notifications notifications) {
-        query.setParameter("zone", notifications.getPropertyZone());
-        query.setParameter("areaMin", notifications.getPropertyAreaMin());
-        query.setParameter("areaMax", notifications.getPropertyAreaMax());
-        query.setParameter("priceIntMin", notifications.getPropertyPriceMin());
-        query.setParameter("priceIntMax", notifications.getPropertyPriceMax());
-        query.setParameter("pricePSMMin", notifications.getPropertyPricePSMMin());
-        query.setParameter("pricePSMMax", notifications.getPropertyPricePSMMax());
-        query.setParameter("postCode", notifications.getPropertyPostCode());
-        query.setParameter("priceToLandValueMin", notifications.getPropertyPriceToLandValueMin());
-        query.setParameter("priceToLandValueMax", notifications.getPropertyPriceToLandValueMax());
-        query.setParameter("floorSpaceRatioMin", notifications.getPropertyFloorSpaceRatioMin());
-        query.setParameter("floorSpaceRatioMax", notifications.getPropertyFloorSpaceRatioMax());
+        if (notifications != null) {
+            query.setParameter("zone", notifications.getPropertyZone());
+            query.setParameter("areaMin", notifications.getPropertyAreaMin());
+            query.setParameter("areaMax", notifications.getPropertyAreaMax());
+            query.setParameter("priceIntMin", notifications.getPropertyPriceMin());
+            query.setParameter("priceIntMax", notifications.getPropertyPriceMax());
+            query.setParameter("pricePSMMin", notifications.getPropertyPricePSMMin());
+            query.setParameter("pricePSMMax", notifications.getPropertyPricePSMMax());
+            query.setParameter("postCode", notifications.getPropertyPostCode());
+            query.setParameter("priceToLandValueMin", notifications.getPropertyPriceToLandValueMin());
+            query.setParameter("priceToLandValueMax", notifications.getPropertyPriceToLandValueMax());
+            query.setParameter("floorSpaceRatioMin", notifications.getPropertyFloorSpaceRatioMin());
+            query.setParameter("floorSpaceRatioMax", notifications.getPropertyFloorSpaceRatioMax());
+        }
         return query;
     }
 }
