@@ -4,6 +4,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: './src/main/webapp/javascript/index.js',
+  mode: 'production',
   output: {
     path: path.join(__dirname, "/src/main/resources/static/dist"),
     filename: 'index-bundle.js',
