@@ -1,9 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/main/webapp/javascript/index.js',
+  mode: 'production',
   output: {
     path: path.join(__dirname, "/src/main/resources/static/dist"),
     filename: 'index-bundle.js',
@@ -32,8 +33,11 @@ module.exports = {
   },
 
   plugins: [
-    new Dotenv({
-      systemvars: true
+    new webpack.DefinePlugin({
+      'process.env': {
+         'MAPBOX_API': JSON.stringify(process.env.MAPBOX_API),
+         'MAPBOX_STYLE': JSON.stringify(process.env.MAPBOX_STYLE),
+      }
     }),
     new HtmlWebpackPlugin({
       template: "./src/main/resources/static/index.html"
