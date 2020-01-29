@@ -5,9 +5,7 @@ import com.majoapps.propertyfinder.business.service.AccountService;
 import com.majoapps.propertyfinder.data.entity.Account;
 import java.util.List;
 import java.util.UUID;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
