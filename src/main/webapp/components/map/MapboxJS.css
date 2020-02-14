@@ -1,0 +1,11 @@
+.mapContainer {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    }
+    
+.mapContainer canvas {
+    cursor: pointer;
+}
