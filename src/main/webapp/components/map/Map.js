@@ -90,7 +90,7 @@ class Map extends React.Component {
                 mapStyle={MAPBOX_STYLE}
                 {...this.props.map.viewport} 
                 onViewportChange={this.handleViewportChange} 
-                mapboxApiAccessToken={MAPBOX_API} >
+                mapboxApiAccessToken={MAPBOX_API}>
                 <NavigationControl className='navigationControl'/>
                 {this.renderPins()}
           </ReactMapGL>

@@ -7,7 +7,7 @@ import PropertyInformation from '../components/widgets/PropertyInformation';
 import FilterWidget from './widgets/FilterWidget';
 import SignIn from './widgets/SignIn';
 import Map from './map/Map';
-import MapboxJS from './map/MapboxJS';
+import MapGL from './map/MapGL';
 
 class Home extends Component {
   constructor( props ) {
@@ -61,7 +61,7 @@ class Home extends Component {
         {this.props.home.showFilter && <FilterWidget handleCloseFilter={this.handleCloseFilter}/>}
         {this.props.home.showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}
         {this.props.home.showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>}
-        <MapboxJS/>
+        <MapGL/>
         {/* <Map/> */}
       </div>
     );

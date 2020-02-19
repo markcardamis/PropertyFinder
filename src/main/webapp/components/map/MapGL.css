@@ -6,6 +6,6 @@
     bottom: 0;
     }
     
-.mapContainer canvas {
-    cursor: pointer;
-}
+    #map canvas {
+        cursor: default;
+        }
