@@ -11,14 +11,22 @@ class PropertyInformation extends React.Component {
 
     render () {
         const { handleClosePropertyInfo, property } = this.props;
+        const { propertyId, address, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight } = this.props.property;
             return (
                 <div>
                     <ul className='propertyInformation'>
-                        <li><h4>Property ID: {property.id}</h4>
+                        <li><h4>Property ID: {propertyId}</h4>
                             <IoMdClose size='2em' onClick={handleClosePropertyInfo}/>
                         </li>
                         <li><img src={property.listingPhoto || DEFAULT_HOUSE_IMAGE} style={{width: '150px', height: '150px'}}/></li>
-                        {property.price && <li><IoMdPricetags size='1.5em'/><b> Price: </b>{property.price}</li>}
+                        {address && <li><FaDoorOpen size='1.5em'/><b> Address: </b>{address}</li>}
+                        {zoneCode && <li><GiAustralia size='1.5em'/><b> Zone Code: </b>{zoneCode}</li>}
+                        {area && <li><FaChartArea size='1.5em'/><b> Area: </b>{area}</li>}
+                        {floorSpaceRatio && <li><FaBuilding size='1.5em'/><b> Floor Space Ratio: </b>{floorSpaceRatio}</li>}
+                        {minimumLotSize && <li><IoMdResize size='1.5em'/><b> Minimum Lot Size: </b>{minimumLotSize}</li>}
+                        {buildingHeight && <li><FaInfo size='1.5em'/><b> Building Height: </b>{buildingHeight}</li>}
+
+                        {/* {property.price && <li><IoMdPricetags size='1.5em'/><b> Price: </b>{property.price}</li>}
                         {property.listingURL && <li><FaLink size='1.5em'/><b> URL: </b><a target='_blank' href={property.listingURL}>{property.listingURL}</a></li>}
                         {property.address && <li><FaDoorOpen size='1.5em'/><b> Address: </b>{property.address}</li>}
                         {property.area && <li><FaChartArea size='1.5em'/><b> Area: </b>{property.area}</li>}
@@ -31,7 +39,7 @@ class PropertyInformation extends React.Component {
                         {property.landValue && <li><GiReceiveMoney size='1.5em'/><b> Land Value: </b>{property.landValue}</li>}
                         {property.pricePSM && <li><FaFileInvoiceDollar size='1.5em'/><b> Price per m<sup>2</sup>: </b>{property.pricePSM}</li>}
                         {property.priceToLandValue && <li><FaBalanceScale size='1.5em'/><b> Price To Land Value: </b>{property.priceToLandValue}</li>}
-                        {property.summaryDescription && <li><FaInfo size='1.5em'/><b> Description: </b>{property.summaryDescription}</li>}      
+                        {property.summaryDescription && <li><FaInfo size='1.5em'/><b> Description: </b>{property.summaryDescription}</li>}       */}
                     </ul> 
                 </div>
             );

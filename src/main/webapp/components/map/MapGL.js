@@ -1,45 +1,83 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import mapboxgl from 'mapbox-gl';
+import { withAuth } from '@okta/okta-react';
+import { connect } from 'react-redux';
+
 
 import {MAPBOX_API, MAPBOX_STYLE, INITIAL_VIEWPORT} from '../../shared/constants';
 import './MapGL.css';
  
     mapboxgl.accessToken = MAPBOX_API;
+    let map;
  
-export default class MapGL extends React.Component {
- 
+class MapGL extends React.Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             authenticated: null
+        }
+    }
+    
+    
 componentDidMount() {
-    const map = new mapboxgl.Map({
+    map = new mapboxgl.Map({
         container: this.mapContainer,
         style: MAPBOX_STYLE,
         center: [INITIAL_VIEWPORT.longitude, INITIAL_VIEWPORT.latitude],
         zoom: INITIAL_VIEWPORT.zoom
-        });
+        });  
     map.addControl(new mapboxgl.NavigationControl());
+    map.on('click', (e)=>this.handleClick(e));
+    this.checkAuthentication();
+}
 
-    map.on('click', function(e) {
-        var features = map.queryRenderedFeatures(e.point);
-        var displayProperties = ['properties'];
-        
-        var displayFeatures = features.map(function(feat) {
-        var displayFeat = {};
-        displayProperties.forEach(function(prop) {
-            displayFeat[prop] = feat[prop];
-            });
-            return displayFeat;
-            });
 
-        if (displayFeatures.length > 0) {
-            displayFeatures.map(property => {
-                if (property.properties && property.properties.propid) {
-                    let result = {propid: property.properties.propid};     
-                    console.log(result);
-                }            
-            });
-        }
+handleClick = (e) => {
+    let features = map.queryRenderedFeatures(e.point);
+    let displayProperties = ['properties'];
+
+    let displayFeatures = features.map(function(feat) {
+        let displayFeat = {};
+        displayFeat[displayProperties]=feat[displayProperties];
+        return displayFeat;
+        });
+
+    if (displayFeatures.length > 0) {
+        displayFeatures.map(property => {
+            if (property.properties && property.properties.propid && this.state.authenticated === 'authenticated') {
+                let propid = property.properties.propid; 
+                this.callApi();
+            }            
         });
     }
+}
+
+callApi = async () => {   
+    try {
+        const response = await fetch(`/api/propertyinformation/${propid}`, {
+            // headers: {
+            //     Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+            //   }
+        });
+        const data = await response.json();
+        this.props.dispatch({type: 'SHOW_PROPERTY', payload: data});
+
+    } catch (err) {
+        console.log('error api')
+        // add notification
+    }  
+}
+
+checkAuthentication = async () => {
+    const authenticated = await this.props.auth.isAuthenticated();
+    
+    if (authenticated !== this.state.authenticated) {
+      this.setState({ authenticated });
+    }
+  }
+ 
  
     render() {
     return (
@@ -49,3 +87,11 @@ componentDidMount() {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        mapGL: state,
+    };
+};
+
+export default withAuth(connect(mapStateToProps)(MapGL));
