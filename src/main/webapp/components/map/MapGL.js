@@ -57,9 +57,9 @@ handleClick = (e) => {
 callApi = async () => {   
     try {
         const response = await fetch(`/api/propertyinformation/${propid}`, {
-            // headers: {
-            //     Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-            //   }
+            headers: {
+                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+              }
         });
         const data = await response.json();
         this.props.dispatch({type: 'SHOW_PROPERTY', payload: data});
