@@ -46,7 +46,7 @@ handleClick = (e) => {
 
     if (displayFeatures.length > 0) {
         displayFeatures.map(property => {
-            if (property.properties && property.properties.propid && this.state.authenticated === 'authenticated') {
+            if (property.properties && property.properties.propid && this.state.authenticated) {
                 let propid = property.properties.propid; 
                 this.callApi();
             }            
