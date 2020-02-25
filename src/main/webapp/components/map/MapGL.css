@@ -11,10 +11,18 @@
         }
 
     .marker {
-        background-image: url('https://cdn4.iconfinder.com/data/icons/social-messaging-ui-coloricon-2/21/129-512.png');
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Location_dot_orange.svg/480px-Location_dot_orange.svg.png');
         background-size: cover;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
+        width: 10px;
+        height: 10px;
         cursor: pointer;
         }
+
+    .marker:hover, :focus {
+        background-image: url('https://cdn4.iconfinder.com/data/icons/social-messaging-ui-coloricon-2/21/129-512.png');
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        outline: none;
+    }

@@ -11,27 +11,12 @@ import './MapGL.css';
  
     mapboxgl.accessToken = MAPBOX_API;
     let map;
-    const points = [{
-        id: 1700344,
-        latitude: -33.73167,
-        longitude: 151.171982
-    },
-    {
-        id: 1700345,
-        latitude: -33.59066,
-        longitude: 150.256363
-    },
-    {
-        "id": 1700346,
-        "latitude": -33.7234,
-        "longitude": 150.447586
-    }]
  
 class MapGL extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-             authenticated: null
+             authenticated: null,
         }
     }
     
@@ -51,26 +36,25 @@ componentDidMount() {
 }
 
 renderMarkers = async () => {
-    await this.callApi('/api/listing', 'MARKERS')
-    //await this.callApi('https://jsonplaceholder.typicode.com/posts/1', 'MARKERS')
+    await this.callApi('/api/listing', null, 'MARKERS')
     const { mapMarker } = this.props.mapGL;
 
     mapMarker.forEach((marker) => {
         var el = document.createElement('div');
         el.className = 'marker';
+        el.tabIndex = 0;
     
         new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map);
         el.addEventListener('click', () => {
-            this.handleMarkerClick(marker)
+            this.handleMarkerClick(marker);
         });
       });
 }
 
 handleMarkerClick = (marker) => {
-    this.callApi(`/api/listing/${marker.id}`, 'SHOW_PROPERTY');
-    //this.callApi('https://jsonplaceholder.typicode.com/posts/1', 'SHOW_PROPERTY')
+   this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
 }
 
 handlePropertyClick = (e) => {
@@ -87,19 +71,17 @@ handlePropertyClick = (e) => {
         displayFeatures.map(async (property) => {
             if (property.properties && property.properties.propid) {
                 let propid = property.properties.propid;
-                const api = (`/api/propertyinformation/${propid}`, { 
-                            headers: {Authorization: 'Bearer ' + await this.props.auth.getAccessToken()}
-                            })
-                //const api = 'https://jsonplaceholder.typicode.com/posts/1';
-                this.callApi(api, 'SHOW_PROPERTY');
+                const api = `/api/propertyinformation/${propid}`;
+                const auth = {headers: {Authorization: 'Bearer ' + await this.props.auth.getAccessToken()}};
+                this.callApi(api, auth, 'SHOW_PROPERTY');
             }            
         });
     }
 }
 
-callApi = async (api, action) => {   
+callApi = async (api, auth, action) => {   
     try {
-        const response = await fetch(api);
+        const response = await fetch(api, auth);
         const data = await response.json();
         const { dispatch } = this.props;
         dispatch({type: action, payload: data});
