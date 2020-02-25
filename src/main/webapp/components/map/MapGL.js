@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import mapboxgl from 'mapbox-gl';
 import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
+import { IoIosPin } from 'react-icons/io';
 
 
 import {MAPBOX_API, MAPBOX_STYLE, INITIAL_VIEWPORT} from '../../shared/constants';
@@ -10,11 +11,25 @@ import './MapGL.css';
  
     mapboxgl.accessToken = MAPBOX_API;
     let map;
+    const points = [{
+        id: 1700344,
+        latitude: -33.73167,
+        longitude: 151.171982
+    },
+    {
+        id: 1700345,
+        latitude: -33.59066,
+        longitude: 150.256363
+    },
+    {
+        "id": 1700346,
+        "latitude": -33.7234,
+        "longitude": 150.447586
+    }]
  
 class MapGL extends React.Component {
     constructor(props) {
         super(props)
-    
         this.state = {
              authenticated: null
         }
@@ -29,12 +44,36 @@ componentDidMount() {
         zoom: INITIAL_VIEWPORT.zoom
         });  
     map.addControl(new mapboxgl.NavigationControl());
-    map.on('click', (e)=>this.handleClick(e));
     this.checkAuthentication();
+    this.renderMarkers();
+
+    map.on('click', (e) => this.handlePropertyClick(e)); 
 }
 
+renderMarkers = async () => {
+    await this.callApi('/api/listing', 'MARKERS')
+    //await this.callApi('https://jsonplaceholder.typicode.com/posts/1', 'MARKERS')
+    const { mapMarker } = this.props.mapGL;
 
-handleClick = (e) => {
+    mapMarker.forEach((marker) => {
+        var el = document.createElement('div');
+        el.className = 'marker';
+    
+        new mapboxgl.Marker(el)
+          .setLngLat({lng: marker.longitude, lat: marker.latitude})
+          .addTo(map);
+        el.addEventListener('click', () => {
+            this.handleMarkerClick(marker)
+        });
+      });
+}
+
+handleMarkerClick = (marker) => {
+    this.callApi(`/api/listing/${marker.id}`, 'SHOW_PROPERTY');
+    //this.callApi('https://jsonplaceholder.typicode.com/posts/1', 'SHOW_PROPERTY')
+}
+
+handlePropertyClick = (e) => {
     let features = map.queryRenderedFeatures(e.point);
     let displayProperties = ['properties'];
 
@@ -45,24 +84,25 @@ handleClick = (e) => {
         });
 
     if (displayFeatures.length > 0) {
-        displayFeatures.map(property => {
+        displayFeatures.map(async (property) => {
             if (property.properties && property.properties.propid) {
-                let propid = property.properties.propid; 
-                this.callApi(propid);
+                let propid = property.properties.propid;
+                const api = (`/api/propertyinformation/${propid}`, { 
+                            headers: {Authorization: 'Bearer ' + await this.props.auth.getAccessToken()}
+                            })
+                //const api = 'https://jsonplaceholder.typicode.com/posts/1';
+                this.callApi(api, 'SHOW_PROPERTY');
             }            
         });
     }
 }
 
-callApi = async (propid) => {   
+callApi = async (api, action) => {   
     try {
-        const response = await fetch(`/api/propertyinformation/${propid}`, {
-            headers: {
-                Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-              }
-        });
+        const response = await fetch(api);
         const data = await response.json();
-        this.props.dispatch({type: 'SHOW_PROPERTY', payload: data});
+        const { dispatch } = this.props;
+        dispatch({type: action, payload: data});
 
     } catch (err) {
         console.log('User not found')

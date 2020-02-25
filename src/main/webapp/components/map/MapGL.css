@@ -9,3 +9,12 @@
     #map canvas {
         cursor: default;
         }
+
+    .marker {
+        background-image: url('https://cdn4.iconfinder.com/data/icons/social-messaging-ui-coloricon-2/21/129-512.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        }

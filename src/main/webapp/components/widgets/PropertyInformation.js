@@ -10,36 +10,36 @@ import { DEFAULT_HOUSE_IMAGE } from '../../shared/constants';
 class PropertyInformation extends React.Component {
 
     render () {
-        const { handleClosePropertyInfo, property } = this.props;
-        const { propertyId, address, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight } = this.props.property;
+        const { handleClosePropertyInfo } = this.props;
+        const { id, propertyId, address, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight,
+                listingPhoto, price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
+                pricePSM, priceToLandValue, summaryDescription
+                } = this.props.property;
             return (
                 <div>
+                    {console.log(this.props.property)}
                     <ul className='propertyInformation'>
-                        <li><h4>Property ID: {propertyId}</h4>
+                        <li><h4>Property ID: {propertyId || id}</h4>
                             <IoMdClose size='2em' onClick={handleClosePropertyInfo}/>
                         </li>
-                        <li><img src={property.listingPhoto || DEFAULT_HOUSE_IMAGE} style={{width: '150px', height: '150px'}}/></li>
-                        {address && <li><FaDoorOpen size='1.5em'/><b> Address: </b>{address}</li>}
+                        {landValue && <li><img src={listingPhoto || DEFAULT_HOUSE_IMAGE} style={{width: '150px', height: '150px'}}/></li>}
                         {zoneCode && <li><GiAustralia size='1.5em'/><b> Zone Code: </b>{zoneCode}</li>}
-                        {area && <li><FaChartArea size='1.5em'/><b> Area: </b>{area}</li>}
-                        {floorSpaceRatio && <li><FaBuilding size='1.5em'/><b> Floor Space Ratio: </b>{floorSpaceRatio}</li>}
-                        {minimumLotSize && <li><IoMdResize size='1.5em'/><b> Minimum Lot Size: </b>{minimumLotSize}</li>}
                         {buildingHeight && <li><FaInfo size='1.5em'/><b> Building Height: </b>{buildingHeight}</li>}
 
-                        {/* {property.price && <li><IoMdPricetags size='1.5em'/><b> Price: </b>{property.price}</li>}
-                        {property.listingURL && <li><FaLink size='1.5em'/><b> URL: </b><a target='_blank' href={property.listingURL}>{property.listingURL}</a></li>}
-                        {property.address && <li><FaDoorOpen size='1.5em'/><b> Address: </b>{property.address}</li>}
-                        {property.area && <li><FaChartArea size='1.5em'/><b> Area: </b>{property.area}</li>}
-                        {property.bathrooms && <li><FaBath size='1.5em'/><b> Bathrooms: </b>{property.bathrooms}</li>}
-                        {property.bedrooms && <li><FaBed size='1.5em'/><b> Bedrooms: </b>{property.bedrooms}</li>}
-                        {property.carspaces && <li><FaCar size='1.5em'/><b> Car spaces: </b>{property.carspaces}</li>}
-                        {property.zone && <li><GiAustralia size='1.5em'/><b> Zone: </b>{property.zone}</li>}
-                        {(property.floorSpaceRatio>0) && <li><FaBuilding size='1.5em'/><b> Floor Space Ratio: </b>{property.floorSpaceRatio}</li>}
-                        {property.minimumLotSize && <li><IoMdResize size='1.5em'/><b> Minimum Lot Size: </b>{property.minimumLotSize}</li>}
-                        {property.landValue && <li><GiReceiveMoney size='1.5em'/><b> Land Value: </b>{property.landValue}</li>}
-                        {property.pricePSM && <li><FaFileInvoiceDollar size='1.5em'/><b> Price per m<sup>2</sup>: </b>{property.pricePSM}</li>}
-                        {property.priceToLandValue && <li><FaBalanceScale size='1.5em'/><b> Price To Land Value: </b>{property.priceToLandValue}</li>}
-                        {property.summaryDescription && <li><FaInfo size='1.5em'/><b> Description: </b>{property.summaryDescription}</li>}       */}
+                        {price && <li><IoMdPricetags size='1.5em'/><b> Price: </b>{price}</li>}
+                        {listingURL && <li><FaLink size='1.5em'/><b> URL: </b><a target='_blank' rel="noopener noreferrer" href={listingURL}>{listingURL}</a></li>}
+                        {address && <li><FaDoorOpen size='1.5em'/><b> Address: </b>{address}</li>}
+                        {area && <li><FaChartArea size='1.5em'/><b> Area: </b>{area}</li>}
+                        {bathrooms && <li><FaBath size='1.5em'/><b> Bathrooms: </b>{bathrooms}</li>}
+                        {bedrooms && <li><FaBed size='1.5em'/><b> Bedrooms: </b>{bedrooms}</li>}
+                        {carspaces && <li><FaCar size='1.5em'/><b> Car spaces: </b>{carspaces}</li>}
+                        {zone && <li><GiAustralia size='1.5em'/><b> Zone: </b>{zone}</li>}
+                        {(floorSpaceRatio>0) && <li><FaBuilding size='1.5em'/><b> Floor Space Ratio: </b>{floorSpaceRatio}</li>}
+                        {minimumLotSize && <li><IoMdResize size='1.5em'/><b> Minimum Lot Size: </b>{minimumLotSize}</li>}
+                        {landValue && <li><GiReceiveMoney size='1.5em'/><b> Land Value: </b>{landValue}</li>}
+                        {pricePSM && <li><FaFileInvoiceDollar size='1.5em'/><b> Price per m<sup>2</sup>: </b>{pricePSM}</li>}
+                        {priceToLandValue && <li><FaBalanceScale size='1.5em'/><b> Price To Land Value: </b>{priceToLandValue}</li>}
+                        {summaryDescription && <li><FaInfo size='1.5em'/><b> Description: </b>{summaryDescription}</li>}      
                     </ul> 
                 </div>
             );
