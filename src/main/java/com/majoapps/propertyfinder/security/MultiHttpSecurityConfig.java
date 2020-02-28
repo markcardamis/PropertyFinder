@@ -40,8 +40,8 @@ public class MultiHttpSecurityConfig {
                     .and()
                 .authorizeRequests()
                     .antMatchers(HttpMethod.GET,
-                                "/", "/api/listing", "/api/listing/*", "/dist/*", 
-                                "/implicit/callback", "/login", "/login/*", "/css/**", 
+                                "/", "/api/listing", "/api/listing/*", "/api/propertyinformation/*",
+                                "/dist/*", "/implicit/callback", "/login", "/login/*", "/css/**", 
                                 "/images/**", "/favicon.ico").permitAll()
                     .and()
                 .authorizeRequests()
