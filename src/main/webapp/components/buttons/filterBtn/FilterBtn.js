@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
-import { FiFilter } from 'react-icons/Fi';
+import { FiFilter } from 'react-icons/fi';
 
 import { style } from './style';
 
