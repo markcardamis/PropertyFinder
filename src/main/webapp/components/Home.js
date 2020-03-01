@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
-import { GiMagnifyingGlass} from 'react-icons/gi';
 import { connect } from 'react-redux';
 
-import PropertyInformation from '../components/widgets/PropertyInformation';
+import PropertyInformation from './widgets/propertyInformation/PropertyInformation';
 import FilterWidget from './widgets/FilterWidget';
 import SignIn from './widgets/SignIn';
 import Map from './map/Map';
 import MapGL from './map/MapGL';
+import FilterBtn from './buttons/filterBtn/FilterBtn';
 
 class Home extends Component {
   constructor( props ) {
@@ -55,9 +55,7 @@ class Home extends Component {
     return (
       <div>
         {button}
-        <button className='searchButton' onClick={this.toggleFilter}>
-          <GiMagnifyingGlass size='2em'/>
-        </button>
+        <FilterBtn onClick = {this.toggleFilter}/>
         {this.props.home.showFilter && <FilterWidget handleCloseFilter={this.handleCloseFilter}/>}
         {this.props.home.showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}
         {this.props.home.showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>}
