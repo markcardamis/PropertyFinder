@@ -1,3 +1,5 @@
+@import './fonts';
+
 html {
     overflow-x: hidden;
     overflow-y: scroll;
@@ -13,7 +15,6 @@ body {
     padding: 20px;
     margin: 0;
     display: flex;
-
 }
 
 .loginButton {

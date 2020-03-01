@@ -1,9 +1,10 @@
 .mapContainer {
     position: absolute;
-    top: 90px;
+    top: 0;
     right: 0;
     left: 0;
     bottom: 0;
+    z-index: -10;
     }
     
     #map canvas {
@@ -18,7 +19,7 @@
         cursor: pointer;
         }
 
-    .marker:hover, :focus {
+    .marker:hover, .marker:focus {
         background-image: url('https://cdn4.iconfinder.com/data/icons/social-messaging-ui-coloricon-2/21/129-512.png');
         background-size: cover;
         width: 30px;
