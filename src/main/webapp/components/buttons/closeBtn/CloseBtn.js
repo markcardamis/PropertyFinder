@@ -9,7 +9,7 @@ const CloseBtn = (props) => {
     const classes = style();
     return (
         <div className={classes.closeBtn}>
-            <IconButton color='primary' onClick={() => props.onClick} className={classes.button}>
+            <IconButton color='primary' onClick={props.onClick} className={classes.button}>
                 <IoMdClose className={classes.icon}/>
             </IconButton>
         </div>

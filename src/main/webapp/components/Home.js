@@ -3,9 +3,8 @@ import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
 
 import PropertyInformation from './widgets/propertyInformation/PropertyInformation';
-import FilterWidget from './widgets/FilterWidget';
+import Filter from './widgets/filter/Filter';
 import SignIn from './widgets/SignIn';
-import Map from './map/Map';
 import MapGL from './map/MapGL';
 import FilterBtn from './buttons/filterBtn/FilterBtn';
 
@@ -56,11 +55,10 @@ class Home extends Component {
       <div>
         {button}
         <FilterBtn onClick = {this.toggleFilter}/>
-        {this.props.home.showFilter && <FilterWidget handleCloseFilter={this.handleCloseFilter}/>}
+        {this.props.home.showFilter && <Filter handleCloseFilter={this.handleCloseFilter}/>}
         {this.props.home.showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}
         {this.props.home.showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>}
         <MapGL/>
-        {/* <Map/> */}
       </div>
     );
   }

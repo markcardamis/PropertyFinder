@@ -1,5 +1,6 @@
-export const MAPBOX_API = process.env.MAPBOX_API;
-export const MAPBOX_STYLE = process.env.MAPBOX_STYLE;
+export const MAPBOX_API = 'pk.eyJ1IjoibWFya2NhcmRhbWlzIiwiYSI6ImNrNHRjdXpiYzBkcWQzbm16ODYwdzY5cWEifQ.gE7Zv7nQCWGpVzhI-zeu7A';
+export const MAPBOX_STYLE = 'mapbox://styles/markcardamis/ck4vap1q23osy1cqm87fu5jrh';
+
 export const DEFAULT_HOUSE_IMAGE = 'https://www.vestnorden.com/wp-content/uploads/2018/03/house-placeholder.png';
 export const FILTER_PARAMETERS = ['propertyZone', 'propertyAreaMin', 'propertyAreaMax', 'propertyPriceMin', 'propertyPriceMax', 'propertyPricePSMMin', 'propertyPricePSMMax', 'propertyPostCode', 'propertyPriceToLandValueMin', 'propertyPriceToLandValueMax','propertyFloorSpaceRatioMin', 'propertyFloorSpaceRatioMax'];
 

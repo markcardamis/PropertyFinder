@@ -11,6 +11,48 @@ import './MapGL.css';
  
     mapboxgl.accessToken = MAPBOX_API;
     let map;
+
+    const points = [{
+        id: 1700344,
+        latitude: -33.73167,
+        longitude: 151.171982
+    },
+    {
+        id: 1700345,
+        latitude: -33.59066,
+        longitude: 150.256363
+    },
+    {
+        "id": 1700346,
+        "latitude": -33.7234,
+        "longitude": 150.447586
+    }]
+
+    const markerInfo = {
+        "id": 1832596,
+        "price": "$199,000 to $220,000",
+        "listingURL": "https://www.domain.com.au/16-eastern-avenue-hazelbrook-nsw-2779-2015439865",
+        "listingPhoto": "https://bucket-api.domain.com.au/v1/bucket/image/2015439865_1_1_190712_052455-w4032-h3024",
+        "address": "16 EASTERN AVENUE HAZELBROOK 2779",
+        "unitNumber": "",
+        "houseNumber": "16",
+        "streetName": "Eastern Avenue",
+        "suburbName": "HAZELBROOK",
+        "postCode": "2779",
+        "area": 1043,
+        "bathrooms": null,
+        "bedrooms": null,
+        "carspaces": null,
+        "latitude": -33.7234,
+        "longitude": 150.447586,
+        "summaryDescription": "this terrific parcel of land is nestled in a cul-de-sac and provides the perfect opportunity for those looking to build their dream home in the mountains. balancing a lovely sense of the surrounding nature and conveniences of nearby lawson...",
+        "zone": "E4",
+        "floorSpaceRatio": 0.00,
+        "minimumLotSize": null,
+        "landValue": 201000,
+        "pricePSM": 190,
+        "priceToLandValue": 1.00
+    }
  
 class MapGL extends React.Component {
     constructor(props) {
@@ -33,13 +75,36 @@ componentDidMount() {
     this.renderMarkers();
 
     map.on('click', (e) => this.handlePropertyClick(e)); 
+    // map.on('mouseover', (e) => this.renderPopup(e));
 }
+
+
+//renderPopup = () => {
+    //alert('hey')
+    // map.on('click', 'places', function(e) {
+    //     var coordinates = e.features[0].geometry.coordinates.slice();
+    //     var description = e.features[0].properties.description;
+         
+    //     // Ensure that if the map is zoomed out such that multiple
+    //     // copies of the feature are visible, the popup appears
+    //     // over the copy being pointed to.
+    //     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    //     }
+         
+    //     new mapboxgl.Popup()
+    //     .setLngLat(coordinates)
+    //     .setHTML(description)
+    //     .addTo(map);
+    //     });
+//}
 
 renderMarkers = async () => {
     await this.callApi('/api/listing', null, 'MARKERS')
     const { mapMarker } = this.props.mapGL;
 
-    mapMarker.forEach((marker) => {
+    // mapMarker.forEach((marker) => {
+        points.forEach((marker) => { 
         var el = document.createElement('div');
         el.className = 'marker';
         el.tabIndex = 0;
@@ -54,7 +119,10 @@ renderMarkers = async () => {
 }
 
 handleMarkerClick = (marker) => {
-   this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
+    //
+    this.props.dispatch({type: 'SHOW_PROPERTY', payload: markerInfo});
+
+//    this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
 }
 
 handlePropertyClick = (e) => {

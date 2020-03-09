@@ -7,17 +7,15 @@ import { style } from './style';
 const FilterBtn = (props) => {
     const classes = style();
     return (
-        <div>
             <Button 
                 variant='contained' 
                 color='secondary' 
                 className={classes.filterBtn} 
-                onClick={() => props.onClick}
+                onClick={props.onClick}
                 >
                 <FiFilter size='2em'/>
             </Button>
-        </div>
-    );
-};
+         );
+    };
 
 export default FilterBtn;
