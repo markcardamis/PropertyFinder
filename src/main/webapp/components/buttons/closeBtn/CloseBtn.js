@@ -1,7 +1,6 @@
 import React from 'react';
 import {IconButton} from '@material-ui/core';
 import { IoMdClose } from 'react-icons/io';
-import { withStyles } from '@material-ui/core/styles';
 
 import {style} from './style';
 
@@ -16,4 +15,4 @@ const CloseBtn = (props) => {
     )
 }
 
-export default withStyles(style)(CloseBtn);
+export default CloseBtn;

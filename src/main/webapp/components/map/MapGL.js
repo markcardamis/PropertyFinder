@@ -70,40 +70,38 @@ componentDidMount() {
         center: [INITIAL_VIEWPORT.longitude, INITIAL_VIEWPORT.latitude],
         zoom: INITIAL_VIEWPORT.zoom
         });  
+
     map.addControl(new mapboxgl.NavigationControl());
     this.checkAuthentication();
     this.renderMarkers();
 
     map.on('click', (e) => this.handlePropertyClick(e)); 
-    // map.on('mouseover', (e) => this.renderPopup(e));
+    map.on('mouseover', (e) => this.renderPopup(e));
+
 }
 
 
-//renderPopup = () => {
-    //alert('hey')
-    // map.on('click', 'places', function(e) {
-    //     var coordinates = e.features[0].geometry.coordinates.slice();
-    //     var description = e.features[0].properties.description;
+renderPopup = () => {
+    map.on('click', 'places', function(e) {
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description = e.features[0].properties.description;
          
-    //     // Ensure that if the map is zoomed out such that multiple
-    //     // copies of the feature are visible, the popup appears
-    //     // over the copy being pointed to.
-    //     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-    //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    //     }
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
          
-    //     new mapboxgl.Popup()
-    //     .setLngLat(coordinates)
-    //     .setHTML(description)
-    //     .addTo(map);
-    //     });
-//}
+        new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(description)
+        .addTo(map);
+        });
+}
 
 renderMarkers = async () => {
     await this.callApi('/api/listing', null, 'MARKERS')
     const { mapMarker } = this.props.mapGL;
 
-    // mapMarker.forEach((marker) => {
+    //mapMarker.forEach((marker) => {
         points.forEach((marker) => { 
         var el = document.createElement('div');
         el.className = 'marker';
@@ -122,7 +120,7 @@ handleMarkerClick = (marker) => {
     //
     this.props.dispatch({type: 'SHOW_PROPERTY', payload: markerInfo});
 
-//    this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
+   this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
 }
 
 handlePropertyClick = (e) => {
@@ -155,7 +153,7 @@ callApi = async (api, auth, action) => {
         dispatch({type: action, payload: data});
 
     } catch (err) {
-        console.log('User not found')
+        console.log('Api call failed')
         // add notification
     }  
 }

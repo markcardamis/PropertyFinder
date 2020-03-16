@@ -9,20 +9,30 @@ export const style = makeStyles({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: '15px 0 15px 0'
+        padding: '25px',
     },
     title: {
         color: '#FFFFFF',
         fontFamily: 'Roboto-Bold',
+        fontSize: 34,
+
+        '&:hover': { 
+            color: '#FFFFFF',
+            textDecoration: 'none',
+            fontFamily: 'Roboto-Bold',
+        },
+       
     },
     button: {
         color: '#FFFFFF',
         maxWidth: '100px',
         outline: 'none',
+        fontFamily: 'Roboto-Bold',
 
         '&:hover': { 
             color: '#FFFFFF',
-            textDecoration: 'none'
+            textDecoration: 'none',
+            fontFamily: 'Roboto-Bold',
         },
    
     }

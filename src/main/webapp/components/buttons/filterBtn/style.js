@@ -7,8 +7,8 @@ export const style = makeStyles({
         border: 'none', 
         borderRadius: '50%',
         color: '#FFFFFF',
-        marginLeft: '80px',
-        marginTop: '120px',
+        marginLeft: '50px',
+        marginTop: '100px',
         position: 'absolute',
         zIndex: 10,
         outline: 'none !important' 
