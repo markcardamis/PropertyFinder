@@ -4,7 +4,7 @@ export const style = makeStyles({
     propertyInformation: {
         padding: '20px',
         width: '330px',
-        height: 'auto',
+        maxHeight: '75%',
         border: '1px solid #d0d3d9',
         borderRadius: '10px',
         backgroundColor: '#FFFFFF',
@@ -14,7 +14,9 @@ export const style = makeStyles({
         right: 0,
         listStyle: 'none',
         cursor: 'default',
-        fontSize: '12px'
+        fontSize: '12px',
+        overflowY: 'auto',
+        marginTop: '40px'
     },
     img: {
         width: '150px',

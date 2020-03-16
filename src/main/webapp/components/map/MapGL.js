@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
 import { IoIosPin } from 'react-icons/io';
@@ -76,33 +77,35 @@ componentDidMount() {
     this.renderMarkers();
 
     map.on('click', (e) => this.handlePropertyClick(e)); 
-    map.on('mouseover', (e) => this.renderPopup(e));
+    map.on('click', (e) => this.renderPopup(e));
 
 }
 
 
 renderPopup = () => {
-    map.on('click', 'places', function(e) {
-        var coordinates = e.features[0].geometry.coordinates.slice();
-        var description = e.features[0].properties.description;
+        // var coordinates = e.features[0].geometry.coordinates.slice();
+        // var description = e.features[0].properties.description;
          
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
+        // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        // coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        // }
          
-        new mapboxgl.Popup()
-        .setLngLat(coordinates)
-        .setHTML(description)
-        .addTo(map);
-        });
+        // new mapboxgl.Popup()
+        // .setLngLat(coordinates)
+        // .setHTML(description)
+        // .addTo(map);
+        // new mapboxgl.Popup()
+        // .setLngLat([150.447586, -33.7234])
+        // .setHTML('hello')
+        // .addTo(map);
 }
 
 renderMarkers = async () => {
     await this.callApi('/api/listing', null, 'MARKERS')
     const { mapMarker } = this.props.mapGL;
 
-    //mapMarker.forEach((marker) => {
-        points.forEach((marker) => { 
+    mapMarker.forEach((marker) => {
+       // points.forEach((marker) => { 
         var el = document.createElement('div');
         el.className = 'marker';
         el.tabIndex = 0;
@@ -137,9 +140,10 @@ handlePropertyClick = (e) => {
         displayFeatures.map(async (property) => {
             if (property.properties && property.properties.propid) {
                 let propid = property.properties.propid;
+                console.log(propid)
                 const api = `/api/propertyinformation/${propid}`;
                 const auth = {headers: {Authorization: 'Bearer ' + await this.props.auth.getAccessToken()}};
-                this.callApi(api, auth, 'SHOW_PROPERTY');
+                this.callApi(api, auth, 'SHOW_POPUP');
             }            
         });
     }
