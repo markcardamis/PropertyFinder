@@ -54,6 +54,44 @@ import './MapGL.css';
         "pricePSM": 190,
         "priceToLandValue": 1.00
     }
+    const propertyid = {
+        "districtCode": 261,
+        "districtName": "CUMBERLAND",
+        "propertyId": 820871,
+        "propertyType": "NORMAL",
+        "propertyName": null,
+        "unitNumber": null,
+        "houseNumber": "282",
+        "streetName": "EXCELSIOR ST",
+        "suburbName": "GUILDFORD",
+        "postCode": "2161",
+        "zoneCode": "R2",
+        "area": 550.10,
+        "areaType": "M",
+        "baseDate1": "2018-01-07",
+        "landValue1": 565000,
+        "authority1": "14A(1)",
+        "basis1": "6A(1)",
+        "baseDate2": "2017-01-07",
+        "landValue2": 612000,
+        "authority2": "14A(1)",
+        "basis2": "6A(1)",
+        "baseDate3": "2016-01-07",
+        "landValue3": 541000,
+        "authority3": "14A(1)",
+        "basis3": "6A(1)",
+        "baseDate4": "2015-01-07",
+        "landValue4": 494000,
+        "authority4": "14A(1)",
+        "basis4": "6A(1)",
+        "baseDate5": "2014-01-07",
+        "landValue5": 348000,
+        "authority5": "14A(1)",
+        "basis5": "6A(1)",
+        "floorSpaceRatio": 0.50,
+        "minimumLotSize": "550",
+        "buildingHeight": 9.00
+    }
  
 class MapGL extends React.Component {
     constructor(props) {
@@ -77,27 +115,28 @@ componentDidMount() {
     this.renderMarkers();
 
     map.on('click', (e) => this.handlePropertyClick(e)); 
-    map.on('click', (e) => this.renderPopup(e));
 
 }
 
 
-renderPopup = () => {
-        // var coordinates = e.features[0].geometry.coordinates.slice();
-        // var description = e.features[0].properties.description;
-         
-        // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        // coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        // }
-         
-        // new mapboxgl.Popup()
-        // .setLngLat(coordinates)
-        // .setHTML(description)
-        // .addTo(map);
-        // new mapboxgl.Popup()
-        // .setLngLat([150.447586, -33.7234])
-        // .setHTML('hello')
-        // .addTo(map);
+renderPopup = (e) => {
+        //const {propertyId, address, zoneCode, area, landValue1, floorSpaceRatio, minimumLotSize, buildingHeight} = this.props.mapGL.showPopup;
+        // const propertyData = [
+        //                         propertyId && `<h6>Property ID: ${propertyId}</h6>`,
+        //                         address && `<div>Address: ${address}</div>`,
+        //                         zoneCode && `<div>Zone Code: ${zoneCode}</div>`,
+        //                         area `<div>Area: ${area}</div>`,
+        //                         landValue1 && `<div>Land Value: ${landValue1}</div>`,
+        //                         floorSpaceRatio && `<div>Floor Space Ratio: ${floorSpaceRatio}</div>`,
+        //                         minimumLotSize && `<div>Minimum Lot Size: ${minimumLotSize}</div>`,
+        //                         buildingHeight && `<div>Building Height: ${buildingHeight}</div>`
+        //                     ]
+        const propertyData = `<h5>Property ID: ${this.props.mapGL.showPopup.propertyId}</h5><div>Address: ${this.props.mapGL.showPopup.address}</div><div>Zone Code: ${this.props.mapGL.showPopup.zoneCode}</div><div>Area: ${this.props.mapGL.showPopup.area}</div><div>Land Value: ${this.props.mapGL.showPopup.landValue1}</div><div>Floor Space Ratio: ${this.props.mapGL.showPopup.floorSpaceRatio}</div><div>Minimum Lot Size: ${this.props.mapGL.showPopup.minimumLotSize}</div><div>Building Height: ${this.props.mapGL.showPopup.buildingHeight}</div>`
+        new mapboxgl.Popup()
+        .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
+        // .setHTML(propertyData.join(''))
+        .setHTML(propertyData)
+        .addTo(map);
 }
 
 renderMarkers = async () => {
@@ -105,7 +144,7 @@ renderMarkers = async () => {
     const { mapMarker } = this.props.mapGL;
 
     mapMarker.forEach((marker) => {
-       // points.forEach((marker) => { 
+    //    points.forEach((marker) => { 
         var el = document.createElement('div');
         el.className = 'marker';
         el.tabIndex = 0;
@@ -121,12 +160,12 @@ renderMarkers = async () => {
 
 handleMarkerClick = (marker) => {
     //
-    this.props.dispatch({type: 'SHOW_PROPERTY', payload: markerInfo});
+   this.props.dispatch({type: 'SHOW_PROPERTY', payload: markerInfo});
 
    this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
 }
 
-handlePropertyClick = (e) => {
+handlePropertyClick = async (e) => {
     let features = map.queryRenderedFeatures(e.point);
     let displayProperties = ['properties'];
 
@@ -140,10 +179,10 @@ handlePropertyClick = (e) => {
         displayFeatures.map(async (property) => {
             if (property.properties && property.properties.propid) {
                 let propid = property.properties.propid;
-                console.log(propid)
                 const api = `/api/propertyinformation/${propid}`;
                 const auth = {headers: {Authorization: 'Bearer ' + await this.props.auth.getAccessToken()}};
-                this.callApi(api, auth, 'SHOW_POPUP');
+                await this.callApi(api, auth, 'SHOW_POPUP');
+                this.renderPopup(e)
             }            
         });
     }
@@ -174,6 +213,7 @@ checkAuthentication = async () => {
     render() {
     return (
         <div>
+            {console.log(this.props)}
             <div ref={el => this.mapContainer = el} className='mapContainer' id='map'/>
         </div>
         );

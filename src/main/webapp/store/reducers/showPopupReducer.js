@@ -10,5 +10,4 @@ const showPopupReducer = (state = initialState, action) => {
             return state;
     }
 };
-
 export default showPopupReducer;
