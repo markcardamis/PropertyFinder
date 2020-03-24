@@ -1,27 +1,27 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
-import { IoIosPin } from 'react-icons/io';
+// import { IoIosPin } from 'react-icons/io';
 
 
-import { INITIAL_VIEWPORT,  MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
-import { points, markerInfo, propertyid } from '../../../../../contsants_temp';
+import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
+// import { points, markerInfo, propertyid } from '../../../../../contsants_temp';
 import './MapGL.css';
  
-    mapboxgl.accessToken = MAPBOX_API
+    mapboxgl.accessToken = MAPBOX_API;
     let map;
     let currentMarkers = [];
     let oneMarker;
  
 class MapGL extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
              authenticated: null,
-        }
+        };
     }
     
 async componentDidMount() {
@@ -47,7 +47,7 @@ componentDidUpdate() {
           currentMarkers[i].remove();
         }
     }
-    currentMarkers = []
+    currentMarkers = [];
     this.renderMarkers();
 }
 
@@ -70,7 +70,7 @@ renderPopup = (e) => {
         //                         minimumLotSize && `<div>Minimum Lot Size: ${minimumLotSize}</div>`,
         //                         buildingHeight && `<div>Building Height: ${buildingHeight}</div>`
         //                     ]
-        const propertyData = `<h5>Property ID: ${this.props.mapGL.showPopup.propertyId}</h5><div>Address: ${this.props.mapGL.showPopup.address}</div><div>Zone Code: ${this.props.mapGL.showPopup.zoneCode}</div><div>Area: ${this.props.mapGL.showPopup.area}</div><div>Land Value: ${this.props.mapGL.showPopup.landValue1}</div><div>Floor Space Ratio: ${this.props.mapGL.showPopup.floorSpaceRatio}</div><div>Minimum Lot Size: ${this.props.mapGL.showPopup.minimumLotSize}</div><div>Building Height: ${this.props.mapGL.showPopup.buildingHeight}</div>`
+        const propertyData = `<h5>Property ID: ${this.props.mapGL.showPopup.propertyId}</h5><div>Address: ${this.props.mapGL.showPopup.address}</div><div>Zone Code: ${this.props.mapGL.showPopup.zoneCode}</div><div>Area: ${this.props.mapGL.showPopup.area}</div><div>Land Value: ${this.props.mapGL.showPopup.landValue1}</div><div>Floor Space Ratio: ${this.props.mapGL.showPopup.floorSpaceRatio}</div><div>Minimum Lot Size: ${this.props.mapGL.showPopup.minimumLotSize}</div><div>Building Height: ${this.props.mapGL.showPopup.buildingHeight}</div>`;
         new mapboxgl.Popup()
         .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
         // .setHTML(propertyData.join(''))
@@ -121,7 +121,7 @@ handlePropertyClick = async (e) => {
                 const api = `/api/propertyinformation/${propid}`;
                 const auth = {headers: {Authorization: 'Bearer ' + await this.props.auth.getAccessToken()}};
                 await this.callApi(api, auth, 'SHOW_POPUP');
-                this.renderPopup(e)
+                this.renderPopup(e);
             }            
         });
     }
@@ -135,7 +135,7 @@ callApi = async (api, auth, action) => {
         dispatch({type: action, payload: data});
 
     } catch (err) {
-        console.log('Api call failed')
+        console.log('Api call failed');
         // add notification
     }  
 }
