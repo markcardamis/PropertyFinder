@@ -7,11 +7,11 @@ import { connect } from 'react-redux';
 import { IoIosPin } from 'react-icons/io';
 
 
-import { INITIAL_VIEWPORT,  MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
+import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
 import { points, markerInfo, propertyid } from '../../../../../contsants_temp';
 import './MapGL.css';
  
-    mapboxgl.accessToken = MAPBOX_API
+    mapboxgl.accessToken = MAPBOX_API;
     let map;
     let currentMarkers = [];
     let marker;
