@@ -15,6 +15,7 @@ export default withAuth(
         sessionToken: null,
         errorMessage: ''
       };
+      
       this.oktaAuth = new OktaAuth({ url: props.baseUrl });
       this.checkAuthentication();
     }

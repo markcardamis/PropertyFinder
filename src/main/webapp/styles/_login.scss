@@ -1,0 +1,49 @@
+.loginForm {
+    padding: 30px;
+
+    .inputLabel {
+        color: #3c475b;
+        margin-left: 15px;
+    }
+
+    .formInput {
+        display: block;
+        margin-bottom: 8px;
+        border-radius: 20px;
+        width: 100%;
+        height: 40px;
+        padding: 5px 15px 5px 15px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .formBtn {
+        display: block;
+        margin-top: 30px;
+        border-radius: 20px;
+        width: 100%;
+        height: 40px;
+        padding: 5px 15px 5px 15px;
+        font-weight: 600;
+
+        &:hover {
+            background-color: $bg-pink;
+            color: $white;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+

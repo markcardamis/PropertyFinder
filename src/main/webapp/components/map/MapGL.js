@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import { IoIosPin } from 'react-icons/io';
 
 
-import { INITIAL_VIEWPORT, points, markerInfo, propertyid } from '../../shared/constants';
-import { MAPBOX_API, MAPBOX_STYLE } from '../../../../../contsants_sensitive';
+import { INITIAL_VIEWPORT,  MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
+import { points, markerInfo, propertyid } from '../../../../../contsants_temp';
 import './MapGL.css';
  
     mapboxgl.accessToken = MAPBOX_API

@@ -3,7 +3,7 @@ import { withAuth } from '@okta/okta-react';
 import {Field, reduxForm} from 'redux-form';
 
 import { renderField, onlyNumber, minValue0, maxValue99, maxValue999, maxValue9999, maxValue1000000, maxValue50000000 } from '../../../shared/formValidation';
-
+import FilterWidgetBtn from '../../buttons/filterWidgetBtn/FilterWidgetBtn';
 
 class FilterTab extends React.Component {
 
@@ -65,8 +65,12 @@ class FilterTab extends React.Component {
                              <Field name='propertyFloorSpaceRatioMax' component={renderField} validate={[onlyNumber, maxValue99]} type='text' placeholder='max' style={{width: '60px'}}/> 
                             </span>
                          </div>
-                        <button type='submit' disabled={submitting}>Search</button>
-                        <button type='button' onClick={handleSaveFilter}>Save preferences</button>
+                        {/* <button type='submit' disabled={submitting}>Search</button>
+                        <button type='button' onClick={handleSaveFilter}>Save preferences</button> */}
+                        <div className='filterBtnContainer'>
+                          <FilterWidgetBtn disabled={submitting} title={'Search'} onClick={handleSubmit}/>
+                          <FilterWidgetBtn disabled={false} title={'Save preferences'} onClick={handleSaveFilter}/>
+                        </div>
                     </div>
                   </form>
               </div>

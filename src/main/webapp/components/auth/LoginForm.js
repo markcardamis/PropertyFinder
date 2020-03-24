@@ -49,7 +49,7 @@ export default withAuth(
         <div>
           { this.state.errorMessage && <h3 className="error"> { this.state.errorMessage } </h3> }
           <form className='loginForm' onSubmit={this.handleSubmit}>
-            <label>Username:</label>
+            <label className='inputLabel'>Username:</label>
             <input
               className='formInput'
               id="username"
@@ -57,7 +57,7 @@ export default withAuth(
               value={this.state.username}
               onChange={this.handleChange}
             />
-            <label>Password:</label>
+            <label className='inputLabel'>Password:</label>
             <input
               className='formInput'
               id="password"
@@ -65,7 +65,7 @@ export default withAuth(
               value={this.state.password}
               onChange={this.handleChange}
             />
-            <input className='formInput' id="submit" type="submit" value="Submit" />
+            <input className='formBtn' id="submit" type="submit" value="Submit" />
           </form>
         </div>
       );

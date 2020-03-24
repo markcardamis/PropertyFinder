@@ -7,6 +7,7 @@ import Filter from './widgets/filter/Filter';
 import SignIn from './widgets/SignIn';
 import MapGL from './map/MapGL';
 import FilterBtn from './buttons/filterBtn/FilterBtn';
+import LoginBtn from './buttons/loginBtn/LoginBtn';
 
 class Home extends Component {
   constructor( props ) {
@@ -45,15 +46,15 @@ class Home extends Component {
 }
 
   render() {
-  //   if ( this.state.authenticated === null ) return null;
+    if ( this.state.authenticated === null ) return null;
   
-  //   const button = this.state.authenticated ?
-  //     <button className='loginButton' onClick={() => {this.props.auth.logout();}}>Logout</button> : 
-  //     <button className='loginButton' onClick={() => {this.props.auth.login();}}>Login</button>;
+    const button = this.state.authenticated ?
+      <LoginBtn onClick={() => {this.props.auth.logout()}} title={'Logout'}/> : 
+      <LoginBtn onClick={() => {this.props.auth.login()}} title={'Login'}/>
 
     return (
       <div>
-        {/* {button} */}
+        {button}
         <FilterBtn onClick = {this.toggleFilter}/>
         {this.props.home.showFilter && <Filter handleCloseFilter={this.handleCloseFilter}/>}
         {this.props.home.showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}
