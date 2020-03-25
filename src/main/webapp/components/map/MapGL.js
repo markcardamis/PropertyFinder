@@ -82,24 +82,22 @@ renderMarkers = async () => {
     const { mapMarker } = this.props.mapGL;
 
     mapMarker.forEach((marker) => {
-      //points.forEach((marker) => { 
+    // points.forEach((marker) => { 
         var el = document.createElement('div');
         el.className = 'marker';
         el.tabIndex = 0;
-    
+
         oneMarker = new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map);
-        el.addEventListener('click', (marker) => {
-            this.handleMarkerClick(marker);
-        });
-        currentMarkers.push(oneMarker);
+        el.addEventListener('click', () => {this.handleMarkerClick(marker)});
       });
 }
 
 handleMarkerClick = (marker) => {
     //
-   //this.props.dispatch({type: 'SHOW_PROPERTY', payload: markerInfo});
+//     console.log(marker.id)
+//   this.props.dispatch({type: 'SHOW_PROPERTY', payload: markerInfo});
 
    this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
 }

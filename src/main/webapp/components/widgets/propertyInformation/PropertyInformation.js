@@ -4,7 +4,6 @@ import { FaBed, FaBath, FaCar, FaChartArea, FaBuilding, FaDoorOpen, FaLink, FaIn
 import { GiReceiveMoney, GiAustralia } from 'react-icons/gi';
 import { IoMdPricetags, IoMdResize } from 'react-icons/io';
 import Avatar from '@material-ui/core/Avatar';
-import { withStyles } from '@material-ui/core/styles';
 
 
 import { DEFAULT_HOUSE_IMAGE } from '../../../shared/constants';
@@ -53,5 +52,5 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withStyles(style)(connect(mapStateToProps)(PropertyInformation));
+export default connect(mapStateToProps)(PropertyInformation);
 
