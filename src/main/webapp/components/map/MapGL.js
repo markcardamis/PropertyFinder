@@ -99,8 +99,7 @@ handlePropertyClick = async (e) => {
             if (property.properties && property.properties.propid) {
                 let propid = property.properties.propid;
                 const api = `/api/propertyinformation/${propid}`;
-                const auth = {headers: {Authorization: 'Bearer ' + await this.props.auth.getAccessToken()}};
-                await this.callApi(api, auth, 'SHOW_POPUP');
+                await this.callApi(api, null, 'SHOW_POPUP');
                 this.renderPopup(e);
             }            
         });
