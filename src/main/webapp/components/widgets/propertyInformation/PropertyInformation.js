@@ -53,5 +53,5 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withStyles(style)(connect(mapStateToProps)(PropertyInformation));
+export default connect(mapStateToProps)(PropertyInformation);
 
