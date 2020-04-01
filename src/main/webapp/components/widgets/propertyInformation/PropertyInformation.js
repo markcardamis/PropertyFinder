@@ -24,10 +24,7 @@ const PropertyInformation = (props) => {
                         <CloseBtn onClick={handleClosePropertyInfo}/>
                         <h5>Property ID: {id}</h5>
                         <li><Avatar variant='rounded' src={listingPhoto || DEFAULT_HOUSE_IMAGE} className={classes.img}/></li>
-                       
-                        {/* {zoneCode && <li><GiAustralia size='1.5em'/><b> Zone Code: </b>{zoneCode}</li>}
-                        {buildingHeight && <li><FaInfo size='1.5em'/><b> Building Height: </b>{buildingHeight}</li>} */}
-
+ 
                         {price && <li><IoMdPricetags size='1.5em'/><b> Price: </b>{price}</li>}
                         {listingURL && <li><FaLink size='1.5em'/><b> URL: </b><a target='_blank' rel="noopener noreferrer" href={listingURL}>Link</a></li>}
                         {address && <li><FaDoorOpen size='1.5em'/><b> Address: </b>{address}</li>}

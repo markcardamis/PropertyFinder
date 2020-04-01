@@ -13,13 +13,13 @@ export const style = makeStyles({
     },
     title: {
         color: '#FFFFFF',
-        fontFamily: 'Roboto-Bold',
+        fontFamily: 'Arial',
         fontSize: 34,
+        fontWeight: '700',
 
         '&:hover': { 
             color: '#FFFFFF',
             textDecoration: 'none',
-            fontFamily: 'Roboto-Bold',
         },
        
     },
@@ -27,12 +27,12 @@ export const style = makeStyles({
         color: '#FFFFFF',
         maxWidth: '100px',
         outline: 'none',
-        fontFamily: 'Roboto-Bold',
+        fontFamily: 'Arial',
+        fontWeight: '700',
 
         '&:hover': { 
             color: '#FFFFFF',
             textDecoration: 'none',
-            fontFamily: 'Roboto-Bold',
         },
    
     }

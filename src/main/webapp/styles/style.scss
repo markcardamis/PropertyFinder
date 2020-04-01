@@ -1,7 +1,6 @@
 
 @import './variables';
-@import './_fonts';
-@import './_login.scss';
+@import './_login';
 
 html {
     overflow-x: hidden;
@@ -100,4 +99,30 @@ border-bottom: 1px solid grey;
 
 .login {
     margin: 40px;
+}
+.react-tabs__tab {
+    width: 40%;
+    color: $font-base;
+}
+.react-tabs__tab-list {
+   margin-top: 10;
+
+}
+.slider {
+    margin-right: 20px;
+}
+.marginTop {
+margin-top: 20px;
+}
+.validation {
+    color: red;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+}
+.zone {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }

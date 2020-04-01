@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import PropertyInformation from './widgets/propertyInformation/PropertyInformation';
 import Filter from './widgets/filter/Filter';
-import SignIn from './widgets/SignIn';
+import SignIn from './widgets/signIn/SignIn';
 import MapGL from './map/MapGL';
 import FilterBtn from './buttons/filterBtn/FilterBtn';
 import LoginBtn from './buttons/loginBtn/LoginBtn';
