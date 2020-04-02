@@ -16,6 +16,7 @@ export const style = makeStyles({
         fontFamily: 'Arial',
         fontSize: 34,
         fontWeight: '700',
+        textDecoration: 'none',
 
         '&:hover': { 
             color: '#FFFFFF',

@@ -1,12 +1,10 @@
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
-import {Field, FieldArray, reduxForm, Form} from 'redux-form';
 import {TextField, FormControlLabel, Typography, Checkbox, Button } from '@material-ui/core';
 import Dropdown from 'rc-dropdown';
-import Menu, { Item as MenuItem, Divider } from 'rc-menu';
+import Menu, { Item as MenuItem } from 'rc-menu';
 import 'rc-dropdown/assets/index.css';
 
-import { renderField, onlyNumber, minValue0, maxValue99, maxValue999, maxValue9999, maxValue1000000, maxValue50000000, maxLength4 } from '../../../shared/formValidation';
 import FilterWidgetBtn from '../../buttons/filterWidgetBtn/FilterWidgetBtn';
 import RangeSlider from '../../inputs/slider/Slider';
 
@@ -64,8 +62,7 @@ class FilterTab extends React.Component {
           <Menu onSelect={this.onSelect}>
             <MenuItem key="zone1"><FormControlLabel
                                   control={<Checkbox 
-                                      checked={this.state.zone === "zone1" ? true : false} 
-                                      // onChange={({key})=>this.setState({zone: key})} 
+                                      checked={this.state.zone === "zone1" ? true : false}
                                       color="primary"
                                     />}
                                     label="Zone 1"/>
@@ -73,8 +70,6 @@ class FilterTab extends React.Component {
             <MenuItem key="zone2"><FormControlLabel
                                   control={<Checkbox 
                                     checked={this.state.zone === "zone2" ? true : false}
-                                    // onChange={({key})=>this.setState({zone: key})} 
-                                     
                                     color="primary"
                                     />}
                                     label="Zone 2"/>
@@ -82,8 +77,6 @@ class FilterTab extends React.Component {
             <MenuItem key="zone3"><FormControlLabel
                                   control={<Checkbox 
                                     checked={this.state.zone === "zone3" ? true : false}
-                                    // onChange={({key})=>this.setState({zone: key})} 
-                                    
                                     color="primary"
                                     />}
                                     label="Zone 3"/>
@@ -176,9 +169,5 @@ class FilterTab extends React.Component {
         const {submitting } = props;
     }
 }
-
-// FilterTab = reduxForm({
-//     form: "filter"
-//   })(FilterTab);
 
   export default withAuth(FilterTab);

@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
+import {Button} from '@material-ui/core';
 
 export default withAuth(
   class RegistrationForm extends Component {
@@ -112,7 +113,16 @@ export default withAuth(
               value={this.state.password}
               onChange={this.handleChange}
             />
-            <input className='formInput' id="submit" type="submit" value="Register" />
+            <div className='registerBtn'>
+              <Button 
+                variant="contained" 
+                color="secondary"
+                className='formInput'
+                id="submit"
+                type="submit"
+                value="Register"
+                >Register</Button>
+            </div>
           </form>
         </div>
       );
