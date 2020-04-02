@@ -3,6 +3,7 @@ import { withAuth } from '@okta/okta-react';
 import {TextField, FormControlLabel, Typography, Checkbox, Button } from '@material-ui/core';
 import Dropdown from 'rc-dropdown';
 import Menu, { Item as MenuItem } from 'rc-menu';
+import { connect } from 'react-redux';
 import 'rc-dropdown/assets/index.css';
 
 import FilterWidgetBtn from '../../buttons/filterWidgetBtn/FilterWidgetBtn';
@@ -14,15 +15,23 @@ class FilterTab extends React.Component {
         super(props);
         this.state = {
             authenticated: null,
-            zone: null,
-            area: [0, 20000],
-            price: [100000, 5000000],
-            priceM2: [1, 10000],
-            postCode: '',
-            priceLandvalue: [0, 10 ],
-            floorspaceRatio: [0, 2],
+            // zone: null,
+            // area: [0, 20000],
+            // price: [100000, 5000000],
+            // priceM2: [1, 10000],
+            // postCode: '',
+            // priceLandvalue: [0, 10 ],
+            // floorspaceRatio: [0, 2],
+            zone: props.filterTab.filter.zone,
+            area: props.filterTab.filter.area,
+            price: props.filterTab.filter.price,
+            priceM2: props.filterTab.filter.priceM2,
+            postCode: props.filterTab.filter.postCode,
+            priceLandvalue: props.filterTab.filter.priceLandvalue,
+            floorspaceRatio: props.filterTab.filter.floorspaceRatio,
             showValidation: false      
         };
+
         this.checkAuthentication();
     }
 
@@ -134,7 +143,7 @@ class FilterTab extends React.Component {
                      labelMax={'$10 000+'}
                   />
                 </div>
-                <TextField label="Post Code" onChange={(even)=>this.setState({postCode: event.target.value})}/>
+                <TextField label="Post Code" value={this.state.postCode} onChange={(even)=>this.setState({postCode: event.target.value})}/>
                 {this.state.showValidation && <div className='validation'>*must be 4 digits</div>}
                 <div className='slider marginTop'>
                   <RangeSlider
@@ -169,5 +178,10 @@ class FilterTab extends React.Component {
         const {submitting } = props;
     }
 }
+const mapStateToProps = (state) => {
+  return {
+    filterTab: state
+  };
+};
 
-  export default withAuth(FilterTab);
+  export default withAuth(connect(mapStateToProps)(FilterTab));

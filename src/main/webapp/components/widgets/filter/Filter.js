@@ -52,6 +52,7 @@ class Filter extends Component {
     }
 
     handleEditFilter = async (item) => {
+      {console.log(item)}
       this.setState({editedFilter: item, tabIndex : 0});
       this.displayFilterValues(item);
 
@@ -69,9 +70,11 @@ class Filter extends Component {
 
 
     displayFilterValues = (item) => {
-      for (const prop in item) {
-        this.props.dispatch(change('filter', `${prop}`, item[prop]));
-      }    
+      console.log(item)
+      // for (const prop in item) {
+      //   this.props.dispatch(change('filter', `${prop}`, item[prop]));
+      // }  
+      this.props.dispatch({type: 'FILTER', payload: item})  
     };
                 
     saveFilter = async (method, path) => {
@@ -205,21 +208,5 @@ const mapStateToProps = (state) => {
     filter: state
   };
 };
-
-// const selector = formValueSelector("filter");
-// Filter = connect(state => {
- 
-//   const { propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
-//         propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
-//         propertyPriceToLandValueMax, propertyFloorSpaceRatioMin,propertyFloorSpaceRatioMax
-//         } = selector(state, ...FILTER_PARAMETERS);
-
-//   return {
-//         propertyZone, propertyAreaMin, propertyAreaMax, propertyPriceMin, propertyPriceMax,
-//         propertyPricePSMMin, propertyPricePSMMax, propertyPostCode, propertyPriceToLandValueMin,
-//         propertyPriceToLandValueMax, propertyFloorSpaceRatioMin, propertyFloorSpaceRatioMax
-//     };
-    
-//   })(Filter);
 
 export default withAuth(connect(mapStateToProps)(Filter));
