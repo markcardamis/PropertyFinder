@@ -33,7 +33,7 @@ async componentDidMount() {
     await this.callApi('/api/listing', null, 'MARKERS');
     this.renderMarkers();
 
-    map.on('mouseover', (e) => this.handlePropertyClick(e)); 
+    map.on('click', (e) => this.handlePropertyClick(e)); 
     map.on('move', () => this.handleViewportChange());
 }
 
