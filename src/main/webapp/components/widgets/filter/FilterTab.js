@@ -1,9 +1,13 @@
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
-import {Field, reduxForm} from 'redux-form';
+import {TextField, FormControlLabel, Typography, Checkbox, Button } from '@material-ui/core';
+import Dropdown from 'rc-dropdown';
+import Menu, { Item as MenuItem } from 'rc-menu';
+import { connect } from 'react-redux';
+import 'rc-dropdown/assets/index.css';
 
-import { renderField, onlyNumber, minValue0, maxValue99, maxValue999, maxValue9999, maxValue1000000, maxValue50000000 } from '../../../shared/formValidation';
 import FilterWidgetBtn from '../../buttons/filterWidgetBtn/FilterWidgetBtn';
+import RangeSlider from '../../inputs/slider/Slider';
 
 class FilterTab extends React.Component {
 
@@ -11,7 +15,23 @@ class FilterTab extends React.Component {
         super(props);
         this.state = {
             authenticated: null,
+            // zone: null,
+            // area: [0, 20000],
+            // price: [100000, 5000000],
+            // priceM2: [1, 10000],
+            // postCode: '',
+            // priceLandvalue: [0, 10 ],
+            // floorspaceRatio: [0, 2],
+            zone: props.filterTab.filter.zone,
+            area: props.filterTab.filter.area,
+            price: props.filterTab.filter.price,
+            priceM2: props.filterTab.filter.priceM2,
+            postCode: props.filterTab.filter.postCode,
+            priceLandvalue: props.filterTab.filter.priceLandvalue,
+            floorspaceRatio: props.filterTab.filter.floorspaceRatio,
+            showValidation: false      
         };
+
         this.checkAuthentication();
     }
 
@@ -26,61 +46,142 @@ class FilterTab extends React.Component {
         this.checkAuthentication();
       }
 
+    handleSubmit = async () => {
+      const {zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio} = this.state;
+
+      if (postCode.length !== 4 && postCode.length !== 0) {
+        this.setState({showValidation: true})
+      } else {
+        this.setState({showValidation: false});
+        await this.props.dispatch({
+          type: 'FILTER',
+          payload: {zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio}
+        })
+        this.props.handleSubmit();
+      }
+    }
+
+    onSelect = ({ key }) => {
+      this.setState({zone: key})
+    }
+
     render () {
-        const { handleSubmit, handleSaveFilter } = this.props;
+        const { handleSaveFilter } = this.props;
+        const menu = (
+          <Menu onSelect={this.onSelect}>
+            <MenuItem key="zone1"><FormControlLabel
+                                  control={<Checkbox 
+                                      checked={this.state.zone === "zone1" ? true : false}
+                                      color="primary"
+                                    />}
+                                    label="Zone 1"/>
+            </MenuItem>
+            <MenuItem key="zone2"><FormControlLabel
+                                  control={<Checkbox 
+                                    checked={this.state.zone === "zone2" ? true : false}
+                                    color="primary"
+                                    />}
+                                    label="Zone 2"/>
+            </MenuItem>
+            <MenuItem key="zone3"><FormControlLabel
+                                  control={<Checkbox 
+                                    checked={this.state.zone === "zone3" ? true : false}
+                                    color="primary"
+                                    />}
+                                    label="Zone 3"/>
+            </MenuItem>
+          </Menu>
+        );
     
         return (
-            <div>
-                <form onSubmit={handleSubmit}>
-                      <div>
-                             <Field name='propertyZone' label='Zone' component={renderField} type='text'/>
-                         <div>Area<br/>
-                         <span style={{display: 'flex'}}>
-                             <Field name='propertyAreaMin' component={renderField} validate={[onlyNumber, minValue0]} type='text' placeholder='min' style={{width: '60px'}}/> - 
-                             <Field name='propertyAreaMax' component={renderField} validate={[onlyNumber, maxValue1000000]} type='text' placeholder='max' style={{width: '60px'}}/> 
-                             </span>
-                         </div> 
-                         <div>Price<br/>
-                            <span style={{display: 'flex'}}>
-                              <Field name='propertyPriceMin' component={renderField} type='text' validate={[onlyNumber, minValue0]} placeholder='min' style={{width: '60px'}}/> - 
-                              <Field name='propertyPriceMax' component={renderField} type='text' validate={[onlyNumber, maxValue50000000]} placeholder='max' style={{width: '60px'}}/> 
-                              </span>
-                         </div>
-                         <div>Price per m<sup>2</sup><br/>
-                            <span style={{display: 'flex'}}>
-                              <Field name='propertyPricePSMMin' component={renderField} type='text' validate={[onlyNumber, minValue0]} placeholder='min' style={{width: '60px'}}/> - 
-                              <Field name='propertyPricePSMMax' component={renderField} type='text' validate={[onlyNumber, maxValue1000000]} placeholder='max' style={{width: '60px'}}/> 
-                              </span>
-                         </div>
-                        <Field name='propertyPostCode' label='Post Code' component={renderField} validate={onlyNumber, maxValue9999} type='text'/>
-                         <div>Price to Landvalue<br/>
-                            <span style={{display: 'flex'}}>
-                             <Field name='propertyPriceToLandValueMin' component={renderField} validate={[onlyNumber, minValue0]} type='text' placeholder='min' style={{width: '60px'}}/> - 
-                             <Field name='propertyPriceToLandValueMax' component={renderField} validate={[onlyNumber, maxValue999]} type='text' placeholder='max' style={{width: '60px'}}/> 
-                            </span>
-                         </div>
-                         <div>Floorspace Ratio<br/>
-                            <span style={{display: 'flex'}}>
-                             <Field name='propertyFloorSpaceRatioMin' component={renderField} validate={[onlyNumber, minValue0]} type='text' placeholder='min' style={{width: '60px'}}/> - 
-                             <Field name='propertyFloorSpaceRatioMax' component={renderField} validate={[onlyNumber, maxValue99]} type='text' placeholder='max' style={{width: '60px'}}/> 
-                            </span>
-                         </div>
-                        {/* <button type='submit' disabled={submitting}>Search</button>
-                        <button type='button' onClick={handleSaveFilter}>Save preferences</button> */}
-                        <div className='filterBtnContainer'>
-                          <FilterWidgetBtn disabled={submitting} title={'Search'} onClick={handleSubmit}/>
-                          <FilterWidgetBtn disabled={false} title={'Save preferences'} onClick={handleSaveFilter}/>
-                        </div>
+            <div>  
+              {console.log(this.state.postCode)}
+              <div className='zone'>
+        <Typography id="range-slider" gutterBottom>Zone:</Typography>
+              <Dropdown
+                  trigger={['click']}
+                  overlay={menu}
+                  animation="slide-up"
+                >
+                  <Button style={{width: '80%'}}variant="outlined">{this.state.zone || 'Select'}</Button>
+                </Dropdown>
+              </div>
+                <div className='slider'>
+                  <RangeSlider
+                     value={this.state.area}
+                     onChange={(e, val)=>this.setState({area: val})}
+                     min={0}
+                     max={20000}
+                     step={100}
+                     title={'Area'}
+                     labelMin={'0'}
+                     labelMax={'20 000+'}
+                  />
+                </div> 
+                <div className='slider'>
+                   <RangeSlider
+                     value={this.state.price}
+                     onChange={(e, val)=>this.setState({price: val})}
+                     min={100000}
+                     max={5000000}
+                     step={10000}
+                     title={'Price'}
+                     labelMin={'$100k'}
+                     labelMax={'$5M'}
+                  />
+                </div>
+                <div className='slider'>
+                  <RangeSlider
+                     value={this.state.priceM2}
+                     onChange={(e, val)=>this.setState({priceM2: val})}
+                     name={'priceM2'}
+                     min={1}
+                     max={10000}
+                     step={10}
+                     title={'Price per m²'}
+                     labelMin={'$1'}
+                     labelMax={'$10 000+'}
+                  />
+                </div>
+                <TextField label="Post Code" value={this.state.postCode} onChange={(even)=>this.setState({postCode: event.target.value})}/>
+                {this.state.showValidation && <div className='validation'>*must be 4 digits</div>}
+                <div className='slider marginTop'>
+                  <RangeSlider
+                     value={this.state.priceLandvalue}
+                     onChange={(e, val)=>this.setState({priceLandvalue: val})}
+                     min={0}
+                     max={10}
+                     step={0.1}
+                     title={'Price to Landvalue'}
+                     labelMin={'0.0'}
+                     labelMax={'10.0'}
+                  />
+                </div>
+                <div className='slider'>
+                    <RangeSlider
+                     value={this.state.floorspaceRatio}
+                     onChange={(e, val)=>this.setState({floorspaceRatio: val})}
+                     min={0}
+                     max={2}
+                     step={0.1}
+                     title={'Floorspace Ratio'}
+                     labelMin={'0.0'}
+                     labelMax={'2.0+'}
+                  />
+                </div>
+                   <div className='filterBtnContainer'>
+                      <FilterWidgetBtn disabled={submitting} title={'Search'} onClick={this.handleSubmit}/>
+                      <FilterWidgetBtn disabled={false} title={'Save preferences'} onClick={handleSaveFilter}/>
                     </div>
-                  </form>
               </div>
         );
         const {submitting } = props;
     }
 }
+const mapStateToProps = (state) => {
+  return {
+    filterTab: state
+  };
+};
 
-FilterTab = reduxForm({
-    form: "filter", 
-  })(FilterTab);
-
-  export default withAuth(FilterTab);
+  export default withAuth(connect(mapStateToProps)(FilterTab));

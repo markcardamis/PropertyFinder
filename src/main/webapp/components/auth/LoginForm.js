@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
+import {Button} from '@material-ui/core';
 
 export default withAuth(
   class LoginForm extends Component {
@@ -65,7 +66,14 @@ export default withAuth(
               value={this.state.password}
               onChange={this.handleChange}
             />
-            <input className='formBtn' id="submit" type="submit" value="Submit" />
+            <Button 
+              variant="contained" 
+              color="secondary"
+              className='formBtn' 
+              id="submit" 
+              type="submit" 
+              value="Submit"
+              >Submit</Button>
           </form>
         </div>
       );

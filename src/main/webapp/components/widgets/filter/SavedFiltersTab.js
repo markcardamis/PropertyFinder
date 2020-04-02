@@ -4,6 +4,9 @@ import { withAuth } from '@okta/okta-react';
 import { TiPencil, TiTrash } from 'react-icons/ti';
 import { connect } from 'react-redux';
 
+
+const savedFilter = [{propertyZone: 'Zone1'}, {propertyZone: 'Zone1'}]
+
 class SavedFiltersTab extends Component {
   constructor(props) {
     super(props);
@@ -53,29 +56,30 @@ class SavedFiltersTab extends Component {
   }
 
   renderData = () => {
-    return this.state.savedFilters.map((item)=>
+    // return this.state.savedFilters.map((item)=>
+    return savedFilter.map((item)=>
       <li key={item.id} className='filterItem'>
-        <div>
-          <div style={{display: 'flex'}}>
+          <div className='filterHeader' style={{display: 'flex'}}>
             <h5 onClick={()=>this.props.handleSelectFilter(item)}>Filter {this.state.savedFilters.indexOf(item)+1}</h5>
-            <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.props.handleEditFilter(item)}/>
-            <TiTrash className='filterItemIcon' size='1.3em' onClick={()=>this.handleDeleteFilter(item)}/>
+            <div>
+              <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.props.handleEditFilter(item)}/>
+              <TiTrash className='filterItemIcon' size='1.3em' onClick={()=>this.handleDeleteFilter(item)}/>
+            </div>
           </div>
           <ul onClick={()=>this.props.handleSelectFilter(item)} style={{fontSize: '12px', listStyle: 'none'}}>
-            <li>{item.propertyZone ? `Zone: ${item.propertyZone}` : null}</li>
-            <li>{item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}</li>
-            <li>{item.propertyAreaMax ? `Area max: ${item.propertyAreaMax}` : null}</li>
-            <li>{item.propertyPriceMin ? `Price min: ${item.propertyPriceMin}` : null}</li>
-            <li>{item.propertyPriceMax ? `Price max: ${item.propertyPriceMax}` : null}</li>
-            <li>{item.propertyPSMMin ? `Price per m2 min: ${item.propertyPSMMin}` : null}</li>
-            <li>{item.propertyPSMMax ? `Price per m2 max: ${item.propertyPSMMax}` : null}</li>  
-            <li>{item.propertyPostCode ? `Post code: ${item.propertyPostCode}` : null}</li>
-            <li>{item.propertyPriceToLandValueMin ? `Price to landvalue min: ${item.propertyPriceToLandValueMin}` : null}</li>
-            <li>{item.propertyPriceToLandValueMax ? `Price to landvalue max: ${item.propertyPriceToLandValueMax}` : null}</li> 
-            <li>{item.propertyFloorSpaceRatioMin ? `Floorspace ratio min: ${item.propertyFloorSpaceRatioMin}` : null}</li> 
-            <li>{item.propertyFloorSpaceRatioMax ? `Floorspace ratio max: ${item.propertyFloorSpaceRatioMax}` : null}</li> 
+            <li className='listLine green'>{item.propertyZone ? `Zone: ${item.propertyZone}` : null}</li>
+            <li className='listLine yellow'>{item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}</li>
+            <li className='listLine red'>{item.propertyAreaMax ? `Area max: ${item.propertyAreaMax}` : null}</li>
+            <li className='listLine purple'>{item.propertyPriceMin ? `Price min: ${item.propertyPriceMin}` : null}</li>
+            <li className='listLine orange'>{item.propertyPriceMax ? `Price max: ${item.propertyPriceMax}` : null}</li>
+            <li className='listLine brown'>{item.propertyPSMMin ? `Price per m2 min: ${item.propertyPSMMin}` : null}</li>
+            <li className='listLine blue'>{item.propertyPSMMax ? `Price per m2 max: ${item.propertyPSMMax}` : null}</li>  
+            <li className='listLine orange2'>{item.propertyPostCode ? `Post code: ${item.propertyPostCode}` : null}</li>
+            <li className='listLine pink'>{item.propertyPriceToLandValueMin ? `Price to landvalue min: ${item.propertyPriceToLandValueMin}` : null}</li>
+            <li className='listLine purple2'>{item.propertyPriceToLandValueMax ? `Price to landvalue max: ${item.propertyPriceToLandValueMax}` : null}</li> 
+            <li className='listLine green2'>{item.propertyFloorSpaceRatioMin ? `Floorspace ratio min: ${item.propertyFloorSpaceRatioMin}` : null}</li> 
+            <li className='listLine blue2'>{item.propertyFloorSpaceRatioMax ? `Floorspace ratio max: ${item.propertyFloorSpaceRatioMax}` : null}</li> 
           </ul>
-        </div>
       </li>
     );
   }

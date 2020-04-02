@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import PropertyInformation from './widgets/propertyInformation/PropertyInformation';
 import Filter from './widgets/filter/Filter';
-import SignIn from './widgets/SignIn';
+import SignIn from './widgets/signin/SignIn';
 import MapGL from './map/MapGL';
 import FilterBtn from './buttons/filterBtn/FilterBtn';
 import LoginBtn from './buttons/loginBtn/LoginBtn';
@@ -46,6 +46,7 @@ class Home extends Component {
 }
 
   render() {
+    const { showFilter, showProperty, showSignIn } = this.props.home;
     if ( this.state.authenticated === null ) return null;
   
     const button = this.state.authenticated ?
@@ -56,9 +57,9 @@ class Home extends Component {
       <div>
         {button}
         <FilterBtn onClick = {this.toggleFilter}/>
-        {this.props.home.showFilter && <Filter handleCloseFilter={this.handleCloseFilter}/>}
-        {this.props.home.showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}
-        {this.props.home.showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>}
+        {showFilter && <Filter handleCloseFilter={this.handleCloseFilter}/>}
+        {showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}
+        {showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>}
         <MapGL/>
       </div>
     );

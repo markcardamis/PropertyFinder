@@ -1,0 +1,89 @@
+.filterWidget {
+    width: 350px;
+    position: absolute;
+    padding: 20px;
+    left: 0;
+    z-index: 10;
+    border: 1px solid #d0d3d9;
+    background-color: white;
+    border-radius: 10px,
+}
+.filterBtnContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.slider {
+    margin-right: 20px;
+}
+.marginTop {
+margin-top: 20px;
+}
+.validation {
+    color: red;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+}
+.zone {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.filterItem {
+    padding: 20px 10px 20px 10px;
+    border-radius: 10px;
+    color: $font-base;
+    font-family: Arial, Helvetica, sans-serif;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    .filterHeader {
+        justify-content: space-between;
+    }
+    .filterItemIcon {
+        margin: 2px;
+        &:hover {
+            color: $bg-pink;
+        }
+    }
+}
+.green {
+    color: #81c784
+}
+.yellow {
+    color: #fdd835;
+}
+.orange {
+    color: #ef6c00;
+}
+.red {
+    color: #e53935;
+}
+.blue {
+    color: #2196f3;
+}
+.purple {
+    color: #303f9f;
+}
+.pink {
+    color: #ad1457;
+}
+.brown {
+    color: #5d4037;
+}
+.blue2 {
+    color: #00b8d4;
+}
+.orange2 {
+    color: #e64a19;
+}
+.green2 {
+    color: #afb42b;
+}
+purple2 {
+    color: #7b1fa2;
+}
