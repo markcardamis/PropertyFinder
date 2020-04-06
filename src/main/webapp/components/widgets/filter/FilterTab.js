@@ -1,5 +1,6 @@
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
+import { withStyles } from '@material-ui/core/styles';
 import {TextField, FormControlLabel, Typography, Checkbox, Button } from '@material-ui/core';
 import Dropdown from 'rc-dropdown';
 import Menu, { Item as MenuItem } from 'rc-menu';
@@ -8,6 +9,8 @@ import 'rc-dropdown/assets/index.css';
 
 import FilterWidgetBtn from '../../buttons/filterWidgetBtn/FilterWidgetBtn';
 import RangeSlider from '../../inputs/slider/Slider';
+import {ZONES} from '../../../shared/constants';
+import {FaCheck} from 'react-icons/Fa';
 
 class FilterTab extends React.Component {
 
@@ -15,13 +18,6 @@ class FilterTab extends React.Component {
         super(props);
         this.state = {
             authenticated: null,
-            // zone: null,
-            // area: [0, 20000],
-            // price: [100000, 5000000],
-            // priceM2: [1, 10000],
-            // postCode: '',
-            // priceLandvalue: [0, 10 ],
-            // floorspaceRatio: [0, 2],
             zone: props.filterTab.filter.zone,
             area: props.filterTab.filter.area,
             price: props.filterTab.filter.price,
@@ -65,31 +61,24 @@ class FilterTab extends React.Component {
       this.setState({zone: key})
     }
 
+    renderZones = () => {
+      return ZONES.map(item => {
+        return <MenuItem key={item.name}>
+                  <div className='checkboxWrapper'>
+                    <div className='checkbox' style={{backgroundColor: item.color, border: item.color === '#ffffff' ? '1px solid lightgrey' : null}}>
+                        {/* {this.state.zone === item.name ? <FaCheck size={16} color={'#3c475b'}/> : null} */}
+                    </div>
+                    <div>{item.name}</div>
+                  </div>
+                </MenuItem>
+      })
+    }
+
     render () {
         const { handleSaveFilter } = this.props;
         const menu = (
           <Menu onSelect={this.onSelect}>
-            <MenuItem key="zone1"><FormControlLabel
-                                  control={<Checkbox 
-                                      checked={this.state.zone === "zone1" ? true : false}
-                                      color="primary"
-                                    />}
-                                    label="Zone 1"/>
-            </MenuItem>
-            <MenuItem key="zone2"><FormControlLabel
-                                  control={<Checkbox 
-                                    checked={this.state.zone === "zone2" ? true : false}
-                                    color="primary"
-                                    />}
-                                    label="Zone 2"/>
-            </MenuItem>
-            <MenuItem key="zone3"><FormControlLabel
-                                  control={<Checkbox 
-                                    checked={this.state.zone === "zone3" ? true : false}
-                                    color="primary"
-                                    />}
-                                    label="Zone 3"/>
-            </MenuItem>
+            {this.renderZones()}
           </Menu>
         );
     

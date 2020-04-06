@@ -190,7 +190,7 @@ class Filter extends Component {
                 <Tab disabled={!authenticated}>Saved Filters</Tab>
               </TabList>
               <TabPanel>
-                <FilterTab onSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
+                <FilterTab handleSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
               </TabPanel>
               <TabPanel>
                 <SavedFiltersTab handleSelectFilter={this.handleSelectFilter} handleEditFilter={this.handleEditFilter}/>

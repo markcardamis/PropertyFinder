@@ -84,6 +84,20 @@ margin-top: 20px;
 .green2 {
     color: #afb42b;
 }
-purple2 {
+.purple2 {
     color: #7b1fa2;
+}
+
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+    color: $font-base;
+}
+.checkbox {
+    width: 20px;
+    height: 20px;
+    
+    justify-content: center;
+    margin-right: 10px;
+    align-items: center;
 }
