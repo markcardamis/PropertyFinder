@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
-
+import { hotjar } from 'react-hotjar';
 
 import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
 import './MapGL.css';
@@ -35,6 +35,7 @@ async componentDidMount() {
 
     map.on('click', (e) => this.handlePropertyClick(e)); 
     map.on('move', () => this.handleViewportChange());
+    hotjar.initialize(1445331);
 }
 
 componentDidUpdate() {

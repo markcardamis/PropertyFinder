@@ -39,6 +39,35 @@ class SavedFiltersTab extends Component {
     }
   }
 
+  handleSelectFilter = (item) => {
+    if(item!==undefined) {
+    this.props.dispatch({type: 'FILTER', payload: {
+                                                  zone: item.propertyZone ? item.propertyZone : null,
+                                                  area: [item.propertyAreaMin? item.propertyAreaMin : 0, item.propertyAreaMax ? item.propertyAreaMax : 20000],
+                                                  price: [item.propertyPriceMin ? item.propertyPriceMin : 100000, item.propertyPriceMax ? item.propertyPriceMax : 5000000],
+                                                  priceM2: [item.propertyPSMMin ? item.propertyPSMMin : 1, item.propertyPSMMax ? item.propertyPSMMax : 10000],
+                                                  postCode: item.propertyPostCode ? item.propertyPostCode : '',
+                                                  priceLandvalue: [item.propertyPriceToLandValueMin ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax ? item.propertyPriceToLandValueMax : 10 ],
+                                                  floorspaceRatio: [propertyFloorSpaceRatioMin ? propertyFloorSpaceRatioMin : 0, propertyFloorSpaceRatioMax ? propertyFloorSpaceRatioMax : 2]
+                                                }})  
+    this.props.handleSelectFilter(item)
+                                              }
+  }
+  handleEditFilter = (item) => {
+    if (item!== undefined) {
+    this.props.dispatch({type: 'FILTER', payload: {
+                                                  zone: item.propertyZone ? item.propertyZone : null,
+                                                  area: [item.propertyAreaMin? item.propertyAreaMin : 0, item.propertyAreaMax ? item.propertyAreaMax : 20000],
+                                                  price: [item.propertyPriceMin ? item.propertyPriceMin : 100000, item.propertyPriceMax ? item.propertyPriceMax : 5000000],
+                                                  priceM2: [item.propertyPSMMin ? item.propertyPSMMin : 1, item.propertyPSMMax ? item.propertyPSMMax : 10000],
+                                                  postCode: item.propertyPostCode ? item.propertyPostCode : '',
+                                                  priceLandvalue: [item.propertyPriceToLandValueMin ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax ? item.propertyPriceToLandValueMax : 10 ],
+                                                  floorspaceRatio: [propertyFloorSpaceRatioMin ? propertyFloorSpaceRatioMin : 0, propertyFloorSpaceRatioMax ? propertyFloorSpaceRatioMax : 2]
+                                                }})  
+    this.props.handleEditFilter(item)
+  }
+  }
+
 
   handleDeleteFilter = async (item) => {
     try {
@@ -56,17 +85,18 @@ class SavedFiltersTab extends Component {
   }
 
   renderData = () => {
-    // return this.state.savedFilters.map((item)=>
-    return savedFilter.map((item)=>
+
+    return this.state.savedFilters.map((item)=>
+    //return savedFilter.map((item)=>
       <li key={item.id} className='filterItem'>
           <div className='filterHeader' style={{display: 'flex'}}>
-            <h5 onClick={()=>this.props.handleSelectFilter(item)}>Filter {this.state.savedFilters.indexOf(item)+1}</h5>
+            <h5 onClick={()=>this.handleSelectFilter(item)}>Filter {this.state.savedFilters.indexOf(item)+1}</h5>
             <div>
-              <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.props.handleEditFilter(item)}/>
+              <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.handleEditFilter(item)}/>
               <TiTrash className='filterItemIcon' size='1.3em' onClick={()=>this.handleDeleteFilter(item)}/>
             </div>
           </div>
-          <ul onClick={()=>this.props.handleSelectFilter(item)} style={{fontSize: '12px', listStyle: 'none'}}>
+          <ul onClick={()=>this.handleSelectFilter(item)} style={{fontSize: '12px', listStyle: 'none'}}>
             <li className='listLine green'>{item.propertyZone ? `Zone: ${item.propertyZone}` : null}</li>
             <li className='listLine yellow'>{item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}</li>
             <li className='listLine red'>{item.propertyAreaMax ? `Area max: ${item.propertyAreaMax}` : null}</li>

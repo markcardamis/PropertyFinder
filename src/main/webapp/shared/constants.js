@@ -24,7 +24,7 @@ export const ZONES = [{id: 1, name: 'B1', color: '#f4fefd'}, {
                     }, {
                         id: 8, name: 'B8', color: '#f2f8f7'
                     }, {
-                        id: 9, name: 'DM', color: '#ffffff', border: '#f9ccc8'
+                        id: 9, name: 'DM', color: '#ffffff'
                     }, {
                         id: 10, name: 'E1', color: '#f6e6cd'
                     }, {
@@ -84,5 +84,5 @@ export const ZONES = [{id: 1, name: 'B1', color: '#f4fefd'}, {
                     }, {
                         id: 33, name: 'W3', color: '#defdef'
                     }, {
-                        id: 34, name: 'Non Standard Zones', color: 'gray'
+                        id: 34, name: 'Non Standard Zones', color: 'lightgray'
                     }]

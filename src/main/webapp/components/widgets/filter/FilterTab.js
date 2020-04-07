@@ -1,7 +1,7 @@
+
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
-import { withStyles } from '@material-ui/core/styles';
-import {TextField, FormControlLabel, Typography, Checkbox, Button } from '@material-ui/core';
+import {TextField, Typography, Button } from '@material-ui/core';
 import Dropdown from 'rc-dropdown';
 import Menu, { Item as MenuItem } from 'rc-menu';
 import { connect } from 'react-redux';
@@ -10,7 +10,6 @@ import 'rc-dropdown/assets/index.css';
 import FilterWidgetBtn from '../../buttons/filterWidgetBtn/FilterWidgetBtn';
 import RangeSlider from '../../inputs/slider/Slider';
 import {ZONES} from '../../../shared/constants';
-import {FaCheck} from 'react-icons/Fa';
 
 class FilterTab extends React.Component {
 
@@ -61,6 +60,20 @@ class FilterTab extends React.Component {
       this.setState({zone: key})
     }
 
+    handleSaveFilter = async () => {
+      const {zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio} = this.state;
+      if (postCode.length !== 4 && postCode.length !== 0) {
+        this.setState({showValidation: true})
+      } else {
+        this.setState({showValidation: false});
+        await this.props.dispatch({
+          type: 'FILTER',
+          payload: {zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio}
+        })
+        this.props.handleSaveFilter();
+    }
+  }
+
     renderZones = () => {
       return ZONES.map(item => {
         return <MenuItem key={item.name}>
@@ -75,16 +88,13 @@ class FilterTab extends React.Component {
     }
 
     render () {
-        const { handleSaveFilter } = this.props;
-        const menu = (
-          <Menu onSelect={this.onSelect}>
-            {this.renderZones()}
-          </Menu>
-        );
+        const menu = <Menu onSelect={this.onSelect} class='dropdown'>
+                    {this.renderZones()}
+                  </Menu>
     
         return (
             <div>  
-              {console.log(this.state.postCode)}
+              {console.log(this)}
               <div className='zone'>
         <Typography id="range-slider" gutterBottom>Zone:</Typography>
               <Dropdown
@@ -160,7 +170,7 @@ class FilterTab extends React.Component {
                 </div>
                    <div className='filterBtnContainer'>
                       <FilterWidgetBtn disabled={submitting} title={'Search'} onClick={this.handleSubmit}/>
-                      <FilterWidgetBtn disabled={false} title={'Save preferences'} onClick={handleSaveFilter}/>
+                      <FilterWidgetBtn disabled={false} title={'Save preferences'} onClick={this.handleSaveFilter}/>
                     </div>
               </div>
         );

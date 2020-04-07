@@ -101,3 +101,12 @@ margin-top: 20px;
     margin-right: 10px;
     align-items: center;
 }
+.rc-dropdown {
+    height: 250px;
+    overflow-y: scroll;
+    border-bottom: 1px solid #d0d3d9;
+}
+.rc-dropdown-menu {
+    box-shadow: none;
+    border-radius: 0;
+}

@@ -57,6 +57,7 @@
     "rc-menu": "^8.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hotjar": "^2.2.0",
     "react-icons": "^3.9.0",
     "react-map-gl": "^5.2.3",
     "react-redux": "^7.2.0",
