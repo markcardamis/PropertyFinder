@@ -93,9 +93,11 @@ class Filter extends Component {
             'propertyPriceMin': price[0] !== 100000 ? price[0] : null,
             'propertyPriceMax': price[1] !== 5000000 ? price[1] : null,
             'propertyPricePSMMin': priceM2[0] !== 1 ? priceM2 : null,
+            ////
             'propertyPricePSMMax': priceM2[1] !== 10000 ? priceM2 : null,
             'propertyPostCode': postCode !== '' ? postCode : null,
             'propertyPriceToLandValueMin': priceLandvalue[0] !== 0 ? priceLandvalue[0] : null,
+            ////
             'propertyPriceToLandValueMax': priceLandvalue[1] !== 10 ? priceLandvalue[1] : null,
             'propertyFloorSpaceRatioMin': floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : null,
             'propertyFloorSpaceRatioMax': floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null

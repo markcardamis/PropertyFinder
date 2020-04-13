@@ -48,7 +48,7 @@ class SavedFiltersTab extends Component {
                                                   priceM2: [item.propertyPSMMin ? item.propertyPSMMin : 1, item.propertyPSMMax ? item.propertyPSMMax : 10000],
                                                   postCode: item.propertyPostCode ? item.propertyPostCode : '',
                                                   priceLandvalue: [item.propertyPriceToLandValueMin ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax ? item.propertyPriceToLandValueMax : 10 ],
-                                                  floorspaceRatio: [propertyFloorSpaceRatioMin ? propertyFloorSpaceRatioMin : 0, propertyFloorSpaceRatioMax ? propertyFloorSpaceRatioMax : 2]
+                                                  floorspaceRatio: [item.propertyFloorSpaceRatioMin ? item.propertyFloorSpaceRatioMin : 0.1, item.propertyFloorSpaceRatioMax ? item.propertyFloorSpaceRatioMax : 2]
                                                 }})  
     this.props.handleSelectFilter(item)
                                               }
@@ -62,7 +62,7 @@ class SavedFiltersTab extends Component {
                                                   priceM2: [item.propertyPSMMin ? item.propertyPSMMin : 1, item.propertyPSMMax ? item.propertyPSMMax : 10000],
                                                   postCode: item.propertyPostCode ? item.propertyPostCode : '',
                                                   priceLandvalue: [item.propertyPriceToLandValueMin ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax ? item.propertyPriceToLandValueMax : 10 ],
-                                                  floorspaceRatio: [propertyFloorSpaceRatioMin ? propertyFloorSpaceRatioMin : 0, propertyFloorSpaceRatioMax ? propertyFloorSpaceRatioMax : 2]
+                                                  floorspaceRatio: [item.propertyFloorSpaceRatioMin ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax ? item.propertyFloorSpaceRatioMax : 2]
                                                 }})  
     this.props.handleEditFilter(item)
   }
