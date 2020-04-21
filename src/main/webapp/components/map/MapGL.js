@@ -35,7 +35,7 @@ async componentDidMount() {
 
     map.on('click', (e) => this.handlePropertyClick(e)); 
     map.on('move', () => this.handleViewportChange());
-    hotjar.initialize(1445331);
+    hotjar.initialize(1445331, 6);
 }
 
 componentDidUpdate() {
