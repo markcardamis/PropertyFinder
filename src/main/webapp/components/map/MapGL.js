@@ -56,7 +56,26 @@ handleViewportChange = () => {
 }
 
 renderPopup = (e) => {
-        const propertyData = `<h5>Property ID: ${this.props.mapGL.showPopup.propertyId}</h5><div>Address: ${this.props.mapGL.showPopup.address}</div><div>Zone Code: ${this.props.mapGL.showPopup.zoneCode}</div><div>Area: ${this.props.mapGL.showPopup.area}</div><div>Land Value: ${this.props.mapGL.showPopup.landValue1}</div><div>Floor Space Ratio: ${this.props.mapGL.showPopup.floorSpaceRatio}</div><div>Minimum Lot Size: ${this.props.mapGL.showPopup.minimumLotSize}</div><div>Building Height: ${this.props.mapGL.showPopup.buildingHeight}</div>`;
+        const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, landValue1, floorSpaceRatio, minimumLotSize, buildingHeight } = this.props.mapGL.showPopup;
+
+        const upperCase = (str) => {
+            let splitStr = str.toLowerCase().split(' ');
+            for (let i = 0; i < splitStr.length; i++) {
+                splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+            }
+            return splitStr.join(' '); 
+         }
+
+        const id = `<h3>Property ID: ${propertyId}</h3>`;
+        const address = `<div>Address: ${houseNumber} ${upperCase(streetName)}, ${upperCase(suburbName)}, ${postCode}</div>`;
+        const zone = `<div>Zone Code: ${zoneCode}</div>`;
+        const ar = `<div>Area: ${area}</div>`;
+        const land = `<div>Land Value: ${landValue1}</div>`;
+        const floor = floorSpaceRatio!==null ? `<div>Floor Space Ratio: ${floorSpaceRatio}</div>` : '';
+        const lot = minimumLotSize!==null ? `<div>Minimum Lot Size: ${minimumLotSize}</div>` : '';
+        const height = buildingHeight!==null ? `<div>Building Height: ${buildingHeight}</div>` : ''
+
+        const propertyData = id + address + zone + ar + land + floor + lot + height;
         new mapboxgl.Popup()
         .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
         .setHTML(propertyData)
