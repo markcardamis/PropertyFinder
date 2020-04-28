@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { withAuth } from '@okta/okta-react';
@@ -7,6 +8,7 @@ import { hotjar } from 'react-hotjar';
 
 import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
 import './MapGL.css';
+import Chart from './Chart'
  
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -56,7 +58,7 @@ handleViewportChange = () => {
 }
 
 renderPopup = (e) => {
-        const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, landValue1, floorSpaceRatio, minimumLotSize, buildingHeight } = this.props.mapGL.showPopup;
+        const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, baseDate1, baseDate2, baseDate3, baseDate4, baseDate5, landValue1, landValue2, landValue3, landValue4, landValue5} = this.props.mapGL.showPopup;
 
         const upperCase = (str) => {
             let splitStr = str.toLowerCase().split(' ');
@@ -66,21 +68,35 @@ renderPopup = (e) => {
             return splitStr.join(' '); 
          }
 
-        const id = `<h3>Property ID: ${propertyId}</h3>`;
-        const address = `<div>Address: ${houseNumber} ${upperCase(streetName)}, ${upperCase(suburbName)}, ${postCode}</div>`;
-        const zone = `<div>Zone Code: ${zoneCode}</div>`;
-        const ar = `<div>Area: ${area}</div>`;
-        const land = `<div>Land Value: ${landValue1}</div>`;
-        const floor = floorSpaceRatio!==null ? `<div>Floor Space Ratio: ${floorSpaceRatio}</div>` : '';
-        const lot = minimumLotSize!==null ? `<div>Minimum Lot Size: ${minimumLotSize}</div>` : '';
-        const height = buildingHeight!==null ? `<div>Building Height: ${buildingHeight}</div>` : ''
+        const id = <h3>Property ID: {propertyId}</h3>;
+        const address = <div>Address: {houseNumber} {upperCase(streetName)}, {upperCase(suburbName)}, {postCode}</div>;
+        const zone = <div>Zone Code: {zoneCode}</div>;
+        const ar = <div>Area: {area}</div>;
+        const land = <div>Land Value: {landValue1}</div>;
+        const floor = floorSpaceRatio!==null ? <div>Floor Space Ratio: {floorSpaceRatio}</div> : '';
+        const lot = minimumLotSize!==null ? <div>Minimum Lot Size: {minimumLotSize}</div> : '';
+        const height = buildingHeight!==null ? <div>Building Height: {buildingHeight}</div> : ''
 
-        const propertyData = id + address + zone + ar + land + floor + lot + height;
-        new mapboxgl.Popup()
-        .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
-        .setHTML(propertyData)
-        .addTo(map);
+        const chartData={
+            baseDate: [baseDate5, baseDate4, baseDate3, baseDate2, baseDate1],
+            landValue: [landValue5, landValue4, landValue3, landValue2, landValue1]
+        }
+        const chart = <Chart data={chartData}/>
+        const propertyData = <div>{id}{address}{zone}{ar}{land}{floor}{lot}{height}{chart}</div>
+
+        const addPopup=(el) =>{
+            const placeholder = document.createElement('div');
+            ReactDOM.render(el, placeholder);
+        
+            const marker = new mapboxgl.Popup()
+                .setDOMContent(placeholder)
+                .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
+                .addTo(map);
+        }
+        addPopup(propertyData)
 }
+
+
 
 renderMarkers = async () => {
     const { mapMarker } = this.props.mapGL;

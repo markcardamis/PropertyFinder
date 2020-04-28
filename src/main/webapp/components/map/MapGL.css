@@ -51,3 +51,11 @@
     .mapboxgl-ctrl {
         color: 'red' !important;
     }
+    .chart {
+        align-self: flex-start;
+        margin-left: 0;
+        margin-right: 10px;
+        margin-bottom: -20px;
+        margin-top: 10px;
+        padding: 0;
+    }
