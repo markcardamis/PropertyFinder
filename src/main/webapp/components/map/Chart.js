@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import '../../../../../node_modules/react-vis/dist/style.css';
-import {XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis} from 'react-vis';
+import {XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, Crosshair} from 'react-vis';
 
 class Chart extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        crosshairValues: []
+      };
+    }
 
     getYear = (array) => {
-        return array.map(item=>{
-            return item.slice(0, 4)
-        })
+        return array.map(item => {
+            return item.slice(0, 4);
+        });
     }
+
   render() {
     const {baseDate, landValue} = this.props.data;
     const data = [
@@ -18,8 +25,9 @@ class Chart extends Component {
       {x: 4, y: landValue[3]},
       {x: 5, y: landValue[4]},
     ];
+
     
-    const dates = this.getYear(baseDate)
+    const dates = this.getYear(baseDate);
     return (
       <div className='chart'>
         <XYPlot height={130} width={220}>
@@ -27,7 +35,13 @@ class Chart extends Component {
             <VerticalGridLines />
             <XAxis tickFormat={v => dates[v]}/>
             <YAxis tickFormat={v => v/1000+'k'}/>
-            <LineSeries data={data} />
+            <LineSeries
+              data={data}
+              onNearestX={(value) => 
+                  this.setState({crosshairValues: [{x: value.x, y: value.y}]})
+              }
+            /> 
+            <Crosshair values={this.state.crosshairValues}/>
         </XYPlot>
       </div>
     );
