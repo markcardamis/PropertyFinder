@@ -81,8 +81,14 @@ renderPopup = (e) => {
             baseDate: [baseDate5, baseDate4, baseDate3, baseDate2, baseDate1],
             landValue: [landValue5, landValue4, landValue3, landValue2, landValue1]
         }
+        // const chartData={
+        //     baseDate: ["2014-01-07", "2015-01-07", "2016-01-07", "2017-01-07", '2018-01-07'],
+        //     landValue: [1349000, 1495000, 1542000, 1643000, 1594000]
+        // }
+        const title = <h5 style={{marginBottom:'-10px', marginTop: '-5px'}}>Landvalue Trend</h5>
         const chart = <Chart data={chartData}/>
-        const propertyData = <div>{id}{address}{zone}{ar}{land}{floor}{lot}{height}{chart}</div>
+        const propertyData = <div>{id}{address}{zone}{ar}{land}{floor}{lot}{height}{title}{chart}</div>
+        // const propertyData = <div>{title}{chart}</div>
 
         const addPopup=(el) =>{
             const placeholder = document.createElement('div');
@@ -121,25 +127,24 @@ handleMarkerClick = (marker) => {
 }
 
 handlePropertyClick = async (e) => {
-    let features = map.queryRenderedFeatures(e.point);
-    let displayProperties = ['properties'];
+     let features = map.queryRenderedFeatures(e.point);
+     let displayProperties = ['properties']
+     let displayFeatures = features.map(function(feat) {
+         let displayFeat = {};
+         displayFeat[displayProperties]=feat[displayProperties];
+         return displayFeat;
+         });
 
-    let displayFeatures = features.map(function(feat) {
-        let displayFeat = {};
-        displayFeat[displayProperties]=feat[displayProperties];
-        return displayFeat;
-        });
-
-    if (displayFeatures.length > 0) {
-        displayFeatures.map(async (property) => {
-            if (property.properties && property.properties.propid) {
-                let propid = property.properties.propid;
-                const api = `/api/propertyinformation/${propid}`;
-                await this.callApi(api, null, 'SHOW_POPUP');
+     if (displayFeatures.length > 0) {
+         displayFeatures.map(async (property) => {
+             if (property.properties && property.properties.propid) {
+                 let propid = property.properties.propid;
+                 const api = `/api/propertyinformation/${propid}`;
+                 await this.callApi(api, null, 'SHOW_POPUP');
                 this.renderPopup(e);
-            }            
-        });
-    }
+             }            
+         });
+     }
 }
 
 callApi = async (api, auth, action) => {   

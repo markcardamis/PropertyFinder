@@ -18,15 +18,14 @@ class Chart extends Component {
 
   render() {
     const {baseDate, landValue} = this.props.data;
+    const {crosshairValues} = this.state;
     const data = [
-      {x: 1, y: landValue[0]},
-      {x: 2, y: landValue[1]},
-      {x: 3, y: landValue[2]},
-      {x: 4, y: landValue[3]},
-      {x: 5, y: landValue[4]},
+      {x: 0, y: landValue[0]},
+      {x: 1, y: landValue[1]},
+      {x: 2, y: landValue[2]},
+      {x: 3, y: landValue[3]},
+      {x: 4, y: landValue[4]},
     ];
-
-    
     const dates = this.getYear(baseDate);
     return (
       <div className='chart'>
@@ -34,14 +33,18 @@ class Chart extends Component {
             <HorizontalGridLines />
             <VerticalGridLines />
             <XAxis tickFormat={v => dates[v]}/>
-            <YAxis tickFormat={v => v/1000+'k'}/>
+            <YAxis tickFormat={v => v>999999 ? (v/1000000).toFixed(1)+'M' : v/1000+'k'}/>
             <LineSeries
               data={data}
               onNearestX={(value) => 
                   this.setState({crosshairValues: [{x: value.x, y: value.y}]})
               }
             /> 
-            <Crosshair values={this.state.crosshairValues}/>
+            <Crosshair values={crosshairValues}>
+              <div className='chartInfo'>
+                <div className='chartInfo_text'>{crosshairValues[0]&&crosshairValues[0].y} AUD</div>
+              </div>
+            </Crosshair>
         </XYPlot>
       </div>
     );
