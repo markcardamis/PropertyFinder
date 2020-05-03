@@ -85,7 +85,7 @@ renderPopup = (e) => {
         //     baseDate: ["2014-01-07", "2015-01-07", "2016-01-07", "2017-01-07", '2018-01-07'],
         //     landValue: [1349000, 1495000, 1542000, 1643000, 1594000]
         // }
-        const title = <h5 style={{marginBottom:'-10px', marginTop: '-5px'}}>Landvalue Trend</h5>
+        const title = <h5 style={{marginBottom:'-15px'}}>Landvalue Trend</h5>
         const chart = <Chart data={chartData}/>
         const propertyData = <div>{id}{address}{zone}{ar}{land}{floor}{lot}{height}{title}{chart}</div>
         // const propertyData = <div>{title}{chart}</div>

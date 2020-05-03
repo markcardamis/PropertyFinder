@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: './src/main/webapp/javascript/index.js',
@@ -41,6 +42,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./src/main/resources/static/index.html"
-    })
-  ]
+    }),
+    new BundleAnalyzerPlugin()
+  ],
+
 };
