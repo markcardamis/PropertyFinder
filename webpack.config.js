@@ -1,10 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-<<<<<<< .merge_file_3arjlz
 const CompressionPlugin = require('compression-webpack-plugin');
-=======
->>>>>>> .merge_file_njwjNz
 
 module.exports = {
   entry: './src/main/webapp/javascript/index.js',
@@ -45,7 +42,6 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./src/main/resources/static/index.html"
-<<<<<<< .merge_file_3arjlz
     }),
     new CompressionPlugin({
       filename: '[path].gz[query]',
@@ -55,9 +51,4 @@ module.exports = {
       minRatio: 0.8,
     })
   ]
-=======
-    })
-  ],
-
->>>>>>> .merge_file_njwjNz
 };
