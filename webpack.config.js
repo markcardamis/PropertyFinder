@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
@@ -34,7 +33,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.mjs', '.js', '.jsx']
   },
 
   plugins: [
@@ -44,7 +43,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/main/resources/static/index.html"
     }),
-    new BundleAnalyzerPlugin(),
     new CompressionPlugin({
       filename: '[path].gz[query]',
       algorithm: 'gzip',
@@ -52,16 +50,5 @@ module.exports = {
       threshold: 10240,
       minRatio: 0.8,
     })
-  ],
-    // optimization: {
-    //   splitChunks: {
-    //     cacheGroups: {
-    //       vendor: {
-    //         test: /[\\/]node-modules[\\/]/,
-    //         name: 'vendor',
-    //         chunks: 'all',
-    //       }
-    //     }
-    //   }
-    // }
+  ]
 };
