@@ -23,8 +23,12 @@ module.exports = {
         loader: "babel-loader",
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"]
+        test: /\.(css|s[ac]ss)$/,
+        use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"]
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: ['file-loader']
       }
     ]
   },
