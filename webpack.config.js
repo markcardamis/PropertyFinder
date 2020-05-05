@@ -51,15 +51,15 @@ module.exports = {
       minRatio: 0.8,
     })
   ],
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]mapbox-gl[\\/]/,
-            name: 'vendor',
-            chunks: 'all',
-          }
-        }
-      }
-    }
+    // optimization: {
+    //   splitChunks: {
+    //     cacheGroups: {
+    //       vendor: {
+    //         test: /[\\/]mapbox-gl[\\/]/,
+    //         name: 'vendor',
+    //         chunks: 'all',
+    //       }
+    //     }
+    //   }
+    // }
 };
