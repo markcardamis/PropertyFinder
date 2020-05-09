@@ -7,7 +7,8 @@ import Filter from './widgets/filter/Filter';
 import SignIn from './widgets/signin/SignIn';
 import MapGL from './map/MapGL';
 import FilterBtn from './buttons/filterBtn/FilterBtn';
-import LoginBtn from './buttons/loginBtn/LoginBtn';
+import ButtonLogin from './atoms/buttonLogin/ButtonLogin';
+import ButtonAccount from './atoms/buttonAccount/ButtonAccount';
 
 class Home extends Component {
   constructor( props ) {
@@ -50,16 +51,16 @@ class Home extends Component {
     if ( this.state.authenticated === null ) return null;
   
     const button = this.state.authenticated ?
-      <LoginBtn onClick={() => {this.props.auth.logout()}} title={'Logout'}/> : 
-      <LoginBtn onClick={() => {this.props.auth.login()}} title={'Login'}/>
+      <ButtonAccount onClick={() => {this.props.auth.logout()}}/> :
+      <ButtonLogin onClick={() => {this.props.auth.login()}}/>
 
     return (
       <div>
-        {/* {button} */}
+        <div style={{position: 'absolute', top: '10px', right: 15, zIndex: 2}}>{button}</div>
         <FilterBtn onClick = {this.toggleFilter}/>
         {showFilter && <Filter handleCloseFilter={this.handleCloseFilter}/>}
         {showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}
-        {/* {showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>} */}
+        {showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>}
         <MapGL/>
       </div>
     );

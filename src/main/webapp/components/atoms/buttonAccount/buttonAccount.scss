@@ -1,0 +1,29 @@
+@import '../../../styles/style.scss';
+
+.accountBtn {
+    background-color: $white;
+    width: 218px;
+    height: 54px;
+    display: flex;
+    padding-right: 40px;
+    padding-left: 40px;
+    justify-content: space-between;
+    align-items: center;
+
+    // &:hover {
+    //     background-color: $black;
+    //     -webkit-transition: background-color 1s;
+    //     transition: background-color 1s;
+    // }
+    // &:hover .title{
+    //     color: $white;
+    //     opacity: 1;
+    // }
+
+    .accountBtnTitle {
+        font-family: $mavenPro;
+        font-weight: 500;
+        font-size: 16px;
+        color: $black;
+    }
+}

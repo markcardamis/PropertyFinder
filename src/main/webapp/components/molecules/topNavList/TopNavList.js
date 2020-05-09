@@ -4,7 +4,7 @@ import NavItem from '../../atoms/navItem/NavItem'
 import {TOP_NAV} from './nav'
 import './topNav.scss'
 
-const TopNav = props => {
+const TopNavList = props => {
 
     const renderNav = () => {
         return TOP_NAV.map(item=>{
@@ -25,8 +25,8 @@ const TopNav = props => {
     )
 }
 
-TopNav.propTypes = {
+TopNavList.propTypes = {
     route: PropTypes.string
 }
 
-export default TopNav
+export default TopNavList
