@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import NavItem from '../../atoms/navItem/NavItem'
 import {TOP_NAV} from './nav'
-import './topNav.scss'
+import './topNavList.scss'
 
 const TopNavList = props => {
 

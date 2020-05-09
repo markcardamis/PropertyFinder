@@ -1,9 +1,9 @@
 import React from 'react'; 
 import {Link, useLocation} from 'react-router-dom';
 
-import {IconLogoTitle} from '../../assets/icons';
+import {IconLogoTitle} from '../../../assets/icons';
 import './nav.scss';
-import TopNavList from '../molecules/topNavList/TopNavList';
+import TopNavList from '../../molecules/topNavList/TopNavList';
 
 
 const Nav = (props) => {

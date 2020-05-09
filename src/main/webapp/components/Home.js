@@ -9,6 +9,9 @@ import MapGL from './map/MapGL';
 import FilterBtn from './buttons/filterBtn/FilterBtn';
 import ButtonLogin from './atoms/buttonLogin/ButtonLogin';
 import ButtonAccount from './atoms/buttonAccount/ButtonAccount';
+import ButtonSquare from './atoms/buttonSquare/ButtonSquare';
+import { IconFilter, IconFilter2, IconMenu } from '../assets/icons';
+import FilterButtonGroup from './molecules/FilterButtonGroup/FilterButtonGroup';
 
 class Home extends Component {
   constructor( props ) {
@@ -57,7 +60,9 @@ class Home extends Component {
     return (
       <div>
         <div style={{position: 'absolute', top: '10px', right: 15, zIndex: 2}}>{button}</div>
+        <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {this.toggleFilter}/>
         <FilterBtn onClick = {this.toggleFilter}/>
+        
         {showFilter && <Filter handleCloseFilter={this.handleCloseFilter}/>}
         {showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}
         {showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>}
