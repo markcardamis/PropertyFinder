@@ -5,11 +5,10 @@ import './navItem.scss';
 
 const NavItem = props => {
     return (
-        <>
-        <div className={`nav ${props.active ? 'underline' : ''}`}>
-            <Link className={`title ${props.active ? 'active' : ''}`} to={props.link}>{props.title}</Link>
+        <div className={'navItem'}>
+            <Link className={`navTitle ${props.active ? 'navTitleActive' : ''}`} to={props.link}>{props.title}</Link>
+            {props.active&&<div className={'navTitleUnderline'}/>}
         </div>
-        </>
     )
 }
 

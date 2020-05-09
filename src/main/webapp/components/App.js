@@ -5,6 +5,8 @@ import { Security, ImplicitCallback } from '@okta/okta-react';
 import Home from './Home';
 import Nav from './nav/Nav';
 import LoginPage from '../pages/LoginPage';
+import AboutPage from '../pages/AboutPage';
+import ContactPage from '../pages/ContactPage';
 import '../styles/style.scss';
 
 function onAuthRequired({history}) {
@@ -24,6 +26,8 @@ class App extends Component {
                     pkce={true} >
             <Route path='/' exact={true} component={Home} />
             <Route path='/login' exact component={LoginPage} />
+            <Route path='/about' exact component={AboutPage} />
+            <Route path='/contact' exact component={ContactPage} />
             <Route path='/implicit/callback' component={ImplicitCallback} />
             <Route path='/map' exact component={Map} />
           </Security>

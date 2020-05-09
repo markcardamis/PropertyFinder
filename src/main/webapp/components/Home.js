@@ -55,11 +55,11 @@ class Home extends Component {
 
     return (
       <div>
-        {button}
+        {/* {button} */}
         <FilterBtn onClick = {this.toggleFilter}/>
         {showFilter && <Filter handleCloseFilter={this.handleCloseFilter}/>}
         {showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}
-        {showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>}
+        {/* {showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>} */}
         <MapGL/>
       </div>
     );
