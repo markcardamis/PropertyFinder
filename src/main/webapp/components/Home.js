@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
 
-import PropertyInformation from './widgets/propertyInformation/PropertyInformation';
+import PropertyInformation from './organisms/propertyInformation/PropertyInformation';
 import Filter from './widgets/filter/Filter';
 import SignIn from './widgets/signin/SignIn';
 import MapGL from './map/MapGL';
 import FilterBtn from './buttons/filterBtn/FilterBtn';
 import ButtonLogin from './atoms/buttonLogin/ButtonLogin';
 import ButtonAccount from './atoms/buttonAccount/ButtonAccount';
-import ButtonSquare from './atoms/buttonSquare/ButtonSquare';
 import FilterButtonGroup from './molecules/filterButtonGroup/FilterButtonGroup';
 
 class Home extends Component {
@@ -60,7 +59,7 @@ class Home extends Component {
       <div>
         <div style={{position: 'absolute', top: '10px', right: 15, zIndex: 2}}>{button}</div>
         <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {this.toggleFilter}/>
-        <FilterBtn onClick = {this.toggleFilter}/>
+        {/* <FilterBtn onClick = {this.toggleFilter}/> */}
         
         {showFilter && <Filter handleCloseFilter={this.handleCloseFilter}/>}
         {showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}

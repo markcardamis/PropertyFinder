@@ -8,7 +8,7 @@ import { hotjar } from 'react-hotjar';
 
 import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
 import './MapGL.css';
-import Chart from './Chart'
+import Popup from '../organisms/popup/Popup';
  
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -59,36 +59,30 @@ handleViewportChange = () => {
 
 renderPopup = (e) => {
         const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, baseDate1, baseDate2, baseDate3, baseDate4, baseDate5, landValue1, landValue2, landValue3, landValue4, landValue5} = this.props.mapGL.showPopup;
-
-        const upperCase = (str) => {
-            let splitStr = str.toLowerCase().split(' ');
-            for (let i = 0; i < splitStr.length; i++) {
-                splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
-            }
-            return splitStr.join(' '); 
-         }
-
-        const id = <h3>Property ID: {propertyId}</h3>;
-        const address = <div>Address: {houseNumber} {upperCase(streetName)}, {upperCase(suburbName)}, {postCode}</div>;
-        const zone = <div>Zone Code: {zoneCode}</div>;
-        const ar = <div>Area: {area}</div>;
-        const land = <div>Land Value: {landValue1}</div>;
-        const floor = floorSpaceRatio!==null ? <div>Floor Space Ratio: {floorSpaceRatio}</div> : '';
-        const lot = minimumLotSize!==null ? <div>Minimum Lot Size: {minimumLotSize}</div> : '';
-        const height = buildingHeight!==null ? <div>Building Height: {buildingHeight}</div> : ''
-
         const chartData={
             baseDate: [baseDate5, baseDate4, baseDate3, baseDate2, baseDate1],
             landValue: [landValue5, landValue4, landValue3, landValue2, landValue1]
         }
+        // const propertyId = 3408300;
+        // const houseNumber="11a";
+        // const streetName="John Street";
+        // const suburbName="GRANVILLE"
+        // const postCode="2142"
+        // const area=1025
+        // const zoneCode="R2"
+        // const landValue1="6453522"
+        // const floorSpaceRatio = 0.50
+        // const minimumLotSize = null
+        // const buildingHeight = 4
+
         // const chartData={
         //     baseDate: ["2014-01-07", "2015-01-07", "2016-01-07", "2017-01-07", '2018-01-07'],
         //     landValue: [1349000, 1495000, 1542000, 1643000, 1594000]
         // }
-        const title = <h5 style={{marginBottom:'-15px'}}>Landvalue Trend</h5>
-        const chart = <Chart data={chartData}/>
-        const propertyData = <div>{id}{address}{zone}{ar}{land}{floor}{lot}{height}{title}{chart}</div>
-        // const propertyData = <div>{title}{chart}</div>
+
+        const propertyInfo = {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, landValue1}
+        const popup = <Popup chartData={chartData} propertyInfo={propertyInfo}/>
+        const propertyData = <div>{popup}</div>
 
         const addPopup=(el) =>{
             const placeholder = document.createElement('div');

@@ -1,5 +1,4 @@
-//const initialState = {isHidden: false};
-const initialState = {isHidden: true};
+const initialState = {isHidden: false};
 
 const showPropertyReducer = (state = initialState, action) => {
     switch (action.type) {

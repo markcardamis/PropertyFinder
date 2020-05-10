@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import '../../../../../node_modules/react-vis/dist/style.css';
+import '../../../../../../node_modules/react-vis/dist/style.css';
 import {XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, Crosshair} from 'react-vis';
+import './chart.scss'
 
 class Chart extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Chart extends Component {
     }
 
   render() {
-    const {baseDate, landValue} = this.props.data;
+    const {baseDate, landValue} = this.props.chartData;
     const {crosshairValues} = this.state;
     const data = [
       {x: 0, y: landValue[0]},
@@ -29,7 +30,9 @@ class Chart extends Component {
     const dates = this.getYear(baseDate);
     return (
       <div className='chart'>
+        <div className='chart-title'>Landvalue Trend</div>
         <XYPlot height={130} width={220}>
+        {/* <XYPlot height={130} width={340}> */}
             <HorizontalGridLines />
             <VerticalGridLines />
             <XAxis tickFormat={v => dates[v]}/>

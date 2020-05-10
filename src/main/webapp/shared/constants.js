@@ -9,6 +9,18 @@ export const INITIAL_VIEWPORT = {
         longitude: 151.018731,
         zoom: 10
     };
+export const ADDRESS = 'Address';
+export const AREA = 'Area';
+export const ZONE = 'Zone';
+export const PRICE = 'Price';
+export const PRICE_TO_LAND_VALUE = 'Price to Land Value';
+export const PRICE_PER_M2 = 'Price per m2';
+export const LAND_VALUE = 'Land Value';
+export const DESCRIPTION = 'Description';
+export const FLOOR_SPACE_RATIO = 'Floor Space Ratio';
+export const MINIMUM_LOT_SIZE = 'Minimum Lot Size';
+export const BUILDING_HEIGHT = 'Building Height';
+
 export const ZONES = [{id: 1, name: 'B1', color: '#f4fefd'}, {
                         id: 2, name: 'B2', color: '#e1fafc'
                     }, {

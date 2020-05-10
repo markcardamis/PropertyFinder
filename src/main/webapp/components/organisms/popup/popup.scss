@@ -1,0 +1,20 @@
+@import '../../../styles/style.scss';
+
+.popup-propertyInfo {
+    margin-top: 11px;
+}
+
+.popup-address {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: $black;
+    font-size: 17px;
+    font-weight: 400;
+    font-family: $mavenPro;
+}
+
+.popup-devider {
+    border-bottom: 1px solid $light-grey;
+    margin: 12px 5% 12px 5%;
+}

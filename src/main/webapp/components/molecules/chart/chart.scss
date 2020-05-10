@@ -1,0 +1,35 @@
+@import '../../../styles/style.scss';
+
+.chart {
+    align-self: flex-start;
+    margin-bottom: -20px;
+    margin-top: 10px;
+    width: 100%;
+
+    .chart-title {
+        font-family: $mavenPro;
+        font-size: 14px;
+        color: $black;
+        margin-bottom: -5px;
+        margin-top: -10px;
+        font-weight: 400;
+    }
+}
+.rv-xy-plot__inner {
+    width: 230px !important;
+}
+// .mapboxgl-popup {
+//     width: 354px !important;
+// }
+.chartInfo {
+    background-color: #3a3a48;
+    font-size: 12;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    color: #FFFFFF;
+    padding: 4px 6px 4px 6px;
+    width: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
