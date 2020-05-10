@@ -3,7 +3,6 @@
 .propertyInformation {
     padding: 12px;
     width: 354px;
-    //height: 452px;
     background-color: $white;
     border-radius: 8px;
     box-shadow: $shadow-14;
@@ -35,5 +34,20 @@
         font-size: 12px;
         font-family: $mavenPro;
         color: $dark-grey;
+        margin-top: 4px;
+    }
+
+    .propertyInformation-close {
+        position: absolute;
+        left: -56px;
+        top: 0;
+    }
+
+    .propertyInformation-margin10 {
+        height: 10px;
+    }
+
+    .propertyInformation-margin2 {
+        height: 2px;
     }
 }

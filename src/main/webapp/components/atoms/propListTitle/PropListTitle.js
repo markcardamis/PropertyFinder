@@ -6,13 +6,14 @@ import './propListTitle.scss'
 const PropListTitle = props => {
     return (
         <div className='propListTitle'>
-            {props.icon&&props.icon}
+            {props.icon&&<span className='propListTitle-icon'>{props.icon}</span>}
             <div className='propListTitle-text'>{props.title}</div>
         </div>
     )
 }
 
 PropListTitle.propTypes = {
+    icon: PropTypes.any,
     title: PropTypes.string
 }
 
