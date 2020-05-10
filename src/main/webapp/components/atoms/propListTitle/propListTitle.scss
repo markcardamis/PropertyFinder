@@ -1,0 +1,13 @@
+@import '../../../styles/style.scss';
+
+.propListTitle {
+    display: flex;
+    flex-direction: row;
+
+    .propListTitle-text {
+        margin-left: 6px;
+        color: $dark-grey;
+        font-family: $mavenPro;
+        font-size: 11px;
+    }
+}

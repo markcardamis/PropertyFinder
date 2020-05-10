@@ -12,8 +12,8 @@
 
     &:hover {
         background-color: $black;
-        -webkit-transition: background-color 1s;
-        transition: background-color 1s;
+        -webkit-transition: background-color $transition-1;
+        transition: background-color $transition-1;
     }
     &:hover .title{
         color: $white;

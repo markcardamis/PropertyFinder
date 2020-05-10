@@ -1,10 +1,10 @@
-@import '../../../styles//style.scss';
+@import '../../../styles/style.scss';
 
 .buttonSquare {
     background-color: $white;
     width: 44px;
     height: 44px;
-    box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-4;
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -12,5 +12,6 @@
 
     &:hover {
         background-color: $light-grey;
+        transition: background-color $transition-05;
     }
 }

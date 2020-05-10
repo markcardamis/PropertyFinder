@@ -1,0 +1,39 @@
+@import '../../../styles/style.scss';
+
+.propertyInformation {
+    padding: 12px;
+    width: 354px;
+    //height: 452px;
+    background-color: $white;
+    border-radius: 8px;
+    box-shadow: $shadow-14;
+    position: absolute;
+    z-index: 2;
+    right: 15px;
+    top: 92px;
+
+    .propertyInformation-mainContainer {
+        margin-top: 14px;
+        margin-bottom: 14px;
+    }
+
+    .propertyInformation-devider {
+        border-bottom: 1px solid $light-grey;
+        margin: 12px 5% 12px 5%;
+    }
+
+    .propertyInformation-address {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        color: $black;
+        font-size: 17px;
+        font-family: $mavenPro;
+    }
+
+    .propertyInformation-descr {
+        font-size: 12px;
+        font-family: $mavenPro;
+        color: $dark-grey;
+    }
+}

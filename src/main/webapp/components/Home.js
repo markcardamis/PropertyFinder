@@ -10,8 +10,7 @@ import FilterBtn from './buttons/filterBtn/FilterBtn';
 import ButtonLogin from './atoms/buttonLogin/ButtonLogin';
 import ButtonAccount from './atoms/buttonAccount/ButtonAccount';
 import ButtonSquare from './atoms/buttonSquare/ButtonSquare';
-import { IconFilter, IconFilter2, IconMenu } from '../assets/icons';
-import FilterButtonGroup from './molecules/FilterButtonGroup/FilterButtonGroup';
+import FilterButtonGroup from './molecules/filterButtonGroup/FilterButtonGroup';
 
 class Home extends Component {
   constructor( props ) {

@@ -1,0 +1,21 @@
+@import '../../../styles/style.scss';
+
+.propListTitle2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .propListTitle2-col {
+        width: 45%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .propListTitle2-value {
+    font-size: 14px;
+    font-family: $mavenPro;
+    color: $black;
+    }
+}
