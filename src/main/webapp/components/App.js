@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Security, ImplicitCallback } from '@okta/okta-react';
 
 import Home from './Home';
-import Nav from './organisms/nav/Nav';
 import LoginPage from '../pages/LoginPage';
 import AboutPage from '../pages/AboutPage';
 import ContactPage from '../pages/ContactPage'
@@ -17,7 +16,6 @@ class App extends Component {
   render() {
     return (
         <Router>
-          <Nav/>
           <Security issuer='https://dev-842802.okta.com/oauth2/default'
                     clientId='0oa1phknm1QbQZjCh357'
                     redirectUri={window.location.origin + '/implicit/callback'}

@@ -5,11 +5,16 @@ import {TextField, Typography, Button } from '@material-ui/core';
 import Dropdown from 'rc-dropdown';
 import Menu, { Item as MenuItem } from 'rc-menu';
 import { connect } from 'react-redux';
+import {Range} from 'rc-slider';
+import 'rc-slider/assets/index.css';
 import 'rc-dropdown/assets/index.css';
 
 import FilterWidgetBtn from '../../buttons/filterWidgetBtn/FilterWidgetBtn';
-import RangeSlider from '../../inputs/slider/Slider';
+//import RangeSlider from '../../inputs/slider/Slider';
 import {ZONES} from '../../../shared/constants';
+import Slider from '../../atoms/slider/Slider'
+import './filter.scss'
+
 
 class FilterTab extends React.Component {
 
@@ -94,7 +99,6 @@ class FilterTab extends React.Component {
     
         return (
             <div>  
-              {console.log(this)}
               <div className='zone'>
         <Typography id="range-slider" gutterBottom>Zone:</Typography>
               <Dropdown
@@ -106,38 +110,35 @@ class FilterTab extends React.Component {
                 </Dropdown>
               </div>
                 <div className='slider'>
-                  <RangeSlider
+                  <Slider
                      value={this.state.area}
-                     onChange={(e, val)=>this.setState({area: val})}
+                     onChange={(val)=>this.setState({area: val})}
                      min={0}
                      max={20000}
                      step={100}
-                     title={'Area'}
                      labelMin={'0'}
                      labelMax={'20 000+'}
                   />
                 </div> 
                 <div className='slider'>
-                   <RangeSlider
+                   <Slider
                      value={this.state.price}
-                     onChange={(e, val)=>this.setState({price: val})}
+                     onChange={(val)=>this.setState({price: val})}
                      min={100000}
                      max={5000000}
                      step={10000}
-                     title={'Price'}
                      labelMin={'$100k'}
                      labelMax={'$5M'}
                   />
                 </div>
                 <div className='slider'>
-                  <RangeSlider
+                  <Slider
                      value={this.state.priceM2}
-                     onChange={(e, val)=>this.setState({priceM2: val})}
-                     name={'priceM2'}
-                     min={1}
+                     onChange={(val)=>this.setState({priceM2: val})}
+                     //min={1}
+                     min={0}
                      max={10000}
                      step={10}
-                     title={'Price per m²'}
                      labelMin={'$1'}
                      labelMax={'$10 000+'}
                   />
@@ -145,25 +146,23 @@ class FilterTab extends React.Component {
                 <TextField label="Post Code" value={this.state.postCode} onChange={(even)=>this.setState({postCode: event.target.value})}/>
                 {this.state.showValidation && <div className='validation'>*must be 4 digits</div>}
                 <div className='slider marginTop'>
-                  <RangeSlider
+                  <Slider
                      value={this.state.priceLandvalue}
-                     onChange={(e, val)=>this.setState({priceLandvalue: val})}
+                     onChange={(val)=>this.setState({priceLandvalue: val})}
                      min={0}
                      max={10}
                      step={0.1}
-                     title={'Price to Landvalue'}
                      labelMin={'0.0'}
                      labelMax={'10.0'}
                   />
                 </div>
                 <div className='slider'>
-                    <RangeSlider
+                    <Slider
                      value={this.state.floorspaceRatio}
-                     onChange={(e, val)=>this.setState({floorspaceRatio: val})}
+                     onChange={(val)=>this.setState({floorspaceRatio: val})}
                      min={0}
                      max={2}
                      step={0.1}
-                     title={'Floorspace Ratio'}
                      labelMin={'0.0'}
                      labelMax={'2.0+'}
                   />

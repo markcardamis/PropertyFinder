@@ -52,6 +52,7 @@
     "mapbox-gl": "^1.10.0",
     "rc-dropdown": "^3.0.2",
     "rc-menu": "^8.0.3",
+    "rc-slider": "^9.2.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hotjar": "^2.2.0",

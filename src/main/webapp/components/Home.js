@@ -1,80 +1,50 @@
-import React, { Component } from 'react';
-import { withAuth } from '@okta/okta-react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector} from 'react-redux';
 
 import PropertyInformation from './organisms/propertyInformation/PropertyInformation';
-import Filter from './widgets/filter/Filter';
+import FilterModal from './organisms/filterModal/FilterModal';
 import SignIn from './widgets/signin/SignIn';
 import MapGL from './map/MapGL';
-import FilterBtn from './buttons/filterBtn/FilterBtn';
-import ButtonLogin from './atoms/buttonLogin/ButtonLogin';
-import ButtonAccount from './atoms/buttonAccount/ButtonAccount';
 import FilterButtonGroup from './molecules/filterButtonGroup/FilterButtonGroup';
+import Nav from './organisms/nav/Nav'
+import {showFilter as showFilterAction, closeFilter} from '../store/actions/showFilterAction'
+import {closeProperty} from '../store/actions/showPropertyAction'
+import {closeSignIn} from '../store/actions/showSignInAction'
 
-class Home extends Component {
-  constructor( props ) {
-    super( props );
-    this.state = { 
-          authenticated: null,
-          };
-    this.checkAuthentication();
-  }
-  
-  checkAuthentication = async () => {
-    const authenticated = await this.props.auth.isAuthenticated();
-    if ( authenticated !== this.state.authenticated ) {
-      this.setState( { authenticated } );
-    }
-  }
 
-  componentDidUpdate() {
-    this.checkAuthentication();
+const Home = (props) => {
+  const dispatch = useDispatch();
+  const showFilter = useSelector(state=>state.showFilter)
+  const showSignIn = useSelector(state=>state.showSignIn)
+  const showProperty = useSelector(state=>state.showProperty.isHidden)
+
+  const toggleFilter = () => {
+    showFilter ? dispatch(closeFilter()) : dispatch(showFilterAction())
   }
 
-  toggleFilter = () => {
-    this.props.dispatch({type: 'SHOW_FILTER'});
-  }
-
-  handleCloseFilter = () => {
-    this.props.dispatch({type: 'CLOSE_FILTER'});
+  const handleCloseFilter = () => {
+    dispatch(closeFilter())
   } 
 
-  handleClosePropertyInfo = () => {
-    this.props.dispatch({type: 'CLOSE_PROPERTY'})
+  const handleClosePropertyInfo = () => {
+    dispatch(closeProperty())
 }
 
-  handleCloseSignIn = () => {
-    this.props.dispatch({type: 'CLOSE_SIGNIN'})
+  const handleCloseSignIn = () => {
+    dispatch(closeSignIn())
 }
-
-  render() {
-    const { showFilter, showProperty, showSignIn } = this.props.home;
-    if ( this.state.authenticated === null ) return null;
-  
-    const button = this.state.authenticated ?
-      <ButtonAccount onClick={() => {this.props.auth.logout()}}/> :
-      <ButtonLogin onClick={() => {this.props.auth.login()}}/>
 
     return (
-      <div>
-        <div style={{position: 'absolute', top: '10px', right: 15, zIndex: 2}}>{button}</div>
-        <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {this.toggleFilter}/>
-        {/* <FilterBtn onClick = {this.toggleFilter}/> */}
-        
-        {showFilter && <Filter handleCloseFilter={this.handleCloseFilter}/>}
-        {showProperty.isHidden && <PropertyInformation handleClosePropertyInfo={this.handleClosePropertyInfo}/>}
-        {showSignIn && <SignIn handleCloseSignIn={this.handleCloseSignIn}/>}
+      <>
+        <Nav/>
+        {!showFilter && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
+        {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>}
+        {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
+        {showSignIn && <SignIn handleCloseSignIn={handleCloseSignIn}/>}
         <MapGL/>
-      </div>
+      </>
     );
-  }
-
 }
 
-const mapStateToProps = (state) => {
-  return {
-      home: state
-  };
-};
+export default Home;
 
-export default withAuth(connect(mapStateToProps)(Home));

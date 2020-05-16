@@ -4,12 +4,13 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import "react-tabs/style/react-tabs.css";
 
-import SavedFiltersTab from './SavedFiltersTab';
-import FilterTab from './FilterTab';
+import SavedFiltersTab from '../../widgets/filter/SavedFiltersTab';
+import FilterTab from '../../molecules/filter/FilterTab';
 import CloseBtn from '../../buttons/closeBtn/CloseBtn';
+import './filterModal.scss'
 
 
-class Filter extends Component {
+class FilterModal extends Component {
 
     constructor(props) {
       super(props);
@@ -182,9 +183,9 @@ class Filter extends Component {
         const { authenticated } = this.state;
 
       return (
-        <div className='filterWidget'>
-          <CloseBtn onClick={handleCloseFilter}/>
-          <div>
+        <div className='filterContainer'>
+        <div className='filterModal'>
+          <CloseBtn/>
             <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
               <TabList>
                 <Tab>Search</Tab>
@@ -197,7 +198,7 @@ class Filter extends Component {
                 <SavedFiltersTab handleSelectFilter={this.handleSelectFilter} handleEditFilter={this.handleEditFilter}/>
               </TabPanel>
             </Tabs>
-          </div>
+        </div>
         </div>
       );
    }
@@ -209,4 +210,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withAuth(connect(mapStateToProps)(Filter));
+export default withAuth(connect(mapStateToProps)(FilterModal));

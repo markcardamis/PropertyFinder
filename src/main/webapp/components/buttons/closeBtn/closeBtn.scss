@@ -1,0 +1,16 @@
+@import '../../../styles//style.scss';
+
+.closeBtn {
+    height: 25px;
+    width: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+
+    &:hover {
+        background-color: $light-grey;
+        transition: background-color $transition-05;
+    }
+}
