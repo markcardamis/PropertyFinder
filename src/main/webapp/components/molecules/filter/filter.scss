@@ -4,3 +4,15 @@
     width: 40%;
     margin: 50px;
 }
+
+.filterLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.filterBtnContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }

@@ -9,6 +9,7 @@ import PropImg from '../../atoms/propImg/PropImg';
 import ButtonProperty from '../../atoms/buttonProperty/ButtonProperty';
 import PropListItem2 from '../../molecules/propListItem2/PropListItem2';
 import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
+import { DeviderLine } from '../../atoms/deviderLine/DeviderLine';
 
 const PropertyInformation = (props) => {
 
@@ -56,7 +57,7 @@ const PropertyInformation = (props) => {
                                 icon1={area&&<IconAreaG/>} title1={area&&AREA} value1={area}
                                 icon2={zone&&<IconZoneG/>} title2={zone&&ZONE} value2={zone}
                                 />
-                            <div className='propertyInformation-devider'/>
+                            <DeviderLine/>
                             {price&&<PropListItem icon={<IconPriceG/>} title={PRICE} value18={price}/>}
                             {priceToLandValue&&<PropListItem icon={<IconPriceLandG/>} title={PRICE_TO_LAND_VALUE} value14={`${priceToLandValue}%`}/>}
                             <PropListItem2 

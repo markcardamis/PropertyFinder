@@ -8,15 +8,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    display: flex;
+    flex: 1
 }
 .filterModal {
-    width: 934px;
-    padding: 20px;
+    //width: 934px;
+    width: 70%;
+    padding: 22px 32px 22px 32px;
     z-index: 2;
     box-shadow: $shadow-14;
     background-color: white;
-    border-radius: 8px,
+    border-radius: 8px;
+
+    .filterModalCloseBtn {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin-right: -10px;
+    }
 }
+
+
 .filterBtnContainer {
     display: flex;
     justify-content: space-between;

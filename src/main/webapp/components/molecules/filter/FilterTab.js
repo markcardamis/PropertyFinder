@@ -10,10 +10,14 @@ import 'rc-slider/assets/index.css';
 import 'rc-dropdown/assets/index.css';
 
 import FilterWidgetBtn from '../../buttons/filterWidgetBtn/FilterWidgetBtn';
-//import RangeSlider from '../../inputs/slider/Slider';
 import {ZONES} from '../../../shared/constants';
-import Slider from '../../atoms/slider/Slider'
 import './filter.scss'
+import {FilterLine, ZoneSelect} from './components'
+import DeviderLine from '../../atoms/deviderLine/DeviderLine';
+import Slider from '../../atoms/slider/Slider'
+import ButtonOutlined from '../../atoms/buttonOutlined/ButtonOutlined';
+import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled';
+import {IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone} from '../../../assets/icons'
 
 
 class FilterTab extends React.Component {
@@ -21,7 +25,7 @@ class FilterTab extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            authenticated: null,
+            authenticated: false,
             zone: props.filterTab.filter.zone,
             area: props.filterTab.filter.area,
             price: props.filterTab.filter.price,
@@ -32,7 +36,7 @@ class FilterTab extends React.Component {
             showValidation: false      
         };
 
-        this.checkAuthentication();
+       this.checkAuthentication();
     }
 
    checkAuthentication =  async () => {
@@ -79,98 +83,37 @@ class FilterTab extends React.Component {
     }
   }
 
-    renderZones = () => {
-      return ZONES.map(item => {
-        return <MenuItem key={item.name}>
-                  <div className='checkboxWrapper'>
-                    <div className='checkbox' style={{backgroundColor: item.color, border: item.color === '#ffffff' ? '1px solid lightgrey' : null}}>
-                        {/* {this.state.zone === item.name ? <FaCheck size={16} color={'#3c475b'}/> : null} */}
-                    </div>
-                    <div>{item.name}</div>
-                  </div>
-                </MenuItem>
-      })
-    }
-
     render () {
-        const menu = <Menu onSelect={this.onSelect} class='dropdown'>
-                    {this.renderZones()}
-                  </Menu>
-    
+  
         return (
             <div>  
-              <div className='zone'>
-        <Typography id="range-slider" gutterBottom>Zone:</Typography>
-              <Dropdown
-                  trigger={['click']}
-                  overlay={menu}
-                  animation="slide-up"
-                >
-                  <Button style={{width: '80%'}}variant="outlined">{this.state.zone || 'Select'}</Button>
-                </Dropdown>
-              </div>
-                <div className='slider'>
-                  <Slider
-                     value={this.state.area}
-                     onChange={(val)=>this.setState({area: val})}
-                     min={0}
-                     max={20000}
-                     step={100}
-                     labelMin={'0'}
-                     labelMax={'20 000+'}
-                  />
-                </div> 
-                <div className='slider'>
-                   <Slider
-                     value={this.state.price}
-                     onChange={(val)=>this.setState({price: val})}
-                     min={100000}
-                     max={5000000}
-                     step={10000}
-                     labelMin={'$100k'}
-                     labelMax={'$5M'}
-                  />
-                </div>
-                <div className='slider'>
-                  <Slider
-                     value={this.state.priceM2}
-                     onChange={(val)=>this.setState({priceM2: val})}
-                     //min={1}
-                     min={0}
-                     max={10000}
-                     step={10}
-                     labelMin={'$1'}
-                     labelMax={'$10 000+'}
-                  />
-                </div>
-                <TextField label="Post Code" value={this.state.postCode} onChange={(even)=>this.setState({postCode: event.target.value})}/>
+              <ZoneSelect zone={this.state.zone} title22={'Zone'} icon={<IconZone/>} onChange={(even)=>this.setState({postCode: event.target.value})}/>
+
+              <TextField label="Post Code" value={this.state.postCode} onChange={(even)=>this.setState({postCode: event.target.value})}/>
                 {this.state.showValidation && <div className='validation'>*must be 4 digits</div>}
-                <div className='slider marginTop'>
-                  <Slider
-                     value={this.state.priceLandvalue}
-                     onChange={(val)=>this.setState({priceLandvalue: val})}
-                     min={0}
-                     max={10}
-                     step={0.1}
-                     labelMin={'0.0'}
-                     labelMax={'10.0'}
-                  />
+            
+                <FilterLine title22={'Area'} icon={<IconArea/>} value={this.state.area} step={100} 
+                            onChange={(val)=>this.setState({area: val})} min={0} max={20000} labelMin={'0'} labelMax={'20 000+'}/>
+                <FilterLine title22={'Floor Space Ratio'} icon={<IconFsr/>} value={this.state.floorspaceRatio} step={0.1} 
+                            onChange={(val)=>this.setState({floorspaceRatio: val})} min={0} max={2} labelMin={'0.0'} labelMax={'2.0+'}/>
+                <DeviderLine/>
+                <FilterLine title22={'Price'} icon={<IconPrice/>} value={this.state.price} step={10000} 
+                            onChange={(val)=>this.setState({price: val})} min={100000} max={5000000} labelMin={'$100k'} labelMax={'$5M'}/>
+                <FilterLine title22={'Price per m²'} icon={<IconPriceM/>} value={this.state.priceM2} step={10} 
+                            onChange={(val)=>this.setState({priceM2: val})} min={0} max={10000} labelMin={'$1'} labelMax={'$10 000+'}/>
+                <FilterLine title22={'Price to Land Value'} icon={<IconLandval/>} value={this.state.priceLandvalue} step={0.1} 
+                            onChange={(val)=>this.setState({priceLandvalue: val})} min={0} max={10} labelMin={'0.0'} labelMax={'10.0'}/>
+               
+
+
+                 <div className='filterBtnContainer'>
+                  <ButtonOutlined title={'Save preferences'} onClick={this.handleSaveFilter} width={'25%'}/>
+                  <ButtonFilled  title={'Search'} onClick={this.handleSubmit} width={'65%'}/>
                 </div>
-                <div className='slider'>
-                    <Slider
-                     value={this.state.floorspaceRatio}
-                     onChange={(val)=>this.setState({floorspaceRatio: val})}
-                     min={0}
-                     max={2}
-                     step={0.1}
-                     labelMin={'0.0'}
-                     labelMax={'2.0+'}
-                  />
-                </div>
-                   <div className='filterBtnContainer'>
-                      <FilterWidgetBtn disabled={submitting} title={'Search'} onClick={this.handleSubmit}/>
-                      <FilterWidgetBtn disabled={false} title={'Save preferences'} onClick={this.handleSaveFilter}/>
-                    </div>
+               {/* <div className='filterBtnContainer'>
+                  <FilterWidgetBtn disabled={submitting} title={'Search'} onClick={this.handleSubmit}/>
+                  <FilterWidgetBtn disabled={false} title={'Save preferences'} onClick={this.handleSaveFilter}/>
+                </div> */}
               </div>
         );
         const {submitting } = props;
