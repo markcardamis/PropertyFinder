@@ -70,14 +70,14 @@ renderPopup = (e) => {
         // const postCode="2142"
         // const area=1025
         // const zoneCode="R2"
-        // const landValue1="6453522"
+        // const landValue1="246453522"
         // const floorSpaceRatio = 0.50
         // const minimumLotSize = null
         // const buildingHeight = 4
 
         // const chartData={
         //     baseDate: ["2014-01-07", "2015-01-07", "2016-01-07", "2017-01-07", '2018-01-07'],
-        //     landValue: [1349000, 1495000, 1542000, 1643000, 1594000]
+        //     landValue: [15349000, 14495000, 15452000, 16743000, 15294000]
         // }
 
         const propertyInfo = {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, landValue1}
@@ -91,6 +91,7 @@ renderPopup = (e) => {
             const marker = new mapboxgl.Popup()
                 .setDOMContent(placeholder)
                 .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
+                .setMaxWidth("354px")
                 .addTo(map);
         }
         addPopup(propertyData)

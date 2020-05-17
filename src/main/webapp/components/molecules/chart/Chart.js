@@ -31,12 +31,11 @@ class Chart extends Component {
     return (
       <div className='chart'>
         <div className='chart-title'>Landvalue Trend</div>
-        <XYPlot height={130} width={220}>
-        {/* <XYPlot height={130} width={340}> */}
+        <XYPlot height={110} width={295}>
             <HorizontalGridLines />
             <VerticalGridLines />
             <XAxis tickFormat={v => dates[v]}/>
-            <YAxis tickFormat={v => v>999999 ? (v/1000000).toFixed(1)+'M' : v/1000+'k'}/>
+            <YAxis tickFormat={v => v>9999999 ? ((v/1000000).toFixed(0))+'M' : v>999999 ? ((v/1000000).toFixed(1))+'M' : v/1000+'k'}/>
             <LineSeries
               data={data}
               onNearestX={(value) => 
