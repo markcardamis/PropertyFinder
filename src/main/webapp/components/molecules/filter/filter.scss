@@ -1,10 +1,5 @@
 @import '../../../styles//style.scss';
 
-.filterTabSlider {
-    width: 40%;
-    margin: 50px;
-}
-
 .filterLine {
     display: flex;
     flex-direction: row;
@@ -46,4 +41,19 @@
         }
     }
 
+}
+
+.postCode {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.validation {
+    color: red;
+    font-size: 12px;
+    height: 14px;
+    font-family: $mavenPro;
+    display: flex;
+    justify-content: flex-end;
 }

@@ -4,10 +4,9 @@ import PropListTitle from '../../atoms/propListTitle/PropListTitle'
 import Slider from '../../atoms/slider/Slider'
 import Dropdown from 'rc-dropdown';
 import Menu, { Item as MenuItem } from 'rc-menu';
-import {TextField, Typography, Button } from '@material-ui/core';
-import ButtonOutlined from '../../atoms/buttonOutlined/ButtonOutlined';
 import {ZONES} from '../../../shared/constants';
 import { IconArD } from '../../../assets/icons';
+import TextInput from '../../atoms/textInput/TextInput';
 
 export const FilterLine = (props) => {
     return <div className='filterLine'>
@@ -22,6 +21,16 @@ export const FilterLine = (props) => {
                     labelMax={props.labelMax}
                     />
             </div>
+}
+
+export const PostCode = (props) => {
+    return  <>
+            <div className='postCode'>
+                <PropListTitle title22={props.title22} icon={props.icon}/>
+                <TextInput value={props.value} width={'42%'} onChange={props.onChange}/>
+            </div>
+            <div className='validation'>{props.showValidation && '*must be 4 digits'}</div>
+            </>
 }
 
 export const ZoneSelect = (props) => {

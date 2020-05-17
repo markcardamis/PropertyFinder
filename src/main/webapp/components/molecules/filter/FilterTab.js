@@ -12,12 +12,13 @@ import 'rc-dropdown/assets/index.css';
 import FilterWidgetBtn from '../../buttons/filterWidgetBtn/FilterWidgetBtn';
 import {ZONES} from '../../../shared/constants';
 import './filter.scss'
-import {FilterLine, ZoneSelect} from './components'
+import {FilterLine, ZoneSelect, PostCode} from './components'
 import DeviderLine from '../../atoms/deviderLine/DeviderLine';
 import Slider from '../../atoms/slider/Slider'
 import ButtonOutlined from '../../atoms/buttonOutlined/ButtonOutlined';
 import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled';
-import {IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone} from '../../../assets/icons'
+import {IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost} from '../../../assets/icons'
+import TextInput from '../../atoms/textInput/TextInput';
 
 
 class FilterTab extends React.Component {
@@ -93,8 +94,10 @@ class FilterTab extends React.Component {
         return (
             <div>  
               <ZoneSelect zone={this.state.zone} zoneColor={this.state.zoneColor} title22={'Zone'} icon={<IconZone/>} onSelect={this.onSelect}/>
-              <TextField label="Post Code" value={this.state.postCode} onChange={(event)=>this.setState({postCode: event.target.value})}/>
-                {this.state.showValidation && <div className='validation'>*must be 4 digits</div>}
+              <PostCode title22={'Post Code'} icon={<IconPost/>} value={this.state.postCode} showValidation={this.state.showValidation} onChange={(event)=>this.setState({postCode: event.target.value})}/>
+              <DeviderLine/>
+             
+               {/* <TextField label="Post Code" value={this.state.postCode} onChange={(event)=>this.setState({postCode: event.target.value})}/>*/}
             
                 <FilterLine title22={'Area'} icon={<IconArea/>} value={this.state.area} step={100} 
                             onChange={(val)=>this.setState({area: val})} min={0} max={20000} labelMin={'0'} labelMax={'20 000+'}/>
@@ -107,9 +110,7 @@ class FilterTab extends React.Component {
                             onChange={(val)=>this.setState({priceM2: val})} min={0} max={10000} labelMin={'$1'} labelMax={'$10 000+'}/>
                 <FilterLine title22={'Price to Land Value'} icon={<IconLandval/>} value={this.state.priceLandvalue} step={0.1} 
                             onChange={(val)=>this.setState({priceLandvalue: val})} min={0} max={10} labelMin={'0.0'} labelMax={'10.0'}/>
-               
-
-
+      
                  <div className='filterBtnContainer'>
                   <ButtonOutlined title={'Save preferences'} onClick={this.handleSaveFilter} width={'25%'}/>
                   <ButtonFilled  title={'Search'} onClick={this.handleSubmit} width={'65%'}/>

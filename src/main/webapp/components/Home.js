@@ -38,8 +38,8 @@ const Home = (props) => {
       <>
         <Nav/>
         {!showFilter && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
-        {/* {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>} */}
-        <FilterModal handleCloseFilter={handleCloseFilter}/>
+        {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>}
+        {/* <FilterModal handleCloseFilter={handleCloseFilter}/> */}
         {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
         {showSignIn && <SignIn handleCloseSignIn={handleCloseSignIn}/>}
         <MapGL/>

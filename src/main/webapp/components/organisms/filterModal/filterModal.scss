@@ -12,7 +12,6 @@
     flex: 1
 }
 .filterModal {
-    //width: 934px;
     width: 70%;
     padding: 22px 32px 22px 32px;
     z-index: 2;
@@ -29,6 +28,34 @@
 }
 
 
+.react-tabs__tab {
+    width: 45%;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    border: none !important;
+    font-family: $mavenPro;
+    font-size: 24px;
+    //color: $dark-grey;
+}
+.react-tabs__tab--selected {
+    color: $white;
+    background-color: $dark-grey;
+    border: none !important;
+}
+.react-tabs__tab-list {
+   margin-top: 10;
+   border: none !important;
+   display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+   
+}
+
+
 .filterBtnContainer {
     display: flex;
     justify-content: space-between;
@@ -40,11 +67,7 @@
 .marginTop {
 margin-top: 20px;
 }
-.validation {
-    color: red;
-    font-size: 12px;
-    font-family: Arial, sans-serif;
-}
+
 .zone {
     display: flex;
     justify-content: space-between;
@@ -122,12 +145,12 @@ margin-top: 20px;
     margin-right: 10px;
     align-items: center;
 }
-.rc-dropdown {
-    height: 250px;
-    overflow-y: scroll;
-    border-bottom: 1px solid #d0d3d9;
-}
-.rc-dropdown-menu {
-    box-shadow: none;
-    border-radius: 0;
-}
+// .rc-dropdown {
+//     height: 250px;
+//     overflow-y: scroll;
+//     border-bottom: 1px solid #d0d3d9;
+// }
+// .rc-dropdown-menu {
+//     box-shadow: none;
+//     border-radius: 0;
+// }
