@@ -7,6 +7,7 @@ import Menu, { Item as MenuItem } from 'rc-menu';
 import {TextField, Typography, Button } from '@material-ui/core';
 import ButtonOutlined from '../../atoms/buttonOutlined/ButtonOutlined';
 import {ZONES} from '../../../shared/constants';
+import { IconArD } from '../../../assets/icons';
 
 export const FilterLine = (props) => {
     return <div className='filterLine'>
@@ -23,8 +24,6 @@ export const FilterLine = (props) => {
             </div>
 }
 
-
-
 export const ZoneSelect = (props) => {
     const renderZones = () => {
         return ZONES.map(item => {
@@ -39,12 +38,16 @@ export const ZoneSelect = (props) => {
     const menu = <Menu onSelect={props.onSelect} className='dropdown'>
                     {renderZones()}
                 </Menu>
-    return <div className='zone'>
+    return <div className='zoneSelect'>
                 <PropListTitle title22={props.title22} icon={props.icon}/>
-                {/* <Typography id="range-slider" gutterBottom></Typography> */}
                 <Dropdown trigger={['click']} overlay={menu} animation="slide-up">
-                    {/* <Button style={{width: '80%'}}variant="outlined">{this.state.zone || 'Select'}</Button> */}
-                    <ButtonOutlined width={'45%'} title={props.zone || 'Select'}/>
+                    <div className='zoneSelectBtn'>
+                        <div className='zoneSelectText'>
+                            {props.zone&&<div className='zoneColor' style={{backgroundColor: props.zoneColor}}/>}
+                            {props.zone || 'Select'}
+                        </div>
+                        <IconArD/>
+                    </div>
                 </Dropdown>
             </div>
 }

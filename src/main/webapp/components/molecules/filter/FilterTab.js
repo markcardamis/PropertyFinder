@@ -27,6 +27,7 @@ class FilterTab extends React.Component {
         this.state = {
             authenticated: false,
             zone: props.filterTab.filter.zone,
+            zoneColor: null,
             area: props.filterTab.filter.area,
             price: props.filterTab.filter.price,
             priceM2: props.filterTab.filter.priceM2,
@@ -67,6 +68,10 @@ class FilterTab extends React.Component {
 
     onSelect = ({ key }) => {
       this.setState({zone: key})
+      let zoneColor = ZONES.filter(item=>{
+        return item.name===key
+      })
+      this.setState({zoneColor: zoneColor[0].color})
     }
 
     handleSaveFilter = async () => {
@@ -87,9 +92,8 @@ class FilterTab extends React.Component {
   
         return (
             <div>  
-              <ZoneSelect zone={this.state.zone} title22={'Zone'} icon={<IconZone/>} onChange={(even)=>this.setState({postCode: event.target.value})}/>
-
-              <TextField label="Post Code" value={this.state.postCode} onChange={(even)=>this.setState({postCode: event.target.value})}/>
+              <ZoneSelect zone={this.state.zone} zoneColor={this.state.zoneColor} title22={'Zone'} icon={<IconZone/>} onSelect={this.onSelect}/>
+              <TextField label="Post Code" value={this.state.postCode} onChange={(event)=>this.setState({postCode: event.target.value})}/>
                 {this.state.showValidation && <div className='validation'>*must be 4 digits</div>}
             
                 <FilterLine title22={'Area'} icon={<IconArea/>} value={this.state.area} step={100} 

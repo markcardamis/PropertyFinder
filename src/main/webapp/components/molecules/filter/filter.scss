@@ -16,3 +16,34 @@
         flex-direction: row;
         justify-content: space-between;
     }
+.zoneSelect {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .zoneSelectBtn {
+        width: 42%;
+        height: 44px;
+        border: 1px solid $dark-grey;
+        border-radius: 6px;
+        padding: 0 18px 0 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 20px;
+        font-family: $mavenPro;
+
+        .zoneSelectText {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .zoneColor {
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+    }
+
+}
