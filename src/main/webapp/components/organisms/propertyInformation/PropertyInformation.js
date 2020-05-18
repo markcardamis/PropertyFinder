@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { DEFAULT_HOUSE_IMAGE, ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION } from '../../../shared/constants';
+import { DEFAULT_HOUSE_IMAGE, ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO } from '../../../shared/constants';
 import PropListItem from '../../molecules/propListItem/PropListItem';
-import {IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose} from '../../../assets/icons'
+import {IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG} from '../../../assets/icons'
 import './propertyInformation.scss'
 import PropImg from '../../atoms/propImg/PropImg';
 import ButtonProperty from '../../atoms/buttonProperty/ButtonProperty';
@@ -14,7 +14,7 @@ import variables from '../../../styles/_variables.scss'
 
 const PropertyInformation = (props) => {
 
-        const { handleClosePropertyInfo } = props;
+         const { handleClosePropertyInfo } = props;
         const { id, address, area, floorSpaceRatio, minimumLotSize,
                 price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
                 pricePSM, priceToLandValue, summaryDescription, listingPhoto,
@@ -47,7 +47,6 @@ const PropertyInformation = (props) => {
 
             return (
                     <div className='propertyInformation'>
-                        {console.log(variables)}
                         <div className='propertyInformation-close'>
                             <ButtonSquare icon={<IconClose/>} onClick={handleClosePropertyInfo}/>
                         </div>
@@ -60,6 +59,14 @@ const PropertyInformation = (props) => {
                                 icon2={zone ? <IconZoneG/> : <IconZoneG color={variables.lightGrey}/>} title2={ZONE} value2={zone}
                                 />
                             <DeviderLine/>
+                            <PropListItem2 
+                                icon1={bathrooms ? <IconBathG/> : <IconBathG color={variables.lightGrey}/>} 
+                                title1={BATHROOMS} value1={bathrooms}
+                                icon2={bedrooms ? <IconBedG/> : <IconBedG color={variables.lightGrey}/>} 
+                                title2={BEDROOMS} value2={bedrooms}
+                                />
+                            <PropListItem icon={carspaces ? <IconCarG/> : <IconCarG color={variables.lightGrey}/>} title={CAR_SPACES} value14={carspaces}/>
+                            <DeviderLine/>
                             <PropListItem icon={price ? <IconPriceG/> : <IconPriceG color={variables.lightGrey}/>} title={PRICE} value18={price}/>
                             <PropListItem icon={priceToLandValue ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} title={PRICE_TO_LAND_VALUE} value14={priceToLandValue&&`${priceToLandValue}%`}/>
                             <PropListItem2 
@@ -68,19 +75,17 @@ const PropertyInformation = (props) => {
                                 icon2={landValue ? <IconLandvalG/> : <IconLandvalG color={variables.lightGrey}/>} 
                                 title2={LAND_VALUE} value2={landValue}
                                 />
+                             <PropListItem2 
+                                icon1={floorSpaceRatio ? <IconFsrG/> : <IconFsrG color={variables.lightGrey}/>} 
+                                title1={FLOOR_SPACE_RATIO} value1={floorSpaceRatio}
+                                icon2={minimumLotSize ? <IconLotG/> : <IconLotG color={variables.lightGrey}/>} 
+                                title2={MINIMUM_LOT_SIZE} value2={minimumLotSize}
+                                />
                             <div className='propertyInformation-margin10'/>
                              <PropListItem title={DESCRIPTION}/>
                              <div className='propertyInformation-descr'>{summaryDescription}</div>
                         </div>
                         <ButtonProperty title={'GO TO PROPERTY'} url={listingURL}/>
-                        
-                         {/* 
-                        {bathrooms && <li><FaBath size='1.5em'/><b> Bathrooms: </b>{bathrooms}</li>}
-                        {bedrooms && <li><FaBed size='1.5em'/><b> Bedrooms: </b>{bedrooms}</li>}
-                        {carspaces && <li><FaCar size='1.5em'/><b> Car spaces: </b>{carspaces}</li>}
-                        {(floorSpaceRatio>0) && <li><FaBuilding size='1.5em'/><b> Floor Space Ratio: </b>{floorSpaceRatio}</li>}
-                        {minimumLotSize && <li><IoMdResize size='1.5em'/><b> Minimum Lot Size: </b>{minimumLotSize}</li>}
-                         */}
                     </div> 
             );
     };
