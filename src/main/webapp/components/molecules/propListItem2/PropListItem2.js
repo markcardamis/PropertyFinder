@@ -3,16 +3,17 @@ import PropTypes from 'prop-types'
 
 import './propListItem2.scss'
 import PropListTitle from '../../atoms/propListTitle/PropListTitle'
+import variables from '../../../styles/_variables.scss'
 
 const PropListItem = props => {
     return (
         <div className='propListTitle2'>
             <div className='propListTitle2-col'>
-                <PropListTitle icon={props.icon1} title={props.title1}/>
+                <PropListTitle icon={props.icon1} title={props.title1} color={!props.value1 ? variables.lightGrey : null}/>
                 <div className='propListTitle2-value'>{props.value1}</div>
             </div>
             <div className='propListTitle2-col'>
-                <PropListTitle icon={props.icon2} title={props.title2}/>
+                <PropListTitle icon={props.icon2} title={props.title2} color={!props.value2 ? variables.lightGrey : null}/>
                 <div className='propListTitle2-value'>{props.value2}</div>
             </div>
         </div>

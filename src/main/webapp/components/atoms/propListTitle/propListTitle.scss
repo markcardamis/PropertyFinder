@@ -3,6 +3,7 @@
 .propListTitle {
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     .propListTitle-text {
         color: $dark-grey;

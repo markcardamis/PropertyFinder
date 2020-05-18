@@ -1,45 +1,45 @@
-.filterWidget {
-    width: 350px;
-    position: absolute;
-    padding: 20px;
-    left: 0;
-    z-index: 10;
-    border: 1px solid #d0d3d9;
-    background-color: white;
-    border-radius: 10px,
-}
+// .filterWidget {
+//     width: 350px;
+//     position: absolute;
+//     padding: 20px;
+//     left: 0;
+//     z-index: 10;
+//     border: 1px solid #d0d3d9;
+//     background-color: white;
+//     border-radius: 10px,
+// }
 
-.marginTop {
-margin-top: 20px;
-}
+// .marginTop {
+// margin-top: 20px;
+// }
 
-.zone {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-.filterItem {
-    padding: 20px 10px 20px 10px;
-    border-radius: 10px;
-    color: $font-base;
-    font-family: Arial, Helvetica, sans-serif;
+// .zone {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     margin-top: 20px;
+//     margin-bottom: 10px;
+// }
+// .filterItem {
+//     padding: 20px 10px 20px 10px;
+//     border-radius: 10px;
+//     color: $font-base;
+//     font-family: Arial, Helvetica, sans-serif;
 
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.02);
-    }
+//     &:hover {
+//         background-color: rgba(0, 0, 0, 0.02);
+//     }
 
-    .filterHeader {
-        justify-content: space-between;
-    }
-    .filterItemIcon {
-        margin: 2px;
-        &:hover {
-            color: $bg-pink;
-        }
-    }
-}
+//     .filterHeader {
+//         justify-content: space-between;
+//     }
+//     .filterItemIcon {
+//         margin: 2px;
+//         &:hover {
+//             color: $bg-pink;
+//         }
+//     }
+// }
 .green {
     color: #81c784
 }
@@ -75,27 +75,4 @@ margin-top: 20px;
 }
 .purple2 {
     color: #7b1fa2;
-}
-
-.checkboxWrapper {
-    display: flex;
-    align-items: center;
-    color: $font-base;
-}
-.checkbox {
-    width: 20px;
-    height: 20px;
-    
-    justify-content: center;
-    margin-right: 10px;
-    align-items: center;
-}
-.rc-dropdown {
-    height: 250px;
-    overflow-y: scroll;
-    border-bottom: 1px solid #d0d3d9;
-}
-.rc-dropdown-menu {
-    box-shadow: none;
-    border-radius: 0;
 }

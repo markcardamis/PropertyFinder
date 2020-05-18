@@ -57,3 +57,29 @@
     display: flex;
     justify-content: flex-end;
 }
+.rc-dropdown {
+    height: 250px;
+    overflow-y: scroll;
+    border: 1px solid $dark-grey;
+    border-radius: 4px;
+}
+.rc-dropdown-menu {
+    box-shadow: none;
+    border-radius: 0;
+    border-top: none;
+}
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+
+    .checkbox {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        color: $dark-grey;
+        justify-content: center;
+        margin-right: 10px;
+        align-items: center;
+        font-family: $mavenPro;
+    }
+}

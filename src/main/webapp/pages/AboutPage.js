@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Nav from '../components/organisms/nav/Nav'
 
 const AboutPage = props => {
     return (
-        <div>
-            This is about page
-        </div>
+        <>
+            <Nav/>
+            <div>This is about page</div>
+        </>
     )
 }
 

@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Nav from '../components/organisms/nav/Nav'
 
 const ContactPage = props => {
     return (
-        <div>
-            This is Contact Page
-        </div>
+        <>
+        <Nav/>
+        <div>This is Contact Page</div>
+        </>
     )
 }
 

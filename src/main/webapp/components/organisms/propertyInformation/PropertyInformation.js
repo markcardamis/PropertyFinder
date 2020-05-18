@@ -9,7 +9,8 @@ import PropImg from '../../atoms/propImg/PropImg';
 import ButtonProperty from '../../atoms/buttonProperty/ButtonProperty';
 import PropListItem2 from '../../molecules/propListItem2/PropListItem2';
 import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
-import { DeviderLine } from '../../atoms/deviderLine/DeviderLine';
+import DeviderLine from '../../atoms/deviderLine/DeviderLine';
+import variables from '../../../styles/_variables.scss'
 
 const PropertyInformation = (props) => {
 
@@ -39,33 +40,36 @@ const PropertyInformation = (props) => {
         // const zone="R2"
         // const floorSpaceRatio = 0.50
         // const minimumLotSize = null
-        // const landValue=279000
+        // const landValue=null
         // const pricePSM=292
-        // const priceToLandValue = 1.08
+        // const priceToLandValue = null
         
 
             return (
                     <div className='propertyInformation'>
+                        {console.log(variables)}
                         <div className='propertyInformation-close'>
                             <ButtonSquare icon={<IconClose/>} onClick={handleClosePropertyInfo}/>
                         </div>
                         <PropImg img={listingPhoto || DEFAULT_HOUSE_IMAGE}/>
                         <div className='propertyInformation-mainContainer'>
-                            <PropListItem icon={<IconAddressG/>} title={ADDRESS} value11={`ID: ${id}`}/>
+                            <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
                             <div className='propertyInformation-address'>{address}</div>
                             <PropListItem2 
-                                icon1={area&&<IconAreaG/>} title1={area&&AREA} value1={area}
-                                icon2={zone&&<IconZoneG/>} title2={zone&&ZONE} value2={zone}
+                                icon1={area ? <IconAreaG/> : <IconAreaG color={variables.lightGrey}/>} title1={AREA} value1={area}
+                                icon2={zone ? <IconZoneG/> : <IconZoneG color={variables.lightGrey}/>} title2={ZONE} value2={zone}
                                 />
                             <DeviderLine/>
-                            {price&&<PropListItem icon={<IconPriceG/>} title={PRICE} value18={price}/>}
-                            {priceToLandValue&&<PropListItem icon={<IconPriceLandG/>} title={PRICE_TO_LAND_VALUE} value14={`${priceToLandValue}%`}/>}
+                            <PropListItem icon={price ? <IconPriceG/> : <IconPriceG color={variables.lightGrey}/>} title={PRICE} value18={price}/>
+                            <PropListItem icon={priceToLandValue ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} title={PRICE_TO_LAND_VALUE} value14={priceToLandValue&&`${priceToLandValue}%`}/>
                             <PropListItem2 
-                                icon1={pricePSM&&<IconPriceMg/>} title1={pricePSM&&PRICE_PER_M2} value1={pricePSM}
-                                icon2={landValue&&<IconLandvalG/>} title2={landValue&&LAND_VALUE} value2={landValue}
+                                icon1={pricePSM ? <IconPriceMg/> : <IconPriceMg color={variables.lightGrey}/>} 
+                                title1={PRICE_PER_M2} value1={pricePSM}
+                                icon2={landValue ? <IconLandvalG/> : <IconLandvalG color={variables.lightGrey}/>} 
+                                title2={LAND_VALUE} value2={landValue}
                                 />
                             <div className='propertyInformation-margin10'/>
-                             {summaryDescription&&<PropListItem title={DESCRIPTION}/>}
+                             <PropListItem title={DESCRIPTION}/>
                              <div className='propertyInformation-descr'>{summaryDescription}</div>
                         </div>
                         <ButtonProperty title={'GO TO PROPERTY'} url={listingURL}/>
