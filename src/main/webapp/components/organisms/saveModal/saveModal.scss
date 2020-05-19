@@ -1,0 +1,55 @@
+@import '../../../styles/style.scss';
+
+.saveModalContainer {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex: 1
+}
+.saveModal {
+    width: 70%;
+    padding: 32px 32px 32px 32px;
+    z-index: 2;
+    box-shadow: $shadow-14;
+    background-color: white;
+    border-radius: 8px;
+
+    .saveModalHeader {
+        display: flex;
+        justify-content: space-between;
+        font-size: 32px;
+        font-family: $mavenPro;
+        color: $black;
+        font-weight: 500;
+    }
+
+    .saveModalInput {
+        margin-top: 64px;
+    }
+    .saveModalNote {
+        margin-top: 14px;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.54);
+        display: flex;
+        justify-content: center;
+    }
+
+    .saveModalSwitch {
+        margin-top: 40px;
+        margin-bottom: 48px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .saveModalSwitchText {
+            font-family: $mavenPro;
+            font-size: 20px;
+            color: $black;
+        }
+    }
+}

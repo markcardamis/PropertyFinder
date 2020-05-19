@@ -181,11 +181,10 @@ class FilterModal extends Component {
     render () {
         const { handleCloseFilter } = this.props;
         const { authenticated } = this.state;
-
       return (
         <div className='filterContainer'>
         <div className='filterModal'>
-          <div className='filterModalCloseBtn'><CloseBtn onClick={this.props.handleCloseFilter}/></div>
+          <div className='filterModalCloseBtn'><CloseBtn onClick={handleCloseFilter}/></div>
             <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
               <TabList>
                 <Tab>Search</Tab>

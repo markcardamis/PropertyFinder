@@ -10,6 +10,8 @@ import Nav from './organisms/nav/Nav'
 import {showFilter as showFilterAction, closeFilter} from '../store/actions/showFilterAction'
 import {closeProperty} from '../store/actions/showPropertyAction'
 import {closeSignIn} from '../store/actions/showSignInAction'
+import { SaveModal } from './organisms/saveModal/SaveModal';
+import {showSaveModal, closeSaveModal} from '../store/actions/showSaveModalAction'
 
 
 const Home = (props) => {
@@ -17,6 +19,7 @@ const Home = (props) => {
   const showFilter = useSelector(state=>state.showFilter)
   const showSignIn = useSelector(state=>state.showSignIn)
   const showProperty = useSelector(state=>state.showProperty.isHidden)
+  const showSave = useSelector(state=>state.showSaveModal)
 
   const toggleFilter = () => {
     showFilter ? dispatch(closeFilter()) : dispatch(showFilterAction())
@@ -37,13 +40,15 @@ const Home = (props) => {
     return (
       <>
         <Nav/>
+        {console.log(showSave)}
         {!showFilter && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
         {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>}
         {/* <FilterModal handleCloseFilter={handleCloseFilter}/> */}
-        {/* {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>} */}
-        <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>
+        {!showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>}
+        {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
+        {/* <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/> */}
         {showSignIn && <SignIn handleCloseSignIn={handleCloseSignIn}/>}
-        <MapGL/>
+        <div><MapGL/></div>
       </>
     );
 }

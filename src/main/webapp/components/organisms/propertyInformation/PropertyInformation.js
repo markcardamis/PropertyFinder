@@ -14,7 +14,7 @@ import variables from '../../../styles/_variables.scss'
 
 const PropertyInformation = (props) => {
 
-         const { handleClosePropertyInfo } = props;
+        const { handleClosePropertyInfo } = props;
         const { id, address, area, floorSpaceRatio, minimumLotSize,
                 price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
                 pricePSM, priceToLandValue, summaryDescription, listingPhoto,

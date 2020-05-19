@@ -23,8 +23,6 @@ export const BUILDING_HEIGHT = 'Building Height';
 export const BATHROOMS = 'Bathrooms';
 export const BEDROOMS = 'Bedrooms';
 export const CAR_SPACES = 'Car Spaces';
-export const FLOOR_SPACE_RATIO = 'Floor Space Ratio';
-export const MINIMUM_LOT_SIZE = 'Minimum Lot Size';
 
 
 export const ZONES = [{id: 1, name: 'B1', color: '#f4fefd'}, {

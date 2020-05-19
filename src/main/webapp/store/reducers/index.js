@@ -6,6 +6,7 @@ import showSignInReducer from './showSignInReducer';
 import authReducer from './authReducer';
 import showPopupReducer from './showPopupReducer';
 import filterReducer from './filterReducer';
+import showSaveModalReducer from './showSaveModalReducer';
 import { combineReducers } from 'redux';
 
 const reducers = combineReducers({
@@ -16,7 +17,8 @@ const reducers = combineReducers({
     viewport: viewportReducer,
     auth: authReducer,
     showPopup: showPopupReducer,
-    filter: filterReducer
+    filter: filterReducer,
+    showSaveModal: showSaveModalReducer
 });
 
 export default reducers; 
