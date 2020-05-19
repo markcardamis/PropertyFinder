@@ -6,7 +6,7 @@ import Switch from "react-switch";
 import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled';
 
 export const SaveModal = (props) => {
-    const [title,setTiltle] = useState('Preferences 1.0')
+    const [title, setTiltle] = useState('Preferences 1.0')
     const [checked, setChecked] = useState(true)
     return (
         <div className='saveModalContainer'>
@@ -16,7 +16,7 @@ export const SaveModal = (props) => {
                     Save Preferences
                     <CloseBtn onClick={props.onCloseClick}/>
                 </div>
-                <div className='saveModalInput'><TextInput value={title} onChange={(val)=>setTiltle(val)}/></div>
+                <div className='saveModalInput'><TextInput value={title} onChange={(e)=>setTiltle(e.target.value)}/></div>
                 <div className='saveModalNote'>Name your saved preferences.</div>
                 <div className='saveModalSwitch'>
                     <div>Send a notification as soon as we find a suitable</div>
