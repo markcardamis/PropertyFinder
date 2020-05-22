@@ -114,25 +114,25 @@ class FilterModal extends Component {
 
       if (this.state.authenticated == true) {
 
-        this.props.dispatch({type: 'SHOW_SAVE_MODAL'})
-        this.props.dispatch({type: 'CLOSE_FILTER'})
+        // this.props.dispatch({type: 'SHOW_SAVE_MODAL'})
+        // this.props.dispatch({type: 'CLOSE_FILTER'})
 
-        //     try {
-        //       const response = await fetch('/api/notifications', {
-        //         headers: {
-        //             Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-        //         }
-        //       });
-        //       const data = await response.json();
-        //       this.setState({ savedFilters : data });
-        //     } catch (err) {
-        //       // add notification
-        //     }
+            try {
+              const response = await fetch('/api/notifications', {
+                headers: {
+                    Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
+                }
+              });
+              const data = await response.json();
+              this.setState({ savedFilters : data });
+            } catch (err) {
+              // add notification
+            }
 
-        // const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
-        // result ? await this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : await this.saveFilter('POST', '/api/notifications');
+        const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
+        result ? await this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : await this.saveFilter('POST', '/api/notifications');
       
-        // this.setState({ editedFilter: [], tabIndex : 1 });
+        this.setState({ editedFilter: [], tabIndex : 1 });
       } else {
         this.props.dispatch({type: 'SHOW_SIGNIN'})
     }

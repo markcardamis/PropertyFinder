@@ -8,6 +8,7 @@ import { hotjar } from 'react-hotjar';
 
 import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
 import './MapGL.css';
+import {Logo, MapMarker} from '../../assets/icons'
 import Popup from '../organisms/popup/Popup';
  
     mapboxgl.accessToken = MAPBOX_API;
@@ -33,7 +34,8 @@ async componentDidMount() {
     map.addControl(new mapboxgl.NavigationControl());
     this.checkAuthentication();
     await this.callApi('/api/listing', null, 'MARKERS');
-    this.renderMarkers();
+    const mp = <div><MapMarker/></div>
+    this.renderMarkers(mp);
 
     map.on('click', (e) => this.handlePropertyClick(e)); 
     map.on('move', () => this.handleViewportChange());
@@ -99,18 +101,17 @@ renderPopup = (e) => {
 
 
 
-renderMarkers = async () => {
+renderMarkers = async (mp) => {
     const { mapMarker } = this.props.mapGL;
-
-    mapMarker.forEach((marker) => {
-        var el = document.createElement('div');
-        el.className = 'marker';
-        el.tabIndex = 0;
     
-        let oneMarker = new mapboxgl.Marker(el)
+    mapMarker.forEach((marker) => {
+        const placeholder = document.createElement('div');
+        ReactDOM.render(mp, placeholder);
+    
+        let oneMarker = new mapboxgl.Marker(placeholder)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map);
-        el.addEventListener('click', () => {
+        placeholder.addEventListener('click', () => {
             this.handleMarkerClick(marker);
         });
         currentMarkers.push(oneMarker);

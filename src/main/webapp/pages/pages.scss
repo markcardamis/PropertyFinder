@@ -1,0 +1,10 @@
+@import '../styles/style.scss';
+
+.notification {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 150px;
+    font-family: $mavenPro;
+    font-size: 20px;
+}
