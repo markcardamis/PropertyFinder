@@ -1,0 +1,14 @@
+@import '../../../styles/style.scss';
+
+.authModalAccount-btn {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    padding-left: 12px;
+
+
+    &:hover {
+        background-color: $shadow-grey;
+    }
+}

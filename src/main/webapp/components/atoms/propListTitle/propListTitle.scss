@@ -7,13 +7,17 @@
 
     .propListTitle-text {
         color: $dark-grey;
-        font-family: $mavenPro;
         font-size: 11px;
+    }
+
+    .propListTitle-text16 {
+        color: $light-grey;
+        font-size: 16px;
+        margin-left: 10px;
     }
 
     .propListTitle-text22 {
         color: $dark-grey;
-        font-family: $mavenPro;
         font-size: 22px;
         margin-left: 14px;
     }
