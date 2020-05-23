@@ -119,7 +119,7 @@ renderMarkers = async (mp) => {
 }
 
 handleMarkerClick = (marker) => {
-   this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
+    this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
 }
 
 handlePropertyClick = async (e) => {
@@ -143,7 +143,8 @@ handlePropertyClick = async (e) => {
      }
 }
 
-callApi = async (api, auth, action) => {   
+callApi = async (api, auth, action) => { 
+    dispatch({type: 'SHOW_LOADING'})  
     try {
         const response = await fetch(api, auth);
         const data = await response.json();
@@ -154,6 +155,7 @@ callApi = async (api, auth, action) => {
         console.log('Api call failed');
         // add notification
     }  
+    dispatch({type: 'HIDE_LOADING'})
 }
 
 checkAuthentication = async () => {

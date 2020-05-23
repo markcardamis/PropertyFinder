@@ -37,6 +37,7 @@ class FilterModal extends Component {
     handleSelectFilter = async (item) => {
       this.displayFilterValues(item);
       this.setState({ tabIndex : 0 });
+      dispatch({type: 'SHOW_LOADING'})
   
       try {
         const response = await fetch(`/api/listing/notifications/${item.id}`, {
@@ -50,13 +51,14 @@ class FilterModal extends Component {
       } catch (err) {
         // add notification;
       }
+      dispatch({type: 'HIDE_LOADING'})
     }
 
     handleEditFilter = async (item) => {
       {console.log(item)}
       this.setState({editedFilter: item, tabIndex : 0});
       this.displayFilterValues(item);
-
+      dispatch({type: 'SHOW_LOADING'})
         try {
           const response = await fetch(`/api/listing/notifications/${item.id}`, {
             headers: {
@@ -67,6 +69,7 @@ class FilterModal extends Component {
         } catch (err) {
           // add notification
         };
+      dispatch({type: 'HIDE_LOADING'})
     }
 
 
@@ -80,6 +83,7 @@ class FilterModal extends Component {
                 
     saveFilter = async (method, path) => {
       const {zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio} = this.props.filter.filter
+      dispatch({type: 'SHOW_LOADING'})
       try {
         const response = await fetch(path, {
           method: method,
@@ -107,6 +111,7 @@ class FilterModal extends Component {
       } catch (err) {
         // add notification 
       }
+      dispatch({type: 'HIDE_LOADING'})
     }
 
     handleSaveFilter = async (values) => {
@@ -116,7 +121,7 @@ class FilterModal extends Component {
 
         // this.props.dispatch({type: 'SHOW_SAVE_MODAL'})
         // this.props.dispatch({type: 'CLOSE_FILTER'})
-
+        dispatch({type: 'SHOW_LOADING'})
             try {
               const response = await fetch('/api/notifications', {
                 headers: {
@@ -128,6 +133,7 @@ class FilterModal extends Component {
             } catch (err) {
               // add notification
             }
+            dispatch({type: 'SHOW_LOADING'})
 
         const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
         result ? await this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : await this.saveFilter('POST', '/api/notifications');
@@ -149,7 +155,7 @@ class FilterModal extends Component {
       headers = this.state.authenticated===false ?  
           headers : { ...headers, 'Authorization': 'Bearer ' + await this.props.auth.getAccessToken()}
 
-      
+      dispatch({type: 'SHOW_LOADING'})
       try {
 
         const response = await fetch('/api/listing/query', {
@@ -179,6 +185,7 @@ class FilterModal extends Component {
       } catch (err) {
         // add notification  
       }
+      dispatch({type: 'SHOW_LOADING'})
     }
 
     render () {

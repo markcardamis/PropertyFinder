@@ -25,6 +25,7 @@ class SavedFiltersTab extends Component {
   }
       
   listSavedFilters = async () => {
+    dispatch({type: 'SHOW_LOADING'})
     try {
       const response = await fetch('/api/notifications', {
         headers: {
@@ -37,6 +38,7 @@ class SavedFiltersTab extends Component {
     } catch (err) {
       // add notification
     }
+    dispatch({type: 'HIDE_LOADING'})
   }
 
   handleSelectFilter = (item) => {
@@ -70,6 +72,7 @@ class SavedFiltersTab extends Component {
 
 
   handleDeleteFilter = async (item) => {
+    dispatch({type: 'SHOW_LOADING'})
     try {
       const response = await fetch(`/api/notifications/${item.id}`, {
         method: 'DELETE',
@@ -81,6 +84,7 @@ class SavedFiltersTab extends Component {
     } catch (err) {
       // add notification
     }
+    dispatch({type: 'HIDE_LOADING'})
     this.listSavedFilters();
   }
 
