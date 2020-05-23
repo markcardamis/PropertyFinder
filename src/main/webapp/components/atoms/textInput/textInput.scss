@@ -1,16 +1,22 @@
 @import '../../../styles/style.scss';
 
-.textInput {
-    border: none;
-    border-bottom: 1px solid $dark-grey;
-    height: 44px;
-    width: 100%;
-    justify-content: center;
-    text-align: center;
-    font-size: 20px;
-    font-family: $mavenPro;
+.textInputContainer {
+    display: flex;
 
-    &:focus {
-        outline: none;
+    .textInput {
+        border: none;
+        border-bottom: 1px solid $light-grey;
+        height: 44px;
+        width: 100%;
+        padding-top: 4px;
+
+        &:focus {
+            outline: none;
+            border-bottom: 1px solid $dark-grey;
+        }
+    }
+    .textInputIcon {
+        position: absolute;
+        align-self: center;
     }
 }

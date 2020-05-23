@@ -12,7 +12,7 @@ import {closeProperty} from '../store/actions/showPropertyAction'
 import {closeSignIn} from '../store/actions/showSignInAction'
 import { SaveModal } from './organisms/saveModal/SaveModal';
 import {showSaveModal, closeSaveModal} from '../store/actions/showSaveModalAction'
-import AuthModalBox from '../components/molecules/authModalBox/AuthModalBox'
+import AuthModal from '../components/organisms/authModal/AuthModal'
 
 const Home = (props) => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const Home = (props) => {
     return (
       <>
         <Nav/>
-        <AuthModalBox/>
+        <AuthModal/>
         {!showFilter && !showSave && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
         {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>}
         {/* <FilterModal handleCloseFilter={handleCloseFilter}/> */}
