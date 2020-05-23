@@ -1,0 +1,42 @@
+@import '../../../styles/style.scss';
+
+.authModalRegister-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    margin-top: 20px;
+    color: $black;
+
+    .line {
+        border-bottom: 1px solid $black;
+        height: 50%;
+        width: 25%;
+    }
+}
+
+.authModalRegister-title {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.authModalRegister-input {
+    margin-top: 25px;
+}
+
+.authModalRegister-agree {
+    //color: $blue;
+    font-size: 14px;
+    //text-decoration: underline;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.authModalRegister-btn {
+    margin-top: 20px;
+}
