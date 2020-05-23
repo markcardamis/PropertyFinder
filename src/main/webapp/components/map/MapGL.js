@@ -144,18 +144,17 @@ handlePropertyClick = async (e) => {
 }
 
 callApi = async (api, auth, action) => { 
-    dispatch({type: 'SHOW_LOADING'})  
+    this.props.dispatch({type: 'SHOW_LOADING'})  
     try {
         const response = await fetch(api, auth);
         const data = await response.json();
-        const { dispatch } = this.props;
-        dispatch({type: action, payload: data});
+        this.props.dispatch({type: action, payload: data});
 
     } catch (err) {
         console.log('Api call failed');
         // add notification
     }  
-    dispatch({type: 'HIDE_LOADING'})
+    this.props.dispatch({type: 'HIDE_LOADING'})
 }
 
 checkAuthentication = async () => {

@@ -41,7 +41,8 @@ const Home = (props) => {
       <>
         <Nav/>
         {!showFilter && !showSave && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
-        {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>}
+        {/* {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>} */}
+        <FilterModal handleCloseFilter={handleCloseFilter}/>
         {/* {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>} */}
         {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
         {showSignIn && <SignIn handleCloseSignIn={handleCloseSignIn}/>}
