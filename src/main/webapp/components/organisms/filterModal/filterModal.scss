@@ -9,7 +9,7 @@ $breakpoint-laptop11: 1400px;
         height: 600px;
     }
 }
-@media (max-width: 1400px) {
+@media (max-width: $breakpoint-laptop13) {
     .filterModal {
         width: 70% !important;
         height: 500px;
