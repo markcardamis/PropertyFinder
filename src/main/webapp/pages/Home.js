@@ -1,16 +1,15 @@
 import React from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 
-import PropertyInformation from './organisms/propertyInformation/PropertyInformation';
-import FilterModal from './organisms/filterModal/FilterModal';
-import SignIn from './widgets/signin/SignIn';
-import MapGL from './map/MapGL';
-import FilterButtonGroup from './molecules/filterButtonGroup/FilterButtonGroup';
-import Nav from './organisms/nav/Nav';
+import PropertyInformation from '../components/organisms/propertyInformation/PropertyInformation';
+import FilterModal from '../components/organisms/filterModal/FilterModal';
+import MapGL from '../components/organisms/map/MapGL';
+import FilterButtonGroup from '../components/molecules/filterButtonGroup/FilterButtonGroup';
+import Nav from '../components/organisms/nav/Nav';
 import {showFilter as showFilterAction, closeFilter} from '../store/actions/showFilterAction';
 import {closeProperty} from '../store/actions/showPropertyAction';
 import {closeSignIn} from '../store/actions/showSignInAction';
-import { SaveModal } from './organisms/saveModal/SaveModal';
+import { SaveModal } from '../components/organisms/saveModal/SaveModal';
 import {showSaveModal, closeSaveModal} from '../store/actions/showSaveModalAction';
 import AuthModal from '../components/organisms/authModal/AuthModal';
 

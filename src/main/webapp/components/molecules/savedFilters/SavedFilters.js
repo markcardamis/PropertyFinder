@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 const savedFilter = [{propertyZone: 'Zone1'}, {propertyZone: 'Zone1'}];
 
-class SavedFiltersTab extends Component {
+class SavedFilters extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -89,9 +89,18 @@ class SavedFiltersTab extends Component {
   }
 
   renderData = () => {
+    const savedFilter = [{
+      propertyZone: 'R1',
+      propertyPriceMin: 400,
+      propertyPriceMax: 100
+    },{
+      propertyZone: 'R1',
+      propertyPriceMin: 400,
+      propertyPriceMax: 100
+    }]
 
-    return this.state.savedFilters.map((item)=>
-    //return savedFilter.map((item)=>
+    //return this.state.savedFilters.map((item)=>
+    return savedFilter.map((item)=>
       <li key={item.id} className='filterItem'>
           <div className='filterHeader' style={{display: 'flex'}}>
             <h5 onClick={()=>this.handleSelectFilter(item)}>Filter {this.state.savedFilters.indexOf(item)+1}</h5>
@@ -141,4 +150,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withAuth(connect(mapStateToProps)(SavedFiltersTab));
+export default withAuth(connect(mapStateToProps)(SavedFilters));

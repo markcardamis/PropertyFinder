@@ -6,10 +6,10 @@ import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
 import { hotjar } from 'react-hotjar';
 
-import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../shared/constants';
-import './MapGL.css';
-import {Logo, MapMarker} from '../../assets/icons';
-import Popup from '../organisms/popup/Popup';;
+import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../../shared/constants';
+import './MapGL.scss';
+import {Logo, MapMarker} from '../../../assets/icons';
+import Popup from '../../organisms/popup/Popup';;
  
     mapboxgl.accessToken = MAPBOX_API;
     let map;

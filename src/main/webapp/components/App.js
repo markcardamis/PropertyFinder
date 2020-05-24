@@ -4,7 +4,7 @@ import { Security, ImplicitCallback } from '@okta/okta-react';
 import Loader from 'react-loader-spinner';
 import {useSelector, useDispatch} from 'react-redux';
 
-import Home from './Home';
+import Home from '../pages/Home';
 import AboutPage from '../pages/AboutPage';
 import ContactPage from '../pages/ContactPage';
 import '../styles//style.scss';

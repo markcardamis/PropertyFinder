@@ -1,25 +1,17 @@
 
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
-import {TextField, Typography, Button } from '@material-ui/core';
-import Dropdown from 'rc-dropdown';
-import Menu, { Item as MenuItem } from 'rc-menu';
 import { connect } from 'react-redux';
-import {Range} from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import 'rc-dropdown/assets/index.css';
 
-import FilterWidgetBtn from '../../buttons/filterWidgetBtn/FilterWidgetBtn';
 import {ZONES} from '../../../shared/constants';
 import './filter.scss';
 import {FilterLine, ZoneSelect, PostCode} from './components';
 import DeviderLine from '../../atoms/deviderLine/DeviderLine';
-import Slider from '../../atoms/slider/Slider';
 import ButtonOutlined from '../../atoms/buttonOutlined/ButtonOutlined';
 import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled';
 import {IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost} from '../../../assets/icons';
-import TextInput from '../../atoms/textInput/TextInput';
-
 
 class FilterTab extends React.Component {
 
@@ -115,10 +107,6 @@ class FilterTab extends React.Component {
                   <ButtonOutlined title={'Save preferences'} onClick={this.handleSaveFilter} width={'25%'}/>
                   <ButtonFilled  title={'Search'} onClick={this.handleSubmit} width={'65%'}/>
                 </div>
-               {/* <div className='filterBtnContainer'>
-                  <FilterWidgetBtn disabled={submitting} title={'Search'} onClick={this.handleSubmit}/>
-                  <FilterWidgetBtn disabled={false} title={'Save preferences'} onClick={this.handleSaveFilter}/>
-                </div> */}
               </div>
         );
         const {submitting } = props;

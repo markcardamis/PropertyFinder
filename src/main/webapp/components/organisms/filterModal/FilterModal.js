@@ -4,9 +4,9 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import "react-tabs/style/react-tabs.css";
 
-import SavedFiltersTab from '../../widgets/filter/SavedFiltersTab';
+import SavedFilters from '../../molecules/savedFilters/SavedFilters';
 import FilterTab from '../../molecules/filter/FilterTab';
-import CloseBtn from '../../buttons/closeBtn/CloseBtn';
+import CloseBtn from '../../atoms/closeBtn/CloseBtn';
 import './filterModal.scss';
 
 
@@ -204,7 +204,7 @@ class FilterModal extends Component {
                 <FilterTab handleSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
               </TabPanel>
               <TabPanel>
-                <SavedFiltersTab handleSelectFilter={this.handleSelectFilter} handleEditFilter={this.handleEditFilter}/>
+                <SavedFilters handleSelectFilter={this.handleSelectFilter} handleEditFilter={this.handleEditFilter}/>
               </TabPanel>
             </Tabs>
         </div>

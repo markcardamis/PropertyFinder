@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './saveModal.scss';
-import CloseBtn from '../../buttons/closeBtn/CloseBtn';
+import CloseBtn from '../../atoms/closeBtn/CloseBtn';
 import TextInput from '../../atoms/textInput/TextInput';
 import Switch from "react-switch";
 import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled';
