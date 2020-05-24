@@ -1,5 +1,5 @@
-import React from 'react'
-import './deviderLine.scss'
+import React from 'react';
+import './deviderLine.scss';
 
 const DeviderLine = () => {
     return (
@@ -7,4 +7,4 @@ const DeviderLine = () => {
     )
 }
 
-export default DeviderLine
+export default DeviderLine;

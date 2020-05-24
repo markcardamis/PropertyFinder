@@ -5,7 +5,6 @@ import { withAuth } from '@okta/okta-react';
 import { useAuth } from '../../../modules/auth';
 import AuthModalBox from '../../molecules/authModalBox/AuthModalBox'
 import LoginForm from '../../molecules/loginForm/LoginForm'
-import AuthModalAccount from '../../molecules/authModalAccount/AuthModalAccount'
 import RegisterForm from '../../molecules/registerForm/RegisterForm'
 
 const AuthModal = withAuth(({ auth }) => {
@@ -25,4 +24,4 @@ const AuthModal = withAuth(({ auth }) => {
 AuthModal.propTypes = {
 }
 
-export default AuthModal
+export default AuthModal;

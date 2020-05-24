@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../../../../../node_modules/react-vis/dist/style.css';
 import {XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, Crosshair} from 'react-vis';
-import './chart.scss'
+import './chart.scss';
 
 class Chart extends Component {
     constructor(props) {

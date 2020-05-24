@@ -7,7 +7,7 @@ import "react-tabs/style/react-tabs.css";
 import SavedFiltersTab from '../../widgets/filter/SavedFiltersTab';
 import FilterTab from '../../molecules/filter/FilterTab';
 import CloseBtn from '../../buttons/closeBtn/CloseBtn';
-import './filterModal.scss'
+import './filterModal.scss';
 
 
 class FilterModal extends Component {

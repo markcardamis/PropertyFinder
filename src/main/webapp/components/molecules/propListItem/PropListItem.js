@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import './propListItem.scss'
-import PropListTitle from '../../atoms/propListTitle/PropListTitle'
-import variables from '../../../styles/_variables.scss'
+import './propListItem.scss';
+import PropListTitle from '../../atoms/propListTitle/PropListTitle';
+import variables from '../../../styles/_variables.scss';
 
 const PropListItem = props => {
     return (
@@ -15,8 +15,8 @@ const PropListItem = props => {
                 {props.value18&&<span className='font18'>{props.value18}</span>}
             </div>
         </div>
-    )
-}
+    );
+};
 
 PropListItem.propTypes = {
     title: PropTypes.string,
@@ -24,6 +24,6 @@ PropListItem.propTypes = {
     value14: PropTypes.any, 
     value18: PropTypes.any, 
     icon: PropTypes.any
-}
+};
 
-export default PropListItem
+export default PropListItem;

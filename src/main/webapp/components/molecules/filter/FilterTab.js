@@ -11,13 +11,13 @@ import 'rc-dropdown/assets/index.css';
 
 import FilterWidgetBtn from '../../buttons/filterWidgetBtn/FilterWidgetBtn';
 import {ZONES} from '../../../shared/constants';
-import './filter.scss'
-import {FilterLine, ZoneSelect, PostCode} from './components'
+import './filter.scss';
+import {FilterLine, ZoneSelect, PostCode} from './components';
 import DeviderLine from '../../atoms/deviderLine/DeviderLine';
-import Slider from '../../atoms/slider/Slider'
+import Slider from '../../atoms/slider/Slider';
 import ButtonOutlined from '../../atoms/buttonOutlined/ButtonOutlined';
 import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled';
-import {IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost} from '../../../assets/icons'
+import {IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost} from '../../../assets/icons';
 import TextInput from '../../atoms/textInput/TextInput';
 
 

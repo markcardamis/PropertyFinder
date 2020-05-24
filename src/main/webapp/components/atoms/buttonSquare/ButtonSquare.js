@@ -1,7 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
-import './buttonSquare.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './buttonSquare.scss';
 
 const ButtonSquare = props => {
     return (
@@ -15,4 +14,4 @@ ButtonSquare.propTypes = {
     onClick: PropTypes.func
 }
 
-export default ButtonSquare
+export default ButtonSquare;

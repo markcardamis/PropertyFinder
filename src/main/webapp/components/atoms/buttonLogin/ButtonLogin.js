@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
-import './ButtonLogin.scss';
+import './buttonLogin.scss';
 
 const ButtonLogin = props => {
     return (
@@ -14,4 +14,4 @@ ButtonLogin.propTypes = {
     onClick: PropTypes.func
 }
 
-export default ButtonLogin
+export default ButtonLogin;

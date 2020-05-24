@@ -16,4 +16,4 @@ AboutPage.propTypes = {
 
 }
 
-export default AboutPage
+export default AboutPage;

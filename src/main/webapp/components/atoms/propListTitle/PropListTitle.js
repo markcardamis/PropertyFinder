@@ -1,8 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import variables from '../../../styles/_variables.scss'
-
-import './propListTitle.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
+import variables from '../../../styles/_variables.scss';
+import './propListTitle.scss';
 
 const PropListTitle = props => {
     return (
@@ -22,4 +21,4 @@ PropListTitle.propTypes = {
     color: PropTypes.string
 }
 
-export default PropListTitle
+export default PropListTitle;

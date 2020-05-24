@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './buttonFilled.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './buttonFilled.scss';
 
 const ButtonFilled = props => {
     return (
@@ -14,4 +14,4 @@ ButtonFilled.propTypes = {
     title: PropTypes.string,
 }
 
-export default ButtonFilled
+export default ButtonFilled;

@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import './propListItem2.scss'
-import PropListTitle from '../../atoms/propListTitle/PropListTitle'
-import variables from '../../../styles/_variables.scss'
+import './propListItem2.scss';
+import PropListTitle from '../../atoms/propListTitle/PropListTitle';
+import variables from '../../../styles/_variables.scss';
 
 const PropListItem = props => {
     return (
@@ -29,4 +29,4 @@ PropListItem.propTypes = {
     icon2: PropTypes.any
 }
 
-export default PropListItem
+export default PropListItem;

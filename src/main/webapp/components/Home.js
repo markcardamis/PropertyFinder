@@ -6,13 +6,13 @@ import FilterModal from './organisms/filterModal/FilterModal';
 import SignIn from './widgets/signin/SignIn';
 import MapGL from './map/MapGL';
 import FilterButtonGroup from './molecules/filterButtonGroup/FilterButtonGroup';
-import Nav from './organisms/nav/Nav'
-import {showFilter as showFilterAction, closeFilter} from '../store/actions/showFilterAction'
-import {closeProperty} from '../store/actions/showPropertyAction'
-import {closeSignIn} from '../store/actions/showSignInAction'
+import Nav from './organisms/nav/Nav';
+import {showFilter as showFilterAction, closeFilter} from '../store/actions/showFilterAction';
+import {closeProperty} from '../store/actions/showPropertyAction';
+import {closeSignIn} from '../store/actions/showSignInAction';
 import { SaveModal } from './organisms/saveModal/SaveModal';
-import {showSaveModal, closeSaveModal} from '../store/actions/showSaveModalAction'
-import AuthModal from '../components/organisms/authModal/AuthModal'
+import {showSaveModal, closeSaveModal} from '../store/actions/showSaveModalAction';
+import AuthModal from '../components/organisms/authModal/AuthModal';
 
 const Home = (props) => {
   const dispatch = useDispatch();

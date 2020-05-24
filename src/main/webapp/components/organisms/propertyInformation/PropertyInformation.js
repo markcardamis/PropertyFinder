@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { DEFAULT_HOUSE_IMAGE, ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO } from '../../../shared/constants';
 import PropListItem from '../../molecules/propListItem/PropListItem';
 import {IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG} from '../../../assets/icons'
-import './propertyInformation.scss'
+import './propertyInformation.scss';
 import PropImg from '../../atoms/propImg/PropImg';
 import ButtonProperty from '../../atoms/buttonProperty/ButtonProperty';
 import PropListItem2 from '../../molecules/propListItem2/PropListItem2';
 import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
 import DeviderLine from '../../atoms/deviderLine/DeviderLine';
-import variables from '../../../styles/_variables.scss'
+import variables from '../../../styles/_variables.scss';
 
 const PropertyInformation = (props) => {
 

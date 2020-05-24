@@ -20,7 +20,7 @@ class RegisterForm extends Component {
       };
       
       this.oktaAuth = new OktaAuth({ url: 'https://dev-842802.okta.com' });
-      this.checkAuthentication();
+    //   this.checkAuthentication();
     }
 
     checkAuthentication = async () => {
@@ -31,7 +31,7 @@ class RegisterForm extends Component {
     }
 
     componentDidUpdate() {
-      this.checkAuthentication();
+     // this.checkAuthentication();
     }
 
     handleSubmit = (e) => {
@@ -67,10 +67,10 @@ class RegisterForm extends Component {
     }
     
     render () {
-      if (this.state.sessionToken) {
-        this.props.auth.redirect({ sessionToken: this.state.sessionToken });
-        return null;
-      }
+    //   if (this.state.sessionToken) {
+    //     this.props.auth.redirect({ sessionToken: this.state.sessionToken });
+    //     return null;
+    //   }
 
       return (
         <div>
@@ -107,6 +107,7 @@ class RegisterForm extends Component {
                 <TextInput 
                     icon={<IconKey/>} 
                     placeholder={'Password'}
+                    type={'password'}
                     value={this.state.password}
                     onChange={(e)=>this.setState({password: e.target.value})}
                 />

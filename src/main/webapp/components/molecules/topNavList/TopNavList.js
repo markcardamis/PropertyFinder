@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
-import PropTypes from 'prop-types'
-import NavItem from '../../atoms/navItem/NavItem'
-import {TOP_NAV} from './nav'
-import './topNavList.scss'
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
+import NavItem from '../../atoms/navItem/NavItem';
+import {TOP_NAV} from './nav';
+import './topNavList.scss';
 
 const TopNavList = props => {
 
@@ -29,4 +29,4 @@ TopNavList.propTypes = {
     route: PropTypes.string
 }
 
-export default TopNavList
+export default TopNavList;
