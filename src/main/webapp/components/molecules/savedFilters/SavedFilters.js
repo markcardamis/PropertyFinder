@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
 import { TiPencil, TiTrash } from 'react-icons/ti';
 import { connect } from 'react-redux';
+import SavedFilterItem from '../../atoms/savedFilterItem/SavedFilterItem';
+import { IconZoneG } from '../../../assets/icons';
 
 
 const savedFilter = [{propertyZone: 'Zone1'}, {propertyZone: 'Zone1'}];
@@ -110,6 +112,7 @@ class SavedFilters extends Component {
             </div>
           </div>
           <ul onClick={()=>this.handleSelectFilter(item)} style={{fontSize: '12px', listStyle: 'none'}}>
+            <SavedFilterItem title={'Zone: '} value={item.propertyZone} icon={<IconZoneG/>} position={'first'}/>
             <li className='listLine green'>{item.propertyZone ? `Zone: ${item.propertyZone}` : null}</li>
             <li className='listLine yellow'>{item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}</li>
             <li className='listLine red'>{item.propertyAreaMax ? `Area max: ${item.propertyAreaMax}` : null}</li>

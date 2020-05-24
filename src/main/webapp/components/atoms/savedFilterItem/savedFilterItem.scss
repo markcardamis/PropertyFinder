@@ -1,0 +1,33 @@
+@import '../../../styles/style.scss';
+
+.savedFilterItem{
+    display: flex;
+    align-items: center;
+
+    .savedFilterItemTitle {
+        color: $dark-grey;
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    .savedFilterItemValue {
+        color: $black;
+        font-size: 16px;
+        margin-left: 4px;
+    }
+    .savedFilterItemDevider {
+        width: 1px;
+        height: 14px;
+        border-left: 1px solid $light-grey;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+}
+
+.first {
+    
+}
+
+.last {
+
+}
