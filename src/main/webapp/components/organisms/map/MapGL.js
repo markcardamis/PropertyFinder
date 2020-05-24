@@ -103,15 +103,15 @@ renderPopup = (e) => {
 
 renderMarkers = async (mp) => {
     const { mapMarker } = this.props.mapGL;
-    
     mapMarker.forEach((marker) => {
-        const placeholder = document.createElement('div');
-        ReactDOM.render(mp, placeholder);
-    
-        let oneMarker = new mapboxgl.Marker(placeholder)
+        var el = document.createElement('div');
+        el.className = 'marker';
+        el.tabIndex = 0;
+        
+        let oneMarker = new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map);
-        placeholder.addEventListener('click', () => {
+        el.addEventListener('click', () => {
             this.handleMarkerClick(marker);
         });
         currentMarkers.push(oneMarker);
