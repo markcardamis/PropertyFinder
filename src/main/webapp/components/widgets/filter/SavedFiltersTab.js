@@ -5,7 +5,7 @@ import { TiPencil, TiTrash } from 'react-icons/ti';
 import { connect } from 'react-redux';
 
 
-const savedFilter = [{propertyZone: 'Zone1'}, {propertyZone: 'Zone1'}]
+const savedFilter = [{propertyZone: 'Zone1'}, {propertyZone: 'Zone1'}];
 
 class SavedFiltersTab extends Component {
   constructor(props) {

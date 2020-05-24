@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { IconExit, IconSettings } from '../../../assets/icons'
-import './authModalAccount.scss'
-import PropListTitle from '../../atoms/propListTitle/PropListTitle'
+import { IconExit, IconSettings } from '../../../assets/icons';
+import './authModalAccount.scss';
+import PropListTitle from '../../atoms/propListTitle/PropListTitle';
 
 const AuthModalAccount = props => {
     return (

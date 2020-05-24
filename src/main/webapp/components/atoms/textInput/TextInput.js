@@ -1,5 +1,5 @@
-import React from 'react'
-import './textInput.scss'
+import React from 'react';
+import './textInput.scss';
 
 const TextInput = (props) => {
     return (

@@ -1,12 +1,12 @@
-import React, {useState} from 'react'
-import PropTypes from 'prop-types'
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
-import './authModalRegister.scss'
-import TextInput from '../../atoms/textInput/TextInput'
-import variables from '../../../styles/_variables.scss'
-import ButtonOutlined from '../../atoms/buttonOutlined/ButtonOutlined'
-import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled'
-import { IconUser, IconKey, IconEmail, IconArL } from '../../../assets/icons'
+import './authModalRegister.scss';
+import TextInput from '../../atoms/textInput/TextInput';
+import variables from '../../../styles/_variables.scss';
+import ButtonOutlined from '../../atoms/buttonOutlined/ButtonOutlined';
+import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled';
+import { IconUser, IconKey, IconEmail, IconArL } from '../../../assets/icons';
 
 const AuthModalRegister = props => {
     const [name, setName] = useState('')

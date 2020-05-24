@@ -1,7 +1,6 @@
 import React from 'react';
-
 import './closeBtn.scss';
-import {IconClose} from '../../../assets/icons'
+import {IconClose} from '../../../assets/icons';
 
 const CloseBtn = (props) => {
     

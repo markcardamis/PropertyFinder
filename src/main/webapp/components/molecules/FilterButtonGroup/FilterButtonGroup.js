@@ -1,9 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare'
-import {IconFilter2, IconMenu} from '../../../assets/icons'
-
-import './filterButtonGroup.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
+import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
+import {IconFilter2, IconMenu} from '../../../assets/icons';
+import './filterButtonGroup.scss';
 
 const FilterButtonGroup = props => {
     return (

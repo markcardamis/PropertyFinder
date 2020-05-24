@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'; 
 import {Link, useLocation} from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux';
 
 import {IconLogoTitle} from '../../../assets/icons';
 import './nav.scss';

@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import './authModalBox.scss'
+import './authModalBox.scss';
 
 const AuthModalBox = props => {
     return (

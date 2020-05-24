@@ -1,11 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './popup.scss'
-import Chart from '../../molecules/chart/Chart'
-import {ADDRESS, AREA, ZONE, LAND_VALUE, FLOOR_SPACE_RATIO, MINIMUM_LOT_SIZE, BUILDING_HEIGHT} from '../../../shared/constants'
-import PropListItem from '../../molecules/propListItem/PropListItem'
-import PropListItem2 from '../../molecules/propListItem2/PropListItem2'
-import {IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight} from '../../../assets/icons'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './popup.scss';
+import Chart from '../../molecules/chart/Chart';
+import {ADDRESS, AREA, ZONE, LAND_VALUE, FLOOR_SPACE_RATIO, MINIMUM_LOT_SIZE, BUILDING_HEIGHT} from '../../../shared/constants';
+import PropListItem from '../../molecules/propListItem/PropListItem';
+import PropListItem2 from '../../molecules/propListItem2/PropListItem2';
+import {IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight} from '../../../assets/icons';
 
 const Popup = props => {
     const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, landValue1} = props.propertyInfo

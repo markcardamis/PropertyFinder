@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './buttonOutlined.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './buttonOutlined.scss';
 
 const ButtonOutlined = props => {
     return (
