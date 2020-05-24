@@ -7,9 +7,9 @@ import {useSelector, useDispatch} from 'react-redux'
 import Home from './Home';
 import LoginPage from '../pages/LoginPage';
 import AboutPage from '../pages/AboutPage';
-import ContactPage from '../pages/ContactPage'
-import '../styles/style.scss';
-import variables from '../styles/_variables.scss'
+import ContactPage from '../pages/ContactPage';
+import '../styles//style.scss';
+import variables from '../styles/_variables.scss';
 import { showSignIn } from '../store/actions/showSignInAction';
 
 

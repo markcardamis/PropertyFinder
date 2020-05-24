@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import OktaAuth from '@okta/okta-auth-js';
 import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
-import './loginForm.scss'
-import TextInput from '../../atoms/textInput/TextInput'
-import ButtonOutlined from '../../atoms/buttonOutlined/ButtonOutlined'
-import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled'
-import { IconUser, IconKey } from '../../../assets/icons'
+import './loginForm.scss';
+import TextInput from '../../atoms/textInput/TextInput';
+import ButtonOutlined from '../../atoms/buttonOutlined/ButtonOutlined';
+import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled';
+import { IconUser, IconKey } from '../../../assets/icons';
 
 class LoginForm extends Component {
     constructor(props) {
