@@ -10,12 +10,12 @@ const FilterButtonGroup = props => {
             <ButtonSquare icon={<IconMenu/>} onClick={props.onMenuClick}/>
             <ButtonSquare icon={<IconFilter2 color={'#000000'}/>} onClick={props.onFilterClick}/> 
         </div>
-    )
-}
+    );
+};
 
 FilterButtonGroup.propTypes = {
     onMenuClick: PropTypes.func,
     onFilterClick: PropTypes.func
-}
+};
 
 export default FilterButtonGroup;

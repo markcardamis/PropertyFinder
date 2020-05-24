@@ -15,8 +15,8 @@ const PropListItem = props => {
                 {props.value18&&<span className='font18'>{props.value18}</span>}
             </div>
         </div>
-    )
-}
+    );
+};
 
 PropListItem.propTypes = {
     title: PropTypes.string,
@@ -24,6 +24,6 @@ PropListItem.propTypes = {
     value14: PropTypes.any, 
     value18: PropTypes.any, 
     icon: PropTypes.any
-}
+};
 
 export default PropListItem;
