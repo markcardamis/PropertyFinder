@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
-import { TiPencil, TiTrash } from 'react-icons/ti';
 import { connect } from 'react-redux';
 import SavedFilterItem from '../../atoms/savedFilterItem/SavedFilterItem';
 import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG } from '../../../assets/icons';
@@ -92,25 +91,25 @@ class SavedFilters extends Component {
   }
 
   renderData = () => {
-    const savedFilter = [{
-      propertyZone: 'R1',
-      propertyPriceMin: 400,
-      propertyPriceMax: 100,
-      propertyPostCode: 'lalal',
-      propertyPSMMax: 22, 
-      propertyPostCode: 33, 
-      propertyPriceToLandValueMin: 44,
-      propertyPriceToLandValueMax: 4444444444, 
-      propertyFloorSpaceRatioMin: 4444,
-      propertyFloorSpaceRatioMax: 6666666
+    //   const savedFilter = [{
+    //   propertyZone: 'R1',
+    //   propertyPriceMin: 400,
+    //   propertyPriceMax: 100,
+    //   propertyPostCode: 'lalal',
+    //   propertyPSMMax: 22, 
+    //   propertyPostCode: 33, 
+    //   propertyPriceToLandValueMin: 44,
+    //   propertyPriceToLandValueMax: 4444444444, 
+    //   propertyFloorSpaceRatioMin: 4444,
+    //   propertyFloorSpaceRatioMax: 6666666
       
-    },{
-      propertyZone: 'R1',
-      propertyPriceMin: 400,
-      propertyPriceMax: 100
-    }]
+    // },{
+    //   propertyZone: 'R1',
+    //   propertyPriceMin: 400,
+    //   propertyPriceMax: 100
+    // }]
 
-    return this.state.savedFilters.map((item)=>{
+    return this.state.savedFilters.map((item, index)=>{
     //return savedFilter.map((item, index)=>{
     return <SavedFiltersListItem
               key={index}
@@ -125,17 +124,6 @@ class SavedFilters extends Component {
                       propertyFloorSpaceRatioMax: item.propertyFloorSpaceRatioMax}}
             />
     }
-      // <li key={item.id} className='filterItem'>
-      //     <div className='filterHeader' style={{display: 'flex'}}>
-      //       <h5 onClick={()=>this.handleSelectFilter(item)}>Filter {this.state.savedFilters.indexOf(item)+1}</h5>
-      //       <div>
-      //         <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.handleEditFilter(item)}/>
-      //         <TiTrash className='filterItemIcon' size='1.3em' onClick={()=>this.handleDeleteFilter(item)}/>
-      //       </div>
-      //     </div>
-      //     <div onClick={()=>this.handleSelectFilter(item)} style={{fontSize: '12px', listStyle: 'none'}}>
-      //     </div>
-      // </li>
     );
   }
 
@@ -149,7 +137,7 @@ class SavedFilters extends Component {
   render() {
     return (
       <div>
-        <ul className='savedFiltersList col-lg-12'>{this.renderData()}</ul>
+        <ul className='savedFiltersList'>{this.renderData()}</ul>
       </div>
     )
   }

@@ -1,10 +1,24 @@
 @import '../../../styles//style.scss';
+$breakpoint-tablet: 768px;
+$breakpoint-laptop13: 1500px;
+$breakpoint-laptop11: 1400px;
 
-
+@media (max-width: $breakpoint-laptop13) {
+    .filterModal {
+        width: 60% !important;
+        height: 600px;
+    }
+}
+@media (max-width: 1400px) {
+    .filterModal {
+        width: 70% !important;
+        height: 500px;
+    }
+}
 .filterContainer {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    // width: 100%;
+    // height: 100%;
+    //background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,7 +26,11 @@
     flex: 1
 }
 .filterModal {
-    width: 70%;
+    width: 60%;
+    //height: 60%;
+    align-self: center;
+    overflow-y: auto;
+    margin-top: 78px;
     padding: 22px 32px 22px 32px;
     z-index: 2;
     box-shadow: $shadow-14;
@@ -95,42 +113,7 @@ margin-top: 20px;
         }
     }
 }
-.green {
-    color: #81c784
-}
-.yellow {
-    color: #fdd835;
-}
-.orange {
-    color: #ef6c00;
-}
-.red {
-    color: #e53935;
-}
-.blue {
-    color: #2196f3;
-}
-.purple {
-    color: #303f9f;
-}
-.pink {
-    color: #ad1457;
-}
-.brown {
-    color: #5d4037;
-}
-.blue2 {
-    color: #00b8d4;
-}
-.orange2 {
-    color: #e64a19;
-}
-.green2 {
-    color: #afb42b;
-}
-.purple2 {
-    color: #7b1fa2;
-}
+
 
 .checkboxWrapper {
     display: flex;
@@ -145,12 +128,3 @@ margin-top: 20px;
     margin-right: 10px;
     align-items: center;
 }
-// .rc-dropdown {
-//     height: 250px;
-//     overflow-y: scroll;
-//     border-bottom: 1px solid #d0d3d9;
-// }
-// .rc-dropdown-menu {
-//     box-shadow: none;
-//     border-radius: 0;
-// }
