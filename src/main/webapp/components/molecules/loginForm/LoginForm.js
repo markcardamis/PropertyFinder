@@ -58,6 +58,7 @@ class LoginForm extends Component {
             <div className={'loginFormInput'}>
                 <TextInput 
                     icon={<IconKey/>} 
+                    type={"password"}
                     placeholder={'Password'}
                     value={this.state.password}
                     onChange={(e)=>this.setState({password: e.target.value})}

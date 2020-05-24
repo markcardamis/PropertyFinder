@@ -6,7 +6,7 @@ const TextInput = (props) => {
         <div className='textInputContainer' style={{width: props.width || '100%'}}>
             {props.icon&&<div className='textInputIcon'>{props.icon}</div>}
             <input 
-                type={'text'} 
+                type={props.type || 'text'} 
                 value={props.value} 
                 onChange={props.onChange} 
                 placeholder={props.placeholder}
