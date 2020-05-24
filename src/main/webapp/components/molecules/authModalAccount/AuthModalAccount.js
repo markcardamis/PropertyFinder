@@ -8,7 +8,7 @@ import PropListTitle from '../../atoms/propListTitle/PropListTitle';
 const AuthModalAccount = props => {
     return (
         <>
-        <div style={{width: '100%', height: 20, backgroundColor: 'blue' }}/>
+            <div className='authModalAccount-btn' style={{opacity: 0.5}}>
                 <PropListTitle icon={<IconSettings/>} title16={'Account Setting'}/>
             </div>
             <div className='authModalAccount-btn' onClick={props.onLogout}>
