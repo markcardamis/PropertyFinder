@@ -4,7 +4,8 @@ import { withAuth } from '@okta/okta-react';
 import { TiPencil, TiTrash } from 'react-icons/ti';
 import { connect } from 'react-redux';
 import SavedFilterItem from '../../atoms/savedFilterItem/SavedFilterItem';
-import { IconZoneG } from '../../../assets/icons';
+import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG } from '../../../assets/icons';
+import SavedFiltersListItem from '../../molecules/savedFiltersListItem/SavedFiltersListItem';
 
 
 const savedFilter = [{propertyZone: 'Zone1'}, {propertyZone: 'Zone1'}];
@@ -94,39 +95,47 @@ class SavedFilters extends Component {
     const savedFilter = [{
       propertyZone: 'R1',
       propertyPriceMin: 400,
-      propertyPriceMax: 100
+      propertyPriceMax: 100,
+      propertyPostCode: 'lalal',
+      propertyPSMMax: 22, 
+      propertyPostCode: 33, 
+      propertyPriceToLandValueMin: 44,
+      propertyPriceToLandValueMax: 4444444444, 
+      propertyFloorSpaceRatioMin: 4444,
+      propertyFloorSpaceRatioMax: 6666666
+      
     },{
       propertyZone: 'R1',
       propertyPriceMin: 400,
       propertyPriceMax: 100
     }]
 
-    //return this.state.savedFilters.map((item)=>
-    return savedFilter.map((item)=>
-      <li key={item.id} className='filterItem'>
-          <div className='filterHeader' style={{display: 'flex'}}>
-            <h5 onClick={()=>this.handleSelectFilter(item)}>Filter {this.state.savedFilters.indexOf(item)+1}</h5>
-            <div>
-              <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.handleEditFilter(item)}/>
-              <TiTrash className='filterItemIcon' size='1.3em' onClick={()=>this.handleDeleteFilter(item)}/>
-            </div>
-          </div>
-          <ul onClick={()=>this.handleSelectFilter(item)} style={{fontSize: '12px', listStyle: 'none'}}>
-            <SavedFilterItem title={'Zone: '} value={item.propertyZone} icon={<IconZoneG/>} position={'first'}/>
-            <li className='listLine green'>{item.propertyZone ? `Zone: ${item.propertyZone}` : null}</li>
-            <li className='listLine yellow'>{item.propertyAreaMin ? `Area min: ${item.propertyAreaMin}` : null}</li>
-            <li className='listLine red'>{item.propertyAreaMax ? `Area max: ${item.propertyAreaMax}` : null}</li>
-            <li className='listLine purple'>{item.propertyPriceMin ? `Price min: ${item.propertyPriceMin}` : null}</li>
-            <li className='listLine orange'>{item.propertyPriceMax ? `Price max: ${item.propertyPriceMax}` : null}</li>
-            <li className='listLine brown'>{item.propertyPSMMin ? `Price per m2 min: ${item.propertyPSMMin}` : null}</li>
-            <li className='listLine blue'>{item.propertyPSMMax ? `Price per m2 max: ${item.propertyPSMMax}` : null}</li>  
-            <li className='listLine orange2'>{item.propertyPostCode ? `Post code: ${item.propertyPostCode}` : null}</li>
-            <li className='listLine pink'>{item.propertyPriceToLandValueMin ? `Price to landvalue min: ${item.propertyPriceToLandValueMin}` : null}</li>
-            <li className='listLine purple2'>{item.propertyPriceToLandValueMax ? `Price to landvalue max: ${item.propertyPriceToLandValueMax}` : null}</li> 
-            <li className='listLine green2'>{item.propertyFloorSpaceRatioMin ? `Floorspace ratio min: ${item.propertyFloorSpaceRatioMin}` : null}</li> 
-            <li className='listLine blue2'>{item.propertyFloorSpaceRatioMax ? `Floorspace ratio max: ${item.propertyFloorSpaceRatioMax}` : null}</li> 
-          </ul>
-      </li>
+    return this.state.savedFilters.map((item)=>{
+    //return savedFilter.map((item, index)=>{
+    return <SavedFiltersListItem
+              key={index}
+              index={index+1}
+              onEdit={()=>this.handleEditFilter(item)}
+              onDelete={()=>this.handleDeleteFilter(item)}
+              onSelect={()=>this.handleSelectFilter(item)}
+              data={{propertyZone: item.propertyZone, propertyAreaMin: item.propertyAreaMin, propertyAreaMax: item.propertyAreaMax,
+                      propertyPriceMin: item.propertyPriceMin, propertyPriceMax: item.propertyPriceMax, propertyPSMMin: item.propertyPSMMin,
+                      propertyPSMMax: item.propertyPSMMax, propertyPostCode: item.propertyPostCode, propertyPriceToLandValueMin: item.propertyPriceToLandValueMin,
+                      propertyPriceToLandValueMax: item.propertyPriceToLandValueMax, propertyFloorSpaceRatioMin: item.propertyFloorSpaceRatioMin,
+                      propertyFloorSpaceRatioMax: item.propertyFloorSpaceRatioMax}}
+            />
+    }
+      // <li key={item.id} className='filterItem'>
+      //     <div className='filterHeader' style={{display: 'flex'}}>
+      //       <h5 onClick={()=>this.handleSelectFilter(item)}>Filter {this.state.savedFilters.indexOf(item)+1}</h5>
+      //       <div>
+      //         <TiPencil className='filterItemIcon' size='1.3em' onClick={()=>this.handleEditFilter(item)}/>
+      //         <TiTrash className='filterItemIcon' size='1.3em' onClick={()=>this.handleDeleteFilter(item)}/>
+      //       </div>
+      //     </div>
+      //     <div onClick={()=>this.handleSelectFilter(item)} style={{fontSize: '12px', listStyle: 'none'}}>
+      //     </div>
+      // </li>
     );
   }
 

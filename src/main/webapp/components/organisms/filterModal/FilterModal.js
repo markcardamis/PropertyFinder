@@ -4,8 +4,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import "react-tabs/style/react-tabs.css";
 
-import SavedFilters from '../../molecules/savedFilters/SavedFilters';
-import FilterTab from '../../molecules/filter/FilterTab';
+import SavedFilters from '../savedFilters/SavedFilters';
+import FilterTab from '../filter/FilterTab';
 import CloseBtn from '../../atoms/closeBtn/CloseBtn';
 import './filterModal.scss';
 

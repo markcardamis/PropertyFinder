@@ -1,0 +1,31 @@
+@import '../../../styles/style.scss';
+
+.savedFilters-filterItem {
+    padding: 20px;
+    border-radius: 8px;
+
+    &:hover {
+        background-color: $shadow-grey;
+    }
+
+    .savedFilters-propertiesList {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .savedFilters-filterHeader {
+        justify-content: space-between;
+
+        .savedFilters-filterTitle {
+            font-size: 26px;
+            color: $black;
+        }
+    }
+
+    .savedFilterEdit {
+        display: flex;
+
+        .savedFilterEdit-icon {
+            margin-right: 27px;
+        }
+    }
+}
