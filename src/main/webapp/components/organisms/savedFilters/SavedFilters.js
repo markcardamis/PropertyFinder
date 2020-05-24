@@ -91,27 +91,8 @@ class SavedFilters extends Component {
   }
 
   renderData = () => {
-    //   const savedFilter = [{
-    //   propertyZone: 'R1',
-    //   propertyPriceMin: 400,
-    //   propertyPriceMax: 100,
-    //   propertyPostCode: 'lalal',
-    //   propertyPSMMax: 22, 
-    //   propertyPostCode: 33, 
-    //   propertyPriceToLandValueMin: 44,
-    //   propertyPriceToLandValueMax: 4444444444, 
-    //   propertyFloorSpaceRatioMin: 4444,
-    //   propertyFloorSpaceRatioMax: 6666666
-      
-    // },{
-    //   propertyZone: 'R1',
-    //   propertyPriceMin: 400,
-    //   propertyPriceMax: 100
-    // }]
-
     return this.state.savedFilters.map((item, index)=>{
-    //return savedFilter.map((item, index)=>{
-    return <SavedFiltersListItem
+      return <SavedFiltersListItem
               key={index}
               index={index+1}
               onEdit={()=>this.handleEditFilter(item)}

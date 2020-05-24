@@ -18,32 +18,7 @@ const PropertyInformation = (props) => {
         const { id, address, area, floorSpaceRatio, minimumLotSize,
                 price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
                 pricePSM, priceToLandValue, summaryDescription, listingPhoto,
-                } = props.property;
-
-        // const id = 3408300;
-        // const price = 'Price guide $300,000';
-        // const listingURL = "https://www.domain.com.au/11a-john-street-granville-nsw-2142-2015880882";
-        // const listingPhoto="https://bucket-api.domain.com.au/v1/bucket/image/2015880882_1_1_191114_064017-w823-h538";
-        // const address="11a JOHN STREET GRANVILLE 2142";
-        // const unitNumber="hbhbhj";
-        // const houseNumber="11a";
-        // const streetName="John Street";
-        // const suburbName="GRANVILLE"
-        // const postCode="2142"
-        // const area=1025
-        // const bathrooms = "5.0"
-        // const bedrooms="5.0"
-        // const carspaces = 5
-        // const latitude = -33.8392677
-        // const longitude = 151.009811
-        // const summaryDescription = "it gives me great pleasure to introduce the most original and most unique parcel of land in sydney! rest assured, there is nothing quite like it! over 1000sqm of land in prime location - only 500m from granville train station and shops. ..."
-        // const zone="R2"
-        // const floorSpaceRatio = 0.50
-        // const minimumLotSize = null
-        // const landValue=null
-        // const pricePSM=292
-        // const priceToLandValue = null
-        
+                } = props.property;   
 
             return (
                     <div className='propertyInformation'>
