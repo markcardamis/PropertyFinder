@@ -32,11 +32,8 @@ const Nav = withAuth(({ auth }) => {
                 <div className='navLinks'>
                     <TopNavList route={location.pathname}/>
                     {authenticated !== null && authenticated ? 
-                        // <div onClick={()=>auth.logout()}><ButtonAccount/></div> : 
-                        // <div onClick={()=>auth.login()}><ButtonLogin/></div>
-                        //<div onClick={()=>dispatch(showSignIn())}><ButtonAccount/></div> : 
-                        <div onClick={()=>auth.logout()}><ButtonAccount/></div> : 
-                        <div onClick={()=>dispatch(showSignIn())}><ButtonLogin/></div>
+                        <ButtonAccount onClick={()=>dispatch(showSignIn())}/> : 
+                        <ButtonLogin onClick={()=>dispatch(showSignIn())}/>
                         }
                 </div>
             </div>

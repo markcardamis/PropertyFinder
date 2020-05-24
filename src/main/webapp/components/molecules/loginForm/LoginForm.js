@@ -69,7 +69,7 @@ class LoginForm extends Component {
             <div className='loginFormText'>
                 <div className='loginFormLine'/>Would you like to join?<div className='loginFormLine'/>
             </div>
-            <div className={'loginFormBtn'}><ButtonFilled title={'SIGN UP'}/></div>
+            <div className={'loginFormBtn'}><ButtonFilled title={'SIGN UP'} onClick={this.props.onSignUp}/></div>
         </div>
       );
     }

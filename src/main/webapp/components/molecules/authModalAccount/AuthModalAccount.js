@@ -11,7 +11,7 @@ const AuthModalAccount = props => {
             <div className='authModalAccount-btn'>
                 <PropListTitle icon={<IconSettings/>} title16={'Account Setting'}/>
             </div>
-            <div className='authModalAccount-btn'>
+            <div className='authModalAccount-btn' onClick={props.onLogout}>
                 <PropListTitle icon={<IconExit/>} title16={'Logout'}/>
             </div>
         </>

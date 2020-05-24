@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import './ButtonAccount.scss';
+import './buttonAccount.scss';
 import {IconAccount, IconArD} from '../../../assets/icons'
 
 const ButtonAccount = props => {

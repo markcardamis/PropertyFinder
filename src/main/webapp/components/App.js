@@ -5,7 +5,6 @@ import Loader from 'react-loader-spinner';
 import {useSelector, useDispatch} from 'react-redux'
 
 import Home from './Home';
-import LoginPage from '../pages/LoginPage';
 import AboutPage from '../pages/AboutPage';
 import ContactPage from '../pages/ContactPage'
 import '../styles/style.scss';

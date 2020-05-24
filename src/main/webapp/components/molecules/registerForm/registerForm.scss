@@ -1,6 +1,6 @@
 @import '../../../styles/style.scss';
 
-.authModalRegister-text {
+.registerFormText {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,7 +15,7 @@
     }
 }
 
-.authModalRegister-title {
+.registerFormTitle {
     font-size: 28px;
     font-weight: 500;
     margin-bottom: 25px;
@@ -25,11 +25,11 @@
     align-items: center;
 }
 
-.authModalRegister-input {
+.registerFormInput {
     margin-top: 25px;
 }
 
-.authModalRegister-agree {
+.registerFormAgree {
     //color: $blue;
     font-size: 14px;
     //text-decoration: underline;
@@ -37,6 +37,6 @@
     cursor: pointer;
 }
 
-.authModalRegister-btn {
+.registerFormBtn {
     margin-top: 20px;
 }
