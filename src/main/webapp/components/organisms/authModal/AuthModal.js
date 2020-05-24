@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import AuthModalBox from '../../molecules/authModalBox/AuthModalBox'
-import AuthModalLogin from '../../molecules/authModalLogin/AuthModalLogin'
+import LoginForm from '../../molecules/loginForm/LoginForm'
 import AuthModalAccount from '../../molecules/authModalAccount/AuthModalAccount'
 import AuthModalRegister from '../../molecules/authModalRegister/AuthModalRegister'
 
@@ -9,9 +9,9 @@ const AuthModal = props => {
     return (
         <div>
             <AuthModalBox>
-                {/* <AuthModalLogin/> */}
+                <LoginForm/>
                 {/* <AuthModalAccount/> */}
-                <AuthModalRegister/>
+                {/* <AuthModalRegister/> */}
             </AuthModalBox>
         </div>
     )

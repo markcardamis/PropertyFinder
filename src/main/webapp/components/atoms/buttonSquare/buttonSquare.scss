@@ -11,7 +11,7 @@
     align-items: center;
 
     &:hover {
-        background-color: $light-grey;
+        background-color: $shadow-grey;
         transition: background-color $transition-05;
     }
 }

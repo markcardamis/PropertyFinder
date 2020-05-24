@@ -1,6 +1,6 @@
 @import '../../../styles/style.scss';
 
-.authModalLogin-text {
+.loginFormText {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -8,14 +8,14 @@
     margin-top: 20px;
     color: $black;
 
-    .line {
+    .loginFormLine {
         border-bottom: 1px solid $black;
         height: 50%;
         width: 25%;
     }
 }
 
-.authModalLogin-title {
+.loginFormTitle {
     font-size: 28px;
     font-weight: 500;
     margin-bottom: 25px;
@@ -24,11 +24,11 @@
     justify-content: center;
 }
 
-.authModalLogin-input {
+.loginFormInput {
     margin-top: 25px;
 }
 
-.authModalLogin-forgot {
+.loginFormForgot {
     color: $blue;
     font-size: 14px;
     text-decoration: underline;
@@ -36,6 +36,12 @@
     cursor: pointer;
 }
 
-.authModalLogin-btn {
+.loginFormBtn {
     margin-top: 20px;
+}
+
+.authError {
+    margin-top: 10px;
+    color: $red;
+    font-size: 12px;
 }

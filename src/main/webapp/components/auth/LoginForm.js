@@ -46,6 +46,7 @@ export default withAuth(
         return null;
       }
 
+      
       return (
         <div>
           { this.state.errorMessage && <h3 className="error"> { this.state.errorMessage } </h3> }
