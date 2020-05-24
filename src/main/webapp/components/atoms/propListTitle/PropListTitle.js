@@ -21,4 +21,4 @@ PropListTitle.propTypes = {
     color: PropTypes.string
 }
 
-export default PropListTitle
+export default PropListTitle;

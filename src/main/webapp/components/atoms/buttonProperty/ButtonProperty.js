@@ -17,4 +17,4 @@ ButtonProperty.propTypes = {
     url: PropTypes.string
 }
 
-export default ButtonProperty
+export default ButtonProperty;

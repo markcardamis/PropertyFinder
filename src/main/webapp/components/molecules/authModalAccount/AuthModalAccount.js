@@ -22,4 +22,4 @@ AuthModalAccount.propTypes = {
 
 }
 
-export default AuthModalAccount
+export default AuthModalAccount;

@@ -29,4 +29,4 @@ PropListItem.propTypes = {
     icon2: PropTypes.any
 }
 
-export default PropListItem
+export default PropListItem;

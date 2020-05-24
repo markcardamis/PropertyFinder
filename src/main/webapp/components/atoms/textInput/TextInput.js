@@ -21,4 +21,4 @@ const TextInput = (props) => {
     )
 }
 
-export default TextInput
+export default TextInput;

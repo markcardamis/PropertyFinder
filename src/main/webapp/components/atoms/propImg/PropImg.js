@@ -14,4 +14,4 @@ PropImg.propTypes = {
     img: PropTypes.string
 }
 
-export default PropImg
+export default PropImg;

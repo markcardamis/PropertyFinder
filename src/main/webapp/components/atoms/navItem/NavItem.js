@@ -18,4 +18,4 @@ NavItem.propTypes = {
     link: PropTypes.string
 }
 
-export default NavItem
+export default NavItem;

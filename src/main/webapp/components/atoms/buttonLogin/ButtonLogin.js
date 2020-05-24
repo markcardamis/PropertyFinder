@@ -14,4 +14,4 @@ ButtonLogin.propTypes = {
     onClick: PropTypes.func
 }
 
-export default ButtonLogin
+export default ButtonLogin;

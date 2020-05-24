@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import './ButtonAccount.scss';
-import {IconAccount, IconArD} from '../../../assets/icons'
+import './buttonAccount.scss';
+import {IconAccount, IconArD} from '../../../assets/icons';
 
 const ButtonAccount = props => {
     return (
@@ -17,4 +17,4 @@ ButtonAccount.propTypes = {
     onClick: PropTypes.func
 }
 
-export default ButtonAccount
+export default ButtonAccount;

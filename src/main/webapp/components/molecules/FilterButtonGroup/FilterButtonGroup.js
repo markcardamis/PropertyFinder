@@ -18,4 +18,4 @@ FilterButtonGroup.propTypes = {
     onFilterClick: PropTypes.func
 }
 
-export default FilterButtonGroup
+export default FilterButtonGroup;

@@ -15,4 +15,4 @@ ButtonOutlined.propTypes = {
     width: PropTypes.string,
 }
 
-export default ButtonOutlined
+export default ButtonOutlined;

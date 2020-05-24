@@ -29,4 +29,4 @@ TopNavList.propTypes = {
     route: PropTypes.string
 }
 
-export default TopNavList
+export default TopNavList;

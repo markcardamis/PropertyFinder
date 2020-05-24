@@ -17,6 +17,6 @@ AuthModalBox.propTypes = {
     children: PropTypes.any
 }
 
-export default AuthModalBox
+export default AuthModalBox;
 
 

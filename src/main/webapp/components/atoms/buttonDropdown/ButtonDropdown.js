@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './buttonOutlined.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './buttonOutlined.scss';
 
 const ButtonOutlined = props => {
     return (
@@ -15,4 +15,4 @@ ButtonOutlined.propTypes = {
     width: PropTypes.string,
 }
 
-export default ButtonOutlined
+export default ButtonOutlined;

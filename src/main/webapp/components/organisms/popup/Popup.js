@@ -43,4 +43,4 @@ Popup.propTypes = {
     propertyInfo: PropTypes.object
 }
 
-export default Popup
+export default Popup;

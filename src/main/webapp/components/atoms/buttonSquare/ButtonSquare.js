@@ -14,4 +14,4 @@ ButtonSquare.propTypes = {
     onClick: PropTypes.func
 }
 
-export default ButtonSquare
+export default ButtonSquare;

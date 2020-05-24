@@ -21,4 +21,4 @@ AuthModal.propTypes = {
 
 }
 
-export default AuthModal
+export default AuthModal;

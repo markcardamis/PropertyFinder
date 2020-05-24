@@ -53,4 +53,4 @@ AuthModalRegister.propTypes = {
 
 }
 
-export default AuthModalRegister
+export default AuthModalRegister;
