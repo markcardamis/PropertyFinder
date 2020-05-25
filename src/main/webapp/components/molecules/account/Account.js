@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { IconExit, IconSettings } from '../../../assets/icons';
-import './authModalAccount.scss';
+import './account.scss';
 import PropListTitle from '../../atoms/propListTitle/PropListTitle';
 
-const AuthModalAccount = props => {
+const Account = props => {
     return (
         <>
-            <div className='authModalAccount-btn' style={{opacity: 0.5}}>
+            <div className='authModalAccount-btn' onClick={props.onAccountClick}>
                 <PropListTitle icon={<IconSettings/>} title16={'Account Setting'}/>
             </div>
             <div className='authModalAccount-btn' onClick={props.onLogout}>
@@ -18,8 +18,8 @@ const AuthModalAccount = props => {
     )
 }
 
-AuthModalAccount.propTypes = {
+Account.propTypes = {
 
 }
 
-export default AuthModalAccount;
+export default Account;

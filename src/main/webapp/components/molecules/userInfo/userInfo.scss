@@ -1,0 +1,29 @@
+@import '../../../styles/style.scss';
+
+.userInfo {
+    font-size: 18px;
+    color: $dark-grey;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+
+    .userInfoIcon {
+        margin-right: 10px;
+    }
+}
+
+.userInfoHeader {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.userInfoNote {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 20px;
+}

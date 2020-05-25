@@ -65,22 +65,6 @@ renderPopup = (e) => {
             baseDate: [baseDate5, baseDate4, baseDate3, baseDate2, baseDate1],
             landValue: [landValue5, landValue4, landValue3, landValue2, landValue1]
         }
-        // const propertyId = 3408300;
-        // const houseNumber="11a";
-        // const streetName="John Street";
-        // const suburbName="GRANVILLE"
-        // const postCode="2142"
-        // const area=1025
-        // const zoneCode="R2"
-        // const landValue1="246453522"
-        // const floorSpaceRatio = 0.50
-        // const minimumLotSize = null
-        // const buildingHeight = 4
-
-        // const chartData={
-        //     baseDate: ["2014-01-07", "2015-01-07", "2016-01-07", "2017-01-07", '2018-01-07'],
-        //     landValue: [15349000, 14495000, 15452000, 16743000, 15294000]
-        // }
 
         const propertyInfo = {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, landValue1}
         const popup = <Popup chartData={chartData} propertyInfo={propertyInfo}/>

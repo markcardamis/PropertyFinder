@@ -65,7 +65,7 @@ class LoginForm extends Component {
                     />
             </div>
             { this.state.errorMessage && <div className="authError">Login failed, please check your email and password</div>}
-            {/* <div className={'loginFormForgot'} onClick={()=>{}}>Forgot Password?</div> */}
+            <div className={'loginFormForgot'} onClick={this.props.onForgotClick}>Forgot Password?</div>
             <div className={'loginFormBtn'}><ButtonOutlined title={'SIGN IN'} onClick={this.handleSubmit}/></div>
             <div className='loginFormText'>
                 <div className='loginFormLine'/>Would you like to join?<div className='loginFormLine'/>
