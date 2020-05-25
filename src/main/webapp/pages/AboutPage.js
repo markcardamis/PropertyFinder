@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Nav from '../components/organisms/nav/Nav'
-import './pages.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Nav from '../components/organisms/nav/Nav';
+import './pages.scss';
 
 const AboutPage = props => {
     return (
@@ -9,11 +9,11 @@ const AboutPage = props => {
             <Nav/>
             <div className='notification'>This page is under development</div>
         </>
-    )
-}
+    );
+};
 
 AboutPage.propTypes = {
 
-}
+};
 
 export default AboutPage;
