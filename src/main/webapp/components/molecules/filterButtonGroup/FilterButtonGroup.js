@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
 import {IconFilter2, IconMenu} from '../../../assets/icons';
-import './filterButtonGroup1.scss';
+import './filterButtonGroup.scss';
 
 const FilterButtonGroup = props => {
     return (
