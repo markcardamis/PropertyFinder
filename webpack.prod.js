@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = {
   entry: './src/main/webapp/javascript/index.js',
@@ -37,6 +38,7 @@ module.exports = {
   },
 
   plugins: [
+    new CaseSensitivePathsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
          'MAPBOX_API': JSON.stringify(process.env.MAPBOX_API),

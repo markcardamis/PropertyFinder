@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = {
   entry: './src/main/webapp/javascript/index.js',
@@ -37,6 +38,7 @@ module.exports = {
   },
 
   plugins: [
+    new CaseSensitivePathsPlugin(),
     new Dotenv({
       systemvars: true
     }),
