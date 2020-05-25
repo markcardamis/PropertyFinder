@@ -12,7 +12,6 @@ import UserInfo from '../../molecules/userInfo/UserInfo'
 const AuthModal = withAuth(({ auth }) => {
     const [authenticated, user] = useAuth(auth);
     const [state, setState] = useState('login')
-    //const [state, setState] = useState('account')
 
     const renderComponent = () => {
        if (state=='login') {
