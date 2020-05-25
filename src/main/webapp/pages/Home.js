@@ -15,10 +15,10 @@ import AuthModal from '../components/organisms/authModal/AuthModal';
 
 const Home = (props) => {
   const dispatch = useDispatch();
-  const showFilter = useSelector(state=>state.showFilter)
-  const showSignIn = useSelector(state=>state.showSignIn)
-  const showProperty = useSelector(state=>state.showProperty.isHidden)
-  const showSave = useSelector(state=>state.showSaveModal)
+  const showFilter = useSelector(state=>state.showFilter);
+  const showSignIn = useSelector(state=>state.showSignIn);
+  const showProperty = useSelector(state=>state.showProperty.isHidden);
+  const showSave = useSelector(state=>state.showSaveModal);
 
   const toggleFilter = () => {
     showFilter ? dispatch(closeFilter()) : dispatch(showFilterAction())
@@ -47,7 +47,7 @@ const Home = (props) => {
           <MapGL/>
       </>
     );
-}
+};
 
 export default Home;
 
