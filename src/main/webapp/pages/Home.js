@@ -4,7 +4,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import PropertyInformation from '../components/organisms/propertyInformation/PropertyInformation';
 import FilterModal from '../components/organisms/filterModal/FilterModal';
 import MapGL from '../components/organisms/map/MapGL';
-import FilterButtonGroup from '../components/molecules/filterButtonGroup/FilterButtonGroup';
+import FilterButtonGroup from '../components/molecules/filterButtonGroup1/FilterButtonGroup1';
 import Nav from '../components/organisms/nav/Nav';
 import {showFilter as showFilterAction, closeFilter} from '../store/actions/showFilterAction';
 import {closeProperty} from '../store/actions/showPropertyAction';
