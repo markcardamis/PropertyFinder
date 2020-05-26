@@ -9,7 +9,7 @@ import { hotjar } from 'react-hotjar';
 import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../../shared/constants';
 import './MapGL.scss';
 import {Logo, MapMarker} from '../../../assets/icons';
-import Popup from '../../organisms/popup/Popup';;
+import Popup from '../../organisms/popup/Popup';
  
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -128,7 +128,7 @@ handlePropertyClick = async (e) => {
 }
 
 callApi = async (api, auth, action) => { 
-    this.props.dispatch({type: 'SHOW_LOADING'})  
+    this.props.dispatch({type: 'SHOW_LOADING'});
     try {
         const response = await fetch(api, auth);
         const data = await response.json();
@@ -138,7 +138,7 @@ callApi = async (api, auth, action) => {
         console.log('Api call failed');
         // add notification
     }  
-    this.props.dispatch({type: 'HIDE_LOADING'})
+    this.props.dispatch({type: 'HIDE_LOADING'});
 }
 
 checkAuthentication = async () => {

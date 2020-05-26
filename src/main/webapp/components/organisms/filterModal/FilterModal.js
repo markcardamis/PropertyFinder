@@ -111,7 +111,7 @@ class FilterModal extends Component {
       } catch (err) {
         // add notification 
       }
-      this.props.dispatch({type: 'HIDE_LOADING'})
+      this.props.dispatch({type: 'HIDE_LOADING'});
     }
 
     handleSaveFilter = async (values) => {
@@ -121,7 +121,7 @@ class FilterModal extends Component {
 
         // this.props.dispatch({type: 'SHOW_SAVE_MODAL'})
         // this.props.dispatch({type: 'CLOSE_FILTER'})
-        this.props.dispatch({type: 'SHOW_LOADING'})
+        this.props.dispatch({type: 'SHOW_LOADING'});
             try {
               const response = await fetch('/api/notifications', {
                 headers: {
@@ -133,7 +133,7 @@ class FilterModal extends Component {
             } catch (err) {
               // add notification
             }
-            this.props.dispatch({type: 'SHOW_LOADING'})
+            this.props.dispatch({type: 'HIDE_LOADING'});
 
         const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
         result ? await this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : await this.saveFilter('POST', '/api/notifications');
@@ -155,7 +155,7 @@ class FilterModal extends Component {
       headers = this.state.authenticated===false ?  
           headers : { ...headers, 'Authorization': 'Bearer ' + await this.props.auth.getAccessToken()}
 
-          this.props.dispatch({type: 'SHOW_LOADING'})
+          this.props.dispatch({type: 'SHOW_LOADING'});
       try {
 
         const response = await fetch('/api/listing/query', {
@@ -185,7 +185,7 @@ class FilterModal extends Component {
       } catch (err) {
         // add notification  
       }
-      this.props.dispatch({type: 'SHOW_LOADING'})
+      this.props.dispatch({type: 'HIDE_LOADING'});
     }
 
     render () {
