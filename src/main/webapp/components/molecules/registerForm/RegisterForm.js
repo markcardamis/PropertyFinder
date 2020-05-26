@@ -84,7 +84,6 @@ class RegisterForm extends Component {
       return (
         <div>
              <div className='registerFormTitle'>
-               {console.log(this.state)}
                  <div onClick={this.props.onBack}><IconArL/></div>
                     Registration
                  <div/>

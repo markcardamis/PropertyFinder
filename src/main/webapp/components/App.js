@@ -17,7 +17,7 @@ const App = () => {
 
     return (
       <>
-      {useSelector(state=>state.loadingIndicator)&&<div className='loadingIndicatorContainer'>
+      {useSelector(state=>state.showLoading)&&<div className='loadingIndicatorContainer'>
         <Loader 
           type="TailSpin" 
           color={variables.green} 
