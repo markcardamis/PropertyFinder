@@ -1,0 +1,23 @@
+@import '../../../styles/style.scss';
+
+.flexHandle {
+  display: flex;
+  justify-content: center;
+}
+
+.handleValueContainer {
+    margin-top: -32px;
+    margin-right: -40px;
+    white-space: nowrap;
+    background-color: rgba(61, 72, 90, 0.8);
+    padding: 4px 10px 3px 4px;
+    border-radius: 4px;
+    justify-content: center;
+    display: flex;
+
+    .handleValue {
+        color: $white;
+        font-size: 14px;
+        font-weight: bold;
+    }
+}

@@ -152,7 +152,6 @@ checkAuthentication = async () => {
     render() {
     return (
         <div>
-            {/* {console.log(this.props.mapGL.showLoading)} */}
             <div ref={el => this.mapContainer = el} className='mapContainer' id='map'/>
         </div>
         );
