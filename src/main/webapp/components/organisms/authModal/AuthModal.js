@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { withAuth } from '@okta/okta-react';
 
@@ -8,10 +8,28 @@ import LoginForm from '../../molecules/loginForm/LoginForm'
 import RegisterForm from '../../molecules/registerForm/RegisterForm'
 import Account from '../../molecules/account/Account'
 import UserInfo from '../../molecules/userInfo/UserInfo'
+import { useDispatch } from 'react-redux';
 
 const AuthModal = withAuth(({ auth }) => {
     const [authenticated, user] = useAuth(auth);
     const [state, setState] = useState('login')
+    const dispatch = useDispatch()
+    const node = useRef();
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClick);
+        return () => {
+          document.removeEventListener("mousedown", handleClick);
+        };
+      }, []);
+
+    const handleClick = e => {
+        if (node.current.contains(e.target)) {
+          return;
+        }
+        dispatch({type: 'CLOSE_SIGNIN'})
+       // ... do whatever on click outside here ...
+      }
 
     const renderComponent = () => {
        if (state=='login') {
@@ -24,7 +42,7 @@ const AuthModal = withAuth(({ auth }) => {
         }
     }
     return (
-        <div>
+        <div ref={node}>
             <AuthModalBox>
                 {renderComponent()}
             </AuthModalBox>
