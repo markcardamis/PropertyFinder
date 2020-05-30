@@ -28,7 +28,6 @@ const AuthModal = withAuth(({ auth }) => {
           return;
         }
         dispatch({type: 'CLOSE_SIGNIN'})
-       // ... do whatever on click outside here ...
       }
 
     const renderComponent = () => {

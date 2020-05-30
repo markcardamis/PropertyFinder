@@ -1,5 +1,12 @@
 @import '../styles//style.scss';
 
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: stretch;
+}
+
 .notification {
     display: flex;
     justify-content: center;

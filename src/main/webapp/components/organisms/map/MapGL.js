@@ -31,6 +31,7 @@ async componentDidMount() {
         zoom: INITIAL_VIEWPORT.zoom
         });  
 
+        
     map.addControl(new mapboxgl.NavigationControl());
     this.checkAuthentication();
     await this.callApi('/api/listing', null, 'MARKERS');

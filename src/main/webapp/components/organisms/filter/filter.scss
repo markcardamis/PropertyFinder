@@ -10,6 +10,13 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
+        .btnSavePref {
+            width: 25%;
+        }
+        .btnSearch {
+            width: 65%;
+        }
     }
 .zoneSelect {
     display: flex;
@@ -83,5 +90,32 @@
         margin-right: 10px;
         align-items: center;
         font-family: $mavenPro;
+    }
+}
+
+
+@media only screen and (max-device-width: $breakpoint-tablet) {
+    .filterLine {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+    .filterBtnContainer {
+        display: flex;
+        flex-direction: column;
+
+        .btnSavePref {
+            width: 100%;
+        }
+        .btnSearch {
+            width: 100%;
+            margin-top: 14px;
+        }
+    }
+
+    .react-tabs__tab-list {
+        margin-top: 17px !important;
+        margin-bottom: 24px !important;
     }
 }

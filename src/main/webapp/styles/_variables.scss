@@ -33,6 +33,11 @@ $transition-05: 0.5s;
 $shadow-4: 4px 0px 4px rgba(0, 0, 0, 0.1);
 $shadow-14: 14px 0px 14px rgba(0, 0, 0, 0.1);
 
+//breakpoints
+$breakpoint-tablet: 768px;
+$breakpoint-laptop13: 1500px;
+$breakpoint-laptop11: 1400px;
+
 :export {
     lightGrey: $light-grey;
     midGrey: $mid-grey;

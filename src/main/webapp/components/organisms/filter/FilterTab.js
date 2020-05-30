@@ -84,7 +84,7 @@ class FilterTab extends React.Component {
     render () {
   
         return (
-            <div>  
+            <div className='filterTab'>  
               <ZoneSelect zone={this.state.zone} zoneColor={this.state.zoneColor} title22={'Zone'} icon={<IconZone/>} onSelect={this.onSelect}/>
               <PostCode title22={'Post Code'} icon={<IconPost/>} value={this.state.postCode} showValidation={this.state.showValidation} onChange={(event)=>this.setState({postCode: event.target.value})}/>
               <DeviderLine/>
@@ -104,8 +104,8 @@ class FilterTab extends React.Component {
                             onChange={(val)=>this.setState({priceLandvalue: val})} min={0} max={10} labelMin={'0.0'} labelMax={'10.0'}/>
       
                  <div className='filterBtnContainer'>
-                  <ButtonOutlined title={'Save preferences'} onClick={this.handleSaveFilter} width={'25%'}/>
-                  <ButtonFilled  title={'Search'} onClick={this.handleSubmit} width={'65%'}/>
+                  <div className='btnSavePref'><ButtonOutlined title={'Save preferences'} onClick={this.handleSaveFilter}/></div>
+                  <div className='btnSearch'><ButtonFilled title={'Search'} onClick={this.handleSubmit}/></div>
                 </div>
               </div>
         );
