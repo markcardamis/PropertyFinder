@@ -133,7 +133,7 @@ class FilterModal extends Component {
             } catch (err) {
               // add notification
             }
-            this.props.dispatch({type: 'SHOW_LOADING'})
+            this.props.dispatch({type: 'HIDE_LOADING'})
 
         const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
         result ? await this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : await this.saveFilter('POST', '/api/notifications');
@@ -185,7 +185,7 @@ class FilterModal extends Component {
       } catch (err) {
         // add notification  
       }
-      this.props.dispatch({type: 'SHOW_LOADING'})
+      this.props.dispatch({type: 'HIDE_LOADING'})
     }
 
     render () {
