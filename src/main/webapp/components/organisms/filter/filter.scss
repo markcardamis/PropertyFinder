@@ -95,24 +95,54 @@
 
 
 @media only screen and (max-device-width: $breakpoint-tablet) {
-    .filterLine {
+    .filterTab {
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 10px;
-    }
-    .filterBtnContainer {
-        display: flex;
-        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
 
-        .btnSavePref {
-            width: 100%;
+        .filterInputContainer {
+            // height: 50%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: stretch;
+
+            .filterLine {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 10px;
+            // margin-bottom: 40px;
+            }
+            .postCode{
+                margin-top: 20px;
+            }
         }
-        .btnSearch {
-            width: 100%;
-            margin-top: 14px;
+
+        .filterBtnContainer {
+            display: flex;
+            flex-direction: column;
+            //height: 40%;
+            margin-top: 20%;
+    
+            .btnSavePref {
+                width: 100%;
+                //margin-top: 30px;
+            }
+            .btnSearch {
+                width: 100%;
+                margin-top: 14px;
+                margin-top: 50px;
+            }
         }
+
     }
+    
 
     .react-tabs__tab-list {
         margin-top: 17px !important;
