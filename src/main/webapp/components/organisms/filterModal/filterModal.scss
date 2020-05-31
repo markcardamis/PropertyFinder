@@ -4,7 +4,6 @@
     width: 100%;
     height: 100%;
     display: flex;
-    //flex-direction: row;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -129,35 +128,18 @@ margin-top: 20px;
         flex-direction: column;
         background-color: $white;
 
-        .filterModal {
+        .filterModal, .react-tabs, .react-tabs__tab-panel--selected {
             flex-grow: 1;
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
+        }
+        .filterModal {
             padding-bottom: 150px;
 
-            .react-tabs {
-                flex-grow: 1;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: stretch;
-                justify-content: space-between;
-
-                // .react-tabs__tab-panel {
-                    .react-tabs__tab-panel--selected {
-                    flex-grow: 1;
-                    flex: 1;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: stretch;
-                    justify-content: space-between;
-                    margin-top: 50px;
-                }
+            .react-tabs__tab-panel--selected {
+                margin-top: 50px;
             }
         }
     }
