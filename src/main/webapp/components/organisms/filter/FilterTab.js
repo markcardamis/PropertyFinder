@@ -89,9 +89,6 @@ class FilterTab extends React.Component {
               <ZoneSelect zone={this.state.zone} zoneColor={this.state.zoneColor} title22={'Zone'} icon={<IconZone/>} onSelect={this.onSelect}/>
               <PostCode title22={'Post Code'} icon={<IconPost/>} value={this.state.postCode} showValidation={this.state.showValidation} onChange={(event)=>this.setState({postCode: event.target.value})}/>
               <DeviderLine/>
-             
-               {/* <TextField label="Post Code" value={this.state.postCode} onChange={(event)=>this.setState({postCode: event.target.value})}/>*/}
-            
                 <FilterLine title22={'Area'} icon={<IconArea/>} value={this.state.area} step={100} 
                             onChange={(val)=>this.setState({area: val})} min={0} max={20000} labelMin={'0'} labelMax={'20 000+'}/>
                 <FilterLine title22={'Floor Space Ratio'} icon={<IconFsr/>} value={this.state.floorspaceRatio} step={0.1} 

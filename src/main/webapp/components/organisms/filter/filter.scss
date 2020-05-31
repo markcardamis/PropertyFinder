@@ -94,7 +94,7 @@
 }
 
 
-@media only screen and (max-device-width: $breakpoint-tablet) {
+@media only screen and (max-device-width: $breakpoint-mobile) {
     .filterTab {
         flex-grow: 1;
         width: 100%;
@@ -137,7 +137,6 @@
         }
 
     }
-    
 
     .react-tabs__tab-list {
         margin-top: 17px !important;

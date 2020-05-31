@@ -122,8 +122,13 @@ margin-top: 20px;
         height: 500px;
     }
 }
-
-@media only screen and (max-device-width: $breakpoint-tablet) {
+@media (max-device-width: $breakpoint-tablet) {
+    .filterModal {
+        width: 70%;
+        height: 100%;
+    }
+}
+@media only screen and (max-device-width: $breakpoint-mobile) {
     .filterContainer {
         flex-direction: column;
         background-color: $white;
