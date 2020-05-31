@@ -28,7 +28,7 @@ const Nav = withAuth(({ auth }) => {
 
         return (
              <div className='nav'>
-                 {console.log(authenticated)}
+                 {/* {console.log(authenticated)} */}
                  {/* {console.log(authState)} */}
                 <Link to='/'><IconLogoTitle/></Link>
                 <div className='navLinks'>
