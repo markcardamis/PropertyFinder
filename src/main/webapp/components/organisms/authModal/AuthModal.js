@@ -9,6 +9,7 @@ import RegisterForm from '../../molecules/registerForm/RegisterForm'
 import Account from '../../molecules/account/Account'
 import UserInfo from '../../molecules/userInfo/UserInfo'
 import { useDispatch } from 'react-redux';
+import './authModal.scss'
 
 const AuthModal = withAuth(({ auth }) => {
     const [authenticated, user] = useAuth(auth);
@@ -41,7 +42,7 @@ const AuthModal = withAuth(({ auth }) => {
         }
     }
     return (
-        <div ref={node}>
+        <div ref={node} className='authModal'>
             <AuthModalBox>
                 {renderComponent()}
             </AuthModalBox>
