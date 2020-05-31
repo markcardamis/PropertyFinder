@@ -18,16 +18,18 @@ const Nav = withAuth(({ auth }) => {
     const [authState, setAuth] = useState(authenticated)
     const location = useLocation();
     const dispatch = useDispatch()
-    // const dispatch = useDispatch()
-    // const all = useSelector(state=>state)
+    const all = useSelector(state=>state)
 
     // useEffect(() => {
     //     setAuth(authenticated)
     //     authState ? dispatch(login()) : dispatch(logout())
     // }, [authenticated])
 
+
         return (
              <div className='nav'>
+                 {console.log(authenticated)}
+                 {/* {console.log(authState)} */}
                 <Link to='/'><IconLogoTitle/></Link>
                 <div className='navLinks'>
                     <TopNavList route={location.pathname}/>

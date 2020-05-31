@@ -31,6 +31,7 @@ async componentDidMount() {
         zoom: INITIAL_VIEWPORT.zoom
         });  
 
+        
     map.addControl(new mapboxgl.NavigationControl());
     this.checkAuthentication();
     await this.callApi('/api/listing', null, 'MARKERS');
@@ -152,7 +153,6 @@ checkAuthentication = async () => {
     render() {
     return (
         <div>
-            {/* {console.log(this.props.mapGL.showLoading)} */}
             <div ref={el => this.mapContainer = el} className='mapContainer' id='map'/>
         </div>
         );

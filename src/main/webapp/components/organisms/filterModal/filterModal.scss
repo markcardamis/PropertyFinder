@@ -1,24 +1,8 @@
 @import '../../../styles//style.scss';
-$breakpoint-tablet: 768px;
-$breakpoint-laptop13: 1500px;
-$breakpoint-laptop11: 1400px;
 
-@media (max-width: $breakpoint-laptop13) {
-    .filterModal {
-        width: 60% !important;
-        height: 600px;
-    }
-}
-@media (max-width: $breakpoint-laptop13) {
-    .filterModal {
-        width: 70% !important;
-        height: 500px;
-    }
-}
 .filterContainer {
-    // width: 100%;
-    // height: 100%;
-    //background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,11 +10,9 @@ $breakpoint-laptop11: 1400px;
     flex: 1
 }
 .filterModal {
-    width: 60%;
-    //height: 60%;
+    width: 40%;
     align-self: center;
     overflow-y: auto;
-    margin-top: 78px;
     padding: 22px 32px 22px 32px;
     z-index: 2;
     box-shadow: $shadow-14;
@@ -56,7 +38,6 @@ $breakpoint-laptop11: 1400px;
     border: none !important;
     font-family: $mavenPro;
     font-size: 24px;
-    //color: $dark-grey;
 }
 .react-tabs__tab--selected {
     color: $white;
@@ -127,4 +108,45 @@ margin-top: 20px;
     justify-content: center;
     margin-right: 10px;
     align-items: center;
+}
+
+@media (max-device-width: $breakpoint-laptop13) {
+    .filterModal {
+        width: 60%;
+        height: 600px;
+    }
+}
+@media (max-device-width: $breakpoint-laptop11) {
+    .filterModal {
+        width: 70%;
+        height: 500px;
+    }
+}
+@media (max-device-width: $breakpoint-tablet) {
+    .filterModal {
+        width: 70%;
+        height: 100%;
+    }
+}
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .filterContainer {
+        flex-direction: column;
+        background-color: $white;
+
+        .filterModal, .react-tabs, .react-tabs__tab-panel--selected {
+            flex-grow: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .filterModal {
+            padding-bottom: 150px;
+
+            .react-tabs__tab-panel--selected {
+                margin-top: 50px;
+            }
+        }
+    }
+   
 }

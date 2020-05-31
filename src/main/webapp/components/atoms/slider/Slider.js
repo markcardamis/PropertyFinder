@@ -1,7 +1,8 @@
 import React from 'react';
 import {Range} from 'rc-slider';
-import 'rc-slider/assets/index.css';
+
 import './slider.scss';
+import { SliderHandle } from "../sliderHandle/SliderHandle";
 
 const Slider = (props) => {
 
@@ -13,6 +14,7 @@ const Slider = (props) => {
         min={props.min}
         max={props.max}
         step={props.step}
+        handle={SliderHandle}
       />
       <div className='sliderLegend'>
         <div className='sliderLabel'>{props.labelMin}</div>
