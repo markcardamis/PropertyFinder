@@ -7,7 +7,8 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    flex: 1
+    flex: 1;
+    z-index: 2;
 }
 .filterModal {
     width: 40%;
@@ -124,8 +125,9 @@ margin-top: 20px;
 }
 @media (max-device-width: $breakpoint-tablet) {
     .filterModal {
-        width: 70%;
+        width: 80%;
         height: 100%;
+        max-height: 715px;
     }
 }
 @media only screen and (max-device-width: $breakpoint-mobile) {
@@ -137,6 +139,7 @@ margin-top: 20px;
             flex-grow: 1;
             width: 100%;
             height: 100%;
+            max-height: 100%;
             display: flex;
             flex-direction: column;
         }
