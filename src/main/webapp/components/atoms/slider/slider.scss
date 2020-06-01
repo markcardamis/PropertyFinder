@@ -8,11 +8,14 @@
 }
 .rc-slider-handle {
     background-color: $dark-grey;
-    width: 28px;
-    height: 28px;
-    border-radius: 20px;
+    // width: 28px;
+    // height: 28px;
+    // border-radius: 20px;
+    width: 14px;
+    height: 14px;
+    border-radius: 14px;
     border: none;
-    margin-top: -15px;
+    //margin-top: -15px;
 }
 
 .sliderContainer {
@@ -25,12 +28,12 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        margin-top: 8px;
+       // margin-top: 8px;
 
         .sliderLabel {
             font-family: $mavenPro;
             color: $black;
-            font-size: 16px;
+            font-size: 12px;
         }
     }
 }

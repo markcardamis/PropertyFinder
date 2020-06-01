@@ -13,7 +13,8 @@ const TextInput = (props) => {
                 className='textInput'
                 style={{
                     textAlign: props.icon ? 'start' : 'center', 
-                    fontSize: props.icon ? 16 : 20,
+                    // fontSize: props.icon ? 16 : 20,
+                    fontSize: props.icon ? 16 : 12,
                     paddingLeft: props.icon ? 40 : 0
                 }}
                 />   
