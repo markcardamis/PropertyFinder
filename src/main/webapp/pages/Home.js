@@ -41,8 +41,7 @@ const Home = (props) => {
         <Nav/>
         {showSignIn && <AuthModal/>}
         {!showFilter && !showSave && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
-        {<FilterModal handleCloseFilter={handleCloseFilter}/>}
-        {/* showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/> */}
+        { showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/> }
         {/* {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>} */}
         {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
         <MapGL/>
