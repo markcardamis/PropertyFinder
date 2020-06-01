@@ -89,46 +89,7 @@ class SavedFilters extends Component {
   }
 
   renderData = () => {
-    const savedFilters = [{
-      propertyZone: 'R3', 
-      propertyAreaMin: 1000, 
-      propertyAreaMax: 2000,
-      propertyPriceMin: 2000000, 
-      propertyPriceMax: 4000000, 
-      propertyPSMMin: 20,
-      propertyPSMMax: 40, 
-      propertyPostCode: 4455, 
-      propertyPriceToLandValueMin: 500,
-      propertyPriceToLandValueMax: 5000, 
-      propertyFloorSpaceRatioMin: 0.5,
-      propertyFloorSpaceRatioMax: 0.9
-    }, {
-      propertyZone: 'R3', 
-      propertyAreaMin: 1000,  
-      propertyPostCode: 4455, 
-      propertyPriceToLandValueMin: 500,
-      propertyPriceToLandValueMax: 5000, 
-      propertyFloorSpaceRatioMin: 0.5,
-      propertyFloorSpaceRatioMax: 0.9
-    }, {
-      propertyZone: 'R3', 
-      propertyAreaMin: 1000, 
-      propertyAreaMax: 2000,
-      propertyPriceMin: 2000000, 
-      propertyPriceMax: 4000000, 
-      propertyPSMMin: 20,
-      propertyPSMMax: 40, 
-    }, {
-      propertyZone: 'R3', 
-      propertyAreaMin: 1000, 
-      propertyAreaMax: 2000,
-      propertyPriceMin: 2000000, 
-      propertyPriceMax: 4000000, 
-      propertyPSMMin: 20,
-      propertyPSMMax: 40, 
-    }]
-    //return this.state.savedFilters.map((item, index)=>{
-      return savedFilters.map((item, index)=>{
+    return this.state.savedFilters.map((item, index)=>{
       return <SavedFiltersListItem
               key={index}
               index={index+1}
