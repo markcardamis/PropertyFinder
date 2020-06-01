@@ -56,6 +56,7 @@ class FilterTab extends React.Component {
           payload: {zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio}
         })
         this.props.handleSubmit();
+        this.props.dispatch({type: 'CLOSE_FILTER'})
       }
     }
 

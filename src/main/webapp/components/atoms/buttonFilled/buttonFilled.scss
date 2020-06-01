@@ -26,3 +26,13 @@
         text-transform: uppercase;
     }
 }
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .buttonFilled{
+        height: 75px;
+
+        .buttonFilledTitle {
+            font-size: 24px;
+        }
+    }
+}

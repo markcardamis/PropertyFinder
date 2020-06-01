@@ -51,7 +51,7 @@
   
     .mapboxgl-ctrl-group {
         position: absolute !important;
-        z-index: 1000 !important;
+        z-index: 10 !important;
         bottom: 10px !important;
         left: 20px !important;
         display: flex !important;
@@ -59,7 +59,7 @@
     }
     .mapboxgl-control-container {
         position: absolute !important;
-        z-index: 1000 !important;
+        z-index: 10 !important;
         bottom: 10px !important;
         left: 20px !important;
         border-radius: 20px;

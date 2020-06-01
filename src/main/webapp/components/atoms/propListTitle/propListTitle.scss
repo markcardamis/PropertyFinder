@@ -26,3 +26,10 @@
         margin-right: 6px;
     }
 }
+
+
+@media (max-device-width: $breakpoint-mobile) {
+    .propListTitle-text22 {
+        font-size: 30px !important;
+    }
+}

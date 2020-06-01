@@ -25,3 +25,13 @@
         text-transform: uppercase;
     }
 }
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .buttonOutlined {
+        height: 75px;
+
+        .buttonOutlinedTitle {
+            font-size: 24px;
+        }
+    }
+}

@@ -24,3 +24,9 @@
         height: 80px;
     }
 }
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .nav {
+        height: 120px;
+    }
+}
