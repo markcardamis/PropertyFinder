@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { withAuth } from '@okta/okta-react';
+import { useHistory} from 'react-router-dom';
 
 import { useAuth } from '../../../modules/auth';
 import AuthModalBox from '../../molecules/authModalBox/AuthModalBox'
@@ -12,8 +13,9 @@ import { useDispatch } from 'react-redux';
 import './authModal.scss'
 
 const AuthModal = withAuth(({ auth }) => {
+    const history = useHistory()
     const [authenticated, user] = useAuth(auth);
-    const [state, setState] = useState('login')
+    const [state, setState] = useState( history.location.pathname === '/signup' ? 'register' : 'login')
     const dispatch = useDispatch()
     const node = useRef();
 

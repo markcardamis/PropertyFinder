@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import {useMatch, useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 
 import PropertyInformation from '../components/organisms/propertyInformation/PropertyInformation';
 import FilterModal from '../components/organisms/filterModal/FilterModal';
