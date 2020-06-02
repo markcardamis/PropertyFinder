@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
+import {useMatch, useHistory} from 'react-router-dom';
 
 import PropertyInformation from '../components/organisms/propertyInformation/PropertyInformation';
 import FilterModal from '../components/organisms/filterModal/FilterModal';
@@ -8,15 +9,14 @@ import FilterButtonGroup from '../components/molecules/filterButtonGroup/FilterB
 import Nav from '../components/organisms/nav/Nav';
 import {showFilter as showFilterAction, closeFilter} from '../store/actions/showFilterAction';
 import {closeProperty} from '../store/actions/showPropertyAction';
-import {closeSignIn} from '../store/actions/showSignInAction';
-import { SaveModal } from '../components/organisms/saveModal/SaveModal';
-import {showSaveModal, closeSaveModal} from '../store/actions/showSaveModalAction';
+import {closeSignIn, showSignIn} from '../store/actions/showSignInAction';
 import AuthModal from '../components/organisms/authModal/AuthModal';
 
 const Home = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory()
   const showFilter = useSelector(state=>state.showFilter);
-  const showSignIn = useSelector(state=>state.showSignIn);
+  const showSignInModal = useSelector(state=>state.showSignIn);
   const showProperty = useSelector(state=>state.showProperty.isHidden);
   const showSave = useSelector(state=>state.showSaveModal);
 
@@ -36,10 +36,15 @@ const Home = (props) => {
     dispatch(closeSignIn())
 }
 
+useEffect(()=>{
+  history.location.pathname === '/signup' ? dispatch(showSignIn()) : dispatch(closeSignIn())
+}, [])
+
     return (
       <div className='pageContainer'>
+        {console.log(history)}
         <Nav/>
-        {showSignIn && <AuthModal/>}
+        {showSignInModal && <AuthModal/>}
         {!showFilter && !showSave && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
         { showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/> }
         {/* {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>} */}
