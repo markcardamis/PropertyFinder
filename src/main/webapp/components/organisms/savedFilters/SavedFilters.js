@@ -41,16 +41,17 @@ class SavedFilters extends Component {
     this.props.dispatch({type: 'HIDE_LOADING'})
   }
 
+
   handleSelectFilter = (item) => {
     if(item!==undefined) {
     this.props.dispatch({type: 'FILTER', payload: {
-                                                  zone: item.propertyZone ? item.propertyZone : null,
-                                                  area: [item.propertyAreaMin? item.propertyAreaMin : 0, item.propertyAreaMax ? item.propertyAreaMax : 20000],
-                                                  price: [item.propertyPriceMin ? item.propertyPriceMin : 100000, item.propertyPriceMax ? item.propertyPriceMax : 5000000],
-                                                  priceM2: [item.propertyPSMMin ? item.propertyPSMMin : 1, item.propertyPSMMax ? item.propertyPSMMax : 10000],
-                                                  postCode: item.propertyPostCode ? item.propertyPostCode : '',
-                                                  priceLandvalue: [item.propertyPriceToLandValueMin ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax ? item.propertyPriceToLandValueMax : 10 ],
-                                                  floorspaceRatio: [item.propertyFloorSpaceRatioMin ? item.propertyFloorSpaceRatioMin : 0.1, item.propertyFloorSpaceRatioMax ? item.propertyFloorSpaceRatioMax : 2]
+                                                  zone: item.propertyZone!== null ? item.propertyZone : null,
+                                                  area: [item.propertyAreaMin!== null ? item.propertyAreaMin : 0, item.propertyAreaMax!== null ? item.propertyAreaMax : 20000],
+                                                  price: [item.propertyPriceMin!== null ? item.propertyPriceMin : 100000, item.propertyPriceMax!== null ? item.propertyPriceMax : 5000000],
+                                                  priceM2: [item.propertyPSMMin!== null ? item.propertyPSMMin : 1, item.propertyPSMMax!== null ? item.propertyPSMMax : 10000],
+                                                  postCode: item.propertyPostCode!== null ? item.propertyPostCode : '',
+                                                  priceLandvalue: [item.propertyPriceToLandValueMin!== null ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax!== null ? item.propertyPriceToLandValueMax : 10 ],
+                                                  floorspaceRatio: [item.propertyFloorSpaceRatioMin!== null ? item.propertyFloorSpaceRatioMin : 0.1, item.propertyFloorSpaceRatioMax!== null ? item.propertyFloorSpaceRatioMax : 2]
                                                 }})  
     this.props.handleSelectFilter(item)
                                               }
@@ -58,13 +59,13 @@ class SavedFilters extends Component {
   handleEditFilter = (item) => {
     if (item!== undefined) {
     this.props.dispatch({type: 'FILTER', payload: {
-                                                  zone: item.propertyZone ? item.propertyZone : null,
-                                                  area: [item.propertyAreaMin? item.propertyAreaMin : 0, item.propertyAreaMax ? item.propertyAreaMax : 20000],
-                                                  price: [item.propertyPriceMin ? item.propertyPriceMin : 100000, item.propertyPriceMax ? item.propertyPriceMax : 5000000],
-                                                  priceM2: [item.propertyPSMMin ? item.propertyPSMMin : 1, item.propertyPSMMax ? item.propertyPSMMax : 10000],
-                                                  postCode: item.propertyPostCode ? item.propertyPostCode : '',
-                                                  priceLandvalue: [item.propertyPriceToLandValueMin ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax ? item.propertyPriceToLandValueMax : 10 ],
-                                                  floorspaceRatio: [item.propertyFloorSpaceRatioMin ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax ? item.propertyFloorSpaceRatioMax : 2]
+                                                  zone: item.propertyZone!== null ? item.propertyZone : null,
+                                                  area: [item.propertyAreaMin!== null? item.propertyAreaMin : 0, item.propertyAreaMax!== null ? item.propertyAreaMax : 20000],
+                                                  price: [item.propertyPriceMin!== null ? item.propertyPriceMin : 100000, item.propertyPriceMax!== null ? item.propertyPriceMax : 5000000],
+                                                  priceM2: [item.propertyPSMMin!== null ? item.propertyPSMMin : 1, item.propertyPSMMax!== null ? item.propertyPSMMax : 10000],
+                                                  postCode: item.propertyPostCode!== null ? item.propertyPostCode : '',
+                                                  priceLandvalue: [item.propertyPriceToLandValueMin!== null ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax!== null ? item.propertyPriceToLandValueMax : 10 ],
+                                                  floorspaceRatio: [item.propertyFloorSpaceRatioMin!== null ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax!== null ? item.propertyFloorSpaceRatioMax : 2]
                                                 }})  
     this.props.handleEditFilter(item)
   }
