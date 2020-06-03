@@ -51,7 +51,7 @@ class SavedFilters extends Component {
                                                   priceM2: [item.propertyPSMMin ? item.propertyPSMMin : 1, item.propertyPSMMax ? item.propertyPSMMax : 10000],
                                                   postCode: item.propertyPostCode ? item.propertyPostCode : '',
                                                   priceLandvalue: [item.propertyPriceToLandValueMin ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax? item.propertyPriceToLandValueMax : 10 ],
-                                                  floorspaceRatio: [item.propertyFloorSpaceRatioMin ? item.propertyFloorSpaceRatioMin : 0.1, item.propertyFloorSpaceRatioMax ? item.propertyFloorSpaceRatioMax : 2]
+                                                  floorspaceRatio: [item.propertyFloorSpaceRatioMin ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax ? item.propertyFloorSpaceRatioMax : 2]
                                                 }})  
     this.props.handleSelectFilter(item)
                                               }
@@ -90,24 +90,7 @@ class SavedFilters extends Component {
   }
 
   renderData = () => {
-    const filter = [{
-        createdAt: "2020-04-21T08:08:30.788+0000",
-        id: "332bd54b-a034-45d7-9d70-2bb1d33e1a97",
-        propertyAreaMax: 500,
-        propertyAreaMin: null,
-        propertyFloorSpaceRatioMax: null,
-        propertyFloorSpaceRatioMin: null,
-        propertyPostCode: null,
-        propertyPriceMax: 2840000,
-        propertyPriceMin: null,
-        propertyPricePSMMax: 3400,
-        propertyPricePSMMin: null,
-        propertyPriceToLandValueMax: null,
-        propertyPriceToLandValueMin: null,
-        propertyZone: null
-    }]
-    //return this.state.savedFilters.map((item, index)=>{
-      return filter.map((item, index)=>{
+    return this.state.savedFilters.map((item, index)=>{
       return <SavedFiltersListItem
               key={index}
               index={index+1}
