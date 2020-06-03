@@ -43,7 +43,7 @@ public class MultiHttpSecurityConfig {
                                 "/", "/api/listing", "/api/listing/*", "/api/propertyinformation/*",
                                 "/dist/*", "/implicit/callback", "/login", "/login/*", "/css/**", 
                                 "/images/**", "/favicon.ico", "/robots.txt", 
-                                "/signup", "/about", "/contact").permitAll()
+                                "/signup", "/search", "/about", "/contact").permitAll()
                     .and()
                 .authorizeRequests()
                     .antMatchers(HttpMethod.POST,
