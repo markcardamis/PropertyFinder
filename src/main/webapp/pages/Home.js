@@ -43,7 +43,6 @@ useEffect(()=>{
 
     return (
       <div className='pageContainer'>
-        {console.log(history)}
         <Nav/>
         {showSignInModal && <AuthModal/>}
         {!showFilter && !showSave && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
