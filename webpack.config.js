@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "/src/main/resources/static/dist"),
     filename: 'index-bundle.js',
-    publicPath: '/',
+    publicPath: '/'
     //publicPath: 'http://192.168.0.102:5000/'
   },
   devServer: {
