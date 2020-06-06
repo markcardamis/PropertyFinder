@@ -25,9 +25,9 @@ const PropertyInformation = (props) => {
                         <div className='propertyInformation-close'>
                             <ButtonSquare icon={<IconClose/>} onClick={handleClosePropertyInfo}/>
                         </div>
-                        <div className='propertyInformation-mainContainer'>
+                        <div>
                             <PropImg img={listingPhoto || DEFAULT_HOUSE_IMAGE}/>
-                            <div className='propertyInformation-info'>
+                            <div className='propertyInformation-mainContainer'>
                                 <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
                                 <div className='propertyInformation-address'>{address}</div>
                                 <PropListItem2 
@@ -58,7 +58,7 @@ const PropertyInformation = (props) => {
                                     title2={MINIMUM_LOT_SIZE} value2={minimumLotSize}
                                     />
                                 <div className='propertyInformation-margin10'/>
-                                <PropListItem title={DESCRIPTION}/>
+                                <PropListItem title={DESCRIPTION} value14={' '}/>
                                 <div className='propertyInformation-descr'>{summaryDescription}</div>
                             </div>
                             <ButtonProperty title={'GO TO PROPERTY'} url={listingURL}/>
@@ -66,6 +66,7 @@ const PropertyInformation = (props) => {
                     </div> 
             );
     };
+
 
 const mapStateToProps = (state) => {
     return {

@@ -87,7 +87,6 @@ class FilterTab extends React.Component {
         return (
             <div className='filterTab'> 
               <div className='filterInputContainer'>
-                {console.log(this.props.filterTab)}
               <ZoneSelect zone={this.state.zone} zoneColor={this.state.zoneColor} title22={'Zone'} icon={<IconZone/>} onSelect={this.onSelect}/>
               <PostCode title22={'Post Code'} icon={<IconPost/>} value={this.state.postCode} showValidation={this.state.showValidation} onChange={(event)=>this.setState({postCode: event.target.value})}/>
               <DeviderLine/>

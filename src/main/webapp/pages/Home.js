@@ -11,6 +11,7 @@ import {showFilter as showFilterAction, closeFilter} from '../store/actions/show
 import {closeProperty} from '../store/actions/showPropertyAction';
 import {closeSignIn, showSignIn} from '../store/actions/showSignInAction';
 import AuthModal from '../components/organisms/authModal/AuthModal';
+import MobileNav from '../components/organisms/mobileNav/MobileNav';
 
 const Home = (props) => {
   const dispatch = useDispatch();
@@ -44,13 +45,13 @@ useEffect(()=>{
     return (
       <div className='pageContainer'>
         <Nav/>
-        {showSignInModal && <AuthModal/>}
+        {/* {showSignInModal && <AuthModal/>}
         {!showFilter && !showSave && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
         { showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/> }
         {/* {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>} */}
-        {/* {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>} */}
-        <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>
+        {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
         <MapGL/>
+        <MobileNav/>
       </div>
     );
 };
