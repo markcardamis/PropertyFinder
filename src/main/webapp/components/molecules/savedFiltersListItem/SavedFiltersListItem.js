@@ -22,8 +22,8 @@ const SavedFiltersListItem = props => {
             <SavedFilterItem title={'Area max: '} value={data.propertyAreaMax} icon={<IconAreaG/>} position={'first'}/>
             <SavedFilterItem title={'Price min: '} value={data.propertyPriceMin} icon={<IconPriceG/>} position={'first'}/>
             <SavedFilterItem title={'Price max: '} value={data.propertyPriceMax} icon={<IconPriceG/>} position={'first'}/>
-            <SavedFilterItem title={'Price per m2 min: '} value={data.propertyPSMMin} icon={<IconPriceMg/>} position={'first'}/>
-            <SavedFilterItem title={'Price per m2 max: '} value={data.propertyPSMMax} icon={<IconPriceMg/>} position={'first'}/>
+            <SavedFilterItem title={'Price per m2 min: '} value={data.propertyPricePSMMin} icon={<IconPriceMg/>} position={'first'}/>
+            <SavedFilterItem title={'Price per m2 max: '} value={data.propertyPricePSMMax} icon={<IconPriceMg/>} position={'first'}/>
             <SavedFilterItem title={'Post code: '} value={data.propertyPostCode} icon={<IconPostG/>} position={'first'}/>
             <SavedFilterItem title={'Price to landvalue min: '} value={data.propertyPriceToLandValueMin} icon={<IconLandvalG/>} position={'first'}/>
             <SavedFilterItem title={'Price to landvalue max: '} value={data.propertyPriceToLandValueMax} icon={<IconLandvalG/>} position={'first'}/>

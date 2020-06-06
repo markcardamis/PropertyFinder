@@ -48,7 +48,7 @@ class SavedFilters extends Component {
                                                   zone: item.propertyZone ? item.propertyZone : null,
                                                   area: [item.propertyAreaMin ? item.propertyAreaMin : 0, item.propertyAreaMax ? item.propertyAreaMax : 20000],
                                                   price: [item.propertyPriceMin ? item.propertyPriceMin : 100000, item.propertyPriceMax ? item.propertyPriceMax : 5000000],
-                                                  priceM2: [item.propertyPSMMin ? item.propertyPSMMin : 1, item.propertyPSMMax ? item.propertyPSMMax : 10000],
+                                                  priceM2: [item.propertyPricePSMMin ? item.propertyPricePSMMin : 1, item.propertyPricePSMMax ? item.propertyPricePSMMax : 10000],
                                                   postCode: item.propertyPostCode ? item.propertyPostCode : '',
                                                   priceLandvalue: [item.propertyPriceToLandValueMin ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax? item.propertyPriceToLandValueMax : 10 ],
                                                   floorspaceRatio: [item.propertyFloorSpaceRatioMin ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax ? item.propertyFloorSpaceRatioMax : 2]
@@ -62,7 +62,7 @@ class SavedFilters extends Component {
                                                   zone: item.propertyZone!== null ? item.propertyZone : null,
                                                   area: [item.propertyAreaMin!== null? item.propertyAreaMin : 0, item.propertyAreaMax!== null ? item.propertyAreaMax : 20000],
                                                   price: [item.propertyPriceMin!== null ? item.propertyPriceMin : 100000, item.propertyPriceMax!== null ? item.propertyPriceMax : 5000000],
-                                                  priceM2: [item.propertyPSMMin!== null ? item.propertyPSMMin : 1, item.propertyPSMMax!== null ? item.propertyPSMMax : 10000],
+                                                  priceM2: [item.propertyPricePSMMin!== null ? item.propertyPricePSMMin : 1, item.propertyPricePSMMax!== null ? item.propertyPricePSMMax : 10000],
                                                   postCode: item.propertyPostCode!== null ? item.propertyPostCode : '',
                                                   priceLandvalue: [item.propertyPriceToLandValueMin!== null ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax!== null ? item.propertyPriceToLandValueMax : 10 ],
                                                   floorspaceRatio: [item.propertyFloorSpaceRatioMin!== null ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax!== null ? item.propertyFloorSpaceRatioMax : 2]
@@ -98,8 +98,8 @@ class SavedFilters extends Component {
               onDelete={()=>this.handleDeleteFilter(item)}
               onSelect={()=>this.handleSelectFilter(item)}
               data={{propertyZone: item.propertyZone, propertyAreaMin: item.propertyAreaMin, propertyAreaMax: item.propertyAreaMax,
-                      propertyPriceMin: item.propertyPriceMin, propertyPriceMax: item.propertyPriceMax, propertyPSMMin: item.propertyPSMMin,
-                      propertyPSMMax: item.propertyPSMMax, propertyPostCode: item.propertyPostCode, propertyPriceToLandValueMin: item.propertyPriceToLandValueMin,
+                      propertyPriceMin: item.propertyPriceMin, propertyPriceMax: item.propertyPriceMax, propertyPricePSMMin: item.propertyPricePSMMin,
+                      propertyPricePSMMax: item.propertyPricePSMMax, propertyPostCode: item.propertyPostCode, propertyPriceToLandValueMin: item.propertyPriceToLandValueMin,
                       propertyPriceToLandValueMax: item.propertyPriceToLandValueMax, propertyFloorSpaceRatioMin: item.propertyFloorSpaceRatioMin,
                       propertyFloorSpaceRatioMax: item.propertyFloorSpaceRatioMax}}
             />

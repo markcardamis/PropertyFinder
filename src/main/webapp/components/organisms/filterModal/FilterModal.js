@@ -192,7 +192,6 @@ class FilterModal extends Component {
         const { authenticated } = this.state;
       return (
         <div className='filterContainer'>
-          {console.log(this.props.filter.filter)}
         <div className='filterModal'>
           <div className='filterModalCloseBtn'><CloseBtn onClick={handleCloseFilter}/></div>
             <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
