@@ -38,11 +38,11 @@ const Home = (props) => {
 
 useEffect(()=>{
   history.location.pathname === '/signup' ? dispatch(showSignIn()) : dispatch(closeSignIn())
+  history.location.pathname === '/search' ? dispatch(showFilterAction()) : dispatch(closeFilter())
 }, [])
 
     return (
       <div className='pageContainer'>
-        {console.log(history)}
         <Nav/>
         {showSignInModal && <AuthModal/>}
         {!showFilter && !showSave && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}

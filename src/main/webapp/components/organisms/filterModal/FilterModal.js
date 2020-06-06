@@ -35,7 +35,7 @@ class FilterModal extends Component {
     }
 
     handleSelectFilter = async (item) => {
-      this.displayFilterValues(item);
+      //this.displayFilterValues(item);
       this.setState({ tabIndex : 0 });
       this.props.dispatch({type: 'SHOW_LOADING'})
   
@@ -55,9 +55,8 @@ class FilterModal extends Component {
     }
 
     handleEditFilter = async (item) => {
-      {console.log(item)}
       this.setState({editedFilter: item, tabIndex : 0});
-      this.displayFilterValues(item);
+      //this.displayFilterValues(item);
       this.props.dispatch({type: 'SHOW_LOADING'})
         try {
           const response = await fetch(`/api/listing/notifications/${item.id}`, {
@@ -193,6 +192,7 @@ class FilterModal extends Component {
         const { authenticated } = this.state;
       return (
         <div className='filterContainer'>
+          {console.log(this.props.filter.filter)}
         <div className='filterModal'>
           <div className='filterModalCloseBtn'><CloseBtn onClick={handleCloseFilter}/></div>
             <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>

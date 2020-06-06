@@ -33,6 +33,7 @@ const App = () => {
                     pkce={true} >
             <Route path='/' exact={true} component={Home} />
             <Route path='/signup' exact component={Home} />
+            <Route path='/search' exact component={Home} />
             <Route path='/about' exact component={AboutPage} />
             <Route path='/contact' exact component={ContactPage} />
             <Route path='/implicit/callback' component={ImplicitCallback} />
