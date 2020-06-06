@@ -4,9 +4,9 @@ import './propImg.scss';
 
 const PropImg = props => {
     return (
-        <div>
+        <>
             <img src={props.img} className='propImg'/>
-        </div>
+        </>
     )
 }
 
