@@ -39,7 +39,6 @@ const Home = (props) => {
 
     return (
         <Layout>
-          {console.log(mobileNav)}
           {!showFilter && !showSave && !mobileNav && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
           {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>}
           {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>}

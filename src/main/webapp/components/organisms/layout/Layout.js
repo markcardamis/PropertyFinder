@@ -26,14 +26,12 @@ const Layout = props => {
         <div className='layout'>
             <Nav/>
             {showSignInModal && <AuthModal/>}
-            {props.children}
-            {showMobileNav&&<MobileNav/>}
+            {!showMobileNav && props.children}
+            {showMobileNav && <MobileNav/>}
         </div>
     )
 }
 
-Layout.propTypes = {
-
-}
+Layout.propTypes = {}
 
 export default Layout
