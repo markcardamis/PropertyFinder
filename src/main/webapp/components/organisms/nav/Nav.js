@@ -11,7 +11,7 @@ import ButtonLogin from '../../atoms/buttonLogin/ButtonLogin';
 import ButtonAccount from '../../atoms/buttonAccount/ButtonAccount';
 import {login, logout} from '../../../store/actions/authAction';
 import { showSignIn } from '../../../store/actions/showSignInAction';
-
+import {showMobileNav} from '../../../store/actions/showMobileNavAction';
 
 const Nav = withAuth(({ auth }) => {
     const [authenticated, user] = useAuth(auth);
@@ -36,7 +36,7 @@ const Nav = withAuth(({ auth }) => {
                         <ButtonLogin onClick={()=>dispatch(showSignIn())}/>
                         }
                 </div>
-                <div className='mobileMenuIcon' onClick={()=>console.log('clicked')}>
+                <div className='mobileMenuIcon' onClick={()=>dispatch({type: 'SHOW_MOBILE_NAV'})}>
                     <IconMenuMobile/>
                 </div>
             </div>

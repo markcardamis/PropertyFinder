@@ -12,6 +12,7 @@ import {closeProperty} from '../store/actions/showPropertyAction';
 import {closeSignIn, showSignIn} from '../store/actions/showSignInAction';
 import AuthModal from '../components/organisms/authModal/AuthModal';
 import MobileNav from '../components/organisms/mobileNav/MobileNav';
+import {showMobileNav, closeMobileNav} from '../store/actions/showMobileNavAction';
 
 const Home = (props) => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Home = (props) => {
   const showSignInModal = useSelector(state=>state.showSignIn);
   const showProperty = useSelector(state=>state.showProperty.isHidden);
   const showSave = useSelector(state=>state.showSaveModal);
+  const showMobileNav = useSelector(state=>state.showMobileNav);
 
   const toggleFilter = () => {
     showFilter ? dispatch(closeFilter()) : dispatch(showFilterAction())
@@ -51,7 +53,7 @@ useEffect(()=>{
         {/* {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>} */}
         {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
         <MapGL/>
-        <MobileNav/>
+        {showMobileNav&&<MobileNav/>}
       </div>
     );
 };
