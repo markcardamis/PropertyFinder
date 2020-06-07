@@ -1,0 +1,37 @@
+@import '../../../styles/style.scss';
+
+.searchModal {
+    flex: 1;
+    width: 40%;
+    height: 100%;
+    z-index: 2;
+    background-color: $white;
+    box-shadow: $shadow-4;
+
+    .searchModalHeader {
+        border-bottom: 1px solid $light-grey;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 21px 15px 15px;
+        font-size: 28px;
+        font-weight: 500;
+
+        .searchModalIcons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        .searchModalIconDevider {
+            width: 1px;
+            height: 14px;
+            margin: 0 14px 0 14px;
+            background-color: $light-grey;
+            }
+        }
+    }
+
+    .searchModalContainer {
+        padding: 15px;
+    }
+}

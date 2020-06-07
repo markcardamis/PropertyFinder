@@ -5,7 +5,7 @@ import './propImg.scss';
 const PropImg = props => {
     return (
         <>
-            <img src={props.img} className='propImg'/>
+            <img src={props.img} className='propImg' style={{height: props.height || 130, width: props.width || '100%'}}/>
         </>
     )
 }

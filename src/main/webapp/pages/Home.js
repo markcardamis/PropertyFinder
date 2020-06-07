@@ -13,6 +13,7 @@ import {closeSignIn, showSignIn} from '../store/actions/showSignInAction';
 import AuthModal from '../components/organisms/authModal/AuthModal';
 import MobileNav from '../components/organisms/mobileNav/MobileNav';
 import Layout from '../components/organisms/layout/Layout';
+import SearchModal from '../components/organisms/searchModal.js/SearchModal';
 
 const Home = (props) => {
   const dispatch = useDispatch();
@@ -39,10 +40,11 @@ const Home = (props) => {
 
     return (
         <Layout>
-          {!showFilter && !showSave && !mobileNav && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
+          {/* {!showFilter && !showSave && !mobileNav && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>} */}
           {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>}
           {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>}
           {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
+          <SearchModal/>
           <MapGL/>
         </Layout>
     );
