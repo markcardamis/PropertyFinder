@@ -12,16 +12,14 @@ import {closeProperty} from '../store/actions/showPropertyAction';
 import {closeSignIn, showSignIn} from '../store/actions/showSignInAction';
 import AuthModal from '../components/organisms/authModal/AuthModal';
 import MobileNav from '../components/organisms/mobileNav/MobileNav';
-import {showMobileNav, closeMobileNav} from '../store/actions/showMobileNavAction';
+import Layout from '../components/organisms/layout/Layout';
 
 const Home = (props) => {
   const dispatch = useDispatch();
-  const history = useHistory()
   const showFilter = useSelector(state=>state.showFilter);
-  const showSignInModal = useSelector(state=>state.showSignIn);
   const showProperty = useSelector(state=>state.showProperty.isHidden);
   const showSave = useSelector(state=>state.showSaveModal);
-  const showMobileNav = useSelector(state=>state.showMobileNav);
+  const mobileNav = useSelector(state=>state.showMobileNav)
 
   const toggleFilter = () => {
     showFilter ? dispatch(closeFilter()) : dispatch(showFilterAction())
@@ -39,22 +37,15 @@ const Home = (props) => {
     dispatch(closeSignIn())
 }
 
-useEffect(()=>{
-  history.location.pathname === '/signup' ? dispatch(showSignIn()) : dispatch(closeSignIn())
-  history.location.pathname === '/search' ? dispatch(showFilterAction()) : dispatch(closeFilter())
-}, [])
-
     return (
-      <div className='pageContainer'>
-        <Nav/>
-        {/* {showSignInModal && <AuthModal/>}
-        {!showFilter && !showSave && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
-        { showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/> }
-        {/* {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>} */}
-        {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
-        <MapGL/>
-        {showMobileNav&&<MobileNav/>}
-      </div>
+        <Layout>
+          {console.log(mobileNav)}
+          {!showFilter && !showSave && !mobileNav && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>}
+          {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>}
+          {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>}
+          {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
+          <MapGL/>
+        </Layout>
     );
 };
 
