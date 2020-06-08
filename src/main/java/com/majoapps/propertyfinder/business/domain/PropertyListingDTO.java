@@ -3,6 +3,7 @@ package com.majoapps.propertyfinder.business.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
