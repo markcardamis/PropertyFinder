@@ -1,24 +1,23 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import PropTypes from 'prop-types'
-import PropImg from '../../atoms/propImg/PropImg'
 import PropListItem from '../../molecules/propListItem/PropListItem'
 import PropListItem2 from '../../molecules/propListItem2/PropListItem2'
-import { DEFAULT_HOUSE_IMAGE, ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO } from '../../../shared/constants';
+import { ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO, DEFAULT_HOUSE_IMAGE } from '../../../shared/constants';
 import {IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG} from '../../../assets/icons'
 import variables from '../../../styles/_variables.scss';
-import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
 import DeviderLine from '../../atoms/deviderLine/DeviderLine';
 import ButtonProperty from '../../atoms/buttonProperty/ButtonProperty';
 import './searchItem.scss'
+import ImageLazy from '../../atoms/ImageLazy/ImageLazy';
 
 const SearchItem = props => {
     const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, landValue, pricePSM, floorSpaceRatio, priceToLandValue, minimumLotSize, summaryDescription, listingURL} = props
     return (
         <div className='searchItem'>
-           <PropImg width={'40%'} height={283} img={props.img} />
+                <ImageLazy src={props.img || DEFAULT_HOUSE_IMAGE} />
            <div className='searchItemInfo'>
                 <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
-                <div className='propertyInformation-address'>{address}</div>
+                <div className='searchItem-address'>{address}</div>
                 <PropListItem2 
                     icon1={area ? <IconAreaG/> : <IconAreaG color={variables.lightGrey}/>} title1={AREA} value1={area}
                     icon2={zone ? <IconZoneG/> : <IconZoneG color={variables.lightGrey}/>} title2={ZONE} value2={zone}
@@ -51,7 +50,7 @@ const SearchItem = props => {
                     />
                 <div className='propertyInformation-margin10'/>
                 <PropListItem title={DESCRIPTION} value14={' '}/>
-                <div className='propertyInformation-descr'>{summaryDescription}</div>
+                <div className='searchItem-descr'>{summaryDescription}</div>
                 <ButtonProperty title={'GO TO PROPERTY'} url={listingURL}/>
             </div>
         </div>
