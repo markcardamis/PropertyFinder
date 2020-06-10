@@ -23,7 +23,6 @@ public class PropertyListingDTO implements Serializable {
     @JsonProperty("bedrooms") private Double bedrooms;
     @JsonProperty("carspaces") private Integer carspaces;
     @JsonProperty("summary_description") private String summaryDescription;
-    @JsonProperty("planning_portal_id") private String planningPortalPropId;
     @JsonProperty("zone") private String zone;
     @JsonProperty("floor_space_ratio") private BigDecimal floorSpaceRatio;
     @JsonProperty("minimum_lot_size") private String minimumLotSize;
