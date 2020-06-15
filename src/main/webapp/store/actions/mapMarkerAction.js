@@ -5,3 +5,11 @@ export const mapMarker = (item) => {
     };
 };
 
+export const changeMarker = (item, status) => {
+    return {
+        type: 'MAP_MARKER',
+        payload: item,
+        status
+    };
+};
+

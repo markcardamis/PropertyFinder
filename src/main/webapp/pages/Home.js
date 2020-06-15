@@ -14,16 +14,21 @@ import AuthModal from '../components/organisms/authModal/AuthModal';
 import MobileNav from '../components/organisms/mobileNav/MobileNav';
 import Layout from '../components/organisms/layout/Layout';
 import SearchModal from '../components/organisms/searchModal.js/SearchModal';
+import {closeSearchModal, showSearchModal} from '../store/actions/searchModalAction'
 
 const Home = (props) => {
   const dispatch = useDispatch();
   const showFilter = useSelector(state=>state.showFilter);
   const showProperty = useSelector(state=>state.showProperty.isHidden);
   const showSave = useSelector(state=>state.showSaveModal);
+  const searchModal = useSelector(state=>state.searchModal)
   const mobileNav = useSelector(state=>state.showMobileNav)
 
   const toggleFilter = () => {
     showFilter ? dispatch(closeFilter()) : dispatch(showFilterAction())
+  }
+  const toggleSearch = () => {
+    searchModal ? dispatch(closeSearchModal()) : dispatch(showSearchModal());
   }
 
   const handleCloseFilter = () => {
@@ -40,11 +45,11 @@ const Home = (props) => {
 
     return (
         <Layout>
-          {/* {!showFilter && !showSave && !mobileNav && <FilterButtonGroup onMenuClick={()=>{}} onFilterClick = {toggleFilter}/>} */}
+          {!showFilter && !searchModal && !showSave && !mobileNav && <FilterButtonGroup onMenuClick={toggleSearch} onFilterClick = {toggleFilter}/>}
           {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>}
           {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>}
-          {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
-          <SearchModal/>
+          {showProperty && !showFilter && !searchModal && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
+          {searchModal&&<SearchModal/>}
           <MapGL/>
         </Layout>
     );

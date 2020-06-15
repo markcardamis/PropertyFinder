@@ -10,6 +10,7 @@ import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../../shared/cons
 import './MapGL.scss';
 import {Logo, MapMarker} from '../../../assets/icons';
 import Popup from '../../organisms/popup/Popup';
+import { points } from '../../../../../../contsants_temp';
  
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -89,23 +90,43 @@ renderPopup = (e) => {
 renderMarkers = async (mp) => {
     const { mapMarker } = this.props.mapGL;
     mapMarker.forEach((marker) => {
+    // points.forEach((marker) => {
         var el = document.createElement('div');
-        el.className = 'marker';
+        switch (marker.markerStatus) {
+            case 'unvisited':
+                el.className = 'marker-unvisited'
+                break;
+            case 'hovered':
+                el.className = 'marker-hovered'
+                break;
+            case 'selected':
+                el.className = 'marker-selected'
+                break;
+            case 'visited':
+                el.className = 'marker-visited'
+                break;
+            default:
+                el.className = 'marker-unvisited'
+                break;
+        }
         el.tabIndex = 0;
         
         let oneMarker = new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map);
         el.addEventListener('click', () => {
-            this.handleMarkerClick(marker);
+            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'selected'});
         });
         currentMarkers.push(oneMarker);
-      });
+
+    })
 }
 
-handleMarkerClick = (marker) => {
-    this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
-}
+// handleMarkerClick = (marker) => {
+//     //this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
+//     //this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
+//     this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'visited'});
+// }
 
 handlePropertyClick = async (e) => {
      let features = map.queryRenderedFeatures(e.point);
@@ -153,6 +174,7 @@ checkAuthentication = async () => {
     render() {
     return (
         <div>
+            {console.log(this.props)}
             <div ref={el => this.mapContainer = el} className='mapContainer' id='map'/>
         </div>
         );

@@ -41,7 +41,7 @@ const ImageLazy = ({ src }) => {
     }
   })
 
-  return <img ref={setImageRef} src={imageSrc} className='lazyImg'/>
+  return <img ref={setImageRef} src={imageSrc} className='lazyImg overlay'/>
 }
 
 export default ImageLazy

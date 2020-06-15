@@ -1,6 +1,8 @@
-.lazyImg {
-    object-fit: cover;
-    border-radius: 4px;
-    height: 283px;
-    width: 40%;
-}
+@import '../../../styles/style.scss';
+
+    .lazyImg {
+        height: 283px;
+        width: 40%;
+        object-fit: cover;
+        border-radius: 4px;
+    }

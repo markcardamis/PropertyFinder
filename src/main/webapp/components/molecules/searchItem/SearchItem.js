@@ -9,12 +9,15 @@ import DeviderLine from '../../atoms/deviderLine/DeviderLine';
 import ButtonProperty from '../../atoms/buttonProperty/ButtonProperty';
 import './searchItem.scss'
 import ImageLazy from '../../atoms/ImageLazy/ImageLazy';
+import Viewing from '../../atoms/viewing/Viewing';
 
 const SearchItem = props => {
     const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, landValue, pricePSM, floorSpaceRatio, priceToLandValue, minimumLotSize, summaryDescription, listingURL} = props
     return (
         <div className='searchItem'>
-                <ImageLazy src={props.img || DEFAULT_HOUSE_IMAGE} />
+                {/* <Viewing active={true}> */}
+                    <ImageLazy src={props.img || DEFAULT_HOUSE_IMAGE} shadow={true}/>
+                {/* </Viewing> */}
            <div className='searchItemInfo'>
                 <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
                 <div className='searchItem-address'>{address}</div>
