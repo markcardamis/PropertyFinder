@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './imageLazy.scss'
 import {DEFAULT_HOUSE_IMAGE as placeHolder} from '../../../shared/constants'
+import { IconEye } from '../../../assets/icons'
 
 const ImageLazy = ({ src }) => {
   const [imageSrc, setImageSrc] = useState(placeHolder)
@@ -41,7 +42,11 @@ const ImageLazy = ({ src }) => {
     }
   })
 
-  return <img ref={setImageRef} src={imageSrc} className='lazyImg overlay'/>
+  return <button className="btnLazyImg">
+            <div className="lazyImgWrap">
+              <img ref={setImageRef} src={imageSrc} className='lazyImg'/>
+            </div>
+          </button>
 }
 
 export default ImageLazy

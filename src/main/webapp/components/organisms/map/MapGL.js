@@ -114,9 +114,19 @@ renderMarkers = async (mp) => {
         let oneMarker = new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map);
-        el.addEventListener('click', () => {
-            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'selected'});
-        });
+        const addListener = (e) => {
+            console.log(e)
+            // if (e=='click') {
+            //     el.addEventListener('click', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'selected'})}, true)
+            // } else if (e=='mouseover') {
+            //     el.addEventListener('mouseover', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'hovered'})}, true)
+            // } else if (e=='mouseover') {
+            //     el.addEventListener('mouseout', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'unvisited'})}, true)
+            // }
+            addListener()
+        }
+ 
+         
         currentMarkers.push(oneMarker);
 
     })
