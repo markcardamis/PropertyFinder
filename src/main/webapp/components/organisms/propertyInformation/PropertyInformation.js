@@ -16,9 +16,9 @@ const PropertyInformation = (props) => {
 
         const { handleClosePropertyInfo } = props;
         const { id, address, area, floorSpaceRatio, minimumLotSize,
-                price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
-                pricePSM, priceToLandValue, summaryDescription, listingPhoto,
-                } = props.property;   
+            price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
+            pricePSM, priceToLandValue, summaryDescription, listingPhoto,
+            } = props.property;   
 
             return (
                     <div className='propertyInformation'>
@@ -26,8 +26,8 @@ const PropertyInformation = (props) => {
                             <ButtonSquare icon={<IconClose/>} onClick={handleClosePropertyInfo}/>
                         </div>
                         <div>
-                            {/* <PropImg img={listingPhoto || DEFAULT_HOUSE_IMAGE}/> */}
-                            <PropImg img={props.property.listing_photo || DEFAULT_HOUSE_IMAGE}/>
+                            <PropImg img={listingPhoto || DEFAULT_HOUSE_IMAGE}/>
+                            {/* <PropImg img={props.property.listing_photo || DEFAULT_HOUSE_IMAGE}/> */}
                             <div className='propertyInformation-mainContainer'>
                                 <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
                                 <div className='propertyInformation-address'>{address}</div>
