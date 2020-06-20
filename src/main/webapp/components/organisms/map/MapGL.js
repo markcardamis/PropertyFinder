@@ -64,8 +64,8 @@ handleViewportChange = () => {
 renderPopup = (e) => {
         const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, baseDate1, baseDate2, baseDate3, baseDate4, baseDate5, landValue1, landValue2, landValue3, landValue4, landValue5} = this.props.mapGL.showPopup;
         const chartData={
-            baseDate: [baseDate5, baseDate4, baseDate3, baseDate2, baseDate1],
-            landValue: [landValue5, landValue4, landValue3, landValue2, landValue1]
+            baseDate: [baseDate4, baseDate3, baseDate2, baseDate1, baseDate0],
+            landValue: [landValue4, landValue3, landValue2, landValue1, landValue0]
         }
 
         const propertyInfo = {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, landValue1}
@@ -87,7 +87,7 @@ renderPopup = (e) => {
 
 
 
-renderMarkers = async (mp) => {
+renderMarkers = async () => {
     const { mapMarker } = this.props.mapGL;
     mapMarker.forEach((marker) => {
     // points.forEach((marker) => {
@@ -110,33 +110,28 @@ renderMarkers = async (mp) => {
                 break;
         }
         el.tabIndex = 0;
+       
         
         let oneMarker = new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map);
-        const addListener = (e) => {
-            console.log(e)
-            // if (e=='click') {
-            //     el.addEventListener('click', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'selected'})}, true)
-            // } else if (e=='mouseover') {
-            //     el.addEventListener('mouseover', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'hovered'})}, true)
-            // } else if (e=='mouseover') {
-            //     el.addEventListener('mouseout', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'unvisited'})}, true)
-            // }
-            addListener()
-        }
- 
-         
+          el.addEventListener('click', () => {
+            this.handleMarkerClick(marker);
+        });
         currentMarkers.push(oneMarker);
+       
+        // el.addEventListener('click', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'selected'})}, true)
+        // el.addEventListener('mouseenter', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'hover'})}, true)
+        // el.addEventListener('mouseleave', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'unvisited'})}, true)
 
     })
 }
 
-// handleMarkerClick = (marker) => {
-//     //this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
-//     //this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
-//     this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'visited'});
-// }
+handleMarkerClick = (marker) => {
+    this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
+    //this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
+    //this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'visited'});
+}
 
 handlePropertyClick = async (e) => {
      let features = map.queryRenderedFeatures(e.point);

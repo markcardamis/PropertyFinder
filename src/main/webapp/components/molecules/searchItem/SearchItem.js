@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { useState} from 'react'
 import PropTypes from 'prop-types'
 import PropListItem from '../../molecules/propListItem/PropListItem'
 import PropListItem2 from '../../molecules/propListItem2/PropListItem2'
@@ -13,11 +13,14 @@ import Viewing from '../../atoms/viewing/Viewing';
 
 const SearchItem = props => {
     const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, landValue, pricePSM, floorSpaceRatio, priceToLandValue, minimumLotSize, summaryDescription, listingURL} = props
+    const [shadow, setShadow] = useState(false)
     return (
-        <div className='searchItem'>
-                {/* <Viewing active={true}> */}
-                    <ImageLazy src={props.img || DEFAULT_HOUSE_IMAGE} shadow={true}/>
-                {/* </Viewing> */}
+        <div 
+            className='searchItem' 
+            onMouseOver={()=>setShadow(true)}
+            onMouseOut={()=>setShadow(false)}
+            >
+                <ImageLazy src={props.img || DEFAULT_HOUSE_IMAGE} shadow={shadow}/>
            <div className='searchItemInfo'>
                 <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
                 <div className='searchItem-address'>{address}</div>

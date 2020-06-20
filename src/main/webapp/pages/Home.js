@@ -45,11 +45,11 @@ const Home = (props) => {
 
     return (
         <Layout>
-          {!showFilter && !searchModal && !showSave && !mobileNav && <FilterButtonGroup onMenuClick={toggleSearch} onFilterClick = {toggleFilter}/>}
+          {!showFilter && !showSave && !mobileNav && <FilterButtonGroup onMenuClick={toggleSearch} onFilterClick = {toggleFilter}/>}
           {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>}
           {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>}
-          {showProperty && !showFilter && !searchModal && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
-          {searchModal&&<SearchModal/>}
+          {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
+          {/* {searchModal&&<SearchModal/>} */}
           <MapGL/>
         </Layout>
     );

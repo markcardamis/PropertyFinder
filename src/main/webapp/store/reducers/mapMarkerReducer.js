@@ -1,7 +1,7 @@
 import { points } from "../../../../../contsants_temp";
 
-// const mapMarkerReducer = (state = [], action) => {
-    const mapMarkerReducer = (state = points, action) => {
+const mapMarkerReducer = (state = [], action) => {
+    //const mapMarkerReducer = (state = points, action) => {
 
     switch (action.type) {
         case 'MARKERS':
