@@ -50,6 +50,7 @@ const Home = (props) => {
           {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>}
           {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
           {/* {searchModal&&<SearchModal/>} */}
+          <SearchModal/>
           <MapGL/>
         </Layout>
     );

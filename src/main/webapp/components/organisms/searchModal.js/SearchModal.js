@@ -40,6 +40,7 @@ const SearchModal = props => {
                         summaryDescription={item.summary_description}
                         img={item.listing_photo}
                         listingUrl={item.listing_url}
+                        isActive={item.isActive}
                     />
         })
     }

@@ -120,11 +120,19 @@ renderMarkers = async () => {
   
         el.addEventListener('click', ()=>{
             el.className='marker-selected';
-            this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, status: 'inactive'})
-            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'selected'})
+            // el.classList.add='visited'
+            this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
+            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true})
         }, true)
-        el.addEventListener('mouseover', () => el.classList.add='marker-hovered', true)
-        el.addEventListener('mouseleave', () => el.classList.remove='marker-hovered', true)
+        el.addEventListener('mouseover', () => {
+            //el.classList.add='marker-hovered'
+            this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
+            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true})
+        }, true)
+        el.addEventListener('mouseleave', () => {
+            //el.classList.remove='marker-hovered'
+            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: false})
+        }, true)
     })
 }
 

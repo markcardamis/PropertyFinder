@@ -12,13 +12,13 @@ import { points } from "../../../../../contsants_temp";
                 return array = [...array, x.id]
             })
             const index = idArray.flat().indexOf(action.payload.id)
-            const newMarker = {...action.payload, markerStatus: action.status}
+            const newMarker = {...action.payload, isActive: action.isActive}
             const newState = [...state.slice(0, index), newMarker, ...state.slice(index+1, state.length+1)]
             return newState
         case 'CHANGE_ALL_MARKERS_STATUS':
             let array = [];
             state.forEach(item =>{
-                const newMarker = {...item, markerStatus: 'inactive'}
+                const newMarker = {...item, isActive: false}
                 array.push(newMarker)
               });
             return array

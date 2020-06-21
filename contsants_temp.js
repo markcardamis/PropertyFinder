@@ -1,5 +1,4 @@
 export const points = [{
-        markerStatus: 'marker-unvisited',
         address: "41 ELLISON ROAD SPRINGWOOD 2777",
         area: 686,
         bathrooms: 3,
@@ -19,7 +18,6 @@ export const points = [{
         zone: "E4"
 },
 {
-    markerStatus: 'marker-unvisited',
     address: "40 ELLISON ROAD SPRINGWOOD 2777",
     area: 739,
     bathrooms: 1,
@@ -39,7 +37,6 @@ export const points = [{
     zone: "E4"
 },
 {
-    markerStatus: 'marker-unvisited',
     address: "43 LINKSVIEW ROAD SPRINGWOOD 2777",
     area: 835,
     bathrooms: 3,
