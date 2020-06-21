@@ -20,7 +20,7 @@ class MapGL extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-             authenticated: null,
+             authenticated: null
         };
     }
     
@@ -92,38 +92,39 @@ renderMarkers = async () => {
     mapMarker.forEach((marker) => {
     // points.forEach((marker) => {
         var el = document.createElement('div');
-        switch (marker.markerStatus) {
-            case 'unvisited':
-                el.className = 'marker-unvisited'
-                break;
-            case 'hovered':
-                el.className = 'marker-hovered'
-                break;
-            case 'selected':
-                el.className = 'marker-selected'
-                break;
-            case 'visited':
-                el.className = 'marker-visited'
-                break;
-            default:
-                el.className = 'marker-unvisited'
-                break;
-        }
+        el.className = 'marker-unvisited'
+        // switch (marker.markerStatus) {
+        //     case 'unvisited':
+        //         el.className = 'marker-unvisited'
+        //         break;
+        //     case 'hovered':
+        //         el.className = 'marker-hovered'
+        //         break;
+        //     case 'selected':
+        //         el.className = 'marker-selected'
+        //         break;
+        //     case 'visited':
+        //         el.className = 'marker-visited'
+        //         break;
+        //     default:
+        //         el.className = 'marker-unvisited'
+        //         break;
+        //}
         el.tabIndex = 0;
        
         
         let oneMarker = new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
-          .addTo(map);
-          el.addEventListener('click', () => {
-            this.handleMarkerClick(marker);
-        });
+          .addTo(map)
         currentMarkers.push(oneMarker);
-       
-        // el.addEventListener('click', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'selected'})}, true)
-        // el.addEventListener('mouseenter', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'hover'})}, true)
-        // el.addEventListener('mouseleave', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'unvisited'})}, true)
-
+  
+        el.addEventListener('click', ()=>{
+            el.className='marker-selected';
+            this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, status: 'inactive'})
+            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'selected'})
+        }, true)
+        el.addEventListener('mouseover', () => el.classList.add='marker-hovered', true)
+        el.addEventListener('mouseleave', () => el.classList.remove='marker-hovered', true)
     })
 }
 
