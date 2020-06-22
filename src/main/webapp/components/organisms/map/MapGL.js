@@ -20,7 +20,8 @@ class MapGL extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-             authenticated: null
+             authenticated: null,
+             markerClass: 'marker-unvisited'
         };
     }
     
@@ -92,7 +93,6 @@ renderMarkers = async () => {
     mapMarker.forEach((marker) => {
     // points.forEach((marker) => {
         var el = document.createElement('div');
-        el.className = 'marker-unvisited'
         // switch (marker.markerStatus) {
         //     case 'unvisited':
         //         el.className = 'marker-unvisited'
@@ -111,28 +111,34 @@ renderMarkers = async () => {
         //         break;
         //}
         el.tabIndex = 0;
-       
+        el.className = 'marker-unvisited'
+        el.onclick=()=>{
+            el.className=marker.isActive ? 'marker-selected' : 'marker-visited'
+            // this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
+            //this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true})
+        }
+        el.onmouseover=()=>el.id='marker-hovered'
+        el.onmouseout=()=>el.removeAttribute('id')
         
         let oneMarker = new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map)
         currentMarkers.push(oneMarker);
-  
-        el.addEventListener('click', ()=>{
-            el.className='marker-selected';
-            // el.classList.add='visited'
-            this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
-            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true})
-        }, true)
-        el.addEventListener('mouseover', () => {
-            //el.classList.add='marker-hovered'
-            this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
-            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true})
-        }, true)
-        el.addEventListener('mouseleave', () => {
-            //el.classList.remove='marker-hovered'
-            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: false})
-        }, true)
+        // el.addEventListener('click', ()=>{
+        //     // element.classList.toggle('marker-visited')
+        //     // this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
+        //     // this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true})
+        //     //el.className=marker.isActive;
+        // });
+        // el.addEventListener('mouseenter', () => {
+        //     //el.classList.add='marker-hovered'
+        //     this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
+        //     this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true})
+        // });
+        // el.addEventListener('mouseleave', () => {
+        //     //el.classList.remove='marker-hovered'
+        //     this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
+        // });
     })
 }
 
