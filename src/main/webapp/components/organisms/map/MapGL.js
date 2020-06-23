@@ -62,10 +62,10 @@ handleViewportChange = () => {
 }
 
 renderPopup = (e) => {
-        const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, baseDate1, baseDate2, baseDate3, baseDate4, baseDate0, landValue1, landValue2, landValue3, landValue4, landValue0} = this.props.mapGL.showPopup;
+        const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, baseDate1, baseDate2, baseDate3, baseDate4, baseDate5, baseDate0, landValue1, landValue2, landValue3, landValue4, landValue5, landValue0} = this.props.mapGL.showPopup;
         const chartData={
-            baseDate: [baseDate4, baseDate3, baseDate2, baseDate1, baseDate0],
-            landValue: [landValue4, landValue3, landValue2, landValue1, landValue0]
+            baseDate: [baseDate5, baseDate4, baseDate3, baseDate2, baseDate1, baseDate0],
+            landValue: [landValue5, landValue4, landValue3, landValue2, landValue1, landValue0]
         }
 
         const propertyInfo = {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, landValue1}
