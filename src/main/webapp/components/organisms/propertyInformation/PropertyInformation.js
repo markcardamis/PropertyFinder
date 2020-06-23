@@ -45,7 +45,7 @@ const PropertyInformation = (props) => {
                                 <PropListItem icon={carspaces ? <IconCarG/> : <IconCarG color={variables.lightGrey}/>} title={CAR_SPACES} value14={carspaces}/>
                                 <DeviderLine/>
                                 <PropListItem icon={price ? <IconPriceG/> : <IconPriceG color={variables.lightGrey}/>} title={PRICE} value18={price}/>
-                                <PropListItem icon={priceToLandValue ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} title={PRICE_TO_LAND_VALUE} value14={priceToLandValue&&`${priceToLandValue}%`}/>
+                                <PropListItem icon={priceToLandValue ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} title={PRICE_TO_LAND_VALUE} value14={priceToLandValue&&priceToLandValue}/>
                                 <PropListItem2 
                                     icon1={pricePSM ? <IconPriceMg/> : <IconPriceMg color={variables.lightGrey}/>} 
                                     title1={PRICE_PER_M2} value1={pricePSM}

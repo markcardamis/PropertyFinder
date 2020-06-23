@@ -19,6 +19,7 @@ export const FilterLine = (props) => {
                     step={props.step}
                     labelMin={props.labelMin}
                     labelMax={props.labelMax}
+                    showCurrency={props.showCurrency}
                     />
             </div>
 }
