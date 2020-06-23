@@ -10,8 +10,7 @@ const AboutPage = props => {
             <div className='pageContainer'>
                 <iframe src='https://www.youtube.com/embed/zx6z6cv5oT8'
                         frameborder='0'
-                        allow='autoplay; encrypted-media'
-                        allowfullscreen
+                        allow='autoplay; encrypted-media; fullscreen'
                         title='video'
                         className='pageVideo'
                     />
