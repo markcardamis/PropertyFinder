@@ -26,6 +26,7 @@ class Chart extends Component {
       {x: 2, y: landValue[2]},
       {x: 3, y: landValue[3]},
       {x: 4, y: landValue[4]},
+      {x: 5, y: landValue[5]}
     ];
     const dates = this.getYear(baseDate);
     return (
