@@ -4,6 +4,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 import { hotjar } from 'react-hotjar';
 
 import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../../shared/constants';
@@ -11,6 +12,7 @@ import './MapGL.scss';
 import {Logo, MapMarker} from '../../../assets/icons';
 import Popup from '../../organisms/popup/Popup';
 import { points } from '../../../../../../contsants_temp';
+import * as MarkerActionCreators from '../../../store/actions/mapMarkerAction';
  
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -19,11 +21,13 @@ import { points } from '../../../../../../contsants_temp';
 class MapGL extends React.Component {
     constructor(props) {
         super(props);
+        const { dispatch } = props
         this.state = {
-             authenticated: null,
-             markerClass: 'marker-unvisited'
+             authenticated: null
         };
+        this.boundActionCreators = bindActionCreators(MarkerActionCreators, dispatch)
     }
+    
     
 async componentDidMount() {
     map = new mapboxgl.Map({
@@ -91,7 +95,6 @@ renderPopup = (e) => {
 renderMarkers = async () => {
     const { mapMarker } = this.props.mapGL;
     mapMarker.forEach((marker) => {
-    // points.forEach((marker) => {
         var el = document.createElement('div');
         // switch (marker.markerStatus) {
         //     case 'unvisited':
@@ -113,9 +116,13 @@ renderMarkers = async () => {
         el.tabIndex = 0;
         el.className = 'marker-unvisited'
         el.onclick=()=>{
-            el.className=marker.isActive ? 'marker-selected' : 'marker-visited'
-            // this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
-            //this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true})
+            console.log(el)
+            //el.className=marker.isActive ? 'marker-selected' : 'marker-visited'
+           
+            console.log(el)
+            this.props.dispatch(MarkerActionCreators.changeAllMarkers(false))
+            this.props.dispatch(MarkerActionCreators.changeMarker(marker, true))
+            el.style.backgroundColor='blue'
         }
         el.onmouseover=()=>el.id='marker-hovered'
         el.onmouseout=()=>el.removeAttribute('id')
@@ -124,12 +131,11 @@ renderMarkers = async () => {
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map)
         currentMarkers.push(oneMarker);
-        // el.addEventListener('click', ()=>{
-        //     // element.classList.toggle('marker-visited')
-        //     // this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
-        //     // this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true})
-        //     //el.className=marker.isActive;
-        // });
+        //el.addEventListener('click', ()=>{
+            //el.className=marker.isActive ? 'marker-selected' : 'marker-visited';
+            // this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false});
+            // this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true});
+        //}, true);
         // el.addEventListener('mouseenter', () => {
         //     //el.classList.add='marker-hovered'
         //     this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
