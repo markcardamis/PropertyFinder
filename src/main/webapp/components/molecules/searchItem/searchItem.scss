@@ -1,0 +1,28 @@
+@import '../../../styles/style.scss';
+
+.searchItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .searchItemInfo {
+        width: 58%;
+    }
+
+    .searchItem-address {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        color: $black;
+        font-size: 14px;
+        font-family: $mavenPro;
+    }
+
+    .searchItem-descr {
+        font-size: 12px;
+        font-family: $mavenPro;
+        color: $dark-grey;
+        margin-top: 4px;
+    }
+}

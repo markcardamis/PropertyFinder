@@ -9,7 +9,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    z-index: 2;
+    z-index: 3;
 
     .navLinks {
         display: flex;
@@ -23,10 +23,21 @@
         width: 218px;
         height: 80px;
     }
+    .mobileMenuIcon {
+        display: none;
+    }
 }
 
 @media only screen and (max-device-width: $breakpoint-mobile) {
     .nav {
         height: 120px;
+        padding: 0 30px 0 30px;
+
+        .navLinks {
+            display: none;
+        }
+        .mobileMenuIcon {
+            display: flex;
+        }
     }
 }

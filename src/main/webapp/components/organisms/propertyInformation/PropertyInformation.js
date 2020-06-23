@@ -16,54 +16,58 @@ const PropertyInformation = (props) => {
 
         const { handleClosePropertyInfo } = props;
         const { id, address, area, floorSpaceRatio, minimumLotSize,
-                price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
-                pricePSM, priceToLandValue, summaryDescription, listingPhoto,
-                } = props.property;   
+            price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
+            pricePSM, priceToLandValue, summaryDescription, listingPhoto,
+            } = props.property;   
 
             return (
                     <div className='propertyInformation'>
                         <div className='propertyInformation-close'>
                             <ButtonSquare icon={<IconClose/>} onClick={handleClosePropertyInfo}/>
                         </div>
-                        <PropImg img={listingPhoto || DEFAULT_HOUSE_IMAGE}/>
-                        <div className='propertyInformation-mainContainer'>
-                            <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
-                            <div className='propertyInformation-address'>{address}</div>
-                            <PropListItem2 
-                                icon1={area ? <IconAreaG/> : <IconAreaG color={variables.lightGrey}/>} title1={AREA} value1={area}
-                                icon2={zone ? <IconZoneG/> : <IconZoneG color={variables.lightGrey}/>} title2={ZONE} value2={zone}
-                                />
-                            <DeviderLine/>
-                            <PropListItem2 
-                                icon1={bathrooms ? <IconBathG/> : <IconBathG color={variables.lightGrey}/>} 
-                                title1={BATHROOMS} value1={bathrooms}
-                                icon2={bedrooms ? <IconBedG/> : <IconBedG color={variables.lightGrey}/>} 
-                                title2={BEDROOMS} value2={bedrooms}
-                                />
-                            <PropListItem icon={carspaces ? <IconCarG/> : <IconCarG color={variables.lightGrey}/>} title={CAR_SPACES} value14={carspaces}/>
-                            <DeviderLine/>
-                            <PropListItem icon={price ? <IconPriceG/> : <IconPriceG color={variables.lightGrey}/>} title={PRICE} value18={price}/>
-                            <PropListItem icon={priceToLandValue ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} title={PRICE_TO_LAND_VALUE} value14={priceToLandValue&&`${priceToLandValue}%`}/>
-                            <PropListItem2 
-                                icon1={pricePSM ? <IconPriceMg/> : <IconPriceMg color={variables.lightGrey}/>} 
-                                title1={PRICE_PER_M2} value1={pricePSM}
-                                icon2={landValue ? <IconLandvalG/> : <IconLandvalG color={variables.lightGrey}/>} 
-                                title2={LAND_VALUE} value2={landValue}
-                                />
-                             <PropListItem2 
-                                icon1={floorSpaceRatio ? <IconFsrG/> : <IconFsrG color={variables.lightGrey}/>} 
-                                title1={FLOOR_SPACE_RATIO} value1={floorSpaceRatio}
-                                icon2={minimumLotSize ? <IconLotG/> : <IconLotG color={variables.lightGrey}/>} 
-                                title2={MINIMUM_LOT_SIZE} value2={minimumLotSize}
-                                />
-                            <div className='propertyInformation-margin10'/>
-                             <PropListItem title={DESCRIPTION}/>
-                             <div className='propertyInformation-descr'>{summaryDescription}</div>
+                        <div>
+                            <PropImg img={listingPhoto || DEFAULT_HOUSE_IMAGE}/>
+                            {/* <PropImg img={props.property.listing_photo || DEFAULT_HOUSE_IMAGE}/> */}
+                            <div className='propertyInformation-mainContainer'>
+                                <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
+                                <div className='propertyInformation-address'>{address}</div>
+                                <PropListItem2 
+                                    icon1={area ? <IconAreaG/> : <IconAreaG color={variables.lightGrey}/>} title1={AREA} value1={area}
+                                    icon2={zone ? <IconZoneG/> : <IconZoneG color={variables.lightGrey}/>} title2={ZONE} value2={zone}
+                                    />
+                                <DeviderLine/>
+                                <PropListItem2 
+                                    icon1={bathrooms ? <IconBathG/> : <IconBathG color={variables.lightGrey}/>} 
+                                    title1={BATHROOMS} value1={bathrooms}
+                                    icon2={bedrooms ? <IconBedG/> : <IconBedG color={variables.lightGrey}/>} 
+                                    title2={BEDROOMS} value2={bedrooms}
+                                    />
+                                <PropListItem icon={carspaces ? <IconCarG/> : <IconCarG color={variables.lightGrey}/>} title={CAR_SPACES} value14={carspaces}/>
+                                <DeviderLine/>
+                                <PropListItem icon={price ? <IconPriceG/> : <IconPriceG color={variables.lightGrey}/>} title={PRICE} value18={price}/>
+                                <PropListItem icon={priceToLandValue ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} title={PRICE_TO_LAND_VALUE} value14={priceToLandValue&&`${priceToLandValue}%`}/>
+                                <PropListItem2 
+                                    icon1={pricePSM ? <IconPriceMg/> : <IconPriceMg color={variables.lightGrey}/>} 
+                                    title1={PRICE_PER_M2} value1={pricePSM}
+                                    icon2={landValue ? <IconLandvalG/> : <IconLandvalG color={variables.lightGrey}/>} 
+                                    title2={LAND_VALUE} value2={landValue}
+                                    />
+                                <PropListItem2 
+                                    icon1={floorSpaceRatio ? <IconFsrG/> : <IconFsrG color={variables.lightGrey}/>} 
+                                    title1={FLOOR_SPACE_RATIO} value1={floorSpaceRatio}
+                                    icon2={minimumLotSize ? <IconLotG/> : <IconLotG color={variables.lightGrey}/>} 
+                                    title2={MINIMUM_LOT_SIZE} value2={minimumLotSize}
+                                    />
+                                <div className='propertyInformation-margin10'/>
+                                <PropListItem title={DESCRIPTION} value14={' '}/>
+                                <div className='propertyInformation-descr'>{summaryDescription}</div>
+                            </div>
+                            <ButtonProperty title={'GO TO PROPERTY'} url={listingURL}/>
                         </div>
-                        <ButtonProperty title={'GO TO PROPERTY'} url={listingURL}/>
                     </div> 
             );
     };
+
 
 const mapStateToProps = (state) => {
     return {

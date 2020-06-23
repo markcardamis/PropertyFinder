@@ -1,0 +1,34 @@
+@import '../../../styles/style.scss';
+
+
+    .lazyImg {
+        height: 283px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+    .btnLazyImg {
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        height: 283px;
+        width: 40%;
+        border-radius: 4px;
+    }
+    .btnLazyImg img {
+        display: block;
+    }
+    // .btnLazyImg:hover .lazyImgWrap {
+    //     background: center $black no-repeat url('data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCA2NCAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik02My40MzMyIDE3LjY0MjFDNDkuMTUzIDM2Ljg0NjIgMTQuNzU3NCAzNi43MjU2IDAuNTY2Nzk3IDE3LjY0MjFDLTAuMTg4OTMyIDE2LjYyNTcgLTAuMTg4OTMyIDE1LjM1NjYgMC41NjY3OTcgMTQuMzQwNEMxNC44NTgyIC00Ljg3OTU0IDQ5LjI4OTkgLTQuNjgwNDggNjMuNDMzMiAxNC4zNDA0QzY0LjE4ODkgMTUuMzU2NiA2NC4xODg5IDE2LjYyNTkgNjMuNDMzMiAxNy42NDIxWk0zMiAyNEMzNi40MTgzIDI0IDQwIDIwLjQxODMgNDAgMTZDNDAgMTEuNTgxNyAzNi40MTgzIDggMzIgOEMyNy41ODE3IDggMjQgMTEuNTgxNyAyNCAxNkMyNCAyMC40MTgzIDI3LjU4MTcgMjQgMzIgMjRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K');
+    //     border-radius: 4px;
+
+    // }
+    // .btnLazyImg:hover img {
+    //     opacity: 0.6;
+    // }
+    .darken {
+        background: center $black no-repeat url('data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCA2NCAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik02My40MzMyIDE3LjY0MjFDNDkuMTUzIDM2Ljg0NjIgMTQuNzU3NCAzNi43MjU2IDAuNTY2Nzk3IDE3LjY0MjFDLTAuMTg4OTMyIDE2LjYyNTcgLTAuMTg4OTMyIDE1LjM1NjYgMC41NjY3OTcgMTQuMzQwNEMxNC44NTgyIC00Ljg3OTU0IDQ5LjI4OTkgLTQuNjgwNDggNjMuNDMzMiAxNC4zNDA0QzY0LjE4ODkgMTUuMzU2NiA2NC4xODg5IDE2LjYyNTkgNjMuNDMzMiAxNy42NDIxWk0zMiAyNEMzNi40MTgzIDI0IDQwIDIwLjQxODMgNDAgMTZDNDAgMTEuNTgxNyAzNi40MTgzIDggMzIgOEMyNy41ODE3IDggMjQgMTEuNTgxNyAyNCAxNkMyNCAyMC40MTgzIDI3LjU4MTcgMjQgMzIgMjRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K');
+        border-radius: 4px;
+        opacity: 0.6;
+    }

@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Nav from '../components/organisms/nav/Nav';
 import './pages.scss';
+import Layout from '../components/organisms/layout/Layout';
 
 const ContactPage = props => {
     return (
-        <>
-        <Nav/>
-        <div className='notification'>This page is under development</div>
-        </>
+        <Layout>
+            <div className='pageContainer'>
+                <div className='pageText'>Contact me using the widget on the bottom right of the website.</div>
+                <div className='pageText'>Look forward to any feedback or additional information you would like added to the website.</div>
+            </div>
+        </Layout>
     );
 };
 
-ContactPage.propTypes = {
-
-};
+ContactPage.propTypes = {};
 
 export default ContactPage;

@@ -30,7 +30,10 @@
 
 
 @media (max-device-width: $breakpoint-mobile) {
-    .propListTitle-text22 {
+    .propListTitle-text22, .propListTitle-text16, .propListTitle-text {
         font-size: 30px !important;
+    }
+    .propListTitle-text16, .propListTitle-text {
+        font-size: 24px !important;
     }
 }

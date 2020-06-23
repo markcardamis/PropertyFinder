@@ -95,8 +95,8 @@ class RegisterForm extends Component {
                     value={firstName}
                     onChange={(e)=>this.setState({firstName: e.target.value, validation: {}})}
                     />
-                {firstName.length==0&&validation.required&&<div className='validation'>{validation.required}</div>}
             </div>
+            <div className='validation'>{firstName.length==0&&validation.required&&validation.required}</div>
             <div className={'registerFormInput'}>
                  <TextInput 
                     icon={<IconUser/>} 
@@ -104,9 +104,9 @@ class RegisterForm extends Component {
                     value={lastName}
                     onChange={(e)=>this.setState({lastName: e.target.value, validation: {}})}
                     />
-                {lastName.length==0&&validation.required&&<div className='validation'>{validation.required}</div>}
             </div>
-              <div>{validation.lastName&&validation.lastName}</div>
+            <div className='validation'>{lastName.length==0&&validation.required&&validation.required}</div>
+              {/* <div>{validation.lastName&&validation.lastName}</div> */}
             <div className={'registerFormInput'}>
                 <TextInput 
                     icon={<IconEmail/>} 
@@ -114,9 +114,8 @@ class RegisterForm extends Component {
                     value={this.state.email}
                     onChange={(e)=>this.setState({email: e.target.value, validation: {}})}
                     />
-                {validation.email&&<div className='validation'>{validation.email}</div>}
             </div>
-
+            <div className='validation'>{validation.email&&validation.email}</div>
             <div className={'registerFormInput'}>
                 <TextInput 
                     icon={<IconKey/>} 
@@ -125,9 +124,9 @@ class RegisterForm extends Component {
                     value={this.state.password}
                     onChange={(e)=>this.setState({password: e.target.value, validation: {}})}
                 />
-                {validation.password&&<div className='validation'>{validation.password}</div>}
             </div>
-            { this.state.errorMessage && <div className="authError"> Registration failed, this account is already registered </div> }
+            <div className='validation'>{validation.password&&validation.password}</div>
+            { this.state.errorMessage && <div className="authError"> Password requirements: at least 8 characters, a lowercase letter, an uppercase letter, a number, no parts of your username. </div> }
             {/* <div className={'registerFormAgree'}>By clicking the button you accept the Terms and Conditions and Privacy Policy</div> */}
             <div className={'registerFormBtn'}><ButtonFilled title={'SIGN UP'} onClick={this.handleSubmit}/></div>
         </div>

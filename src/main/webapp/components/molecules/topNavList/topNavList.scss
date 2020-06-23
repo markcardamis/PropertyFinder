@@ -4,3 +4,11 @@
     display: flex;
     flex-direction: row;
 }
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .navList {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}

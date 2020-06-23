@@ -3,7 +3,7 @@ import {Link, useLocation} from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {IconLogoTitle} from '../../../assets/icons';
+import {IconLogoTitle, IconMenuMobile} from '../../../assets/icons';
 import './nav.scss';
 import TopNavList from '../../molecules/topNavList/TopNavList';
 import { useAuth } from '../../../modules/auth';
@@ -11,7 +11,7 @@ import ButtonLogin from '../../atoms/buttonLogin/ButtonLogin';
 import ButtonAccount from '../../atoms/buttonAccount/ButtonAccount';
 import {login, logout} from '../../../store/actions/authAction';
 import { showSignIn } from '../../../store/actions/showSignInAction';
-
+import {showMobileNav} from '../../../store/actions/showMobileNavAction';
 
 const Nav = withAuth(({ auth }) => {
     const [authenticated, user] = useAuth(auth);
@@ -28,8 +28,6 @@ const Nav = withAuth(({ auth }) => {
 
         return (
              <div className='nav'>
-                 {/* {console.log(authenticated)} */}
-                 {/* {console.log(authState)} */}
                 <Link to='/'><IconLogoTitle/></Link>
                 <div className='navLinks'>
                     <TopNavList route={location.pathname}/>
@@ -37,6 +35,9 @@ const Nav = withAuth(({ auth }) => {
                         <ButtonAccount onClick={()=>dispatch(showSignIn())}/> : 
                         <ButtonLogin onClick={()=>dispatch(showSignIn())}/>
                         }
+                </div>
+                <div className='mobileMenuIcon' onClick={()=>dispatch({type: 'SHOW_MOBILE_NAV'})}>
+                    <IconMenuMobile/>
                 </div>
             </div>
         );
