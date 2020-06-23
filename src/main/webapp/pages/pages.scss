@@ -6,7 +6,16 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 15% 15% 0 15%;
+    padding: 5% 0 0 0;
     font-family: $mavenPro;
     font-size: 20px;
+
+    .pageText {
+        margin: 15px 0 5px 0;
+    }
+    
+    .pageVideo {
+        width: 40%;
+        height: 300px;
+    }
 }
