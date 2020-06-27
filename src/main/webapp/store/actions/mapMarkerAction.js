@@ -5,18 +5,18 @@ export const mapMarker = (item) => {
     };
 };
 
-export const changeMarker = (item, isActive) => {
+export const changeMarker = (item, status) => {
     return {
         type: 'CHANGE_MARKER',
         payload: item,
-        isActive
+        status
     };
 };
 
-export const changeAllMarkers = (isActive) => {
+export const changeAllMarkers = (status) => {
     return {
         type: 'CHANGE_ALL_MARKERS_STATUS',
-        isActive
+        status
     };
 };
 

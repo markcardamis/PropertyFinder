@@ -90,69 +90,27 @@ renderPopup = (e) => {
         addPopup(propertyData)
 }
 
-
-
 renderMarkers = async () => {
     const { mapMarker } = this.props.mapGL;
     mapMarker.forEach((marker) => {
         var el = document.createElement('div');
-        // switch (marker.markerStatus) {
-        //     case 'unvisited':
-        //         el.className = 'marker-unvisited'
-        //         break;
-        //     case 'hovered':
-        //         el.className = 'marker-hovered'
-        //         break;
-        //     case 'selected':
-        //         el.className = 'marker-selected'
-        //         break;
-        //     case 'visited':
-        //         el.className = 'marker-visited'
-        //         break;
-        //     default:
-        //         el.className = 'marker-unvisited'
-        //         break;
-        //}
         el.tabIndex = 0;
-        el.className = 'marker-unvisited'
-        el.onclick=()=>{
-            console.log(el)
-            //el.className=marker.isActive ? 'marker-selected' : 'marker-visited'
-           
-            console.log(el)
-            this.props.dispatch(MarkerActionCreators.changeAllMarkers(false))
-            this.props.dispatch(MarkerActionCreators.changeMarker(marker, true))
-            el.style.backgroundColor='blue'
-        }
+        el.className = marker.status
         el.onmouseover=()=>el.id='marker-hovered'
         el.onmouseout=()=>el.removeAttribute('id')
+        el.onclick=()=>{
+            this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
+            this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', status: marker.status==='marker-selected' ? 'marker-visited' : 'marker-unvisited'})
+            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'marker-selected'})
+        }
         
         let oneMarker = new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map)
         currentMarkers.push(oneMarker);
-        //el.addEventListener('click', ()=>{
-            //el.className=marker.isActive ? 'marker-selected' : 'marker-visited';
-            // this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false});
-            // this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true});
-        //}, true);
-        // el.addEventListener('mouseenter', () => {
-        //     //el.classList.add='marker-hovered'
-        //     this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
-        //     this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, isActive: true})
-        // });
-        // el.addEventListener('mouseleave', () => {
-        //     //el.classList.remove='marker-hovered'
-        //     this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, isActive: false})
-        // });
     })
 }
 
-handleMarkerClick = (marker) => {
-    this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
-    //this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
-    //this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'visited'});
-}
 
 handlePropertyClick = async (e) => {
      let features = map.queryRenderedFeatures(e.point);
