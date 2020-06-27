@@ -10,8 +10,8 @@ import './searchItem.scss'
 import ImageLazy from '../../atoms/ImageLazy/ImageLazy';
 
 const SearchItem = props => {
-    const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, landValue, pricePSM, floorSpaceRatio, priceToLandValue, minimumLotSize, listing_url, summary_description, listing_photo, isActive} = props.marker
-    const [shadow, setShadow] = useState(isActive)
+    const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, landValue, pricePSM, floorSpaceRatio, priceToLandValue, minimumLotSize, listing_url, summary_description, listing_photo, status} = props.marker
+    const [shadow, setShadow] = useState(status==='marker-selected')
     
     return (
         <div 
@@ -23,7 +23,7 @@ const SearchItem = props => {
                 
             }}
             >
-                <ImageLazy src={listing_photo || DEFAULT_HOUSE_IMAGE} shadow={isActive||shadow}/>
+                <ImageLazy src={listing_photo || DEFAULT_HOUSE_IMAGE} shadow={status==='marker-selected'||shadow}/>
            <div className='searchItemInfo'>
                 <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
                 <div className='searchItem-address'>{address}</div>

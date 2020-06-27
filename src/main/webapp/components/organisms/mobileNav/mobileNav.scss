@@ -3,16 +3,16 @@
 .mobileNav {
     height: 100%;
     width: 100%;
+    position: absolute;
     flex: 1;
-    background-color: $light-blue;
-    z-index: 2;
-    padding: 24px 15px 24px 15px;
     display: flex;
+    background-color: $light-blue;
+    padding: 154px 24px 44px 24px;
     flex-direction: column;
     justify-content: space-between;
     
     .mobileNavList {
-
+        width: 100%;
     }
     .mobileNavLogin {
         width: 100%;
