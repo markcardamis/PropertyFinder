@@ -1,10 +1,10 @@
 @import '../../../styles/style.scss';
 
 .mobileNav {
-    height: 100%;
+    height: 90%;
     width: 100%;
     position: absolute;
-    flex: 1;
+    //flex: 1;
     background-color: $light-blue;
     z-index: 2;
     padding: 184px 24px 44px 24px;

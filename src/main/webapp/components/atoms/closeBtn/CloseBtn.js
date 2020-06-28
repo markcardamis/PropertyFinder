@@ -6,7 +6,7 @@ const CloseBtn = (props) => {
     
     return (
         <div className='closeBtn' onClick={props.onClick}>
-           <IconClose/>
+            <IconClose/>
         </div>
     )
 }
