@@ -22,6 +22,12 @@ public class MultiHttpSecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
 
             http
+                .headers()
+                    .frameOptions().sameOrigin()
+                    .and()
+                // .headers()
+		        //     .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsMode.SAMEORIGIN))
+                //     .and()
                 .requiresChannel()
                     .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
                     .requiresSecure()
