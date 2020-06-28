@@ -25,6 +25,7 @@ public class MultiHttpSecurityConfig {
 
             http
                 .headers()
+                    .frameOptions().disable()
                     .addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", xFrameOptions))
                     .and()
                 .requiresChannel()
