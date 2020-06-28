@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -20,14 +21,12 @@ public class MultiHttpSecurityConfig {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+        String xFrameOptions = System.getenv().get("X_FRAME_OPTIONS");
 
             http
                 .headers()
-                    .frameOptions().sameOrigin()
+                    .addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", xFrameOptions))
                     .and()
-                // .headers()
-		        //     .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsMode.SAMEORIGIN))
-                //     .and()
                 .requiresChannel()
                     .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
                     .requiresSecure()
