@@ -8,7 +8,7 @@
     position: absolute;
     background-color: $light-blue;
     z-index: 2;
-    padding: 184px 24px 44px 24px;
+    // padding: 184px 24px 44px 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -18,5 +18,6 @@
     }
     .mobileNavLogin {
         width: 100%;
+        margin: 0 32px 0 32px;
     }
 }

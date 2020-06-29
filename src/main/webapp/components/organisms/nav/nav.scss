@@ -46,8 +46,6 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        //position: fixed;
-        //width: 100%;
 
         .navLinks {
             display: none;
@@ -55,7 +53,7 @@
 
         .mobileMenuIcon {
             display: flex;
-            align-self: flex-end;
+            align-self: center;
         }
         .navLogo {
             display: none;
@@ -64,7 +62,7 @@
         .navLogoMobile {
             display: flex;
             align-self: center;
-            margin-top: 35px;
+            margin-top: 30px;
         }
     }
 }
