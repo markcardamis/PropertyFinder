@@ -28,7 +28,7 @@ const Nav = withAuth(({ auth }) => {
 
         return (
              <div className='nav'>
-                <Link to='/'>
+                <Link className='navLogoLink' to='/'>
                     <div className='navLogo'><IconLogoTitle size={0.7}/></div>
                     <div className='navLogoMobile'><IconLogoTitle size={1}/></div>
                 </Link>

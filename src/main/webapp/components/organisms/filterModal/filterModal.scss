@@ -1,63 +1,6 @@
 @import '../../../styles//style.scss';
 
 
-
-@media only screen and (max-device-width: $breakpoint-mobile) {
-    .filterContainer {
-        flex-direction: column;
-        background-color: $white;
-        flex-grow: 1;
-        flex: 1;
-        width: 100%;
-        height: -webkit-calc(100% - 150px);
-        height: -moz-calc(100% - 150px);
-        height: calc(100% - 150px);
-        display: flex;
-        z-index: 2;
-        overflow: hidden;
-
-        .react-tabs, .react-tabs__tab-panel--selected {
-            flex-grow: 1;
-            flex: 1;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .filterModal {
-            height: 100%;
-            width: 90%;
-            min-height: 100%;
-            display: flex;
-            flex-grow: 1;
-            flex: 1;
-            z-index: 2;
-            padding-top: 130px;
-            overflow-y: auto;
-
-            .react-tabs__tab-panel--selected {
-                margin-top: 50px;
-            }
-        }
-    }
-    .filterModalCloseBtn {
-        position: absolute;
-        top: 125px;
-        right: 44px;
-        // display: flex;
-        // flex-direction: row;
-        // justify-content: flex-end;
-        //margin-right: -10px;
-    }
-    .react-tabs__tab {
-        width: 48%;
-        height: 75px;
-        font-size: 30px;
-    }
-}
-
-
 .filterContainer {
     width: 100%;
     height: 100%;
@@ -71,7 +14,6 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    background-color: white;
     padding-top: 80px;
     z-index: 2;
 }
@@ -80,7 +22,7 @@
     height: 80%;
     align-self: center;
     overflow-y: auto;
-    position: fixed;
+    //position: fixed;
     // display: flex;
     // flex-direction: column;
     //position: absolute;
@@ -201,5 +143,60 @@ margin-top: 20px;
         width: 80%;
         height: 100%;
         max-height: 715px;
+    }
+}
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .filterContainer {
+        flex-direction: column;
+        //background-color: $white;
+        flex-grow: 1;
+        flex: 1;
+        width: 100%;
+        height: -webkit-calc(100% - 150px);
+        height: -moz-calc(100% - 150px);
+        height: calc(100% - 150px);
+        display: flex;
+        z-index: 2;
+        overflow: hidden;
+
+        .react-tabs, .react-tabs__tab-panel--selected {
+            flex-grow: 1;
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .filterModal {
+            height: 100%;
+            width: 90%;
+            min-height: 100%;
+            display: flex;
+            flex-grow: 1;
+            flex: 1;
+            z-index: 2;
+            padding-top: 150px;
+            overflow-y: auto;
+
+            .react-tabs__tab-panel--selected {
+                margin-top: 50px;
+            }
+        }
+    }
+    .filterModalCloseBtn {
+        position: absolute;
+        top: 125px;
+        right: 44px;
+        // display: flex;
+        // flex-direction: row;
+        // justify-content: flex-end;
+        //margin-right: -10px;
+    }
+    .react-tabs__tab {
+        width: 48%;
+        height: 75px;
+        font-size: 30px;
     }
 }

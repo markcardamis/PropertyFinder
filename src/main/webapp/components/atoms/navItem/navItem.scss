@@ -1,8 +1,8 @@
 @import '../../../styles//style.scss';
 
 .navItem {
-    // margin-left: 32px;
-    // margin-right: 32px;
+    margin-left: 32px;
+    margin-right: 32px;
     
 
     .navTitle {
@@ -38,6 +38,8 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-left: 0;
+        margin-right: 0;
     }    
     .navTitle {
         font-size: 40px !important;

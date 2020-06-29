@@ -7,17 +7,19 @@
     padding: 0 15px 0 15px;
     display: flex;
     flex-direction: row;
-    align-items: center !important;
+    align-items: center;
     justify-content: space-between;
+    text-align: center;
     z-index: 3;
 
     .navLogo {
         display: flex;
-        align-self: center !important;
+        margin-top: 25px;
+        align-self: center;
     }
     .navLogoMobile {
         display: none;
-        align-self: center !important;
+        height: 100%;
     }
     
     .navLinks {
@@ -53,6 +55,7 @@
 
         .mobileMenuIcon {
             display: flex;
+            align-self: flex-end;
         }
         .navLogo {
             display: none;
@@ -61,6 +64,7 @@
         .navLogoMobile {
             display: flex;
             align-self: center;
+            margin-top: 35px;
         }
     }
 }
