@@ -28,7 +28,10 @@ const Nav = withAuth(({ auth }) => {
 
         return (
              <div className='nav'>
-                <Link className='navLogo' to='/'><IconLogoTitle/></Link>
+                <Link to='/'>
+                    <div className='navLogo'><IconLogoTitle size={0.7}/></div>
+                    <div className='navLogoMobile'><IconLogoTitle size={1}/></div>
+                </Link>
                 <div className='navLinks'>
                     <TopNavList route={location.pathname}/>
                     {authenticated !== null && authenticated ? 

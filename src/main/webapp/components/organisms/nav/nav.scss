@@ -7,13 +7,17 @@
     padding: 0 15px 0 15px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: center !important;
     justify-content: space-between;
     z-index: 3;
 
     .navLogo {
         display: flex;
-        align-self: center;
+        align-self: center !important;
+    }
+    .navLogoMobile {
+        display: none;
+        align-self: center !important;
     }
     
     .navLinks {
@@ -41,7 +45,7 @@
         flex-direction: row;
         align-items: center;
         //position: fixed;
-        width: 100%;
+        //width: 100%;
 
         .navLinks {
             display: none;
@@ -49,6 +53,14 @@
 
         .mobileMenuIcon {
             display: flex;
+        }
+        .navLogo {
+            display: none;
+            align-self: center;
+        }
+        .navLogoMobile {
+            display: flex;
+            align-self: center;
         }
     }
 }
