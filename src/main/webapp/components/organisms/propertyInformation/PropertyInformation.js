@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { DEFAULT_HOUSE_IMAGE, ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO } from '../../../shared/constants';
 import PropListItem from '../../molecules/propListItem/PropListItem';
-import {IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG} from '../../../assets/icons'
+import {IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG, IconCloseMobile} from '../../../assets/icons'
 import './propertyInformation.scss';
 import PropImg from '../../atoms/propImg/PropImg';
 import ButtonProperty from '../../atoms/buttonProperty/ButtonProperty';
@@ -23,7 +23,8 @@ const PropertyInformation = (props) => {
             return (
                     <div className='propertyInformation'>
                         <div className='propertyInformation-close'>
-                            <ButtonSquare icon={<IconClose/>} onClick={handleClosePropertyInfo}/>
+                            <div className='buttonClose'><ButtonSquare icon={<IconClose/>} onClick={handleClosePropertyInfo}/></div>
+                            <div className='buttonCloseMobile'><ButtonSquare icon={<IconCloseMobile/>} onClick={handleClosePropertyInfo}/></div>
                         </div>
                         <div>
                             <PropImg img={listingPhoto || DEFAULT_HOUSE_IMAGE}/>

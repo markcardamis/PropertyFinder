@@ -38,6 +38,13 @@
     .propertyInformation-margin10 {
         height: 10px;
     }
+
+    .buttonClose {
+        display: flex;
+    }
+    .buttonCloseMobile {
+        display: none;
+    }
 }
 
 @media only screen and (max-device-width: $breakpoint-mobile) {
@@ -54,5 +61,12 @@
            margin: -135px 0 25px 0;
            align-self: flex-end;
         }
+        .buttonClose {
+            display: none;
+        }
+        .buttonCloseMobile {
+            display: flex;
+        }
     }
+ 
 }
