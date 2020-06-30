@@ -1,14 +1,11 @@
 @import '../../../styles/style.scss';
 
 .mobileNav {
-    height: -webkit-calc(100% - 190px);
-    height: -moz-calc(100% - 210px);
-    height: calc(100% - 210px);
+    height: 100%;
     width: 100%;
-    position: absolute;
     background-color: $light-blue;
     z-index: 2;
-    padding: 184px 0 44px 0;
+    padding: 44px 0 44px 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
