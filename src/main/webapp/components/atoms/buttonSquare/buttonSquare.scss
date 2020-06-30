@@ -15,3 +15,10 @@
         transition: background-color $transition-05;
     }
 }
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .buttonSquare {
+        width: 88px;
+        height: 88px;
+    }
+}

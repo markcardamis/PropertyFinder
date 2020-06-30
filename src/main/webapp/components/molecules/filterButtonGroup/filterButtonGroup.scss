@@ -9,10 +9,24 @@
     width: 102px;
     justify-content: space-between;
     z-index: 2;
+
+    .filterButton {
+        display: flex;
+    }
+    .filterButtonMobile {
+        display: none;
+    }
 }
 
 @media only screen and (max-device-width: $breakpoint-mobile) {
     .filterButtonGroup {
         margin-top: 175px;
+
+        .filterButton {
+            display: none;
+        }
+        .filterButtonMobile {
+            display: flex;
+        }
     }
 }

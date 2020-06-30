@@ -13,4 +13,20 @@
         background-color: $light-grey;
         transition: background-color $transition-05;
     }
+
+    .iconClose {
+        display: flex;
+    }
+    .iconCloseMobile {
+        display: none;
+    }
+}
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .iconClose {
+        display: none;
+    }
+    .iconCloseMobile {
+        display: flex;
+    }
 }
