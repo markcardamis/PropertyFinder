@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link, useLocation} from 'react-router-dom';
 import PropTypes from 'prop-types'
-import  {useDispatch} from 'react-redux'
+import  {useDispatch, useSelector} from 'react-redux'
 import { withAuth } from '@okta/okta-react';
 import './mobileNav.scss'
 import { useAuth } from '../../../modules/auth';
@@ -15,13 +15,14 @@ const MobileNav = withAuth(({ auth }) => {
     const [authenticated, user] = useAuth(auth);
     const location = useLocation();
     const dispatch = useDispatch()
+    const showMobileNav = useSelector(state=>state.showMobileNav);
 
     const handleClick = () => {
         dispatch(closeMobileNav())
         dispatch(showSignIn())
     }
     return (
-        <div className='mobileNav'>
+        <div className={!showMobileNav ? 'menuClosed' : 'mobileNav'}>
             <div className='mobileNavList'>
                 <TopNavList route={location.pathname}/>
             </div>

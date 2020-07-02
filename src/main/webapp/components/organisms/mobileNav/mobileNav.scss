@@ -1,25 +1,25 @@
 @import '../../../styles/style.scss';
 
 .mobileNav {
-    // height: -webkit-calc(100% - 150px);
-    // height: -moz-calc(100% - 150px);
-    // height: calc(100% - 150px);
-    height: auto;
+    height: 93%;
     width: 100%;
     background-color: $light-blue;
     z-index: 3;
     padding: 44px 0 44px 0;
     display: flex;
-    flex: 1;
-    flex-grow: 1;
+    position: absolute;
     flex-direction: column;
     justify-content: space-between;
-    
-    .mobileNavList {
+    transition: width 0.2s, height 0.4s;
 
-    }
     .mobileNavLogin {
         width: 92%;
         align-self: center;
     }
+
 }
+.menuClosed {
+    height: 0;
+    width: 0;
+}
+

@@ -23,12 +23,15 @@ const Layout = props => {
 
 
     return (
-        <div className='layout'>
-            <Nav/>
-            {showSignInModal && <AuthModal/>}
-            {!showMobileNav && props.children}
-            {showMobileNav && <MobileNav/>}
-        </div>
+        <>
+        </>
+        // <div className='layout'>
+        //     <Nav/>
+        //     {showSignInModal && <AuthModal/>}
+        //     {!showMobileNav && props.children}
+        //     <MobileNav/>
+        //     {/* {showMobileNav && <MobileNav/>} */}
+        // </div>
     )
 }
 
