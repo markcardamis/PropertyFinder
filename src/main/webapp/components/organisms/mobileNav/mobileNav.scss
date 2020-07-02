@@ -1,7 +1,9 @@
 @import '../../../styles/style.scss';
 
 .mobileNav {
-    height: 93%;
+    height: -webkit-calc(100% - 150px);
+    height: -moz-calc(100% - 150px);
+    height: calc(100% - 150px);
     width: 100%;
     background-color: $light-blue;
     z-index: 3;
