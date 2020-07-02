@@ -190,8 +190,9 @@ class FilterModal extends Component {
     render () {
         const { handleCloseFilter } = this.props;
         const { authenticated } = this.state;
+        const showFilter = this.props.filter.showFilter
       return (
-        <div className='filterContainer'>
+        <div className={showFilter ? 'filterContainer' : 'filterClosed'}>
         <div className='filterModal'>
           <div className='filterModalCloseBtn'>
             <CloseBtn onClick={handleCloseFilter}/>

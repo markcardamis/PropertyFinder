@@ -4,7 +4,7 @@
     display: flex;
     position: absolute;
     flex-direction: row;
-    margin-top: 105px;
+    margin-top: 25px;
     margin-left: 15px;
     width: 102px;
     justify-content: space-between;
@@ -20,7 +20,7 @@
 
 @media only screen and (max-device-width: $breakpoint-mobile) {
     .filterButtonGroup {
-        margin-top: 175px;
+        margin-top: 25px;
 
         .filterButton {
             display: none;

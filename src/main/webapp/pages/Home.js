@@ -18,11 +18,19 @@ import {closeSearchModal, showSearchModal} from '../store/actions/searchModalAct
 
 const Home = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory()
   const showFilter = useSelector(state=>state.showFilter);
   const showProperty = useSelector(state=>state.showProperty.isHidden);
   const showSave = useSelector(state=>state.showSaveModal);
   const searchModal = useSelector(state=>state.searchModal)
   const mobileNav = useSelector(state=>state.showMobileNav)
+  const showSignInModal = useSelector(state=>state.showSignIn);
+  const showMobileNav = useSelector(state=>state.showMobileNav);
+
+    useEffect(()=>{
+        history.location.pathname === '/signup' ? dispatch(showSignIn()) : dispatch(closeSignIn())
+        history.location.pathname === '/search' ? dispatch(showFilterAction()) : dispatch(closeFilter())
+      }, [])
 
   const toggleFilter = () => {
     showFilter ? dispatch(closeFilter()) : dispatch(showFilterAction())
@@ -44,23 +52,15 @@ const Home = (props) => {
 }
 
     return (
-        // <Layout>
-        //   {!showFilter && !showSave && !mobileNav && <FilterButtonGroup onMenuClick={toggleSearch} onFilterClick = {toggleFilter}/>}
-        //   {showFilter && <FilterModal handleCloseFilter={handleCloseFilter}/>}
-        //   {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>}
-        //   {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
-        //   {/* {searchModal&&<SearchModal/>} */}
-        //  <Nav/>
-        //   <MobileNav/>
-        //    <MapGL/>
-         
-        // </Layout>
-        <>
-          <Nav/>
-          <MobileNav/>
+      <Layout>
+          {!showFilter && !showSave && <FilterButtonGroup onMenuClick={toggleSearch} onFilterClick = {toggleFilter}/>}
+          {/* {!showFilter && !showSave && !mobileNav && <FilterButtonGroup onMenuClick={toggleSearch} onFilterClick = {toggleFilter}/>} */}
+          <FilterModal handleCloseFilter={handleCloseFilter}/>
+          {showSave&&<SaveModal onCloseClick={()=>dispatch(closeSaveModal())} onSaveClick={()=>dispatch(closeSaveModal())}/>}
+          {showProperty && !showFilter && <PropertyInformation handleClosePropertyInfo={handleClosePropertyInfo}/>}
+          {/* {searchModal&&<SearchModal/>} */}
           <MapGL/>
-
-        </>
+      </Layout>
     );
 };
 
