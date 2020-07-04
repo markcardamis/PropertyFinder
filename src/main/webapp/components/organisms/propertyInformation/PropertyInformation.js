@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { DEFAULT_HOUSE_IMAGE, ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO } from '../../../shared/constants';
 import PropListItem from '../../molecules/propListItem/PropListItem';
@@ -14,6 +15,7 @@ import variables from '../../../styles/_variables.scss';
 
 const PropertyInformation = (props) => {
 
+        const showProperty = useSelector(state=>state.showProperty.isHidden);
         const { handleClosePropertyInfo } = props;
         const { id, address, area, floorSpaceRatio, minimumLotSize,
             price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
@@ -21,7 +23,7 @@ const PropertyInformation = (props) => {
             } = props.property;   
 
             return (
-                    <div className='propertyInformation'>
+                    <div className={showProperty ? 'propertyInformation' : 'propertyInformationClosed'}>
                         <div className='propertyInformation-close'>
                             <div className='buttonClose'><ButtonSquare icon={<IconClose/>} onClick={handleClosePropertyInfo}/></div>
                             <div className='buttonCloseMobile'><ButtonSquare icon={<IconCloseMobile/>} onClick={handleClosePropertyInfo}/></div>

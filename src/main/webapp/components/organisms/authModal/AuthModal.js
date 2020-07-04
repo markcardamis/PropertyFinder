@@ -33,6 +33,7 @@ const AuthModal = withAuth(({ auth }) => {
         dispatch({type: 'CLOSE_SIGNIN'})
       }
 
+      
     const renderComponent = () => {
        if (state=='login') {
             return authenticated ? <Account onLogout={()=>{auth.logout(); setState('login')}} onAccountClick={()=>setState('account')}/> :

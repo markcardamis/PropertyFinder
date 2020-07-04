@@ -1,5 +1,18 @@
 @import '../../../styles//style.scss';
 
+.propertyInformationClosed {
+    padding: 12px;
+    width: 354px;
+    background-color: $white;
+    border-radius: 8px;
+    box-shadow: $shadow-14;
+    align-self: flex-end;
+    margin: 24px 0 0 0;
+    z-index: 2;
+    right: -100%;
+    position: absolute;
+}
+
 .propertyInformation {
     padding: 12px;
     width: 354px;
@@ -7,9 +20,11 @@
     border-radius: 8px;
     box-shadow: $shadow-14;
     align-self: flex-end;
-    margin: 24px 15px 0 0;
+    margin: 24px 0 0 0;
     z-index: 2;
     position: absolute;
+    right: 15px;
+    transition: right 0.2s;
 
     .propertyInformation-mainContainer {
         margin-top: 14px;
@@ -52,13 +67,14 @@
     .propertyInformation {
         width: 90%;
         height: auto;
-        max-height: 70%;
+        max-height: 60%;
         display: flex;
         align-self: center;
         padding: 7% 5% 5% 5%;
         flex-direction: column;
         margin: 150px 0 0 0;
         right: 5%;
+        transition: right 0.2s;
 
         .propertyInformation-close {
            margin: -195px -10% 25px 0;
@@ -73,6 +89,18 @@
         .propertyInformation-descr {
             font-size: 20px;
         }
+    }
+
+    .propertyInformationClosed {
+        width: 90%;
+        height: auto;
+        max-height: 60%;
+        display: flex;
+        align-self: center;
+        padding: 7% 5% 5% 5%;
+        flex-direction: column;
+        margin: 150px 0 0 0;
+        right: -100%;
     }
  
 }
