@@ -53,6 +53,8 @@ const Home = (props) => {
 
     return (
       <Layout>
+        {console.log(showProperty)}
+        {console.log(showFilter)}
           {!showFilter && !showSave && <FilterButtonGroup onMenuClick={toggleSearch} onFilterClick = {toggleFilter}/>}
           {/* {!showFilter && !showSave && !mobileNav && <FilterButtonGroup onMenuClick={toggleSearch} onFilterClick = {toggleFilter}/>} */}
           <FilterModal handleCloseFilter={handleCloseFilter}/>

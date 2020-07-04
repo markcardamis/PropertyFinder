@@ -63,5 +63,10 @@
 @media only screen and (max-device-width: $breakpoint-mobile) {
     .mapContainer {
         top: 150px;
+
+        .marker {
+            width: 100px;
+            height: 100px;
+        }
     }
 }

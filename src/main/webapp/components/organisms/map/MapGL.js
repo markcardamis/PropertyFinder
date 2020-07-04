@@ -129,7 +129,7 @@ renderMarkers = async () => {
 
 handleMarkerClick = (marker) => {
     this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
-    //this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
+    this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
     //this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'visited'});
 }
 

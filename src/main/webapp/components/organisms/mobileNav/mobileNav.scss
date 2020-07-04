@@ -7,6 +7,7 @@
     width: 100%;
     background-color: $light-blue;
     z-index: 3;
+    opacity: 1;
     padding: 44px 0 44px 0;
     display: flex;
     position: absolute;
@@ -23,5 +24,6 @@
 .menuClosed {
     height: 0;
     width: 0;
+    opacity: 0;
 }
 

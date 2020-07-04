@@ -10,12 +10,16 @@
     justify-content: center;
     align-items: center;
     z-index: 2;
+    opacity: 1;
     transition: width 0.2s, height 0.4s;
+
 }
 .filterClosed {
     width: 0;
     height: 0;
+    opacity: 0;
 }
+
 .filterModal {
     width: 40%;
     height: 80%;
@@ -140,18 +144,20 @@ margin-top: 20px;
         flex-grow: 1;
         flex: 1;
         width: 100%;
-        height: -webkit-calc(100vh - 150px);
-        height: -moz-calc(100vh - 150px);
-        height: calc(100vh - 150px);
+        height: -webkit-calc(100vh - 238px);
+        height: -moz-calc(100vh - 238px);
+        height: calc(100vh - 238px);
         display: flex;
         z-index: 2;
         overflow: hidden;
+        box-shadow: $shadow-14;
 
         .react-tabs, .react-tabs__tab-panel--selected {
             flex-grow: 1;
             flex: 1;
             width: 100%;
             height: 95%;
+            margin-top: 30px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -173,7 +179,7 @@ margin-top: 20px;
     }
     .filterModalCloseBtn {
         position: absolute;
-        top: 190px;
+        top: 170px;
         right: 44px;
     }
     .react-tabs__tab {

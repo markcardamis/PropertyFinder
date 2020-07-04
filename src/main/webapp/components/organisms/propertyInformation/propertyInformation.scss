@@ -9,6 +9,7 @@
     align-self: flex-end;
     margin: 24px 15px 0 0;
     z-index: 2;
+    position: absolute;
 
     .propertyInformation-mainContainer {
         margin-top: 14px;
@@ -49,16 +50,17 @@
 
 @media only screen and (max-device-width: $breakpoint-mobile) {
     .propertyInformation {
-        width: 90%;
+        width: 100%;
         height: auto;
         max-height: 70%;
         display: flex;
         align-self: center;
+        padding: 7% 5% 5% 5%;
         flex-direction: column;
         margin: 150px 0 0 0;
 
         .propertyInformation-close {
-           margin: -135px 0 25px 0;
+           margin: -195px 0 25px 0;
            align-self: flex-end;
         }
         .buttonClose {
