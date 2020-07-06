@@ -2,6 +2,7 @@ import React, {useState, useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { withAuth } from '@okta/okta-react';
 import { useHistory} from 'react-router-dom';
+import Fade from 'react-reveal/Fade';
 
 import { useAuth } from '../../../modules/auth';
 import AuthModalBox from '../../molecules/authModalBox/AuthModalBox'
@@ -45,11 +46,15 @@ const AuthModal = withAuth(({ auth }) => {
         }
     }
     return (
-        <div ref={node} className='authModal'>
-            <AuthModalBox>
-                {renderComponent()}
-            </AuthModalBox>
-        </div>
+      <div ref={node}>
+        <Fade>
+          <div className='authModal'>
+              <AuthModalBox>
+                  {renderComponent()}
+              </AuthModalBox>
+          </div>
+        </Fade>
+      </div>
     )
 })
 

@@ -8,6 +8,7 @@ import SavedFilters from '../savedFilters/SavedFilters';
 import FilterTab from '../filter/FilterTab';
 import CloseBtn from '../../atoms/closeBtn/CloseBtn';
 import './filterModal.scss';
+import Fade from 'react-reveal/Fade';
 
 
 class FilterModal extends Component {
@@ -190,27 +191,28 @@ class FilterModal extends Component {
     render () {
         const { handleCloseFilter } = this.props;
         const { authenticated } = this.state;
-        const showFilter = this.props.filter.showFilter
       return (
-        <div className={showFilter ? 'filterContainer' : 'filterClosed'}>
-        <div className='filterModal'>
-          <div className='filterModalCloseBtn'>
-            <CloseBtn onClick={handleCloseFilter}/>
-            </div>
-            <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
-              <TabList>
-                <Tab>Search Filters</Tab>
-                <Tab disabled={!authenticated}>Saved Filters</Tab>
-              </TabList>
-              <TabPanel>
-                <FilterTab handleSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
-              </TabPanel>
-              <TabPanel>
-                <SavedFilters handleSelectFilter={this.handleSelectFilter} handleEditFilter={this.handleEditFilter}/>
-              </TabPanel>
-            </Tabs>
-        </div>
-        </div>
+          <div className='filterContainer'>
+             <Fade>
+              <div className='filterModal'>
+                <div className='filterModalCloseBtn'>
+                  <CloseBtn onClick={handleCloseFilter}/>
+                  </div>
+                  <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
+                    <TabList>
+                      <Tab>Search Filters</Tab>
+                      <Tab disabled={!authenticated}>Saved Filters</Tab>
+                    </TabList>
+                    <TabPanel>
+                      <FilterTab handleSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
+                    </TabPanel>
+                    <TabPanel>
+                      <SavedFilters handleSelectFilter={this.handleSelectFilter} handleEditFilter={this.handleEditFilter}/>
+                    </TabPanel>
+                  </Tabs>
+              </div>
+            </Fade>
+          </div>
       );
    }
 }

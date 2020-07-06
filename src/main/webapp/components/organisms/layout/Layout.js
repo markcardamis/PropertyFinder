@@ -26,7 +26,7 @@ const Layout = props => {
         <div className='layout'>
             <Nav/>
             {showSignInModal && <AuthModal/>}
-            <MobileNav/>
+            {showMobileNav && <MobileNav/>}
             {props.children}
         </div>
     )

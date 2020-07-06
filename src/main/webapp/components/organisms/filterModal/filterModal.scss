@@ -10,14 +10,6 @@
     justify-content: center;
     align-items: center;
     z-index: 2;
-    opacity: 1;
-    transition: width 0.2s, height 0.4s;
-
-}
-.filterClosed {
-    width: 0;
-    height: 0;
-    opacity: 0;
 }
 
 .filterModal {

@@ -14,13 +14,12 @@ import LoginForm from '../../molecules/loginForm/LoginForm';
 import Account from '../../molecules/account/Account';
 import UserInfo from '../../molecules/userInfo/UserInfo';
 import RegisterForm from '../../molecules/registerForm/RegisterForm';
+import Fade from 'react-reveal/Fade';
 
 const MobileNav = withAuth(({ auth }) => {
     const [authenticated, user] = useAuth(auth);
     const [state, setState] = useState('nav')
     const location = useLocation();
-    //const dispatch = useDispatch()
-    const showMobileNav = useSelector(state=>state.showMobileNav);
 
     // const handleClick = () => {
     //     dispatch(closeMobileNav())
@@ -49,9 +48,11 @@ const MobileNav = withAuth(({ auth }) => {
          }
      }
     return (
-        <div className={!showMobileNav ? 'menuClosed' : 'mobileNav'}>
-            {renderComponent()}
-        </div>
+        <Fade>
+            <div className='mobileNav'>
+                {renderComponent()}
+            </div>
+        </Fade>
     )
 })
 
