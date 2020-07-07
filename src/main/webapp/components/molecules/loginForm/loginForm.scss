@@ -45,3 +45,31 @@
     color: $red;
     font-size: 12px;
 }
+
+@media (max-device-width: $breakpoint-mobile) {
+    .loginForm {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        //flex-grow: 1;
+        height: 100%;
+        align-items: stretch;
+        justify-content: space-between;
+    }
+    .loginFormInput {
+        margin-top: 45px;
+    }
+    .loginFormTitle {
+        font-size: 40px;
+    }
+    .loginFormForgot {
+        margin-top: 20px;
+        font-size: 24px;
+    }
+    .authError {
+        font-size: 24px;
+    }
+    .loginFormText {
+        font-size: 25px;
+    }
+}
