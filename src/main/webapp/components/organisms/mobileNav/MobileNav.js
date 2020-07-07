@@ -11,6 +11,7 @@ import Account from '../../molecules/account/Account';
 import UserInfo from '../../molecules/userInfo/UserInfo';
 import RegisterForm from '../../molecules/registerForm/RegisterForm';
 import Fade from 'react-reveal/Fade';
+import { IconExitMobile } from '../../../assets/icons';
 
 const MobileNav = withAuth(({ auth }) => {
     const [authenticated, user] = useAuth(auth);
@@ -32,12 +33,14 @@ const MobileNav = withAuth(({ auth }) => {
                         </div>
                         <div className='mobileNavLogin'>
                             {authenticated !== null && authenticated ? 
-                                    <ButtonAccount onClick={()=>setState('account')}/> : 
+                                    <ButtonLogin icon={<IconExitMobile/>} title={'LOGOUT'} onClick={()=>setState('login')}/> :
+                                    // <ButtonAccount onClick={()=>setState('account')}/> : 
                                     <ButtonLogin onClick={()=>setState('login')}/>
                                     }
                         </div>
                     </>
          }
+
      }
     return (
         <Fade>
