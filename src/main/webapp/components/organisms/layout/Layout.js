@@ -26,8 +26,8 @@ const Layout = props => {
         <div className='layout'>
             <Nav/>
             {showSignInModal && <AuthModal/>}
-            {!showMobileNav && props.children}
             {showMobileNav && <MobileNav/>}
+            {props.children}
         </div>
     )
 }

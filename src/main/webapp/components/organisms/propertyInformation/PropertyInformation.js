@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { DEFAULT_HOUSE_IMAGE, ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO } from '../../../shared/constants';
 import PropListItem from '../../molecules/propListItem/PropListItem';
@@ -11,6 +12,7 @@ import PropListItem2 from '../../molecules/propListItem2/PropListItem2';
 import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
 import DeviderLine from '../../atoms/deviderLine/DeviderLine';
 import variables from '../../../styles/_variables.scss';
+import Fade from 'react-reveal/Fade';
 
 const PropertyInformation = (props) => {
 
@@ -21,6 +23,7 @@ const PropertyInformation = (props) => {
             } = props.property;   
 
             return (
+                <Fade>
                     <div className='propertyInformation'>
                         <div className='propertyInformation-close'>
                             <div className='buttonClose'><ButtonSquare icon={<IconClose/>} onClick={handleClosePropertyInfo}/></div>
@@ -65,7 +68,8 @@ const PropertyInformation = (props) => {
                             </div>
                             <ButtonProperty title={'GO TO PROPERTY'} url={listingURL}/>
                         </div>
-                    </div> 
+                    </div>
+                </Fade> 
             );
     };
 

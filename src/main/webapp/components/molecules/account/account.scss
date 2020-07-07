@@ -12,3 +12,9 @@
         background-color: $shadow-grey;
     }
 }
+@media (max-device-width: $breakpoint-mobile) {
+    // .authModalAccount-btn {
+    //     height: 60px;
+    //     font-size: 25px;
+    // }
+}

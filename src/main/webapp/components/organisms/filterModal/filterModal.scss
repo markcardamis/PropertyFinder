@@ -3,31 +3,20 @@
 
 .filterContainer {
     width: 100%;
-    height: 100%;
-    // width: 40%;
-    // height: 80%;
-    //display: flex;
-    // align-self: center;
+    height: 100vh;
     display: flex;
     flex: 1;
     flex-grow: 1;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    padding-top: 80px;
     z-index: 2;
 }
+
 .filterModal {
     width: 40%;
     height: 80%;
     align-self: center;
     overflow-y: auto;
-    //position: fixed;
-    // display: flex;
-    // flex-direction: column;
-    //position: absolute;
-    //margin-top: 80px;
-    //padding: 22px 32px 22px 32px;
     padding: 12px 44px 22px 44px;
     z-index: 2;
     box-shadow: $shadow-14;
@@ -45,7 +34,6 @@
 
 .react-tabs__tab {
     width: 45%;
-    //height: 52px;
     height: 35px;
     display: flex;
     justify-content: center;
@@ -53,7 +41,6 @@
     border-radius: 6px;
     border: none !important;
     font-family: $mavenPro;
-    //font-size: 24px;
     font-size: 16px;
 }
 .react-tabs__tab--selected {
@@ -62,7 +49,6 @@
     border: none !important;
 }
 .react-tabs__tab-list {
-   //margin-top: 10;
    border: none !important;
    display: flex;
     flex-direction: row;
@@ -129,13 +115,11 @@ margin-top: 20px;
 @media (max-device-width: $breakpoint-laptop13) {
     .filterModal {
         width: 60%;
-        //height: 600px;
     }
 }
 @media (max-device-width: $breakpoint-laptop11) {
     .filterModal {
         width: 70%;
-        //height: 500px;
     }
 }
 @media (max-device-width: $breakpoint-tablet) {
@@ -149,22 +133,21 @@ margin-top: 20px;
 @media only screen and (max-device-width: $breakpoint-mobile) {
     .filterContainer {
         flex-direction: column;
-        //background-color: $white;
         flex-grow: 1;
         flex: 1;
         width: 100%;
-        height: -webkit-calc(100% - 80px);
-        height: -moz-calc(100% - 80px);
-        height: calc(100% - 80px);
+        height: 78.7vh;
         display: flex;
         z-index: 2;
         overflow: hidden;
+        box-shadow: $shadow-14;
 
         .react-tabs, .react-tabs__tab-panel--selected {
             flex-grow: 1;
             flex: 1;
             width: 100%;
-            height: 95%;
+            height: 100%;
+            margin-top: 30px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -177,7 +160,6 @@ margin-top: 20px;
             flex-grow: 1;
             flex: 1;
             z-index: 2;
-            padding-top: 184px;
             overflow-y: auto;
 
             .react-tabs__tab-panel--selected {
@@ -187,12 +169,8 @@ margin-top: 20px;
     }
     .filterModalCloseBtn {
         position: absolute;
-        top: 190px;
+        top: 40px;
         right: 44px;
-        // display: flex;
-        // flex-direction: row;
-        // justify-content: flex-end;
-        //margin-right: -10px;
     }
     .react-tabs__tab {
         width: 48%;

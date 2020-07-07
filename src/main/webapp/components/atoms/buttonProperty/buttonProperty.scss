@@ -22,3 +22,13 @@
         font-size: 14px;
     }
 }
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .buttonProperty {
+        height: 75px;
+
+        .buttonPropertyTitle {
+            font-size: 24px;
+        }
+    }
+}

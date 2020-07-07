@@ -1,4 +1,12 @@
+    @import '../../../styles/style.scss';
+
     .propImg {
         object-fit: cover;
         border-radius: 4px;
+    }
+
+    @media only screen and (max-device-width: $breakpoint-mobile) {
+        .propImg {
+            margin-top: 50px;
+        }
     }

@@ -5,7 +5,8 @@ import './buttonLogin.scss';
 const ButtonLogin = props => {
     return (
         <div className='login' onClick={props.onClick}>
-            <div className='title'>LOG IN</div>
+            {props.icon&&<div className='loginIcon'>{props.icon}</div>}
+            <div className='title'>{props.title || 'LOG IN'}</div>
         </div>
     )
 }
