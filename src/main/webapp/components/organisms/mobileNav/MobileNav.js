@@ -33,7 +33,7 @@ const MobileNav = withAuth(({ auth }) => {
                         </div>
                         <div className='mobileNavLogin'>
                             {authenticated !== null && authenticated ? 
-                                    <ButtonLogin icon={<IconExitMobile/>} title={'LOGOUT'} onClick={()=>setState('login')}/> :
+                                    <ButtonLogin icon={<IconExitMobile/>} title={'LOGOUT'} onClick={()=>{auth.logout(); setState('login')}}/> :
                                     // <ButtonAccount onClick={()=>setState('account')}/> : 
                                     <ButtonLogin onClick={()=>setState('login')}/>
                                     }
