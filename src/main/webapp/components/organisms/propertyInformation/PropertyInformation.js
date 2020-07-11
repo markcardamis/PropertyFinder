@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { DEFAULT_HOUSE_IMAGE, ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO } from '../../../shared/constants';
 import PropListItem from '../../molecules/propListItem/PropListItem';
-import {IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG} from '../../../assets/icons'
+import {IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG, IconCloseMobile} from '../../../assets/icons'
 import './propertyInformation.scss';
 import PropImg from '../../atoms/propImg/PropImg';
 import ButtonProperty from '../../atoms/buttonProperty/ButtonProperty';
@@ -11,6 +12,7 @@ import PropListItem2 from '../../molecules/propListItem2/PropListItem2';
 import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
 import DeviderLine from '../../atoms/deviderLine/DeviderLine';
 import variables from '../../../styles/_variables.scss';
+import Fade from 'react-reveal/Fade';
 
 const PropertyInformation = (props) => {
 
@@ -21,9 +23,11 @@ const PropertyInformation = (props) => {
             } = props.property;   
 
             return (
+                <Fade>
                     <div className='propertyInformation'>
                         <div className='propertyInformation-close'>
-                            <ButtonSquare icon={<IconClose/>} onClick={handleClosePropertyInfo}/>
+                            <div className='buttonClose'><ButtonSquare icon={<IconClose/>} onClick={handleClosePropertyInfo}/></div>
+                            <div className='buttonCloseMobile'><ButtonSquare icon={<IconCloseMobile/>} onClick={handleClosePropertyInfo}/></div>
                         </div>
                         <div>
                             <PropImg img={listingPhoto || DEFAULT_HOUSE_IMAGE}/>
@@ -45,7 +49,7 @@ const PropertyInformation = (props) => {
                                 <PropListItem icon={carspaces ? <IconCarG/> : <IconCarG color={variables.lightGrey}/>} title={CAR_SPACES} value14={carspaces}/>
                                 <DeviderLine/>
                                 <PropListItem icon={price ? <IconPriceG/> : <IconPriceG color={variables.lightGrey}/>} title={PRICE} value18={price}/>
-                                <PropListItem icon={priceToLandValue ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} title={PRICE_TO_LAND_VALUE} value14={priceToLandValue&&`${priceToLandValue}%`}/>
+                                <PropListItem icon={priceToLandValue ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} title={PRICE_TO_LAND_VALUE} value14={priceToLandValue&&priceToLandValue}/>
                                 <PropListItem2 
                                     icon1={pricePSM ? <IconPriceMg/> : <IconPriceMg color={variables.lightGrey}/>} 
                                     title1={PRICE_PER_M2} value1={pricePSM}
@@ -64,7 +68,8 @@ const PropertyInformation = (props) => {
                             </div>
                             <ButtonProperty title={'GO TO PROPERTY'} url={listingURL}/>
                         </div>
-                    </div> 
+                    </div>
+                </Fade> 
             );
     };
 

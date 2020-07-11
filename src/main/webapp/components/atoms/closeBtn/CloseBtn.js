@@ -1,12 +1,13 @@
 import React from 'react';
 import './closeBtn.scss';
-import {IconClose} from '../../../assets/icons';
+import {IconClose, IconCloseMobile} from '../../../assets/icons';
 
 const CloseBtn = (props) => {
     
     return (
         <div className='closeBtn' onClick={props.onClick}>
-           <IconClose/>
+            <div className='iconClose'><IconClose/></div>
+            <div className='iconCloseMobile'><IconCloseMobile/></div>
         </div>
     )
 }

@@ -9,6 +9,8 @@
         height: 44px;
         width: 100%;
         padding-top: 4px;
+        padding-left: 40px;
+        text-align: start;
 
         &:focus {
             outline: none;
@@ -18,5 +20,22 @@
     .textInputIcon {
         position: absolute;
         align-self: center;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+    .inputIcon {
+        font-size: 16px;
+        //text-align: center !important;
+        padding-left: 50px;
+    }
+}
+
+@media (max-device-width: $breakpoint-mobile) {
+    .inputIcon {
+        font-size: 40px !important;
+        height: 80px !important;
+        //text-align: center !important;
+        padding-left: 50px !important;
+        background-color: $light-blue !important;
     }
 }

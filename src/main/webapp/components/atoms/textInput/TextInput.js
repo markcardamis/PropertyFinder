@@ -10,13 +10,7 @@ const TextInput = (props) => {
                 value={props.value} 
                 onChange={props.onChange} 
                 placeholder={props.placeholder}
-                className='textInput'
-                style={{
-                    textAlign: props.icon ? 'start' : 'center', 
-                    // fontSize: props.icon ? 16 : 20,
-                    fontSize: props.icon ? 16 : 12,
-                    paddingLeft: props.icon ? 40 : 0
-                }}
+                className={`textInput ${props.icon ? 'inputIcon' : ''}`}
                 />   
         </div>
     )

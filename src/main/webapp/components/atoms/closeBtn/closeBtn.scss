@@ -14,3 +14,23 @@
         transition: background-color $transition-05;
     }
 }
+.iconClose {
+    display: flex;
+}
+.iconCloseMobile {
+    display: none;
+}
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .closeBtn {
+        height: 40px;
+        width: 40px;
+
+    .iconClose {
+        display: none;
+    }
+    .iconCloseMobile {
+        display: flex;
+    }
+}
+}

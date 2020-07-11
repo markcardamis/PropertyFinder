@@ -1,9 +1,32 @@
+@import '../../../styles//style.scss';
+
 .filterButtonGroup {
     display: flex;
+    position: absolute;
     flex-direction: row;
-    margin-top: 12px;
+    margin-top: 25px;
     margin-left: 15px;
     width: 102px;
     justify-content: space-between;
     z-index: 2;
+
+    .filterButton {
+        display: flex;
+    }
+    .filterButtonMobile {
+        display: none;
+    }
+}
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .filterButtonGroup {
+        margin-top: 25px;
+
+        .filterButton {
+            display: none;
+        }
+        .filterButtonMobile {
+            display: flex;
+        }
+    }
 }

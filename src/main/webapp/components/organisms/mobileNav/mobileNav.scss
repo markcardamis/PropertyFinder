@@ -1,20 +1,27 @@
 @import '../../../styles/style.scss';
 
 .mobileNav {
-    height: 100%;
+    height: -webkit-calc(100% - 238px);
+    height: -moz-calc(100% - 238px);
+    height: calc(100% - 238px);
     width: 100%;
-    position: absolute;
-    flex: 1;
-    display: flex;
     background-color: $light-blue;
-    padding: 154px 24px 44px 24px;
+    z-index: 4;
+    padding: 44px 0 44px 0;
+    display: flex;
+    position: absolute;
     flex-direction: column;
     justify-content: space-between;
-    
-    .mobileNavList {
-        width: 100%;
-    }
+
     .mobileNavLogin {
-        width: 100%;
+        width: 92%;
+        align-self: center;
     }
+
 }
+
+.mobileNav_formContainer {
+    padding: 0 44px 0 44px;
+    flex: 1;
+}
+

@@ -67,10 +67,10 @@ handleViewportChange = () => {
 }
 
 renderPopup = (e) => {
-        const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, baseDate1, baseDate2, baseDate3, baseDate4, baseDate0, landValue1, landValue2, landValue3, landValue4, landValue0} = this.props.mapGL.showPopup;
+        const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, baseDate1, baseDate2, baseDate3, baseDate4, baseDate5, baseDate0, landValue1, landValue2, landValue3, landValue4, landValue5, landValue0} = this.props.mapGL.showPopup;
         const chartData={
-            baseDate: [baseDate4, baseDate3, baseDate2, baseDate1, baseDate0],
-            landValue: [landValue4, landValue3, landValue2, landValue1, landValue0]
+            baseDate: [baseDate5, baseDate4, baseDate3, baseDate2, baseDate1, baseDate0],
+            landValue: [landValue5, landValue4, landValue3, landValue2, landValue1, landValue0]
         }
 
         const propertyInfo = {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, landValue1}
@@ -111,6 +111,11 @@ renderMarkers = async () => {
     })
 }
 
+handleMarkerClick = (marker) => {
+    this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
+    this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
+    //this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'visited'});
+}
 
 handlePropertyClick = async (e) => {
      let features = map.queryRenderedFeatures(e.point);
@@ -158,7 +163,6 @@ checkAuthentication = async () => {
     render() {
     return (
         <div>
-            {console.log(this.props)}
             <div ref={el => this.mapContainer = el} className='mapContainer' id='map'/>
         </div>
         );

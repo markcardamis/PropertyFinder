@@ -1,8 +1,8 @@
 @import '../../../styles//style.scss';
 
 .navItem {
-    // margin-left: 32px;
-    // margin-right: 32px;
+    margin-left: 32px;
+    margin-right: 32px;
     
 
     .navTitle {
@@ -33,15 +33,14 @@
 
 @media only screen and (max-device-width: $breakpoint-mobile) {
     .navItem {
-        height: 100px;
+        height: 150px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }    
     .navTitle {
-        font-size: 30px !important;
-       
+        font-size: 40px !important;
     }
     .navTitleUnderline {
         display: none;

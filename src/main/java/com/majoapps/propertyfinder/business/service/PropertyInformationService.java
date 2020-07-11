@@ -45,6 +45,10 @@ public class PropertyInformationService {
             propertyInformation.setZoneCode(newAccount.getZoneCode());
             propertyInformation.setArea(newAccount.getArea());
             propertyInformation.setAreaType(newAccount.getAreaType());
+            propertyInformation.setBaseDate0(newAccount.getBaseDate0());
+            propertyInformation.setLandValue0(newAccount.getLandValue0());
+            propertyInformation.setAuthority0(newAccount.getAuthority0());
+            propertyInformation.setBasis0(newAccount.getBasis0());
             propertyInformation.setBaseDate1(newAccount.getBaseDate1());
             propertyInformation.setLandValue1(newAccount.getLandValue1());
             propertyInformation.setAuthority1(newAccount.getAuthority1());
@@ -98,6 +102,14 @@ public class PropertyInformationService {
                 propertyInformation.setArea(newAccount.getArea());
             if(newAccount.getAreaType() != null) 
                 propertyInformation.setAreaType(newAccount.getAreaType());
+            if(newAccount.getBaseDate0() != null) 
+                propertyInformation.setBaseDate0(newAccount.getBaseDate0());
+            if(newAccount.getLandValue0() != null) 
+                propertyInformation.setLandValue0(newAccount.getLandValue0());
+            if(newAccount.getAuthority0() != null) 
+                propertyInformation.setAuthority0(newAccount.getAuthority0());
+            if(newAccount.getBasis0() != null) 
+                propertyInformation.setBasis0(newAccount.getBasis0());
             if(newAccount.getBaseDate1() != null) 
                 propertyInformation.setBaseDate1(newAccount.getBaseDate1());
             if(newAccount.getLandValue1() != null) 

@@ -1,10 +1,11 @@
+@import '../../../styles/style.scss';
+
 .mapContainer {
     position: absolute;
-    top: 0;
+    top: 80px;
     right: 0;
     left: 0;
     bottom: 0;
-   // z-index: 10;
     }
     
     #map canvas {
@@ -66,4 +67,13 @@
         z-index: 1 !important;
     }
     
-    
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .mapContainer {
+        top: 150px;
+
+        .marker {
+            width: 70px;
+            height: 70px;
+        }
+    }
+}
