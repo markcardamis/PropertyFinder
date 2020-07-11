@@ -10,6 +10,7 @@ import {showSearchModal, closeSearchModal} from '../../../store/actions/searchMo
 
 const SearchModal = props => {
     const searchModal = useSelector(state=>state.searchModal)
+    const properties = useSelector(state=>state.mapMarker)
     const dispatch = useDispatch()
 
     const toggleFilter = () => {
@@ -20,7 +21,7 @@ const SearchModal = props => {
     }
 
     const renderResults = () => {
-        return points.map((item,index)=>{
+        return properties.map((item,index)=>{
             return <SearchItem
                         key={index}
                         id={item.id}
@@ -46,18 +47,11 @@ const SearchModal = props => {
     return (
         <div className='searchModalContainer'>
             <div className='searchModal'>
+                {console.log(properties)}
                 <div className='searchModalHeader'>
-                    {points&&points.length} Properties
-                    {/* <div className='searchModalIcons'>
-                        <IconMenu2/>
-                        <div className='searchModalIconDevider'/>
-                        <IconMenu/>
-                    </div> */}
+                    {properties&&properties.length} Properties
                 </div>
                     <div className='searchListContainer'>{renderResults()}</div>
-            </div>
-            <div className='searchModalBtn'>
-                <FilterButtonGroup onMenuClick={toggleSearch} onFilterClick = {toggleFilter}/>
             </div>
         </div>
     )

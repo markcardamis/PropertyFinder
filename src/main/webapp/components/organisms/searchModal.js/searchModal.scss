@@ -1,7 +1,7 @@
 @import '../../../styles/style.scss';
 
 .searchModalContainer {
-    z-index: 2;
+    z-index: 3;
     flex: 1;
     display: flex;
     justify-content: flex-start;
@@ -11,7 +11,8 @@
     .searchModal {
         background-color: $white;
         box-shadow: $shadow-4;
-        height: 93vh;
+        //height: 93vh;
+        height: auto;
         overflow-y: auto;
 
         .searchModalHeader {

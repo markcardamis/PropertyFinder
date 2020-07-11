@@ -9,7 +9,7 @@ const FilterButtonGroup = props => {
     const searchModal = useSelector(state=>state.searchModal)
     return (
         <div className='filterButtonGroup'>
-            {/* <ButtonSquare icon={searchModal ? <IconClose/> : <IconMenu2/>} onClick={props.onMenuClick}/> */}
+            <ButtonSquare icon={searchModal ? <IconClose/> : <IconMenu2/>} onClick={props.onMenuClick}/>
             <div className='filterButton'><ButtonSquare icon={<IconFilter2 color={'#000000'}/>} onClick={props.onFilterClick}/></div>
             <div className='filterButtonMobile'><ButtonSquare icon={<IconFilter2Mobile color={'#000000'}/>} onClick={props.onFilterClick}/></div>
         </div>

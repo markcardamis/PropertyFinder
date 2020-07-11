@@ -11,6 +11,7 @@ import './MapGL.scss';
 import {Logo, MapMarker} from '../../../assets/icons';
 import Popup from '../../organisms/popup/Popup';
 import { points } from '../../../../../../contsants_temp';
+import FilterButtonGroup from '../../molecules/filterButtonGroup/FilterButtonGroup';
  
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -177,9 +178,20 @@ checkAuthentication = async () => {
   }
  
     render() {
+        const {searchModal, showFilter, showSaveModal} = this.props.mapGL
     return (
         <div>
-            <div ref={el => this.mapContainer = el} className='mapContainer' id='map'/>
+            <div   
+                ref={el => this.mapContainer = el} 
+                className='mapContainer' 
+                id='map' 
+                style={{left: searchModal ? '45%' : 0}}
+                >
+                {!showFilter && !showSaveModal && <FilterButtonGroup 
+                    onMenuClick={()=>this.props.dispatch({type: searchModal ? 'CLOSE_SEARCH_MODAL' : 'SHOW_SEARCH_MODAL'})}
+                    onFilterClick = {()=>this.props.dispatch({type: showFilter ? 'CLOSE_FILTER' : 'SHOW_FILTER'})}
+            />}
+            </div>
         </div>
         );
     }
@@ -187,7 +199,7 @@ checkAuthentication = async () => {
 
 const mapStateToProps = (state) => {
     return {
-        mapGL: state,
+        mapGL: state
     };
 };
 
