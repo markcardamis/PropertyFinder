@@ -4,6 +4,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 import { hotjar } from 'react-hotjar';
 
 import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../../shared/constants';
@@ -11,6 +12,7 @@ import './MapGL.scss';
 import {Logo, MapMarker} from '../../../assets/icons';
 import Popup from '../../organisms/popup/Popup';
 import { points } from '../../../../../../contsants_temp';
+import * as MarkerActionCreators from '../../../store/actions/mapMarkerAction';
  
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -19,10 +21,13 @@ import { points } from '../../../../../../contsants_temp';
 class MapGL extends React.Component {
     constructor(props) {
         super(props);
+        const { dispatch } = props
         this.state = {
-             authenticated: null,
+             authenticated: null
         };
+        this.boundActionCreators = bindActionCreators(MarkerActionCreators, dispatch)
     }
+    
     
 async componentDidMount() {
     map = new mapboxgl.Map({
@@ -85,45 +90,24 @@ renderPopup = (e) => {
         addPopup(propertyData)
 }
 
-
-
 renderMarkers = async () => {
     const { mapMarker } = this.props.mapGL;
     mapMarker.forEach((marker) => {
-    // points.forEach((marker) => {
         var el = document.createElement('div');
-        switch (marker.markerStatus) {
-            case 'unvisited':
-                el.className = 'marker-unvisited'
-                break;
-            case 'hovered':
-                el.className = 'marker-hovered'
-                break;
-            case 'selected':
-                el.className = 'marker-selected'
-                break;
-            case 'visited':
-                el.className = 'marker-visited'
-                break;
-            default:
-                el.className = 'marker-unvisited'
-                break;
-        }
         el.tabIndex = 0;
-       
+        el.className = marker.status
+        el.onmouseover=()=>el.id='marker-hovered'
+        el.onmouseout=()=>el.removeAttribute('id')
+        el.onclick=()=>{
+            this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
+            this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', status: marker.status==='marker-selected' ? 'marker-visited' : 'marker-unvisited'})
+            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'marker-selected'})
+        }
         
         let oneMarker = new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
-          .addTo(map);
-          el.addEventListener('click', () => {
-            this.handleMarkerClick(marker);
-        });
+          .addTo(map)
         currentMarkers.push(oneMarker);
-       
-        // el.addEventListener('click', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'selected'})}, true)
-        // el.addEventListener('mouseenter', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'hover'})}, true)
-        // el.addEventListener('mouseleave', () => {this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'unvisited'})}, true)
-
     })
 }
 

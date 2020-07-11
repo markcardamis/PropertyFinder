@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './searchModal.scss'
-import { IconMenu, IconMenu2 } from '../../../assets/icons'
 import SearchItem from '../../molecules/searchItem/SearchItem'
 import {points} from '../../../../../../contsants_temp'
 import FilterButtonGroup from '../../molecules/filterButtonGroup/FilterButtonGroup'
@@ -10,6 +9,7 @@ import {showSearchModal, closeSearchModal} from '../../../store/actions/searchMo
 
 const SearchModal = props => {
     const searchModal = useSelector(state=>state.searchModal)
+    const markers = useSelector(state=>state.mapMarker)
     const dispatch = useDispatch()
 
     const toggleFilter = () => {
@@ -20,26 +20,28 @@ const SearchModal = props => {
     }
 
     const renderResults = () => {
-        return points.map((item,index)=>{
+        return markers.map((item,index)=>{
             return <SearchItem
                         key={index}
-                        id={item.id}
-                        area={item.area}
-                        zone={item.zone}
-                        address={item.address}
-                        postCode={item.postCode}
-                        bathrooms={item.bathrooms}
-                        bedrooms={item.bedrooms}
-                        carspaces={item.carspaces}
-                        zone={item.zone}
-                        price={item.price}
-                        pricePSM={item.pricePSM}
-                        landValue={item.landValue}
-                        priceToLandValue={item.priceToLandValue}
-                        floorSpaceRatio={item.floorSpaceRatio}
-                        summaryDescription={item.summary_description}
-                        img={item.listing_photo}
-                        listingUrl={item.listing_url}
+                        marker={item}
+                        // id={item.id}
+                        // area={item.area}
+                        // zone={item.zone}
+                        // address={item.address}
+                        // postCode={item.postCode}
+                        // bathrooms={item.bathrooms}
+                        // bedrooms={item.bedrooms}
+                        // carspaces={item.carspaces}
+                        // zone={item.zone}
+                        // price={item.price}
+                        // pricePSM={item.pricePSM}
+                        // landValue={item.landValue}
+                        // priceToLandValue={item.priceToLandValue}
+                        // floorSpaceRatio={item.floorSpaceRatio}
+                        // summaryDescription={item.summary_description}
+                        // img={item.listing_photo}
+                        // listingUrl={item.listing_url}
+                        // isActive={item.isActive}
                     />
         })
     }
