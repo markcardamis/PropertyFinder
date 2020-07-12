@@ -24,24 +24,24 @@ const SearchModal = props => {
             return <SearchItem
                         key={index}
                         marker={item}
-                        // id={item.id}
-                        // area={item.area}
-                        // zone={item.zone}
-                        // address={item.address}
-                        // postCode={item.postCode}
-                        // bathrooms={item.bathrooms}
-                        // bedrooms={item.bedrooms}
-                        // carspaces={item.carspaces}
-                        // zone={item.zone}
-                        // price={item.price}
-                        // pricePSM={item.pricePSM}
-                        // landValue={item.landValue}
-                        // priceToLandValue={item.priceToLandValue}
-                        // floorSpaceRatio={item.floorSpaceRatio}
-                        // summaryDescription={item.summary_description}
-                        // img={item.listing_photo}
-                        // listingUrl={item.listing_url}
-                        // isActive={item.isActive}
+                        id={item.id}
+                        area={item.area}
+                        zone={item.zone}
+                        address={item.address}
+                        postCode={item.postCode}
+                        bathrooms={item.bathrooms}
+                        bedrooms={item.bedrooms}
+                        carspaces={item.carspaces}
+                        zone={item.zone}
+                        price={item.price}
+                        pricePSM={item.pricePSM}
+                        landValue={item.landValue}
+                        priceToLandValue={item.priceToLandValue}
+                        floorSpaceRatio={item.floorSpaceRatio}
+                        summaryDescription={item.summary_description}
+                        img={item.listing_photo}
+                        listingUrl={item.listing_url}
+                        isActive={item.isActive}
                     />
         })
     }
