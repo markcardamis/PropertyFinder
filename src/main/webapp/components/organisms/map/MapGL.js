@@ -13,7 +13,8 @@ import {Logo, MapMarker} from '../../../assets/icons';
 import Popup from '../../organisms/popup/Popup';
 import { points } from '../../../../../../contsants_temp';
 import FilterButtonGroup from '../../molecules/filterButtonGroup/FilterButtonGroup';
- 
+import * as MarkerActionCreators from '../../../store/actions/mapMarkerAction';
+
     mapboxgl.accessToken = MAPBOX_API;
     let map;
     let currentMarkers = [];
