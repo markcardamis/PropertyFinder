@@ -16,6 +16,12 @@
     .filterButtonMobile {
         display: none;
     }
+    .resultsButton {
+        display: flex;
+    }
+    .resultsButtonMobile {
+        display: none;
+    }
 }
 
 @media only screen and (max-device-width: $breakpoint-mobile) {
@@ -27,6 +33,13 @@
         }
         .filterButtonMobile {
             display: flex;
+        }
+        .resultsButton {
+            display: none;
+        }
+        .resultsButtonMobile {
+            display: flex;
+            margin-right: 14px;
         }
     }
 }
