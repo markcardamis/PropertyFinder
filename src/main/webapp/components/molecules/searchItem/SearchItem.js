@@ -19,8 +19,7 @@ const SearchItem = props => {
             onMouseOver={()=>{
                 
             }}
-            onMouseOut={()=>{
-                
+            onMouseOut={()=>{   
             }}
             >
                 <ImageLazy src={listing_photo || DEFAULT_HOUSE_IMAGE} shadow={status==='marker-selected'||shadow}/>

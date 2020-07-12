@@ -93,6 +93,7 @@ renderPopup = (e) => {
 
 renderMarkers = async () => {
     const { mapMarker } = this.props.mapGL;
+    console.log(mapMarker)
     mapMarker.forEach((marker) => {
         var el = document.createElement('div');
         el.tabIndex = 0;
@@ -100,7 +101,8 @@ renderMarkers = async () => {
         el.onmouseover=()=>el.id='marker-hovered'
         el.onmouseout=()=>el.removeAttribute('id')
         el.onclick=()=>{
-            this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
+            this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
+            // this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
             this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', status: marker.status==='marker-selected' ? 'marker-visited' : 'marker-unvisited'})
             this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'marker-selected'})
         }
@@ -112,11 +114,11 @@ renderMarkers = async () => {
     })
 }
 
-handleMarkerClick = (marker) => {
-    this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
-    this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
+//handleMarkerClick = (marker) => {
+    //this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
+    //this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
     //this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'visited'});
-}
+//}
 
 handlePropertyClick = async (e) => {
      let features = map.queryRenderedFeatures(e.point);
