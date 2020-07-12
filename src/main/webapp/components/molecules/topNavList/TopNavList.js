@@ -4,16 +4,19 @@ import NavItem from '../../atoms/navItem/NavItem';
 import {TOP_NAV} from './nav';
 import './topNavList.scss';
 import {useDispatch} from 'react-redux'
+import { useHistory } from 'react-router-dom';
 
 const TopNavList = props => {
 
     const dispatch = useDispatch();
-    const handleNavClick = () => {
+    const history = useHistory()
+    const handleNavClick = (link) => {
         dispatch({type: 'CLOSE_MOBILE_NAV'})
+        history.push(link)
     }
     const renderNav = () => {
         return TOP_NAV.map(item=>{
-            return <div key={item.id} className='navListItem' onClick={handleNavClick}>
+            return <div key={item.id} className='navListItem' onClick={()=>handleNavClick(item.link)}>
                         <NavItem 
                             title={item.title} 
                             link={item.link} 

@@ -57,6 +57,7 @@ class FilterTab extends React.Component {
         })
         this.props.handleSubmit();
         this.props.dispatch({type: 'CLOSE_FILTER'})
+        this.props.dispatch({type: 'SHOW_SEARCH_MODAL'})
       }
     }
 
