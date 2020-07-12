@@ -1,5 +1,9 @@
 @import '../../../styles//style.scss';
 
+//  .popup {
+//         width: 354px;
+//     }
+
 .popup-propertyInfo {
     margin-top: 11px;
 }
@@ -17,4 +21,10 @@
 .popup-devider {
     border-bottom: 1px solid $light-grey;
     margin: 12px 5% 12px 5%;
+}
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    // .popup {
+    //     width: 450px;
+    // }
 }

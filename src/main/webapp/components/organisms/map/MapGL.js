@@ -85,7 +85,8 @@ renderPopup = (e) => {
             const marker = new mapboxgl.Popup()
                 .setDOMContent(placeholder)
                 .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
-                .setMaxWidth("354px")
+                //.setMaxWidth("354px")
+                .setMaxWidth("100%")
                 .addTo(map);
         }
         addPopup(propertyData)
@@ -159,6 +160,7 @@ checkAuthentication = async () => {
  
     render() {
         const {searchModal, showFilter, showSaveModal} = this.props.mapGL
+       
     return (
         <div>
             <div   

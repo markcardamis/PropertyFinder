@@ -8,7 +8,7 @@ import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, 
 const SavedFiltersListItem = props => {
     const {data} = props
     return (
-        <div className='savedFilters-filterItem'>
+        <div className='savedFilters-filterItem' onClick={props.onSelect}>
           <div className='savedFilters-filterHeader' style={{display: 'flex'}}>
             <div onClick={props.onSelect} className='savedFilters-filterTitle'>Filter {props.index}</div>
             <div className='savedFilterEdit'>

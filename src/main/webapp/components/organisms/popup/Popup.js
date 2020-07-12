@@ -6,6 +6,7 @@ import {ADDRESS, AREA, ZONE, LAND_VALUE, FLOOR_SPACE_RATIO, MINIMUM_LOT_SIZE, BU
 import PropListItem from '../../molecules/propListItem/PropListItem';
 import PropListItem2 from '../../molecules/propListItem2/PropListItem2';
 import {IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight} from '../../../assets/icons';
+import { useWindowSize } from '../../../modules/windowSize';
 
 const Popup = props => {
     const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, landValue1} = props.propertyInfo
@@ -17,9 +18,9 @@ const Popup = props => {
         return splitStr.join(' '); 
     }
     const address = `${houseNumber} ${upperCase(streetName)}, ${upperCase(suburbName)}, ${postCode}`
-    
+    const size = useWindowSize()
     return (
-        <div className='popup'>
+        <div style={{width: size.width>680 ? 354 : size.width-80}}>
             <Chart chartData={props.chartData}/>
             <div className='popup-propertyInfo'>
                 <PropListItem icon={<IconAddressG/>} title={ADDRESS} value11={`ID: ${propertyId}`}/>

@@ -55,6 +55,7 @@ class SavedFilters extends Component {
                                                 }})  
     this.props.handleSelectFilter(item)
                                               }
+    this.props.dispatch({type: 'CLOSE_FILTER'})
   }
   handleEditFilter = (item) => {
     if (item!== undefined) {
