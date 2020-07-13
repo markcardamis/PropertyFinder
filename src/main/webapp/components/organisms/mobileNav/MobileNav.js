@@ -12,6 +12,7 @@ import UserInfo from '../../molecules/userInfo/UserInfo';
 import RegisterForm from '../../molecules/registerForm/RegisterForm';
 import Fade from 'react-reveal/Fade';
 import { IconExitMobile } from '../../../assets/icons';
+import DeviderLine from '../../../components/atoms/deviderLine/DeviderLine'
 
 const MobileNav = withAuth(({ auth }) => {
     const [authenticated, user] = useAuth(auth);
@@ -29,6 +30,10 @@ const MobileNav = withAuth(({ auth }) => {
          } else if (state==='nav') {
              return <>
                         <div className='mobileNavList'>
+                            {authenticated !== null && authenticated ? <div className='account'>
+                                <ButtonAccount onClick={()=>setState('account')}/>
+                                <DeviderLine/>
+                            </div> : null}
                             <TopNavList route={location.pathname}/>
                         </div>
                         <div className='mobileNavLogin'>

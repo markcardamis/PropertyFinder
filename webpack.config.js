@@ -10,12 +10,12 @@ module.exports = {
     path: path.join(__dirname, "/src/main/resources/static/dist"),
     filename: 'index-bundle.js',
     publicPath: '/'
-    //publicPath: 'http://192.168.0.101:5000/'
+    //publicPath: 'http://192.168.0.100:5000/'
   },
   devServer: {
     historyApiFallback: true,
     port: 5000,
-    //host: '192.168.0.102',
+    //host: '192.168.0.100',
     // disableHostCheck: true
   },
 

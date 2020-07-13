@@ -27,3 +27,22 @@
         color: $black;
     }
 }
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .accountBtn {
+        height: 150px;
+        width: 100%;
+        background-color: $light-blue;
+        justify-content: center;
+
+        .accountBtnTitle {
+            font-size: 40px;
+            margin-left: 20px;
+            color: $mid-grey;
+        }
+
+        .accountBtnArrow {
+            display: none;
+        }
+    }
+}
