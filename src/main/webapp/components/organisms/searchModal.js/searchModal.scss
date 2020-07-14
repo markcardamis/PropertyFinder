@@ -52,6 +52,9 @@
     .searchModalBtn {
         display: flex;
     }
+    .searchHeaderClose {
+        display: none;
+    }
 }
 
 @media only screen and (max-device-width: $breakpoint-mobile) {

@@ -36,7 +36,7 @@ const SearchModal = props => {
                     <div className='searchModalHeader'>
                         {properties&&properties.length} Properties
                         <div onClick={()=>dispatch({type: 'CLOSE_SEARCH_MODAL'})}>
-                            <IconCloseMobile/>
+                            <div className='searchHeaderClose'><IconCloseMobile/></div>
                         </div>
                     </div>
                         <div className='searchListContainer'>{renderResults()}</div>
