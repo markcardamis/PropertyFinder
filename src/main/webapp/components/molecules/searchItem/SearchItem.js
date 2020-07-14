@@ -23,7 +23,6 @@ const SearchItem = props => {
     }
     return (
         <div className='searchItem' onClick={handleClick}>
-{console.log(all)}
                 <ImageLazy src={listing_photo || DEFAULT_HOUSE_IMAGE} shadow={status==='marker-selected'||shadow}/>
            <div className='searchItemInfo'>
                 <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>

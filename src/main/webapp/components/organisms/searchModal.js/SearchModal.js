@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Fade from 'react-reveal/Fade'
 import './searchModal.scss'
 import SearchItem from '../../molecules/searchItem/SearchItem'
 import {points} from '../../../../../../contsants_temp'
 import FilterButtonGroup from '../../molecules/filterButtonGroup/FilterButtonGroup'
 import { useSelector, useDispatch } from 'react-redux'
 import {showSearchModal, closeSearchModal} from '../../../store/actions/searchModalAction'
+import { IconClose, IconCloseMobile } from '../../../assets/icons'
 
 const SearchModal = props => {
     const searchModal = useSelector(state=>state.searchModal)
@@ -24,36 +26,23 @@ const SearchModal = props => {
             return <SearchItem
                         key={index}
                         marker={item}
-                        // id={item.id}
-                        // area={item.area}
-                        // zone={item.zone}
-                        // address={item.address}
-                        // postCode={item.postCode}
-                        // bathrooms={item.bathrooms}
-                        // bedrooms={item.bedrooms}
-                        // carspaces={item.carspaces}
-                        // zone={item.zone}
-                        // price={item.price}
-                        // pricePSM={item.pricePSM}
-                        // landValue={item.landValue}
-                        // priceToLandValue={item.priceToLandValue}
-                        // floorSpaceRatio={item.floorSpaceRatio}
-                        // summaryDescription={item.summary_description}
-                        // img={item.listing_photo}
-                        // listingUrl={item.listing_url}
-                        // isActive={item.isActive}
                     />
         })
     }
     return (
-        <div className='searchModalContainer'>
-            <div className='searchModal'>
-                <div className='searchModalHeader'>
-                    {properties&&properties.length} Properties
+        <Fade>
+            <div className='searchModalContainer'>
+                <div className='searchModal'>
+                    <div className='searchModalHeader'>
+                        {properties&&properties.length} Properties
+                        <div onClick={()=>dispatch({type: 'CLOSE_SEARCH_MODAL'})}>
+                            <IconCloseMobile/>
+                        </div>
+                    </div>
+                        <div className='searchListContainer'>{renderResults()}</div>
                 </div>
-                    <div className='searchListContainer'>{renderResults()}</div>
             </div>
-        </div>
+        </Fade>
     )
 }
 

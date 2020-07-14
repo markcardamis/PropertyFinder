@@ -11,14 +11,12 @@
     max-height: -webkit-calc(100% - 80px);
     max-height: -moz-calc(100% - 80px);
     max-height: calc(100% - 80px);
-    //max-height: 100%;
     position: absolute;
     top: 80px;
 
     .searchModal {
         background-color: $white;
         box-shadow: $shadow-4;
-        //height: 93vh;
         height: 100%;
         width: 100%;
         overflow-y: auto;
@@ -53,5 +51,38 @@
     }
     .searchModalBtn {
         display: flex;
+    }
+}
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .searchModalContainer {
+        max-height: -webkit-calc(100% - 150px);
+        max-height: -moz-calc(100% - 150px);
+        max-height: calc(100% - 150px);
+        width: 100vw;
+        flex: 1;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        top: 150px;
+        position: absolute;
+        z-index: 3;
+
+        .searchModal {
+            position: absolute;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            left: 0;
+            right: 0;
+        }
+        .searchModalHeader {
+            margin-left: 25px;
+            margin-right: 25px;
+        }
     }
 }
