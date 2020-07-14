@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import PropListItem from '../../molecules/propListItem/PropListItem'
 import PropListItem2 from '../../molecules/propListItem2/PropListItem2'
 import { ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO, DEFAULT_HOUSE_IMAGE } from '../../../shared/constants';
@@ -10,18 +11,19 @@ import './searchItem.scss'
 import ImageLazy from '../../atoms/ImageLazy/ImageLazy';
 
 const SearchItem = props => {
+    const dispatch = useDispatch()
+    const all = useSelector(state=>state)
+    const {marker} = props
     const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, landValue, pricePSM, floorSpaceRatio, priceToLandValue, minimumLotSize, listing_url, summary_description, listing_photo, status} = props.marker
     const [shadow, setShadow] = useState(status==='marker-selected')
-    
+    const handleClick = () => {
+        dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', status: marker.status==='marker-selected' ? 'marker-visited' : 'marker-unvisited'})
+        dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'marker-selected'})
+        dispatch ({type: 'VIEWPORT_CHANGE', payload: {latitude: marker.latitude, longitude: marker.longitude}});
+    }
     return (
-        <div 
-            className='searchItem' 
-            onMouseOver={()=>{
-                
-            }}
-            onMouseOut={()=>{   
-            }}
-            >
+        <div className='searchItem' onClick={handleClick}>
+{console.log(all)}
                 <ImageLazy src={listing_photo || DEFAULT_HOUSE_IMAGE} shadow={status==='marker-selected'||shadow}/>
            <div className='searchItemInfo'>
                 <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>

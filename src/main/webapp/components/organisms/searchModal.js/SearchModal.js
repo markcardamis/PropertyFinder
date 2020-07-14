@@ -48,7 +48,6 @@ const SearchModal = props => {
     return (
         <div className='searchModalContainer'>
             <div className='searchModal'>
-                {console.log(properties)}
                 <div className='searchModalHeader'>
                     {properties&&properties.length} Properties
                 </div>

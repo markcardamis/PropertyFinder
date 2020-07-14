@@ -58,6 +58,15 @@ componentDidUpdate() {
     }
     currentMarkers = [];
     this.renderMarkers();
+    // map.flyTo({ 
+    //     center: [this.props.mapGL.viewport.longitude, this.props.mapGL.viewport.latitude],
+    //     zoom: 20,
+    //     speed: 0.2,
+    //     curve: 1,
+    //     easing(t) {
+    //         return t;
+    //         }
+    // });
 }
 
 handleViewportChange = () => {
