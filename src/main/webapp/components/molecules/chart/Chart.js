@@ -87,7 +87,7 @@ const Chart = (props) => {
     return (
       <div className='chart'>
         <div className='chart-title'>Landvalue Trend</div>
-        <XYPlot height={size.width<680 ? size.height/4 : 110} width={size.width<680 ? size.width-40 : 295}>
+        <XYPlot height={size.width<982 ? 160 : 110} width={size.width<982 ? 350 : 295}>
             <HorizontalGridLines />
             <VerticalGridLines />
             <XAxis tickFormat={v => dates[v]}/>
