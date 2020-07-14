@@ -19,3 +19,28 @@
         height: 300px;
     }
 }
+.aboutPageContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5% 5% 0 5%;
+    font-family: $mavenPro;
+    font-size: 20px;
+
+    .aboutImg {
+        width: 30%;
+        margin-right: 5%;
+    }
+}
+@media only screen and (max-device-width: $breakpoint-tablet) {
+    .aboutPageContainer {
+        flex-direction: column;
+    }
+    .aboutImg {
+        width: 40%;
+        margin-right: 0;
+        margin-bottom: 5%;;
+    }
+}
