@@ -14,12 +14,26 @@
 
     .navLogo {
         display: flex;
-        margin-top: 25px;
+        flex-direction: row;
+        margin-top: 10px;
         align-self: center;
     }
     .navLogoMobile {
         display: none;
         height: 100%;
+    }
+    .headerTegLine {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+        position: absolute;
+        z-index: 3;
+        top: 45px;
+        left: 60px;
+        color: $black;
+        font-weight: 700;
+        font-family: $mavenPro;
+        font-size: 16px;
     }
     
     .navLinks {
@@ -63,7 +77,12 @@
         .navLogoMobile {
             display: flex;
             align-self: center;
-            margin-top: 30px;
+            margin-top: 20px;
+            flex-direction: row;
+        }
+        .headerTegLine {
+            top: 85px;
+            left: 75px;
         }
     }
 }

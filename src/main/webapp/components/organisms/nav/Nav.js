@@ -3,7 +3,7 @@ import {Link, useLocation} from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {IconLogoTitle, IconMenuMobile, IconLogoMobile} from '../../../assets/icons';
+import {IconLogoTitle, IconMenuMobile, IconLogoMobile, Logo, PropertyFetch} from '../../../assets/icons';
 import './nav.scss';
 import TopNavList from '../../molecules/topNavList/TopNavList';
 import { useAuth } from '../../../modules/auth';
@@ -29,8 +29,10 @@ const Nav = withAuth(({ auth }) => {
         return (
              <div className='nav'>
                 <Link className='navLogoLink' to='/'>
-                    <div className='navLogo'><IconLogoTitle size={0.7}/></div>
-                    <div className='navLogoMobile'><IconLogoTitle size={1}/></div>
+                    <div className='navLogo'><Logo/><PropertyFetch size={1.2}/></div>
+                    {/* <div className='navLogoMobile'><IconLogoTitle size={1}/></div> */}
+                    <div className='navLogoMobile'><Logo/><PropertyFetch size={1.4}/></div>
+                    <div className='headerTegLine'>searching land far and wide</div>
                 </Link>
                 <div className='navLinks'>
                     <TopNavList route={location.pathname}/>
