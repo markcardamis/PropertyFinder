@@ -30,5 +30,18 @@
     .searchItem {
         margin-left: 35px;
         margin-right: 35px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid $light-grey;
+
+        .searchItem-address {
+            font-size: 1vh;
+            padding-left: 20px;
+            justify-content: left;
+        }
+
+        .searchItem-descr {
+            font-size: 1vh;
+            margin-bottom: 10px;
+        }
     }
 }
