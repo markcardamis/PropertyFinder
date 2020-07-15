@@ -77,7 +77,12 @@
         .navLogoMobile {
             display: flex;
             align-self: center;
-            margin-top: 30px;
+            margin-top: 20px;
+            flex-direction: row;
+        }
+        .headerTagLine {
+            top: 85px;
+            left: 75px;
         }
     }
 }
