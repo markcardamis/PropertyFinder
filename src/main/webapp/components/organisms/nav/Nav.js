@@ -32,7 +32,7 @@ const Nav = withAuth(({ auth }) => {
                     <div className='navLogo'><Logo/><PropertyFetch size={1.2}/></div>
                     {/* <div className='navLogoMobile'><IconLogoTitle size={1}/></div> */}
                     <div className='navLogoMobile'><Logo/><PropertyFetch size={1.4}/></div>
-                    <div className='headerTegLine'>searching land far and wide</div>
+                    <div className='headerTagLine'>searching land far and wide</div>
                 </Link>
                 <div className='navLinks'>
                     <TopNavList route={location.pathname}/>
