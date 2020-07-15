@@ -22,18 +22,18 @@
         display: none;
         height: 100%;
     }
-    .headerTegLine {
+    .headerTagLine {
         display: flex;
         justify-content: flex-start;
         margin-bottom: 10px;
         position: absolute;
         z-index: 3;
-        top: 45px;
+        top: 50px;
         left: 60px;
         color: $dark-grey;
-        font-weight: 700;
+        font-weight: 400;
         font-family: $mavenPro;
-        font-size: 16px;
+        font-size: 15px;
     }
     
     .navLinks {
@@ -80,9 +80,10 @@
             margin-top: 20px;
             flex-direction: row;
         }
-        .headerTegLine {
-            top: 85px;
+        .headerTagLine {
+            top: 90px;
             left: 75px;
+            font-size: 18px;
         }
     }
 }
