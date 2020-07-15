@@ -31,6 +31,17 @@ public class PropertyInformationService {
         .orElseThrow(() -> new ResourceNotFoundException("Property ID " + id + "not found"));
     }
 
+    public List<String> getPropertyInformationString(String address) {
+        List<String> addressList = new ArrayList<>();
+        Iterable <String> addressListResults = this.propertyInformationRepository
+            .findByAddressString(address);
+        addressListResults.forEach(addressList::add);
+        if (addressList.size() == 0) { 
+            addressList.add("no address found");
+        }
+        return addressList;
+    }
+
     public ResponseEntity<PropertyInformation> updatePropertyInformation(Integer id, 
             PropertyInformation newAccount) {
         return propertyInformationRepository.findById(id).map(propertyInformation -> {
