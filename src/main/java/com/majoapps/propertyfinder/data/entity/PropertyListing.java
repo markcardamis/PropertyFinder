@@ -27,7 +27,7 @@ public class PropertyListing {
     @Column(name="price")
     private String price;
     @JsonIgnore
-    @Column(name="priceInt")
+    @Column(name="price_int")
     private Integer priceInt;
     @Column(name="listing_url")
     private String listingURL;
