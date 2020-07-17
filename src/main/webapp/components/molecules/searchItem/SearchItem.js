@@ -14,7 +14,7 @@ const SearchItem = props => {
     const dispatch = useDispatch()
     const all = useSelector(state=>state)
     const {marker} = props
-    const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, land_value, price_psm, floor_space_ratio, price_to_land_value, minimumLotSize, listing_url, summary_description, listing_photo, status} = props.marker
+    const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, land_value, price_psm, floor_space_ratio, price_to_land_value, minimum_lot_size, listing_url, summary_description, listing_photo, status} = props.marker
     const [shadow, setShadow] = useState(status==='marker-selected')
     const handleClick = () => {
         dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', status: marker.status==='marker-selected' ? 'marker-visited' : 'marker-unvisited'})
@@ -48,8 +48,8 @@ const SearchItem = props => {
                 <PropListItem2 
                     icon1={price_to_land_value ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} 
                     title1={PRICE_TO_LAND_VALUE} value1={price_to_land_value&&`${price_to_land_value}%`}
-                    icon2={minimumLotSize ? <IconLotG/> : <IconLotG color={variables.lightGrey}/>} 
-                    title2={MINIMUM_LOT_SIZE} value2={minimumLotSize}
+                    icon2={minimum_lot_size ? <IconLotG/> : <IconLotG color={variables.lightGrey}/>} 
+                    title2={MINIMUM_LOT_SIZE} value2={minimum_lot_size}
                     />
                 <PropListItem2 
                     icon1={price_psm ? <IconPriceMg/> : <IconPriceMg color={variables.lightGrey}/>} 

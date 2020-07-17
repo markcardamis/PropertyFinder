@@ -16,7 +16,8 @@ export const points = [{
         price_to_land_value: 3.53,
         summary_description: "location: situated in a sought after street of springwood. a much loved cul-de-sac located within walking distance to golf club (~16min), local primary schools - ellison public approx 400m, a short 3min drive to st thomas aquinas, st colum...",
         zone: "E4",
-        status: 'marker-unvisited'
+        status: 'marker-unvisited',
+        minimum_lot_size: "4000"
 },
 {
     address: "40 ELLISON ROAD SPRINGWOOD 2777",
@@ -36,7 +37,8 @@ export const points = [{
     price_to_land_value: 1.66,
     summary_description: "location - located in a sought after cul de sac convenient to popular schools (just 500m to ellison public), golf course and bushwalks, and only 2.6km to springwood village. style - single level home of brick construction with tile roof. ...",
     zone: "E4",
-    status: 'marker-unvisited'
+    status: 'marker-unvisited',
+    minimum_lot_size: "500"
 },
 {
     address: "43 LINKSVIEW ROAD SPRINGWOOD 2777",
@@ -56,7 +58,8 @@ export const points = [{
     price_to_land_value: 4.06,
     summary_description: "two level lay out, fronting the springwood golf and country club. four bedrooms, four living spaces, a study & double garage with drive through access three designer bathrooms including a stunning ensuite to the main open plan kitchen ...",
     zone: "E4",
-    status: 'marker-unvisited'
+    status: 'marker-unvisited',
+    minimum_lot_size: "5000"
 }]
 
 export const markerInfo = {
