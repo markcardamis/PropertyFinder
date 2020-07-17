@@ -11,9 +11,10 @@ import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../../shared/cons
 import './MapGL.scss';
 import {Logo, MapMarker} from '../../../assets/icons';
 import Popup from '../../organisms/popup/Popup';
-import { points } from '../../../../../../contsants_temp';
+import { points, libraries, hospitals } from '../../../../../../contsants_temp';
 import FilterButtonGroup from '../../molecules/filterButtonGroup/FilterButtonGroup';
 import * as MarkerActionCreators from '../../../store/actions/mapMarkerAction';
+
 
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -48,6 +49,70 @@ async componentDidMount() {
     map.on('click', (e) => this.handlePropertyClick(e)); 
     map.on('move', () => this.handleViewportChange());
     hotjar.initialize(1445331, 6);
+    map.on('load', function() {
+        map.addLayer({
+          id: 'hospitals',
+          type: 'symbol',
+          source: { type: 'geojson', data: hospitals},
+          layout: {'icon-image': 'hospital-15', 'icon-allow-overlap': true},
+          paint: { }
+        });
+        map.addLayer({
+          id: 'libraries',
+          type: 'symbol',
+          source: { type: 'geojson', data: libraries},
+          layout: { 'icon-image': 'library-15'},
+          paint: { }
+        });
+      });
+    var popup2 = new mapboxgl.Popup();
+    map.on('mousemove', function(e) {
+        var features = map.queryRenderedFeatures(e.point, { layers: ['hospitals', 'libraries'] });
+        if (!features.length) {
+          popup2.remove();
+          return;
+        }
+        var feature = features[0];
+      
+        popup2.setLngLat(feature.geometry.coordinates)
+          .setHTML(feature.properties.Name)
+          .addTo(map);
+      
+        map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+      });
+      map.on('click', function(e) {
+        // Return any features from the 'libraries' layer whenever the map is clicked
+        var libraryFeatures = map.queryRenderedFeatures(e.point, { layers: ['libraries'] });
+        if (!libraryFeatures.length) {
+          return;
+        }
+        var libraryFeature = libraryFeatures[0];
+      
+        // Using Turf, find the nearest hospital to library clicked
+        var nearestHospital = turf.nearest(libraryFeature, hospitals);
+      
+        // If a nearest library is found
+        if (nearestHospital !== null) {
+          // Update the 'nearest-library' data source to include
+          // the nearest library
+          map.getSource('nearest-hospital').setData({
+            type: 'FeatureCollection',
+            features: [
+              nearestHospital
+            ]
+          });
+          // Create a new circle layer from the 'nearest-library' data source
+          map.addLayer({
+            id: 'nearest-hospital',
+            type: 'circle',
+            source: 'nearest-hospital',
+            paint: {
+              'circle-radius': 12,
+              'circle-color': '#486DE0'
+            }
+          }, 'hospitals');
+        }
+      });
 }
 
 componentDidUpdate() {
