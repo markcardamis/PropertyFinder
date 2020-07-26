@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface PropertySalesRepository extends JpaRepository<PropertySales, Integer> {
     List<PropertySales> findByPropertyId(Integer propertyId);
+    List<PropertySales> findByPropertyIdOrderBySettlementDateDesc(Integer propertyId);
 }

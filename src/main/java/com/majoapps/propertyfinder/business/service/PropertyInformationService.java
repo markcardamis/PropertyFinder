@@ -1,8 +1,11 @@
 package com.majoapps.propertyfinder.business.service;
 
+import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository;
+import com.majoapps.propertyfinder.data.repository.PropertySalesRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
+import com.majoapps.propertyfinder.web.util.ObjectMapperUtils;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +16,13 @@ import org.springframework.stereotype.Service;
 public class PropertyInformationService {
 
     private final PropertyInformationRepository propertyInformationRepository;
+    private final PropertySalesRepository propertySalesRepository;
 
     @Autowired
-    public PropertyInformationService(PropertyInformationRepository propertyInformationRepository) {
+    public PropertyInformationService(PropertyInformationRepository propertyInformationRepository,
+                                      PropertySalesRepository propertySalesRepository) {
         this.propertyInformationRepository = propertyInformationRepository;
+        this.propertySalesRepository = propertySalesRepository;
     }
 
     public List<PropertyInformation> getAllProperties() {
@@ -26,9 +32,12 @@ public class PropertyInformationService {
         return properties;
     }
 
-    public PropertyInformation getPropertyInformation(Integer id) {
-        return this.propertyInformationRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Property ID " + id + "not found"));
+    public PropertyInformationDTO getPropertyInformation(Integer id) {
+        PropertyInformation propertyInformation = this.propertyInformationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Property ID " + id + "not found"));
+        PropertyInformationDTO propertyInformationDTO = ObjectMapperUtils.map(propertyInformation, PropertyInformationDTO.class);
+        propertyInformationDTO.setPropertySales(propertySalesRepository.findByPropertyIdOrderBySettlementDateDesc(id));
+        return propertyInformationDTO;
     }
 
     public ResponseEntity<PropertyInformation> updatePropertyInformation(Integer id, 
