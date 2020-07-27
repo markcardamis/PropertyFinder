@@ -3,10 +3,12 @@ package com.majoapps.propertyfinder.web.service;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
 import com.majoapps.propertyfinder.business.service.PropertyInformationService;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,11 @@ public class PropertyInformationServiceController {
     @RequestMapping(value = "{propertyId}", method = RequestMethod.GET)
     public PropertyInformationDTO getPropertyById(@PathVariable(value="propertyId") Integer id) {
         return propertyInformationService.getPropertyInformation(id);
+    }
+
+    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    public List<String> getPropertyByAddress(@RequestParam(value="address") String address) {
+        return propertyInformationService.getPropertyInformationString(address);
     }
 
     @Profile("!production")
