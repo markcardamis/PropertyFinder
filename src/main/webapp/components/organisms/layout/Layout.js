@@ -17,13 +17,14 @@ const Layout = props => {
     const showMobileNav = useSelector(state=>state.showMobileNav);
 
     useEffect(()=>{
-        history.location.pathname === '/signup' ? dispatch(showSignIn()) : dispatch(closeSignIn())
+        history.location.pathname == '/signup' ? dispatch(showSignIn()) : dispatch(closeSignIn())
         history.location.pathname === '/search' ? dispatch(showFilterAction()) : dispatch(closeFilter())
       }, [])
 
 
     return (
         <div className='layout'>
+
             <Nav/>
             {showSignInModal && <AuthModal/>}
             {showMobileNav && <MobileNav/>}
