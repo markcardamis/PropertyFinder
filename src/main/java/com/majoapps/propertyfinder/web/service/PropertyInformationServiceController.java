@@ -1,5 +1,6 @@
 package com.majoapps.propertyfinder.web.service;
 
+import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
 import com.majoapps.propertyfinder.business.service.PropertyInformationService;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class PropertyInformationServiceController {
     private PropertyInformationService propertyInformationService;
 
     @RequestMapping(value = "{propertyId}", method = RequestMethod.GET)
-    public PropertyInformation getPropertyById(@PathVariable(value="propertyId") Integer id) {
+    public PropertyInformationDTO getPropertyById(@PathVariable(value="propertyId") Integer id) {
         return propertyInformationService.getPropertyInformation(id);
     }
 
