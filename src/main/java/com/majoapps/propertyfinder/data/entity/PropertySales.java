@@ -30,7 +30,7 @@ public class PropertySales {
     private String streetName;
     @Column(name = "property_locality")
     private String suburbName;
-    @Column(name="post_code")
+    @Column(name="post_code", columnDefinition = "NUMERIC(4,0)")
     private Integer postCode;
     @Column(name="area")
     private BigDecimal area;
