@@ -1,5 +1,6 @@
 package com.majoapps.propertyfinder.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,6 +12,7 @@ import lombok.Data;
 public class PropertySales {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Integer id;
     @Column(name = "district_code")
     private short districtCode;
