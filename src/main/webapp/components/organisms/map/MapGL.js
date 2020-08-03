@@ -14,6 +14,7 @@ import Popup from '../../organisms/popup/Popup';
 import { points } from '../../../../../../contsants_temp';
 import FilterButtonGroup from '../../molecules/filterButtonGroup/FilterButtonGroup';
 import * as MarkerActionCreators from '../../../store/actions/mapMarkerAction';
+import { getPropertyInfo } from '../../../store/actions/propertyModalAction';
 
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -41,7 +42,8 @@ async componentDidMount() {
         
     map.addControl(new mapboxgl.NavigationControl());
     this.checkAuthentication();
-    await this.callApi('/api/listing', null, 'MARKERS');
+    // await this.callApi('/api/listing', null, 'MARKERS');
+    this.props.dispatch(MarkerActionCreators.getMapMarkers())
     const mp = <div><MapMarker/></div>
     this.renderMarkers(mp);
 
@@ -58,15 +60,6 @@ componentDidUpdate() {
     }
     currentMarkers = [];
     this.renderMarkers();
-    // map.flyTo({ 
-    //     center: [this.props.mapGL.viewport.longitude, this.props.mapGL.viewport.latitude],
-    //     zoom: 20,
-    //     speed: 0.2,
-    //     curve: 1,
-    //     easing(t) {
-    //         return t;
-    //         }
-    // });
 }
 
 handleViewportChange = () => {
@@ -77,14 +70,26 @@ handleViewportChange = () => {
 }
 
 renderPopup = (e) => {
-        const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, baseDate1, baseDate2, baseDate3, baseDate4, baseDate5, baseDate0, landValue1, landValue2, landValue3, landValue4, landValue5, landValue0} = this.props.mapGL.showPopup;
+        const {property_id, house_number, street_name, suburb_name, post_code, zone_code, area, floor_space_ratio, minimum_lot_size, building_height, base_date_1, base_date_2, base_date_3, base_date_4, base_date_5, base_date_0, land_value_1, land_value_2, land_value_3, land_value_4, land_value_5, land_value_0, property_sales} = this.props.mapGL.showPopup;
         const chartData={
-            baseDate: [baseDate5, baseDate4, baseDate3, baseDate2, baseDate1, baseDate0],
-            landValue: [landValue5, landValue4, landValue3, landValue2, landValue1, landValue0]
+            baseDate: [base_date_5, base_date_4, base_date_3, base_date_2, base_date_1, base_date_0],
+            landValue: [land_value_5, land_value_4, land_value_3, land_value_2, land_value_1, land_value_0]
         }
 
-        const propertyInfo = {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, landValue1}
-        const popup = <Popup chartData={chartData} propertyInfo={propertyInfo}/>
+        const propertyInfo = {
+            propertyId: property_id, 
+            houseNumber: house_number, 
+            streetName: street_name, 
+            suburbName: suburb_name,
+            postCode: post_code, 
+            zoneCode: zone_code, 
+            area: area, 
+            floorSpaceRatio: floor_space_ratio, 
+            minimumLotSize: minimum_lot_size, 
+            buildingHeight: building_height, 
+            landValue1: land_value_1
+        }
+        const popup = <Popup chartData={chartData} salesData={property_sales} propertyInfo={propertyInfo}/>
         const propertyData = <div>{popup}</div>
 
         const addPopup=(el) =>{
@@ -103,7 +108,6 @@ renderPopup = (e) => {
 
 renderMarkers = async () => {
     const { mapMarker } = this.props.mapGL;
-    console.log(mapMarker)
     mapMarker.forEach((marker) => {
         var el = document.createElement('div');
         el.tabIndex = 0;
@@ -111,7 +115,8 @@ renderMarkers = async () => {
         el.onmouseover=()=>el.id='marker-hovered'
         el.onmouseout=()=>el.removeAttribute('id')
         el.onclick=()=>{
-            this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
+            this.props.dispatch(getPropertyInfo(marker))
+            //this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
             // this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
             this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', status: marker.status==='marker-selected' ? 'marker-visited' : 'marker-unvisited'})
             this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'marker-selected'})
@@ -138,26 +143,27 @@ handlePropertyClick = async (e) => {
              if (property.properties && property.properties.propid) {
                  let propid = property.properties.propid;
                  const api = `/api/propertyinformation/${propid}`;
-                 await this.callApi(api, null, 'SHOW_POPUP');
+                 //await this.callApi(api, null, 'SHOW_POPUP');
+                 this.props.dispatch({type: 'SHOW_POPUP', payload: propid})
                 this.renderPopup(e);
              }            
          });
      }
 }
 
-callApi = async (api, auth, action) => { 
-    this.props.dispatch({type: 'SHOW_LOADING'});
-    try {
-        const response = await fetch(api, auth);
-        const data = await response.json();
-        this.props.dispatch({type: action, payload: data});
+// callApi = async (api, auth, action) => { 
+//     this.props.dispatch({type: 'SHOW_LOADING'});
+//     try {
+//         const response = await fetch(api, auth);
+//         const data = await response.json();
+//         this.props.dispatch({type: action, payload: data});
 
-    } catch (err) {
-        console.log('Api call failed');
-        // add notification
-    }  
-    this.props.dispatch({type: 'HIDE_LOADING'});
-}
+//     } catch (err) {
+//         console.log('Api call failed');
+//         // add notification
+//     }  
+//     this.props.dispatch({type: 'HIDE_LOADING'});
+// }
 
 checkAuthentication = async () => {
     const authenticated = await this.props.auth.isAuthenticated();

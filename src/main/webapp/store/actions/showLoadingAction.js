@@ -5,6 +5,12 @@ export const showLoading = (item) => {
     };
 };
 
+export const hideLoading = () => {
+    return {
+        type: 'HIDE_LOADING'
+    };
+};
+
 export const closeLoading = () => {
     return {
         type: 'HIDE_LOADING'

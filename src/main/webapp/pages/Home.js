@@ -8,7 +8,7 @@ import MapGL from '../components/organisms/map/MapGL';
 import FilterButtonGroup from '../components/molecules/filterButtonGroup/FilterButtonGroup';
 import Nav from '../components/organisms/nav/Nav';
 import {showFilter as showFilterAction, closeFilter} from '../store/actions/showFilterAction';
-import {closeProperty} from '../store/actions/showPropertyAction';
+import {closeProperty} from '../store/actions/propertyModalAction';
 import {closeSignIn, showSignIn} from '../store/actions/showSignInAction';
 import Layout from '../components/organisms/layout/Layout';
 import SearchModal from '../components/organisms/searchModal.js/SearchModal';
@@ -16,7 +16,7 @@ import SearchModal from '../components/organisms/searchModal.js/SearchModal';
 const Home = (props) => {
   const dispatch = useDispatch();
   const showFilter = useSelector(state=>state.showFilter);
-  const showProperty = useSelector(state=>state.showProperty.isHidden);
+  const showProperty = useSelector(state=>state.propertyModal.isHidden);
   const showSave = useSelector(state=>state.showSaveModal);
   const searchModal = useSelector(state=>state.searchModal)
 
