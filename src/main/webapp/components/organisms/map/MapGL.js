@@ -118,10 +118,9 @@ renderMarkers = async () => {
             this.props.dispatch(getPropertyInfo(marker))
             //this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
             // this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
-            this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', status: marker.status==='marker-selected' ? 'marker-visited' : 'marker-unvisited'})
+            this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', status: 'marker-unvisited'})
             this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'marker-selected'})
         }
-        
         let oneMarker = new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map)

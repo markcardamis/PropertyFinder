@@ -14,7 +14,7 @@ const SearchItem = props => {
     const dispatch = useDispatch()
     const all = useSelector(state=>state)
     const {marker} = props
-    const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, landValue, pricePSM, floorSpaceRatio, priceToLandValue, minimumLotSize, listing_url, summary_description, listing_photo, status} = props.marker
+    const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, land_value, price_psm, floor_space_ratio, price_to_land_value, minimum_lot_size, listing_url, summary_description, listing_photo, status} = props.marker
     const [shadow, setShadow] = useState(status==='marker-selected')
     const handleClick = () => {
         dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', status: marker.status==='marker-selected' ? 'marker-visited' : 'marker-unvisited'})
@@ -40,22 +40,22 @@ const SearchItem = props => {
                  <PropListItem2 
                     icon1={carspaces ? <IconCarG/> : <IconCarG color={variables.lightGrey}/>}
                     title1={CAR_SPACES} value1={carspaces}
-                    icon2={floorSpaceRatio ? <IconFsrG/> : <IconFsrG color={variables.lightGrey}/>} 
-                    title2={FLOOR_SPACE_RATIO} value2={floorSpaceRatio}
+                    icon2={floor_space_ratio || floor_space_ratio == 0 ? <IconFsrG/> : <IconFsrG color={variables.lightGrey}/>} 
+                    title2={FLOOR_SPACE_RATIO} value2={floor_space_ratio}
                     />
                 <DeviderLine/>
                 <PropListItem icon={price ? <IconPriceG/> : <IconPriceG color={variables.lightGrey}/>} title={PRICE} value14={price}/>
                 <PropListItem2 
-                    icon1={priceToLandValue ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} 
-                    title1={PRICE_TO_LAND_VALUE} value1={priceToLandValue&&`${priceToLandValue}%`}
-                    icon2={minimumLotSize ? <IconLotG/> : <IconLotG color={variables.lightGrey}/>} 
-                    title2={MINIMUM_LOT_SIZE} value2={minimumLotSize}
+                    icon1={price_to_land_value ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} 
+                    title1={PRICE_TO_LAND_VALUE} value1={price_to_land_value&&`${price_to_land_value}%`}
+                    icon2={minimum_lot_size ? <IconLotG/> : <IconLotG color={variables.lightGrey}/>} 
+                    title2={MINIMUM_LOT_SIZE} value2={minimum_lot_size}
                     />
                 <PropListItem2 
-                    icon1={pricePSM ? <IconPriceMg/> : <IconPriceMg color={variables.lightGrey}/>} 
-                    title1={PRICE_PER_M2} value1={pricePSM}
-                    icon2={landValue ? <IconLandvalG/> : <IconLandvalG color={variables.lightGrey}/>} 
-                    title2={LAND_VALUE} value2={landValue}
+                    icon1={price_psm ? <IconPriceMg/> : <IconPriceMg color={variables.lightGrey}/>} 
+                    title1={PRICE_PER_M2} value1={price_psm}
+                    icon2={land_value ? <IconLandvalG/> : <IconLandvalG color={variables.lightGrey}/>} 
+                    title2={LAND_VALUE} value2={land_value}
                     />
                 <div className='propertyInformation-margin10'/>
                 <PropListItem title={DESCRIPTION} value14={' '}/>
