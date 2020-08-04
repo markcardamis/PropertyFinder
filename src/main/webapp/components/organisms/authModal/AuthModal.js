@@ -5,7 +5,7 @@ import { useHistory} from 'react-router-dom';
 import Fade from 'react-reveal/Fade';
 
 import { useAuth } from '../../../modules/auth';
-import AuthModalBox from '../../molecules/authModalBox/AuthModalBox'
+import PopupContainer from '../../molecules/popupContainer/PopupContainer'
 import LoginForm from '../../molecules/loginForm/LoginForm'
 import RegisterForm from '../../molecules/registerForm/RegisterForm'
 import Account from '../../molecules/account/Account'
@@ -49,9 +49,9 @@ const AuthModal = withAuth(({ auth }) => {
       <div ref={node}>
         <Fade>
           <div className='authModal'>
-              <AuthModalBox>
+              <PopupContainer style={{right: '15px', top: '80px', width: '354px'}}>
                   {renderComponent()}
-              </AuthModalBox>
+              </PopupContainer>
           </div>
         </Fade>
       </div>

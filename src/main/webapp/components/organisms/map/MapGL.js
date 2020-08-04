@@ -15,6 +15,7 @@ import { points } from '../../../../../../contsants_temp';
 import FilterButtonGroup from '../../molecules/filterButtonGroup/FilterButtonGroup';
 import * as MarkerActionCreators from '../../../store/actions/mapMarkerAction';
 import { getPropertyInfo } from '../../../store/actions/propertyModalAction';
+import {getMapMarkers} from '../../../store/actions/mapMarkerAction';
 
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -43,7 +44,7 @@ async componentDidMount() {
     map.addControl(new mapboxgl.NavigationControl());
     this.checkAuthentication();
     // await this.callApi('/api/listing', null, 'MARKERS');
-    this.props.dispatch(MarkerActionCreators.getMapMarkers())
+    await this.props.getMapMarkers();
     const mp = <div><MapMarker/></div>
     this.renderMarkers(mp);
 
@@ -63,10 +64,10 @@ componentDidUpdate() {
 }
 
 handleViewportChange = () => {
-    this.props.dispatch ({
-        type: 'VIEWPORT_CHANGE', 
-        payload: {latitude: map.getCenter().lat, longitude: map.getCenter().lng}
-      });
+    // this.props.dispatch ({
+    //     type: 'VIEWPORT_CHANGE', 
+    //     payload: {latitude: map.getCenter().lat, longitude: map.getCenter().lng}
+    //   });
 }
 
 renderPopup = (e) => {
@@ -107,7 +108,7 @@ renderPopup = (e) => {
 }
 
 renderMarkers = async () => {
-    const { mapMarker } = this.props.mapGL;
+    const { mapMarker } = this.props;
     mapMarker.forEach((marker) => {
         var el = document.createElement('div');
         el.tabIndex = 0;
@@ -177,6 +178,7 @@ checkAuthentication = async () => {
        
     return (
         <div>
+            {console.log(this.props)}
             <div   
                 ref={el => this.mapContainer = el} 
                 className='mapContainer' 
@@ -195,8 +197,13 @@ checkAuthentication = async () => {
 
 const mapStateToProps = (state) => {
     return {
-        mapGL: state
+        mapGL: state,
+        mapMarker: state.mapMarker
     };
 };
+const mapDispatchToProps = {
+    getMapMarkers,
+    getPropertyInfo
+}
 
-export default withAuth(connect(mapStateToProps)(MapGL));
+export default withAuth(connect(mapStateToProps, mapDispatchToProps)(MapGL));
