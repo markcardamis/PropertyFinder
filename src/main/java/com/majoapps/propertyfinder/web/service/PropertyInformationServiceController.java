@@ -1,5 +1,7 @@
 package com.majoapps.propertyfinder.web.service;
 
+import static com.majoapps.propertyfinder.web.util.SpecificationUtil.to_tsquery;
+
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
 import com.majoapps.propertyfinder.business.service.PropertyInformationService;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping(value="/api/propertyinformation")
@@ -28,7 +31,7 @@ public class PropertyInformationServiceController {
 
     @RequestMapping(value = "/query", method = RequestMethod.GET)
     public List<String> getPropertyByAddress(@RequestParam(value="address") String address) {
-        return propertyInformationService.getPropertyInformationString(address);
+        return propertyInformationService.getPropertyInformationString(to_tsquery(address));
     }
 
     @Profile("!production")

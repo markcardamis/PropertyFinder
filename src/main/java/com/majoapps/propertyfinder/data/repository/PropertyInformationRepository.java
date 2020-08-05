@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PropertyInformationRepository extends JpaRepository<PropertyInformation, Integer> {
 
-        @Query(value = "SELECT concat_ws(',', property_id, concat_ws(' ', unit_number, house_number, street_name, suburb_name, post_code)) FROM property_information WHERE to_tsvector('simple', f_concat_ws(' ', unit_number, house_number, street_name, suburb_name, post_code)) @@ plainto_tsquery('simple', :address) LIMIT 5", nativeQuery = true)        
+        @Query(value = "SELECT concat_ws(',', property_id, concat_ws(' ', unit_number, house_number, street_name, suburb_name, post_code)) FROM property_information WHERE to_tsvector('simple', f_concat_ws(' ', unit_number, house_number, street_name, suburb_name, post_code)) @@ to_tsquery('simple', :address) LIMIT 10", nativeQuery = true)
         List<String> findByAddressString(@Param("address") String address);
 
 }
