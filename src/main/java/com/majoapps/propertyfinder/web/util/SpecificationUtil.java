@@ -3,9 +3,6 @@ package com.majoapps.propertyfinder.web.util;
 import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.entity.PropertyListing;
 import javax.persistence.TypedQuery;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class SpecificationUtil {
 
@@ -125,6 +122,8 @@ public class SpecificationUtil {
                 sb.append(ch);
             } else if (ch == '/') {
                 sb.append(' '); // use space as street number prefix
+            } else {
+                sb.append(' '); // use space as the default character as extra spaces are removed later
             }
         }
         return sb.toString();
