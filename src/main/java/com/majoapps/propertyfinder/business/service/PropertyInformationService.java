@@ -42,11 +42,15 @@ public class PropertyInformationService {
 
     public List<String> getPropertyInformationString(String address) {
         List<String> addressList = new ArrayList<>();
-        Iterable <String> addressListResults = this.propertyInformationRepository
-            .findByAddressString(address);
-        addressListResults.forEach(addressList::add);
-        if (addressList.size() == 0) { 
-            addressList.add("no address found");
+        try {
+            Iterable<String> addressListResults = this.propertyInformationRepository
+                    .findByAddressString(address);
+            addressListResults.forEach(addressList::add);
+            if (addressList.size() == 0) {
+                addressList.add("0,no address found");
+            }
+        } catch (Exception e) {
+            addressList.add("0,keep typing");
         }
         return addressList;
     }
