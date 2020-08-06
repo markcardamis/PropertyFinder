@@ -1,0 +1,17 @@
+@import '../../../styles/style.scss';
+
+.layerName {
+    font-family: $mavenPro;
+    font-size: 14px;
+    padding: 3px;
+    width: 100%;
+    border-radius: 5px;
+    color: $dark-grey;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+    }
+}
+.active {
+    color: $green;
+}

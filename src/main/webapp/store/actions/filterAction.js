@@ -1,6 +1,6 @@
-export const filter = (item) => {
-    return {
+export const filter = (item) => dispatch => {
+    dispatch({
         type: 'FILTER',
         payload: item
-    };
+    });
 };

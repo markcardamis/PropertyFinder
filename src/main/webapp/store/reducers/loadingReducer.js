@@ -5,7 +5,7 @@ const loadingReducer = (state = initialState, action) => {
         case 'SHOW_LOADING': 
             return true;
         case 'HIDE_LOADING':
-            return false
+            return false;
         default: 
             return state;
     }

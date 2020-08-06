@@ -30,12 +30,12 @@ export const setMapMarkersLoaded = (markers) => dispatch => {
 };
 
 
-export const mapMarker = (item) => {
-    return {
-        type: 'MAP_MARKER',
-        payload: item
-    };
-};
+// export const mapMarker = (item) => {
+//     return {
+//         type: 'MAP_MARKER',
+//         payload: item
+//     };
+// };
 
 export const changeMarker = (item, status) => {
     return {

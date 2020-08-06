@@ -13,7 +13,7 @@ const FilterButtonGroup = props => {
             <div className='resultsButtonMobile'><ButtonSquare icon={searchModal ? <IconCloseMobile/> : <IconMenu2Mobile/>} onClick={props.onMenuClick}/></div>
             <div className='filterButton'><ButtonSquare icon={<IconFilter2 color={'#000000'}/>} onClick={props.onFilterClick}/></div>
             <div className='filterButtonMobile'><ButtonSquare icon={<IconFilter2Mobile color={'#000000'}/>} onClick={props.onFilterClick}/></div>
-            <ButtonSquare icon={<IconLayers/>} color={'#000000'}/>
+            <ButtonSquare icon={<IconLayers/>} color={'#000000'} onClick={props.onLayersClick}/>
         </div>
     );
 };

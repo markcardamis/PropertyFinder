@@ -4,19 +4,20 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
 import { hotjar } from 'react-hotjar';
 
 import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../../shared/constants';
 import './MapGL.scss';
 import {Logo, MapMarker} from '../../../assets/icons';
 import Popup from '../../organisms/popup/Popup';
-import { points } from '../../../../../../contsants_temp';
 import FilterButtonGroup from '../../molecules/filterButtonGroup/FilterButtonGroup';
 import { getPropertyInfo } from '../../../store/actions/propertyModalAction';
 import {getMapMarkers} from '../../../store/actions/mapMarkerAction';
 import {showFilter, closeFilter} from '../../../store/actions/filterModalAction'
 import {showSearchModal, closeSearchModal} from '../../../store/actions/searchModalAction';
+import {getPopup} from '../../../store/actions/popupAction';
+import {closeLayersModal, showLayersModal} from '../../../store/actions/layersAction'
+import LayerSelectModal from '../layerSelectModal/LayerSelectModal';
 
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -51,7 +52,6 @@ async componentDidMount() {
 }
 
 componentDidUpdate() {
-    console.log('updated')
     if (currentMarkers!==null) {
         for (var i = currentMarkers.length - 1; i >= 0; i--) {
           currentMarkers[i].remove();
@@ -70,7 +70,7 @@ handleViewportChange = () => {
 }
 
 renderPopup = (e) => {
-        const {property_id, house_number, street_name, suburb_name, post_code, zone_code, area, floor_space_ratio, minimum_lot_size, building_height, base_date_1, base_date_2, base_date_3, base_date_4, base_date_5, base_date_0, land_value_1, land_value_2, land_value_3, land_value_4, land_value_5, land_value_0, property_sales} = this.props.mapGL.showPopup;
+        const {property_id, house_number, street_name, suburb_name, post_code, zone_code, area, floor_space_ratio, minimum_lot_size, building_height, base_date_1, base_date_2, base_date_3, base_date_4, base_date_5, base_date_0, land_value_1, land_value_2, land_value_3, land_value_4, land_value_5, land_value_0, property_sales} = this.props.popup;
         const chartData={
             baseDate: [base_date_5, base_date_4, base_date_3, base_date_2, base_date_1, base_date_0],
             landValue: [land_value_5, land_value_4, land_value_3, land_value_2, land_value_1, land_value_0]
@@ -135,10 +135,8 @@ handlePropertyClick = async (e) => {
      if (displayFeatures.length > 0) {
          displayFeatures.map(async (property) => {
              if (property.properties && property.properties.propid) {
-                 let propid = property.properties.propid;
-                 const api = `/api/propertyinformation/${propid}`;
-                 //await this.callApi(api, null, 'SHOW_POPUP');
-                 this.props.dispatch({type: 'SHOW_POPUP', payload: propid})
+                let propid = property.properties.propid;
+                this.props.getPopup(propid)
                 this.renderPopup(e);
              }            
          });
@@ -154,9 +152,8 @@ checkAuthentication = async () => {
   }
  
     render() {
-        const {searchModal, filterModal, saveModal} = this.props
+        const {searchModal, filterModal, saveModal, layers} = this.props
     return (
-        <div>
             <div   
                 ref={el => this.mapContainer = el} 
                 className='mapContainer' 
@@ -166,9 +163,10 @@ checkAuthentication = async () => {
                 {!filterModal && !saveModal && <FilterButtonGroup 
                     onMenuClick={()=> searchModal ? this.props.closeSearchModal() : this.props.showSearchModal()}
                     onFilterClick = {()=> filterModal ? this.props.closeFilter() : this.props.showFilter()}
-            />}
+                    onLayersClick = {()=> layers.showModal ? this.props.closeLayersModal() : this.props.showLayersModal()}
+                />}
+                {layers.showModal&&<LayerSelectModal/>}
             </div>
-        </div>
         );
     }
 }
@@ -179,7 +177,9 @@ const mapStateToProps = (state) => {
         mapMarker: state.mapMarker,
         searchModal: state.searchModal,
         filterModal: state.filterModal,
-        saveModal: state.saveModal
+        saveModal: state.saveModal,
+        popup: state.popup,
+        layers: state.layers
     };
 };
 const mapDispatchToProps = {
@@ -188,7 +188,10 @@ const mapDispatchToProps = {
     showFilter,
     closeFilter,
     showSearchModal,
-    closeSearchModal
+    closeSearchModal,
+    getPopup,
+    showLayersModal,
+    closeLayersModal
 }
 
 export default withAuth(connect(mapStateToProps, mapDispatchToProps)(MapGL));
