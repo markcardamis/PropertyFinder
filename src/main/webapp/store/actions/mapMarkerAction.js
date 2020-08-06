@@ -1,13 +1,17 @@
-import { closeLoading, showLoading } from "./showLoadingAction";
+import React from 'react';
+import MapMarker from '../../assets/icons/MapMarker'
+import { closeLoading, showLoading } from "./loadingAction";
 
 const apiUrl = '/api/listing';
 
-export const getMapMarkers = () => async dispatch => {
+export const getMapMarkers = (renderMarkers) => async dispatch => {
     dispatch(setMapMarkersRequest());
-    fetch(apiUrl)
+    await fetch(apiUrl)
         .then(response => response.json())
         .then(res=>dispatch({type: 'SET_MAP_MARKERS_LOADED', markers: res}))
         .catch(error => console.log(error));
+    const mp = <div><MapMarker/></div>
+    renderMarkers(mp)
 }
 
 export const setMapMarkersRequest = () => dispatch => {
@@ -35,7 +39,7 @@ export const mapMarker = (item) => {
 
 export const changeMarker = (item, status) => {
     return {
-        type: 'CHANGE_MARKER',
+        type: 'CHANGE_MARKER_STATUS',
         payload: item,
         status
     };

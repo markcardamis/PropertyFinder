@@ -9,7 +9,7 @@ import AboutPage from '../pages/AboutPage';
 import ContactPage from '../pages/ContactPage';
 import '../styles//style.scss';
 import variables from '../styles/_variables.scss';
-import { showSignIn } from '../store/actions/showSignInAction';
+import { showSignIn } from '../store/actions/signInModalAction';
 
 
 const App = () => {

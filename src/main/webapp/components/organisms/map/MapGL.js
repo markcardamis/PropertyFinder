@@ -13,9 +13,10 @@ import {Logo, MapMarker} from '../../../assets/icons';
 import Popup from '../../organisms/popup/Popup';
 import { points } from '../../../../../../contsants_temp';
 import FilterButtonGroup from '../../molecules/filterButtonGroup/FilterButtonGroup';
-import * as MarkerActionCreators from '../../../store/actions/mapMarkerAction';
 import { getPropertyInfo } from '../../../store/actions/propertyModalAction';
 import {getMapMarkers} from '../../../store/actions/mapMarkerAction';
+import {showFilter, closeFilter} from '../../../store/actions/filterModalAction'
+import {showSearchModal, closeSearchModal} from '../../../store/actions/searchModalAction';
 
     mapboxgl.accessToken = MAPBOX_API;
     let map;
@@ -28,7 +29,6 @@ class MapGL extends React.Component {
         this.state = {
              authenticated: null
         };
-        this.boundActionCreators = bindActionCreators(MarkerActionCreators, dispatch)
     }
     
     
@@ -43,10 +43,7 @@ async componentDidMount() {
         
     map.addControl(new mapboxgl.NavigationControl());
     this.checkAuthentication();
-    // await this.callApi('/api/listing', null, 'MARKERS');
-    await this.props.getMapMarkers();
-    const mp = <div><MapMarker/></div>
-    this.renderMarkers(mp);
+    await this.props.getMapMarkers(this.renderMarkers);
 
     map.on('click', (e) => this.handlePropertyClick(e)); 
     map.on('move', () => this.handleViewportChange());
@@ -54,13 +51,15 @@ async componentDidMount() {
 }
 
 componentDidUpdate() {
+    console.log('updated')
     if (currentMarkers!==null) {
         for (var i = currentMarkers.length - 1; i >= 0; i--) {
           currentMarkers[i].remove();
         }
     }
     currentMarkers = [];
-    this.renderMarkers();
+    const mp = <div><MapMarker/></div>
+    this.renderMarkers(mp);
 }
 
 handleViewportChange = () => {
@@ -115,13 +114,8 @@ renderMarkers = async () => {
         el.className = marker.status
         el.onmouseover=()=>el.id='marker-hovered'
         el.onmouseout=()=>el.removeAttribute('id')
-        el.onclick=()=>{
-            this.props.dispatch(getPropertyInfo(marker))
-            //this.callApi(`/api/listing/${marker.id}`, null, 'SHOW_PROPERTY');
-            // this.props.dispatch({type: 'SHOW_PROPERTY', payload: marker});
-            this.props.dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', status: 'marker-unvisited'})
-            this.props.dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'marker-selected'})
-        }
+        el.onclick=()=>this.props.getPropertyInfo(marker)
+       
         let oneMarker = new mapboxgl.Marker(el)
           .setLngLat({lng: marker.longitude, lat: marker.latitude})
           .addTo(map)
@@ -151,20 +145,6 @@ handlePropertyClick = async (e) => {
      }
 }
 
-// callApi = async (api, auth, action) => { 
-//     this.props.dispatch({type: 'SHOW_LOADING'});
-//     try {
-//         const response = await fetch(api, auth);
-//         const data = await response.json();
-//         this.props.dispatch({type: action, payload: data});
-
-//     } catch (err) {
-//         console.log('Api call failed');
-//         // add notification
-//     }  
-//     this.props.dispatch({type: 'HIDE_LOADING'});
-// }
-
 checkAuthentication = async () => {
     const authenticated = await this.props.auth.isAuthenticated();
     
@@ -174,20 +154,18 @@ checkAuthentication = async () => {
   }
  
     render() {
-        const {searchModal, showFilter, showSaveModal} = this.props.mapGL
-       
+        const {searchModal, filterModal, saveModal} = this.props
     return (
         <div>
-            {console.log(this.props)}
             <div   
                 ref={el => this.mapContainer = el} 
                 className='mapContainer' 
                 id='map' 
                 style={{left: searchModal ? '45%' : 0}}
                 >
-                {!showFilter && !showSaveModal && <FilterButtonGroup 
-                    onMenuClick={()=>this.props.dispatch({type: searchModal ? 'CLOSE_SEARCH_MODAL' : 'SHOW_SEARCH_MODAL'})}
-                    onFilterClick = {()=>this.props.dispatch({type: showFilter ? 'CLOSE_FILTER' : 'SHOW_FILTER'})}
+                {!filterModal && !saveModal && <FilterButtonGroup 
+                    onMenuClick={()=> searchModal ? this.props.closeSearchModal() : this.props.showSearchModal()}
+                    onFilterClick = {()=> filterModal ? this.props.closeFilter() : this.props.showFilter()}
             />}
             </div>
         </div>
@@ -198,12 +176,19 @@ checkAuthentication = async () => {
 const mapStateToProps = (state) => {
     return {
         mapGL: state,
-        mapMarker: state.mapMarker
+        mapMarker: state.mapMarker,
+        searchModal: state.searchModal,
+        filterModal: state.filterModal,
+        saveModal: state.saveModal
     };
 };
 const mapDispatchToProps = {
     getMapMarkers,
-    getPropertyInfo
+    getPropertyInfo,
+    showFilter,
+    closeFilter,
+    showSearchModal,
+    closeSearchModal
 }
 
 export default withAuth(connect(mapStateToProps, mapDispatchToProps)(MapGL));

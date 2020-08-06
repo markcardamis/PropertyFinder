@@ -1,12 +1,15 @@
+import {changeMarker, changeAllMarkers} from './mapMarkerAction';
 const apiUrl = '/api/listing';
 
 export const getPropertyInfo = (mapMarker) => async dispatch => {
     dispatch(setPropertyInfoRequest());
-    console.log(mapMarker)
-    fetch(`apiUrl/${mapMarker.id}`)
+    console.log('get property info')
+    fetch(`${apiUrl}/${mapMarker.id}`)
         .then(response => response.json())
         .then(res=>dispatch({type: 'SET_PROPERTY_INFO_LOADED', markers: res}))
         .catch(error => console.log(error));
+    dispatch(changeAllMarkers('marker-unvisited'))
+    dispatch(changeMarker(mapMarker, 'marker-selected'))
 }
 
 export const setPropertyInfoRequest = () => dispatch => {
@@ -30,7 +33,6 @@ export const showProperty = (item) => {
         payload: item
     };
 };
-
 
 export const closeProperty = () => {
     return {

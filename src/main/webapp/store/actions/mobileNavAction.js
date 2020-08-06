@@ -1,11 +1,11 @@
-export const showSignIn = () => {
+export const showMobileNav = () => {
     return {
-        type: 'SHOW_SIGNIN'
+        type: 'SHOW_MOBILE_NAV'
     };
 };
 
-export const closeSignIn = () => {
+export const closeMobileNav = () => {
     return {
-        type: 'CLOSE_SIGNIN'
+        type: 'CLOSE_MOBILE_NAV'
     };
 };

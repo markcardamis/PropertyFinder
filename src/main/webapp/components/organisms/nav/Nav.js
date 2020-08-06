@@ -10,8 +10,7 @@ import { useAuth } from '../../../modules/auth';
 import ButtonLogin from '../../atoms/buttonLogin/ButtonLogin';
 import ButtonAccount from '../../atoms/buttonAccount/ButtonAccount';
 import {login, logout} from '../../../store/actions/authAction';
-import { showSignIn } from '../../../store/actions/showSignInAction';
-import {showMobileNav} from '../../../store/actions/showMobileNavAction';
+import { showSignIn } from '../../../store/actions/signInModalAction';
 
 const Nav = withAuth(({ auth }) => {
     const [authenticated, user] = useAuth(auth);

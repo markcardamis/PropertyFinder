@@ -1,29 +1,29 @@
 import { combineReducers } from 'redux';
 import propertyModalReducer from './propertyModalReducer';
 import mapMarkerReducer from './mapMarkerReducer';
-import showFilterReducer from './showFilterReducer';
+import filterModalReducer from './filterModalReducer';
 import viewportReducer from './viewportReducer';
-import showSignInReducer from './showSignInReducer';
+import signInModalReducer from './signInModalReducer';
 import authReducer from './authReducer';
 import popupReducer from './popupReducer';
 import filterReducer from './filterReducer';
-import showSaveModalReducer from './showSaveModalReducer';
-import showLoadingReducer from './showLoadingReducer';
-import showMobileNavReducer from './showMobileNavReducer';
+import saveModalReducer from './saveModalReducer';
+import loadingReducer from './loadingReducer';
+import mobileNavReducer from './mobileNavReducer';
 import searchModalReducer from './searchModalReducer';
 
 const reducers = combineReducers({
     propertyModal: propertyModalReducer,
-    showFilter: showFilterReducer,
-    showSignIn: showSignInReducer,
+    filterModal: filterModalReducer,
+    signInModal: signInModalReducer,
     mapMarker: mapMarkerReducer,
     viewport: viewportReducer,
     auth: authReducer,
     popup: popupReducer,
     filter: filterReducer,
-    showSaveModal: showSaveModalReducer,
-    showLoading: showLoadingReducer,
-    showMobileNav: showMobileNavReducer,
+    saveModal: saveModalReducer,
+    loading: loadingReducer,
+    mobileNav: mobileNavReducer,
     searchModal: searchModalReducer
 });
 

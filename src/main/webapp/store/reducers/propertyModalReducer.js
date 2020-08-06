@@ -1,6 +1,8 @@
+import { points } from "../../../../../contsants_temp";
 const initialState = {isHidden: false};
 
 const propertyModalReducer = (state = initialState, action) => {
+    //const propertyModalReducer = (state = points, action) => {
     switch (action.type) {
         case 'SHOW_PROPERTY_INFO': 
             return {...action.payload, isHidden: true};

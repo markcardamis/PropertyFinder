@@ -1,16 +1,13 @@
 import { points } from "../../../../../contsants_temp";
 
 const mapMarkerReducer = (state = [], action) => {
-   // const mapMarkerReducer = (state = points, action) => {
+   //const mapMarkerReducer = (state = points, action) => {
     switch (action.type) {
         case 'SET_MAP_MARKERS_REQUEST':
             return state
 
         case 'SET_MAP_MARKERS_LOADED':
-            return action.markers
-
-        case 'MARKERS':
-            const newArr = action.payload.map(v => ({...v, status: 'marker-unvisited'}))
+            const newArr = action.markers.map(v => ({...v, status: 'marker-unvisited'}))
             return newArr
 
         case 'CHANGE_MARKER_STATUS':
