@@ -132,9 +132,9 @@ handlePropertyClick = async (e) => {
          return displayFeat;
          });
 
-     if (displayFeatures.length > 0) {
-         displayFeatures.map(async (property) => {
-             if (property.properties && property.properties.propid) {
+    if (displayFeatures.length > 0) {
+        displayFeatures.map(async (property) => {
+            if (property.properties && property.properties.propid) {
                 let propid = property.properties.propid;
                 this.props.getPopup(propid)
                 this.renderPopup(e);

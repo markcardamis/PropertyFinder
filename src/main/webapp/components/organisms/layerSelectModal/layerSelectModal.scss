@@ -15,3 +15,10 @@
 .active {
     color: $green;
 }
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .layerName {
+        font-size: 34px;
+        padding: 20px;
+    }
+}

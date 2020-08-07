@@ -4,7 +4,7 @@ import './buttonSquare.scss';
 
 const ButtonSquare = props => {
     return (
-        <div className='buttonSquare' onClick={props.onClick}>
+        <div className='buttonSquare' onClick={props.onClick} style={props.style}>
             {props.icon}
         </div>
     )

@@ -5,11 +5,13 @@ import {useDispatch, useSelector} from 'react-redux'
 import PopupContainer from '../../molecules/popupContainer/PopupContainer'
 import './layerSelectModal.scss'
 import { toggleLayer, closeLayersModal } from '../../../store/actions/layersAction'
+import { useWindowSize } from '../../../modules/windowSize'
 
 const LayerSelectModal = props => {
     const dispatch = useDispatch();
     const layers = useSelector(state=>state.layers)
     const node = useRef();
+    const windowSize = useWindowSize()
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClick);
@@ -27,14 +29,14 @@ const LayerSelectModal = props => {
 
     return (
         <div ref={node}>
-            <PopupContainer style={{left: '12px', top: '80px', width: '170px', zIndex: 3}}>
+            <PopupContainer 
+                style={{left: 12, top: windowSize.width < 982 ? 120 : 80, width: windowSize.width < 982 ? 'auto' : 170, zIndex: 3}}>
                 <div 
                     className={`layerName ${layers.landZoning ? 'active' : ''}`} 
                     onClick={()=>dispatch(toggleLayer('landZoning'))}
                     >
                         Land zoning
                     </div>
-                    {console.log(layers)}
                 <div
                     className={`layerName ${layers.floorSpaceRatio ? 'active' : ''}`}  
                     onClick={()=>dispatch(toggleLayer('floorSpaceRatio'))}

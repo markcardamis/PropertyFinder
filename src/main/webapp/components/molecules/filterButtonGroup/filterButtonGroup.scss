@@ -6,40 +6,12 @@
     flex-direction: row;
     margin-top: 25px;
     margin-left: 15px;
-    width: 153px;
     justify-content: space-between;
     z-index: 2;
-
-    .filterButton {
-        display: flex;
-    }
-    .filterButtonMobile {
-        display: none;
-    }
-    .resultsButton {
-        display: flex;
-    }
-    .resultsButtonMobile {
-        display: none;
-    }
 }
 
 @media only screen and (max-device-width: $breakpoint-mobile) {
     .filterButtonGroup {
         margin-top: 25px;
-
-        .filterButton {
-            display: none;
-        }
-        .filterButtonMobile {
-            display: flex;
-        }
-        .resultsButton {
-            display: none;
-        }
-        .resultsButtonMobile {
-            display: flex;
-            margin-right: 14px;
-        }
     }
 }

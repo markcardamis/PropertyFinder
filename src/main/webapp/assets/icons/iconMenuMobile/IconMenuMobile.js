@@ -3,7 +3,7 @@ import './iconMenuMobile.scss'
 import {useSelector} from 'react-redux'
 
 function Icon() {
-  const showMobileNav = useSelector(state=>state.showMobileNav);
+  const showMobileNav = useSelector(state=>state.mobileNav);
   return (
       <div id="navIcon" className={showMobileNav ? 'open' : ''}>
         <span/>

@@ -2,18 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useSelector} from 'react-redux'
 import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
-import {IconFilter2, IconFilter2Mobile, IconMenu2, IconMenu2Mobile, IconClose, IconCloseMobile, IconLayers} from '../../../assets/icons';
+import {IconFilter2, IconMenu2, IconClose, IconLayers} from '../../../assets/icons';
 import './filterButtonGroup.scss';
+import { useWindowSize } from '../../../modules/windowSize';
 
 const FilterButtonGroup = props => {
     const searchModal = useSelector(state=>state.searchModal)
+    const windowSize = useWindowSize()
     return (
         <div className='filterButtonGroup'>
-            <div className='resultsButton'><ButtonSquare icon={searchModal ? <IconClose/> : <IconMenu2/>} onClick={props.onMenuClick}/></div>
-            <div className='resultsButtonMobile'><ButtonSquare icon={searchModal ? <IconCloseMobile/> : <IconMenu2Mobile/>} onClick={props.onMenuClick}/></div>
-            <div className='filterButton'><ButtonSquare icon={<IconFilter2 color={'#000000'}/>} onClick={props.onFilterClick}/></div>
-            <div className='filterButtonMobile'><ButtonSquare icon={<IconFilter2Mobile color={'#000000'}/>} onClick={props.onFilterClick}/></div>
-            <ButtonSquare icon={<IconLayers/>} color={'#000000'} onClick={props.onLayersClick}/>
+            <ButtonSquare 
+                icon={searchModal ? <IconClose/> : <IconMenu2 size={windowSize.width<982 ? 2 : 1}/>} 
+                onClick={props.onMenuClick}
+                style={{marginRight: 14}}
+                />
+            <ButtonSquare 
+                icon={<IconFilter2 color={'#000000'} size={windowSize.width<982 ? 2.3 : 1.3}/>} 
+                onClick={props.onFilterClick}
+                style={{marginRight: 14}}
+                />   
+            <ButtonSquare 
+                icon={<IconLayers size={windowSize.width<982 ? 2 : 1}/>} 
+                color={'#000000'} 
+                onClick={props.onLayersClick}
+                />
         </div>
     );
 };
