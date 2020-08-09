@@ -20,20 +20,50 @@ const Popup = props => {
     const address = `${houseNumber} ${upperCase(streetName)}, ${upperCase(suburbName)}, ${postCode}`
     const size = useWindowSize()
     return (
-        <div style={{width: size.width>982 ? 354 : 400}}>
+        <div style={{width: size.width>982 ? 354 : 650}}>
             <Chart chartData={props.chartData} salesData={props.salesData}/>
             <div className='popup-propertyInfo'>
-                <PropListItem icon={<IconAddressG/>} title={ADDRESS} value11={`ID: ${propertyId}`}/>
+                <PropListItem 
+                    icon={<IconAddressG size={size.width<982 ? 2:1}/>} 
+                    title={ADDRESS} 
+                    value11={`ID: ${propertyId}`}
+                    />
                 <div className='popup-address'>{address}</div>
                 <PropListItem2 
-                    icon1={area&&<IconAreaG/>} title1={area&&AREA} value1={area}
-                    icon2={zoneCode&&<IconZoneG/>} title2={zoneCode&&ZONE} value2={zoneCode}
+                    icon1={area&&<IconAreaG size={size.width<982 ? 2:1}/>} 
+                    title1={area&&AREA} 
+                    value1={area}
+                    icon2={zoneCode&&<IconZoneG size={size.width<982 ? 2:1}/>} 
+                    title2={zoneCode&&ZONE} 
+                    value2={zoneCode}
                     />
                 <div className='popup-devider'/>
-                <PropListItem icon={<IconLandvalG/>} title={LAND_VALUE} value11={landValue1}/>
-                {floorSpaceRatio!==null&&<PropListItem icon={<IconFsrG/>} title={FLOOR_SPACE_RATIO} value14={floorSpaceRatio}/>}
-                {minimumLotSize!==null&&<PropListItem icon={<IconLotG/>} title={MINIMUM_LOT_SIZE} value14={minimumLotSize}/>}
-                {buildingHeight!==null&&<PropListItem icon={<IconHeight/>} title={BUILDING_HEIGHT} value14={buildingHeight}/>}
+                <PropListItem 
+                    icon={<IconLandvalG size={size.width<982 ? 2:1}/>} 
+                    title={LAND_VALUE} 
+                    value11={landValue1}
+                    />
+                {floorSpaceRatio!==null&&
+                    <PropListItem 
+                        icon={<IconFsrG size={size.width<982 ? 2:1}/>} 
+                        title={FLOOR_SPACE_RATIO} 
+                        value14={floorSpaceRatio}
+                        />
+                    }
+                {minimumLotSize!==null&&
+                    <PropListItem 
+                        icon={<IconLotG size={size.width<982 ? 2:1}/>} 
+                        title={MINIMUM_LOT_SIZE} 
+                        value14={minimumLotSize}
+                        />
+                    }
+                {buildingHeight!==null&&
+                    <PropListItem 
+                        icon={<IconHeight size={size.width<982 ? 2:1}/>} 
+                        title={BUILDING_HEIGHT} 
+                        value14={buildingHeight}
+                        />
+                    }
             </div>
         </div>
     )

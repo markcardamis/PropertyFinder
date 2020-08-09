@@ -40,14 +40,14 @@ async componentDidMount() {
         center: [INITIAL_VIEWPORT.longitude, INITIAL_VIEWPORT.latitude],
         zoom: INITIAL_VIEWPORT.zoom
         });  
-
-        
+ 
     map.addControl(new mapboxgl.NavigationControl());
     this.checkAuthentication();
     await this.props.getMapMarkers(this.renderMarkers);
 
     map.on('click', (e) => this.handlePropertyClick(e)); 
     map.on('move', () => this.handleViewportChange());
+    //map.on('mousemove', () => this.handleTestFunc());
     hotjar.initialize(1445331, 6);
 }
 
@@ -68,6 +68,53 @@ handleViewportChange = () => {
     //     payload: {latitude: map.getCenter().lat, longitude: map.getCenter().lng}
     //   });
 }
+
+// handleTestFunc = () => {
+//     var features = map.queryRenderedFeatures(e.point);
+
+//     var displayProperties = [
+//         'properties'
+//     ];
+
+//     var displayFeatures = features.map(function(feat) {
+//         var displayFeat = {};
+//         displayProperties.forEach(function(prop) {
+//             displayFeat[prop] = feat[prop];
+//         });
+//         return displayFeat;
+//     });
+
+//     if (displayFeatures.length > 0) {
+//         displayFeatures.map(async (property) => {
+//             if (property.properties && property.properties.MAP_TYPE) {
+//                 var info;
+//                 switch(property.properties.MAP_TYPE) {
+//                     case 'LZN':
+//                         info = property.properties.SYM_CODE;
+//                         break;
+//                     case 'LSZ':
+//                         info = property.properties.LOT_SIZE + property.properties.UNITS;
+//                         break;
+//                     case 'FSR':
+//                         info = property.properties.FSR;
+//                         break;
+//                     case 'HOB':
+//                         info = property.properties.MAX_B_H + property.properties.UNITS;
+//                         break;
+//                     case 'HER':
+//                         info = property.properties.H_NAME + property.properties.UNITS;
+//                         break;
+//                     default:
+//                     }
+//                 document.getElementById('features').innerHTML = JSON.stringify(
+//                     info,
+//                     null,
+//                     2
+//                 );
+//             }
+//         });
+//     }
+// }
 
 renderPopup = (e) => {
         const {property_id, house_number, street_name, suburb_name, post_code, zone_code, area, floor_space_ratio, minimum_lot_size, building_height, base_date_1, base_date_2, base_date_3, base_date_4, base_date_5, base_date_0, land_value_1, land_value_2, land_value_3, land_value_4, land_value_5, land_value_0, property_sales} = this.props.popup;
@@ -131,16 +178,15 @@ handlePropertyClick = async (e) => {
          displayFeat[displayProperties]=feat[displayProperties];
          return displayFeat;
          });
-
-    if (displayFeatures.length > 0) {
-        displayFeatures.map(async (property) => {
-            if (property.properties && property.properties.propid) {
-                let propid = property.properties.propid;
-                this.props.getPopup(propid)
+    // if (displayFeatures.length > 0) {
+    //     displayFeatures.map(async (property) => {
+    //         if (property.properties && property.properties.propid) {
+    //             let propid = property.properties.propid;
+    //             this.props.getPopup(propid)
                 this.renderPopup(e);
-             }            
-         });
-     }
+        //      }            
+        //  });
+     //}
 }
 
 checkAuthentication = async () => {

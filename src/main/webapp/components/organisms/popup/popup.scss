@@ -1,9 +1,5 @@
 @import '../../../styles//style.scss';
 
-//  .popup {
-//         width: 354px;
-//     }
-
 .popup-propertyInfo {
     margin-top: 11px;
 }
@@ -13,7 +9,7 @@
     flex-direction: row;
     justify-content: center;
     color: $black;
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 400;
     font-family: $mavenPro;
 }
@@ -23,8 +19,20 @@
     margin: 12px 5% 12px 5%;
 }
 
+.mapboxgl-popup-close-button {
+    font-size: 20px;
+}
+
 @media only screen and (max-device-width: $breakpoint-mobile) {
-    // .popup {
-    //     width: 450px;
-    // }
+    .mapboxgl-popup-close-button {
+        font-size: 44px;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+    .popup-propertyInfo {
+        margin: 20px;
+    }
+    .popup-address {
+        font-size: 25px;
+    }
 }

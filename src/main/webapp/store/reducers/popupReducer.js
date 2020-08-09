@@ -1,6 +1,7 @@
 import { propertyId } from "../../../../../contsants_temp";
 
-const initialState = null;
+//const initialState = null;
+const initialState = propertyId;
 
 const popupReducer = (state = initialState, action) => {
     switch (action.type) {

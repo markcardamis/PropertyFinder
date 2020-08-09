@@ -1,11 +1,10 @@
-@import '../../../styles//style.scss';
+@import '../../../styles/style.scss';
 
 .chart {
     margin-bottom: -40px;
     margin-top: -10px;
-    padding: 20px;
-    padding-right: 12px;
-    padding-left: 12px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 
     .chart-title {
         font-family: $mavenPro;
@@ -31,8 +30,35 @@
 }
 
 .rv-xy-plot {
-    width:  297px !important;
+    margin-right: auto;
+    margin-left: auto;
 }
 .rv-xy-plot__inner {
     width: 100%;
+}
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .chart {
+        padding: 20px;
+
+        .chart-title {
+            font-size: 34px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    }
+
+    .rv-xy-plot {
+        width: 550px !important;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .rv-xy-plot__axis__tick__text {
+        font-size: 15px;
+        width: 100%;
+    }
+    .mapboxgl-map {
+        line-height: 40px;
+    }
 }

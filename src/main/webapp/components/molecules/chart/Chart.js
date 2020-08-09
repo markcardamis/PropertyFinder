@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../../../../../node_modules/react-vis/dist/style.css';
-import {XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, Crosshair} from 'react-vis';
+import {XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, Crosshair, MarkSeries} from 'react-vis';
 import './chart.scss';
 import {useWindowSize} from '../../../modules/windowSize';
 
@@ -26,12 +26,13 @@ const Chart = (props) => {
       {x: 0, y: props.salesData[0].purchasePrice},
       {x: 1, y: props.salesData[1].purchasePrice}
     ]
-    const dates = ()=>getYear(baseDate);
+    const dates = getYear(baseDate);
     const size = useWindowSize();
     return (
       <div className='chart'>
+        {console.log(getYear(baseDate))}
         <div className='chart-title'>Sales and Landvalue Trend</div>
-        <XYPlot height={size.width<982 ? 160 : 110} width={size.width<982 ? 350 : 295}>
+        <XYPlot height={size.width<982 ? 260 : 110} width={size.width<982 ? 600 : 340}>
             <HorizontalGridLines />
             <VerticalGridLines />
             <XAxis tickFormat={v => dates[v]}/>
@@ -42,13 +43,16 @@ const Chart = (props) => {
                   setCrosshairValues([{x: value.x, y: value.y}])
               }
             />
-            <LineSeries
+            {/* <LineSeries
               data={salesData}
               color={'FDB813'}
               // onNearestX={(value) => 
               //     setCrosshairValues([{x: value.x, y: value.y}])
               //}
-            /> 
+            />  */}
+            <MarkSeries 
+              data={salesData}
+              color={'FDB813'}/>
             <Crosshair values={crosshairValues}>
               <div className='chartInfo'>
                 <div className='chartInfo_text'>{crosshairValues[0]&&crosshairValues[0].y} AUD</div>
