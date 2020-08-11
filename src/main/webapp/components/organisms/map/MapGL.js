@@ -141,6 +141,7 @@ handlePropertyClick = async (e) => {
          });
     if (displayFeatures.length > 0) {
         displayFeatures.map(async (property) => {
+            console.log(property)
             if (property.properties && property.properties.propid) {
                 let propid = property.properties.propid;
                 this.props.getPopup(propid)

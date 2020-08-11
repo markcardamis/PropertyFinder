@@ -9,7 +9,7 @@ function SvgIconMenu2(props) {
       viewBox={`0 0 ${size} ${size}`}
       fill="none" {...props}
       >
-      <g transform={`scale(${props.size})`}>
+      <g transform={`scale(${props.size||1})`}>
         <path
           fillRule="evenodd"
           clipRule="evenodd"

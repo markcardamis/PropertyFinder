@@ -10,7 +10,7 @@ function SvgIconZoneG(props) {
       fill="none" 
       {...props}
       >
-      <g transform={`scale(${props.size})`}>
+      <g transform={`scale(${props.size||1})`}>
         <path
           fillRule="evenodd"
           clipRule="evenodd"

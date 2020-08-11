@@ -2,11 +2,11 @@ const apiUrl = `/api/propertyinformation`;
 
 export const getPopup = (propId) => async dispatch => {
     dispatch(setPopupRequest());
-    dispatch(setPopupLoaded())
-    // fetch(`${apiUrl}/${propId}`)
-    //     .then(response => response.json())
-    //     .then(res=>dispatch({type: 'SET_POPUP_LOADED', markers: res}))
-    //     .catch(error => console.log(error));
+    //dispatch(setPopupLoaded())
+    fetch(`${apiUrl}/${propId}`)
+        .then(response => response.json())
+        .then(res=>dispatch({type: 'SET_POPUP_LOADED', markers: res}))
+        .catch(error => console.log(error));
 }
 
 export const setPopupRequest = () => dispatch => {

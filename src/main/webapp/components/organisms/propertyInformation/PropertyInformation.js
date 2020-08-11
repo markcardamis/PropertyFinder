@@ -14,13 +14,19 @@ import DeviderLine from '../../atoms/deviderLine/DeviderLine';
 import variables from '../../../styles/_variables.scss';
 import Fade from 'react-reveal/Fade';
 
+
 const PropertyInformation = (props) => {
 
         const { handleClosePropertyInfo } = props;
+        // const { id, address, area, floorSpaceRatio, minimumLotSize,
+        //     price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
+        //     pricePSM, priceToLandValue, summaryDescription, listingPhoto,
+        //     } = props.property;   
+        const propertyInfo = useSelector(state=>state.propertyModal)
         const { id, address, area, floorSpaceRatio, minimumLotSize,
             price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
             pricePSM, priceToLandValue, summaryDescription, listingPhoto,
-            } = props.property;   
+            } = propertyInfo;  
 
             return (
                 <Fade>

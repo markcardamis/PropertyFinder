@@ -3,7 +3,7 @@ const apiUrl = '/api/listing';
 
 export const getPropertyInfo = (mapMarker) => async dispatch => {
     dispatch(setPropertyInfoRequest());
-    console.log('get property info')
+    console.log(mapMarker)
     fetch(`${apiUrl}/${mapMarker.id}`)
         .then(response => response.json())
         .then(res=>dispatch({type: 'SET_PROPERTY_INFO_LOADED', markers: res}))
