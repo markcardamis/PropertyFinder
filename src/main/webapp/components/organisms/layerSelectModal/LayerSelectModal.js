@@ -6,6 +6,7 @@ import PopupContainer from '../../molecules/popupContainer/PopupContainer'
 import './layerSelectModal.scss'
 import { toggleLayer, closeLayersModal } from '../../../store/actions/layersAction'
 import { useWindowSize } from '../../../modules/windowSize'
+import {map} from '../../organisms/map/MapGL'
 
 const LayerSelectModal = props => {
     const dispatch = useDispatch();
@@ -27,34 +28,45 @@ const LayerSelectModal = props => {
         dispatch(closeLayersModal())
       }
 
+    const toggleLayers = (layerName, layer) => {
+        dispatch(toggleLayer(layer));
+        map.setLayoutProperty(layerName, 'visibility', layers[layer] ? 'none' : 'visible');
+    }
+
     return (
         <div ref={node}>
             <PopupContainer 
                 style={{left: 12, top: windowSize.width < 982 ? 120 : 80, width: windowSize.width < 982 ? 'auto' : 170, zIndex: 3}}>
                 <div 
                     className={`layerName ${layers.landZoning ? 'active' : ''}`} 
-                    onClick={()=>dispatch(toggleLayer('landZoning'))}
+                    onClick={()=>toggleLayers('land-zoning', 'landZoning')}
                     >
                         Land zoning
-                    </div>
+                </div>
                 <div
-                    className={`layerName ${layers.floorSpaceRatio ? 'active' : ''}`}  
-                    onClick={()=>dispatch(toggleLayer('floorSpaceRatio'))}
+                    className={`layerName ${layers.floorSpaceRatio ? 'active' : ''}`}
+                    onClick={()=>toggleLayers('floor-space-ratio', 'floorSpaceRatio')}
                     >
                         Floor space ratio
-                    </div>
+                </div>
                 <div 
                     className={`layerName ${layers.heightOfBuilding ? 'active' : ''}`} 
-                    onClick={()=>dispatch(toggleLayer('heightOfBuilding'))}
+                    onClick={()=>toggleLayers('height-of-building', 'heightOfBuilding')}
                     >
                         Height of building
-                    </div>
+                </div>
                 <div 
                     className={`layerName ${layers.heritage ? 'active' : ''}`} 
-                    onClick={()=>dispatch(toggleLayer('heritage'))}
+                    onClick={()=>toggleLayers('heritage', 'heritage')}
                     >
                         Heritage
-                    </div>
+                </div>
+                <div 
+                    className={`layerName ${layers.mobileInternet ? 'active' : ''}`} 
+                    onClick={()=>toggleLayers('mobile-internet', 'mobileInternet')}
+                    >
+                        Mobile Internet
+                </div>
             </PopupContainer>
         </div>
     )

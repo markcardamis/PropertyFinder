@@ -4,7 +4,8 @@ const initialState = {
     lotSize: false,
     floorSpaceRatio: false,
     heightOfBuilding: false,
-    heritage: false
+    heritage: false,
+    mobileInternet: false
 };
 
 const layersReducer = (state = initialState, action) => {

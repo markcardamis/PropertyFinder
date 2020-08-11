@@ -7,7 +7,7 @@ export const INITIAL_VIEWPORT = {
         height: '100vh',
         latitude: -33.863823,
         longitude: 151.018731,
-        zoom: 10
+        zoom: 6
     };
 export const ADDRESS = 'Address';
 export const AREA = 'Area';

@@ -20,7 +20,7 @@ import {closeLayersModal, showLayersModal} from '../../../store/actions/layersAc
 import LayerSelectModal from '../layerSelectModal/LayerSelectModal';
 
     mapboxgl.accessToken = MAPBOX_API;
-    let map;
+    export let map;
     let currentMarkers = [];
  
 class MapGL extends React.Component {
@@ -47,8 +47,16 @@ async componentDidMount() {
 
     map.on('click', (e) => this.handlePropertyClick(e)); 
     map.on('move', () => this.handleViewportChange());
-    //map.on('mousemove', () => this.handleTestFunc());
+    map.on('click', (e) => this.handleHoverLayer(e));
     hotjar.initialize(1445331, 6);
+    map.on('styledata', () => {
+        map.setLayoutProperty('land-zoning', 'visibility', this.props.layers.landZoning ? 'visible' : 'none');
+        map.setLayoutProperty('floor-space-ratio', 'visibility', this.props.layers.floorSpaceRatio ? 'visible' : 'none');
+        map.setLayoutProperty('height-of-building', 'visibility', this.props.layers.heightOfBuilding ? 'visible' : 'none');
+        map.setLayoutProperty('heritage', 'visibility', this.props.layers.heritage ? 'visible' : 'none');
+        map.setLayoutProperty('mobile-internet', 'visibility', this.props.layers.mobileInternet ? 'visible' : 'none');
+    });
+    
 }
 
 componentDidUpdate() {
@@ -59,7 +67,7 @@ componentDidUpdate() {
     }
     currentMarkers = [];
     const mp = <div><MapMarker/></div>
-    this.renderMarkers(mp);
+    this.renderMarkers(mp);   
 }
 
 handleViewportChange = () => {
@@ -68,53 +76,6 @@ handleViewportChange = () => {
     //     payload: {latitude: map.getCenter().lat, longitude: map.getCenter().lng}
     //   });
 }
-
-// handleTestFunc = () => {
-//     var features = map.queryRenderedFeatures(e.point);
-
-//     var displayProperties = [
-//         'properties'
-//     ];
-
-//     var displayFeatures = features.map(function(feat) {
-//         var displayFeat = {};
-//         displayProperties.forEach(function(prop) {
-//             displayFeat[prop] = feat[prop];
-//         });
-//         return displayFeat;
-//     });
-
-//     if (displayFeatures.length > 0) {
-//         displayFeatures.map(async (property) => {
-//             if (property.properties && property.properties.MAP_TYPE) {
-//                 var info;
-//                 switch(property.properties.MAP_TYPE) {
-//                     case 'LZN':
-//                         info = property.properties.SYM_CODE;
-//                         break;
-//                     case 'LSZ':
-//                         info = property.properties.LOT_SIZE + property.properties.UNITS;
-//                         break;
-//                     case 'FSR':
-//                         info = property.properties.FSR;
-//                         break;
-//                     case 'HOB':
-//                         info = property.properties.MAX_B_H + property.properties.UNITS;
-//                         break;
-//                     case 'HER':
-//                         info = property.properties.H_NAME + property.properties.UNITS;
-//                         break;
-//                     default:
-//                     }
-//                 document.getElementById('features').innerHTML = JSON.stringify(
-//                     info,
-//                     null,
-//                     2
-//                 );
-//             }
-//         });
-//     }
-// }
 
 renderPopup = (e) => {
         const {property_id, house_number, street_name, suburb_name, post_code, zone_code, area, floor_space_ratio, minimum_lot_size, building_height, base_date_1, base_date_2, base_date_3, base_date_4, base_date_5, base_date_0, land_value_1, land_value_2, land_value_3, land_value_4, land_value_5, land_value_0, property_sales} = this.props.popup;
@@ -178,15 +139,60 @@ handlePropertyClick = async (e) => {
          displayFeat[displayProperties]=feat[displayProperties];
          return displayFeat;
          });
-    // if (displayFeatures.length > 0) {
-    //     displayFeatures.map(async (property) => {
-    //         if (property.properties && property.properties.propid) {
-    //             let propid = property.properties.propid;
-    //             this.props.getPopup(propid)
+    if (displayFeatures.length > 0) {
+        displayFeatures.map(async (property) => {
+            if (property.properties && property.properties.propid) {
+                let propid = property.properties.propid;
+                this.props.getPopup(propid)
                 this.renderPopup(e);
-        //      }            
-        //  });
-     //}
+             }            
+         });
+     }
+}
+
+handleHoverLayer = (e) => {
+    let features = map.queryRenderedFeatures(e.point);
+
+        let displayProperties = ['properties'];
+
+        let displayFeatures = features.map(function(feat) {
+            let displayFeat = {};
+            displayProperties.forEach(function(prop) {
+                displayFeat[prop] = feat[prop];
+            });
+            return displayFeat;
+        });
+
+        if (displayFeatures.length > 0) {
+            displayFeatures.map(async (property) => {
+                if (property.properties && property.properties.MAP_TYPE) {
+                    let info;
+                    switch(property.properties.MAP_TYPE) {
+                        case 'LZN':
+                            info = property.properties.SYM_CODE;
+                            break;
+                        case 'LSZ':
+                            info = property.properties.LOT_SIZE + property.properties.UNITS;
+                            break;
+                        case 'FSR':
+                            info = property.properties.FSR;
+                            break;
+                        case 'HOB':
+                            info = property.properties.MAX_B_H + property.properties.UNITS;
+                            break;
+                        case 'HER':
+                            info = property.properties.H_NAME + property.properties.UNITS;
+                            break;
+                        default:
+                        }
+                    console.log(info)
+                    let layerInfoPopup = new mapboxgl.Popup({ closeOnClick: true })
+                        .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
+                        .setHTML(`<br/><p>${info}</p>`)
+                        .addTo(map);
+                }
+            });
+        }
 }
 
 checkAuthentication = async () => {
