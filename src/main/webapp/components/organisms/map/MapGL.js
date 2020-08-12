@@ -50,9 +50,9 @@ async componentDidMount() {
     map.on('click', (e) => this.handleHoverLayer(e));
     hotjar.initialize(1445331, 6);
     map.on('styledata', () => {
-        map.setLayoutProperty('land-zoning', 'visibility', this.props.layers.landZoning ? 'visible' : 'none');
-        map.setLayoutProperty('floor-space-ratio', 'visibility', this.props.layers.floorSpaceRatio ? 'visible' : 'none');
-        map.setLayoutProperty('height-of-building', 'visibility', this.props.layers.heightOfBuilding ? 'visible' : 'none');
+        map.setLayoutProperty('landzoning', 'visibility', this.props.layers.landZoning ? 'visible' : 'none');
+        map.setLayoutProperty('floorspaceratio', 'visibility', this.props.layers.floorSpaceRatio ? 'visible' : 'none');
+        map.setLayoutProperty('heightofbuilding', 'visibility', this.props.layers.heightOfBuilding ? 'visible' : 'none');
         map.setLayoutProperty('heritage', 'visibility', this.props.layers.heritage ? 'visible' : 'none');
         map.setLayoutProperty('mobile-internet', 'visibility', this.props.layers.mobileInternet ? 'visible' : 'none');
     });
