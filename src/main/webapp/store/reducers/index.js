@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import propertyModalReducer from './propertyModalReducer';
 import mapMarkerReducer from './mapMarkerReducer';
 import filterModalReducer from './filterModalReducer';
-import viewportReducer from './viewportReducer';
+import viewportChangeReducer from './viewportReducer';
 import signInModalReducer from './signInModalReducer';
 import authReducer from './authReducer';
 import popupReducer from './popupReducer';
@@ -18,7 +18,7 @@ const reducers = combineReducers({
     filterModal: filterModalReducer,
     signInModal: signInModalReducer,
     mapMarker: mapMarkerReducer,
-    viewport: viewportReducer,
+    viewport: viewportChangeReducer,
     auth: authReducer,
     popup: popupReducer,
     filter: filterReducer,

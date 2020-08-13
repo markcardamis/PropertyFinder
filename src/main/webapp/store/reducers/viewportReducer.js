@@ -1,6 +1,6 @@
 import { INITIAL_VIEWPORT } from '../../shared/constants';
 
-const authenticationReducer = (state=INITIAL_VIEWPORT, action) => {
+const viewportChangeReducer = (state=INITIAL_VIEWPORT, action) => {
     switch (action.type) {
         case 'VIEWPORT_CHANGE':
             return action.payload;
@@ -9,4 +9,4 @@ const authenticationReducer = (state=INITIAL_VIEWPORT, action) => {
     }
 };
 
-export default authenticationReducer;
+export default viewportChangeReducer;

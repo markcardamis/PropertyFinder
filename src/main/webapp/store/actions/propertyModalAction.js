@@ -1,7 +1,9 @@
 import {changeMarker, changeAllMarkers} from './mapMarkerAction';
+import { showLoading, hideLoading } from './loadingAction';
 const apiUrl = '/api/listing';
 
 export const getPropertyInfo = (mapMarker) => async dispatch => {
+    dispatch(showLoading());
     dispatch(setPropertyInfoRequest());
     fetch(`${apiUrl}/${mapMarker.id}`)
         .then(response => response.json())
@@ -9,13 +11,13 @@ export const getPropertyInfo = (mapMarker) => async dispatch => {
         .catch(error => console.log(error));
     dispatch(changeAllMarkers(mapMarker, 'marker-unvisited'))
     dispatch(changeMarker(mapMarker, 'marker-selected'))
+    dispatch(hideLoading());
 }
 
 export const setPropertyInfoRequest = () => dispatch => {
     dispatch({
       type: 'SET_PROPERTY_INFO_REQUEST'
     });
-    //dispatch(showLoading());
   };
 
 export const setPropertyInfoLoaded = (property) => dispatch => {
@@ -23,7 +25,6 @@ export const setPropertyInfoLoaded = (property) => dispatch => {
     type: 'SET_PROPERTY_INFO_LOADED',
     property
   });
-  //dispatch(hideLoading());
 };
 
 export const showProperty = (item) => {

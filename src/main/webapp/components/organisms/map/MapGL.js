@@ -13,6 +13,7 @@ import Popup from '../../organisms/popup/Popup';
 import FilterButtonGroup from '../../molecules/filterButtonGroup/FilterButtonGroup';
 import { getPropertyInfo } from '../../../store/actions/propertyModalAction';
 import {getMapMarkers} from '../../../store/actions/mapMarkerAction';
+import {viewportChange} from '../../../store/actions/viewportAction';
 import {showFilter, closeFilter} from '../../../store/actions/filterModalAction'
 import {showSearchModal, closeSearchModal} from '../../../store/actions/searchModalAction';
 import {getPopup} from '../../../store/actions/popupAction';
@@ -71,10 +72,7 @@ componentDidUpdate() {
 }
 
 handleViewportChange = () => {
-    // this.props.dispatch ({
-    //     type: 'VIEWPORT_CHANGE', 
-    //     payload: {latitude: map.getCenter().lat, longitude: map.getCenter().lng}
-    //   });
+    this.props.viewportChange({latitude: map.getCenter().lat, longitude: map.getCenter().lng});
 }
 
 renderPopup = (e) => {
@@ -224,7 +222,8 @@ const mapDispatchToProps = {
     closeSearchModal,
     getPopup,
     showLayersModal,
-    closeLayersModal
+    closeLayersModal,
+    viewportChange
 }
 
 export default withAuth(connect(mapStateToProps, mapDispatchToProps)(MapGL));

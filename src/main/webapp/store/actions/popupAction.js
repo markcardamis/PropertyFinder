@@ -1,21 +1,23 @@
+import { showLoading, hideLoading } from "./loadingAction";
+
 const apiUrl = `/api/propertyinformation`;
 
 
 export const getPopup = (propId, e, renderPopup) => async dispatch => {
+    dispatch(showLoading());
     dispatch(setPopupRequest());
-
     await fetch(`${apiUrl}/${propId}`)
         .then(response => response.json())
         .then(res=>dispatch({type: 'SET_POPUP_LOADED', property: res}))
         .catch(error => console.log(error));
     renderPopup(e)
+    dispatch(hideLoading());
 }
 
 export const setPopupRequest = () => dispatch => {
     dispatch({
       type: 'SET_POPUP_REQUEST'
     });
-    //dispatch(showLoading());
   };
 
 export const setPopupLoaded = (property) => dispatch => {
@@ -23,7 +25,6 @@ export const setPopupLoaded = (property) => dispatch => {
     type: 'SET_POPUP_LOADED',
     property
   });
-  //dispatch(hideLoading());
 };
 
 // export const showPopup = (item) => {

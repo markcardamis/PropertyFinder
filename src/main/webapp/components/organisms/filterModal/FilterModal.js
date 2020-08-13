@@ -77,7 +77,6 @@ class FilterModal extends Component {
 
 
     displayFilterValues = (item) => {
-      console.log(item)
       // for (const prop in item) {
       //   this.props.dispatch(change('filter', `${prop}`, item[prop]));
       // }  

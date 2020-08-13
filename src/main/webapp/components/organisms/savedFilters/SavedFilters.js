@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
 import SavedFiltersListItem from '../../molecules/savedFiltersListItem/SavedFiltersListItem';
+import { filters } from '../../../../../../contsants_temp';
 
 
 const savedFilter = [{propertyZone: 'Zone1'}, {propertyZone: 'Zone1'}];
@@ -68,9 +69,8 @@ class SavedFilters extends Component {
                                                   priceLandvalue: [item.propertyPriceToLandValueMin!== null ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax!== null ? item.propertyPriceToLandValueMax : 10 ],
                                                   floorspaceRatio: [item.propertyFloorSpaceRatioMin!== null ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax!== null ? item.propertyFloorSpaceRatioMax : 2]
                                                 }})  
-    this.props.handleEditFilter(item)
-  }
-  }
+    this.props.handleEditFilter(item);
+  }}
 
 
   handleDeleteFilter = async (item) => {
@@ -95,8 +95,8 @@ class SavedFilters extends Component {
       return <SavedFiltersListItem
               key={index}
               index={index+1}
-              onEdit={()=>this.handleEditFilter(item)}
-              onDelete={()=>this.handleDeleteFilter(item)}
+              onEdit={(e)=>{this.handleEditFilter(item); e.stopPropagation()}}
+              onDelete={(e)=>{this.handleDeleteFilter(item); e.stopPropagation()}}
               onSelect={()=>this.handleSelectFilter(item)}
               data={{propertyZone: item.propertyZone, propertyAreaMin: item.propertyAreaMin, propertyAreaMax: item.propertyAreaMax,
                       propertyPriceMin: item.propertyPriceMin, propertyPriceMax: item.propertyPriceMax, propertyPricePSMMin: item.propertyPricePSMMin,

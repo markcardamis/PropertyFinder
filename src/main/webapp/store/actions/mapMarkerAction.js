@@ -1,10 +1,11 @@
 import React from 'react';
 import MapMarker from '../../assets/icons/MapMarker'
-import { closeLoading, showLoading } from "./loadingAction";
+import { hideLoading, showLoading } from "./loadingAction";
 
 const apiUrl = '/api/listing';
 
 export const getMapMarkers = (renderMarkers) => async dispatch => {
+    dispatch(showLoading());
     dispatch(setMapMarkersRequest());
     await fetch(apiUrl)
         .then(response => response.json())
@@ -12,13 +13,13 @@ export const getMapMarkers = (renderMarkers) => async dispatch => {
         .catch(error => console.log(error));
     const mp = <div><MapMarker/></div>
     renderMarkers(mp)
+    dispatch(hideLoading());
 }
 
 export const setMapMarkersRequest = () => dispatch => {
     dispatch({
       type: 'SET_MAP_MARKERS_REQUEST'
     });
-    //dispatch(showLoading());
   };
 
 export const setMapMarkersLoaded = (markers) => dispatch => {
@@ -26,7 +27,6 @@ export const setMapMarkersLoaded = (markers) => dispatch => {
     type: 'SET_MAP_MARKERS_LOADED',
     markers
   });
-  //dispatch(hideLoading());
 };
 
 export const changeMarker = (item, status) => {
