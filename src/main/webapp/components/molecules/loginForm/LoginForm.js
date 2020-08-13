@@ -18,7 +18,7 @@ class LoginForm extends Component {
         password: '',
         errorMessage: ''
       };
-      this.oktaAuth = new OktaAuth({ issuer: 'https://dev-842802.okta.com' });
+      this.oktaAuth = new OktaAuth({ issuer: process.env.OKTA_OAUTH2_ISSUER });
     }
 
   handleSubmit = async (e) => {

@@ -6,7 +6,7 @@ import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
 import { hotjar } from 'react-hotjar';
 
-import { INITIAL_VIEWPORT, MAPBOX_API, MAPBOX_STYLE } from '../../../shared/constants';
+import { INITIAL_VIEWPORT } from '../../../shared/constants';
 import './MapGL.scss';
 import {Logo, MapMarker} from '../../../assets/icons';
 import Popup from '../../organisms/popup/Popup';
@@ -19,7 +19,7 @@ import {getPopup} from '../../../store/actions/popupAction';
 import {closeLayersModal, showLayersModal} from '../../../store/actions/layersAction'
 import LayerSelectModal from '../layerSelectModal/LayerSelectModal';
 
-    mapboxgl.accessToken = MAPBOX_API;
+    mapboxgl.accessToken = process.env.MAPBOX_API;
     export let map;
     let currentMarkers = [];
  
@@ -36,7 +36,7 @@ class MapGL extends React.Component {
 async componentDidMount() {
     map = new mapboxgl.Map({
         container: this.mapContainer,
-        style: MAPBOX_STYLE,
+        style: process.env.MAPBOX_STYLE,
         center: [INITIAL_VIEWPORT.longitude, INITIAL_VIEWPORT.latitude],
         zoom: INITIAL_VIEWPORT.zoom
         });  
