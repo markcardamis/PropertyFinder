@@ -45,4 +45,11 @@ export const changeAllMarkers = (item, status) => {
     };
 };
 
+// export const markers = (item, status) => {
+//   return {
+//       type: 'MARKERS',
+//       payload: item
+//   };
+// };
+
 

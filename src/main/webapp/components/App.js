@@ -28,7 +28,8 @@ const App = () => {
           <Security issuer='https://dev-842802.okta.com/oauth2/default'
                     clientId='0oa1phknm1QbQZjCh357'
                     redirectUri={window.location.origin + '/implicit/callback'}
-                    onAuthRequired={() => dispatch(showSignIn())}
+                    // onAuthRequired={() => dispatch(showSignIn())}
+                    onAuthRequired={() => console.log('test')}
                     scopes={['openid profile email']}
                     pkce={true} >
             <Route path='/' exact={true} component={Home} />

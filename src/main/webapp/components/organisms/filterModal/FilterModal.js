@@ -179,8 +179,8 @@ class FilterModal extends Component {
 
         const data = await response.json();    
         this.props.dispatch({
-          type: 'MARKERS',
-          payload: data
+          type: 'SET_MAP_MARKERS_LOADED',
+          markers: data
         });
       } catch (err) {
         // add notification  

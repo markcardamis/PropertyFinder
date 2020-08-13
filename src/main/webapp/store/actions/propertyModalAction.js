@@ -7,7 +7,7 @@ export const getPropertyInfo = (mapMarker) => async dispatch => {
         .then(response => response.json())
         .then(res=>dispatch({type: 'SET_PROPERTY_INFO_LOADED', markers: res}))
         .catch(error => console.log(error));
-    dispatch(changeAllMarkers('marker-unvisited'))
+    dispatch(changeAllMarkers(mapMarker, 'marker-unvisited'))
     dispatch(changeMarker(mapMarker, 'marker-selected'))
 }
 
