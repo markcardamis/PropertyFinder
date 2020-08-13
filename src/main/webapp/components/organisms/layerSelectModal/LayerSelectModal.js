@@ -39,19 +39,19 @@ const LayerSelectModal = props => {
                 style={{left: 12, top: windowSize.width < 982 ? 120 : 80, width: windowSize.width < 982 ? 'auto' : 170, zIndex: 3}}>
                 <div 
                     className={`layerName ${layers.landZoning ? 'active' : ''}`} 
-                    onClick={()=>toggleLayers('land-zoning', 'landZoning')}
+                    onClick={()=>toggleLayers('landzoning', 'landZoning')}
                     >
                         Land zoning
                 </div>
                 <div
                     className={`layerName ${layers.floorSpaceRatio ? 'active' : ''}`}
-                    onClick={()=>toggleLayers('floor-space-ratio', 'floorSpaceRatio')}
+                    onClick={()=>toggleLayers('floorspaceratio', 'floorSpaceRatio')}
                     >
                         Floor space ratio
                 </div>
                 <div 
                     className={`layerName ${layers.heightOfBuilding ? 'active' : ''}`} 
-                    onClick={()=>toggleLayers('height-of-building', 'heightOfBuilding')}
+                    onClick={()=>toggleLayers('heightofbuilding', 'heightOfBuilding')}
                     >
                         Height of building
                 </div>
