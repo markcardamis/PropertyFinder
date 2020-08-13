@@ -30,8 +30,8 @@ public class PropertyInformationServiceController {
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.GET)
-    public List<String> getPropertyByAddress(@RequestParam(value="address") String address) {
-        return propertyInformationService.getPropertyInformationString(to_tsquery(address));
+    public List<String> getPropertyInformationByElasticSearch(@RequestParam(value="address") String address) {
+        return propertyInformationService.getByElasticSearch(to_tsquery(address));
     }
 
     @Profile("!production")

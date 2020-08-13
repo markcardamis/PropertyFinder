@@ -40,7 +40,7 @@ public class PropertyInformationService {
         return propertyInformationDTO;
     }
 
-    public List<String> getPropertyInformationString(String address) {
+    public List<String> getByElasticSearch(String address) {
         List<String> addressList = new ArrayList<>();
         try {
             Iterable<String> addressListResults = this.propertyInformationRepository
