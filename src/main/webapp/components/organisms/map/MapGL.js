@@ -78,26 +78,13 @@ handleViewportChange = () => {
 }
 
 renderPopup = (e) => {
-        const {property_id, house_number, street_name, suburb_name, post_code, zone_code, area, floor_space_ratio, minimum_lot_size, building_height, base_date_1, base_date_2, base_date_3, base_date_4, base_date_5, base_date_0, land_value_1, land_value_2, land_value_3, land_value_4, land_value_5, land_value_0, property_sales} = this.props.popup;
+        const {base_date_1, base_date_2, base_date_3, base_date_4, base_date_5, base_date_0, land_value_1, land_value_2, land_value_3, land_value_4, land_value_5, land_value_0, property_sales} = this.props.popup;
         const chartData={
             baseDate: [base_date_5, base_date_4, base_date_3, base_date_2, base_date_1, base_date_0],
             landValue: [land_value_5, land_value_4, land_value_3, land_value_2, land_value_1, land_value_0]
         }
-
-        const propertyInfo = {
-            propertyId: property_id, 
-            houseNumber: house_number, 
-            streetName: street_name, 
-            suburbName: suburb_name,
-            postCode: post_code, 
-            zoneCode: zone_code, 
-            area: area, 
-            floorSpaceRatio: floor_space_ratio, 
-            minimumLotSize: minimum_lot_size, 
-            buildingHeight: building_height, 
-            landValue1: land_value_1
-        }
-        const popup = <Popup chartData={chartData} salesData={property_sales} propertyInfo={propertyInfo}/>
+        
+        const popup = <Popup chartData={chartData} salesData={property_sales} propertyInfo={this.props.popup}/>
         const propertyData = <div>{popup}</div>
 
         const addPopup=(el) =>{
@@ -139,16 +126,10 @@ handlePropertyClick = async (e) => {
          displayFeat[displayProperties]=feat[displayProperties];
          return displayFeat;
          });
-    if (displayFeatures.length > 0) {
-        displayFeatures.map(async (property) => {
-            console.log(property)
-            if (property.properties && property.properties.propid) {
-                let propid = property.properties.propid;
-                this.props.getPopup(propid)
-                this.renderPopup(e);
-             }            
-         });
-     }
+    if (displayFeatures[0].properties && displayFeatures[0].properties.propid) {
+        let propid = displayFeatures[0].properties.propid;
+        this.props.getPopup(propid, e, this.renderPopup);
+    }
 }
 
 handleHoverLayer = (e) => {
@@ -186,7 +167,6 @@ handleHoverLayer = (e) => {
                             break;
                         default:
                         }
-                    console.log(info)
                     let layerInfoPopup = new mapboxgl.Popup({ closeOnClick: true })
                         .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
                         .setHTML(`<br/><p>${info}</p>`)

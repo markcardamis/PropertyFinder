@@ -1,12 +1,14 @@
 const apiUrl = `/api/propertyinformation`;
 
-export const getPopup = (propId) => async dispatch => {
+
+export const getPopup = (propId, e, renderPopup) => async dispatch => {
     dispatch(setPopupRequest());
-    //dispatch(setPopupLoaded())
-    fetch(`${apiUrl}/${propId}`)
+
+    await fetch(`${apiUrl}/${propId}`)
         .then(response => response.json())
-        .then(res=>dispatch({type: 'SET_POPUP_LOADED', markers: res}))
+        .then(res=>dispatch({type: 'SET_POPUP_LOADED', property: res}))
         .catch(error => console.log(error));
+    renderPopup(e)
 }
 
 export const setPopupRequest = () => dispatch => {

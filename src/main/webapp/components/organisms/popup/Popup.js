@@ -9,7 +9,7 @@ import {IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, Ic
 import { useWindowSize } from '../../../modules/windowSize';
 
 const Popup = props => {
-    const {propertyId, houseNumber, streetName, suburbName, postCode, zoneCode, area, floorSpaceRatio, minimumLotSize, buildingHeight, landValue1} = props.propertyInfo
+    const {property_id, house_number, street_name, suburb_name, post_code, zone_code, area, floor_space_ratio, minimum_lot_size, building_height, land_value_1} = props.propertyInfo
     const upperCase = (str) => {
         let splitStr = str.toLowerCase().split(' ');
         for (let i = 0; i < splitStr.length; i++) {
@@ -17,7 +17,7 @@ const Popup = props => {
         }
         return splitStr.join(' '); 
     }
-    const address = `${houseNumber} ${upperCase(streetName)}, ${upperCase(suburbName)}, ${postCode}`
+    const address = `${house_number} ${upperCase(street_name)}, ${upperCase(suburb_name)}, ${post_code}`
     const size = useWindowSize()
     return (
         <div style={{width: size.width>982 ? 354 : 650}}>
@@ -26,42 +26,42 @@ const Popup = props => {
                 <PropListItem 
                     icon={<IconAddressG size={size.width<982 ? 2:1}/>} 
                     title={ADDRESS} 
-                    value11={`ID: ${propertyId}`}
+                    value11={`ID: ${property_id}`}
                     />
                 <div className='popup-address'>{address}</div>
                 <PropListItem2 
                     icon1={area&&<IconAreaG size={size.width<982 ? 2:1}/>} 
                     title1={area&&AREA} 
                     value1={area}
-                    icon2={zoneCode&&<IconZoneG size={size.width<982 ? 2:1}/>} 
-                    title2={zoneCode&&ZONE} 
-                    value2={zoneCode}
+                    icon2={zone_code&&<IconZoneG size={size.width<982 ? 2:1}/>} 
+                    title2={zone_code&&ZONE} 
+                    value2={zone_code}
                     />
                 <div className='popup-devider'/>
                 <PropListItem 
                     icon={<IconLandvalG size={size.width<982 ? 2:1}/>} 
                     title={LAND_VALUE} 
-                    value11={landValue1}
+                    value11={land_value_1}
                     />
-                {floorSpaceRatio!==null&&
+                {floor_space_ratio!==null&&
                     <PropListItem 
                         icon={<IconFsrG size={size.width<982 ? 2:1}/>} 
                         title={FLOOR_SPACE_RATIO} 
-                        value14={floorSpaceRatio}
+                        value14={floor_space_ratio}
                         />
                     }
-                {minimumLotSize!==null&&
+                {minimum_lot_size!==null&&
                     <PropListItem 
                         icon={<IconLotG size={size.width<982 ? 2:1}/>} 
                         title={MINIMUM_LOT_SIZE} 
-                        value14={minimumLotSize}
+                        value14={minimum_lot_size}
                         />
                     }
-                {buildingHeight!==null&&
+                {building_height!==null&&
                     <PropListItem 
                         icon={<IconHeight size={size.width<982 ? 2:1}/>} 
                         title={BUILDING_HEIGHT} 
-                        value14={buildingHeight}
+                        value14={building_height}
                         />
                     }
             </div>

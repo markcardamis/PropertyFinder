@@ -17,7 +17,7 @@ const SearchItem = props => {
     const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, land_value, price_psm, floor_space_ratio, price_to_land_value, minimum_lot_size, listing_url, summary_description, listing_photo, status} = props.marker
     const [shadow, setShadow] = useState(status==='marker-selected')
     const handleClick = () => {
-        dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', status: marker.status==='marker-selected' ? 'marker-visited' : 'marker-unvisited'})
+        dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, status: 'marker-unvisited'})
         dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'marker-selected'})
         dispatch ({type: 'VIEWPORT_CHANGE', payload: {latitude: marker.latitude, longitude: marker.longitude}});
     }

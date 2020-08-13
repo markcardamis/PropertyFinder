@@ -22,16 +22,16 @@ const Chart = (props) => {
       {x: 4, y: landValue[4]!== null ? landValue[4] : Math.min(landValue)},
       {x: 5, y: landValue[5]!== null ? landValue[5] : Math.min(landValue)}
     ];
-    const salesData = [
-      {x: 0, y: props.salesData[0].purchasePrice},
-      {x: 1, y: props.salesData[1].purchasePrice}
-    ]
+    // const salesData = [
+    //   {x: 0, y: props.salesData[0].purchasePrice},
+    //   {x: 1, y: props.salesData[1].purchasePrice}
+    // ]
     const dates = getYear(baseDate);
     const size = useWindowSize();
     return (
       <div className='chart'>
-        {console.log(salesData)}
-        <div className='chart-title'>Sales and Landvalue Trend</div>
+        {/* <div className='chart-title'>Sales and Landvalue Trend</div> */}
+        <div className='chart-title'>Landvalue Trend</div>
         <XYPlot height={size.width<982 ? 260 : 150} width={size.width<982 ? 550 : 340}>
             <HorizontalGridLines />
             <VerticalGridLines />
@@ -50,13 +50,13 @@ const Chart = (props) => {
               //     setCrosshairValues([{x: value.x, y: value.y}])
               //}
             />  */}
-            <MarkSeries 
+            {/* <MarkSeries 
               data={salesData}
               color={'FDB813'}
               onNearestXY={(value) => 
                   setCrosshairValues([{x: value.x, y: value.y}])
               }
-              />
+              /> */}
             <Crosshair values={crosshairValues}>
               <div className='chartInfo'>
                 <div className='chartInfo_text'>{crosshairValues[0]&&crosshairValues[0].y} AUD</div>

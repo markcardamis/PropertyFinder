@@ -29,14 +29,6 @@ export const setMapMarkersLoaded = (markers) => dispatch => {
   //dispatch(hideLoading());
 };
 
-
-// export const mapMarker = (item) => {
-//     return {
-//         type: 'MAP_MARKER',
-//         payload: item
-//     };
-// };
-
 export const changeMarker = (item, status) => {
     return {
         type: 'CHANGE_MARKER_STATUS',
@@ -45,9 +37,10 @@ export const changeMarker = (item, status) => {
     };
 };
 
-export const changeAllMarkers = (status) => {
+export const changeAllMarkers = (item, status) => {
     return {
         type: 'CHANGE_ALL_MARKERS_STATUS',
+        payload: item,
         status
     };
 };
