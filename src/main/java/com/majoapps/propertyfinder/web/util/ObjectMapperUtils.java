@@ -43,7 +43,7 @@ public class ObjectMapperUtils {
      * <p>Note: outClass object must have default constructor with no arguments</p>
      *
      * @param entityList list of entities that needs to be mapped
-     * @param outCLass   class of result list element
+     * @param outClass   class of result list element
      * @param <D>        type of objects in result list
      * @param <T>        type of entity in <code>entityList</code>
      * @return list of mapped object with <code><D></code> type.

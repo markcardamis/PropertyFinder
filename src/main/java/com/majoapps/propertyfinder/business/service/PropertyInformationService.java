@@ -36,6 +36,7 @@ public class PropertyInformationService {
         PropertyInformation propertyInformation = this.propertyInformationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Property ID " + id + "not found"));
         PropertyInformationDTO propertyInformationDTO = ObjectMapperUtils.map(propertyInformation, PropertyInformationDTO.class);
+        propertyInformationDTO.setLandValues();
         propertyInformationDTO.setPropertySales(propertySalesRepository.findByPropertyIdOrderBySettlementDateDesc(id));
         return propertyInformationDTO;
     }
