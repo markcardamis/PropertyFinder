@@ -33,8 +33,8 @@ public class PropertyListingService {
 
     private final PropertyListingRepository propertyListingRepository;
     private final NotificationsService notificationsService;
-    private static final Integer adminResultsLimit = 100000;
-    private static final Integer authorisedResultsLimit = 1000;
+    private static final Integer adminResultsLimit = 1000;
+    private static final Integer authorisedResultsLimit = 200;
     private static final Integer unauthorisedResultsLimit = 100;
 
 
