@@ -81,33 +81,37 @@ public class PropertyInformationDTO implements Serializable {
     private List<LandValue> landValues;
 
     public void setLandValues() {
-        landValues = new ArrayList<>();
-        if (baseDate0 != null && landValue0 != null && authority0 != null && basis0 != null) {
-            landValues.add(new LandValue(baseDate0, landValue0, authority0, basis0));
+        List<LandValue> landValuesTemp = new ArrayList<>();
+
+        if (getBaseDate0() != null && getLandValue0() != null && getAuthority0() != null && getBasis0() != null) {
+            landValuesTemp.add(new LandValue(getBaseDate0(), getLandValue0(), getAuthority0(), getBasis0()));
         }
-        if (baseDate1 != null && landValue1 != null && authority1 != null && basis1 != null) {
-            landValues.add(new LandValue(baseDate1, landValue1, authority1, basis1));
+        if (getBaseDate1() != null && getLandValue1() != null && getAuthority1() != null && getBasis1() != null) {
+            landValuesTemp.add(new LandValue(getBaseDate1(), getLandValue1(), getAuthority1(), getBasis1()));
         }
-        if (baseDate2 != null && landValue2 != null && authority2 != null && basis2 != null) {
-            landValues.add(new LandValue(baseDate2, landValue2, authority2, basis2));
+        if (getBaseDate2() != null && getLandValue2() != null && getAuthority2() != null && getBasis2() != null) {
+            landValuesTemp.add(new LandValue(getBaseDate2(), getLandValue2(), getAuthority2(), getBasis2()));
         }
-        if (baseDate3 != null && landValue3 != null && authority3 != null && basis3 != null) {
-            landValues.add(new LandValue(baseDate3, landValue3, authority3, basis3));
+        if (getBaseDate3() != null && getLandValue3() != null && getAuthority3() != null && getBasis3() != null) {
+            landValuesTemp.add(new LandValue(getBaseDate3(), getLandValue3(), getAuthority3(), getBasis3()));
         }
-        if (baseDate4 != null && landValue4 != null && authority4 != null && basis4 != null) {
-            landValues.add(new LandValue(baseDate4, landValue4, authority4, basis4));
+        if (getBaseDate4() != null && getLandValue4() != null && getAuthority4() != null && getBasis4() != null) {
+            landValuesTemp.add(new LandValue(getBaseDate4(), getLandValue4(), getAuthority4(), getBasis4()));
         }
-        if (baseDate5 != null && landValue5 != null && authority5 != null && basis5 != null) {
-            landValues.add(new LandValue(baseDate5, landValue5, authority5, basis5));
+        if (getBaseDate5() != null && getLandValue5() != null && getAuthority5() != null && getBasis5() != null) {
+            landValuesTemp.add(new LandValue(getBaseDate5(), getLandValue5(), getAuthority5(), getBasis5()));
         }
+        setLandValues(landValuesTemp);
     }
 
-    public static class LandValue {
-        private Date baseDate;
-        private Integer landValue;
-        private String authority;
-        private String basis;
-        public LandValue (Date baseDate, Integer landValue,  String authority, String basis){
+    @Data
+    public static class LandValue  implements Serializable {
+        private static final long serialVersionUID = -6169041570452038221L;
+        private final Date baseDate;
+        private final Integer landValue;
+        private final String authority;
+        private final String basis;
+        public LandValue (Date baseDate, Integer landValue, String authority, String basis){
             this.baseDate = baseDate;
             this.landValue = landValue;
             this.authority = authority;
