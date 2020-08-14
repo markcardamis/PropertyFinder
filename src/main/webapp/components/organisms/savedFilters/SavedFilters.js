@@ -97,7 +97,7 @@ class SavedFilters extends Component {
               index={index+1}
               onEdit={(e)=>{this.handleEditFilter(item); e.stopPropagation()}}
               onDelete={(e)=>{this.handleDeleteFilter(item); e.stopPropagation()}}
-              onSelect={()=>this.handleSelectFilter(item)}
+              onSelect={(e)=>{this.handleSelectFilter(item); e.stopPropagation()}}
               data={{propertyZone: item.propertyZone, propertyAreaMin: item.propertyAreaMin, propertyAreaMax: item.propertyAreaMax,
                       propertyPriceMin: item.propertyPriceMin, propertyPriceMax: item.propertyPriceMax, propertyPricePSMMin: item.propertyPricePSMMin,
                       propertyPricePSMMax: item.propertyPricePSMMax, propertyPostCode: item.propertyPostCode, propertyPriceToLandValueMin: item.propertyPriceToLandValueMin,
