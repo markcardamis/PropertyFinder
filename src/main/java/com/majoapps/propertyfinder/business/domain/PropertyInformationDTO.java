@@ -3,14 +3,11 @@ package com.majoapps.propertyfinder.business.domain;
 import com.fasterxml.jackson.annotation.*;
 import com.majoapps.propertyfinder.data.entity.PropertySales;
 import lombok.Data;
-import net.minidev.json.JSONObject;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
