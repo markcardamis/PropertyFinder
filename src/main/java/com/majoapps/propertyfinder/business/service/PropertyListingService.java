@@ -33,7 +33,7 @@ public class PropertyListingService {
 
     private final PropertyListingRepository propertyListingRepository;
     private final NotificationsService notificationsService;
-    private static final Integer adminResultsLimit = 1000;
+    private static final Integer adminResultsLimit = 10000;
     private static final Integer authorisedResultsLimit = 200;
     private static final Integer unauthorisedResultsLimit = 100;
 
@@ -47,8 +47,8 @@ public class PropertyListingService {
 
     // return different amount of listings based on account priority
     // return 100 listings for unauthenticated user
-    // return 1000 listings for authenticated user
-    // return 100000 listings for an admin user
+    // return 200 listings for authenticated user
+    // return 10000 listings for an admin user
     public List<PropertyListingDTO> getPropertyListingBySearch(JwtAuthenticationToken JwtAuthToken,
             Specification<PropertyListing> searchSpec, Sort sort) {
         try {
@@ -85,7 +85,7 @@ public class PropertyListingService {
             log.error("IllegalArgumentException: ", ae);
             throw new ResourceNotFoundException("Malformed search query");
         } catch (PropertyReferenceException pe) {
-            log.error("IllegalArgumentException: ", pe);
+            log.error("PropertyReferenceException: ", pe);
             throw new ResourceNotFoundException("Malformed search query");
         } catch (Exception e) {
             log.error("Exception: ", e);
@@ -119,8 +119,6 @@ public class PropertyListingService {
         String token = SpecificationUtil.createSpecificationString(notifications);
         Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>().withSearch(token)
                 .build();
-
-        System.out.println(specification.toString());
         return (this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
     }
 
@@ -135,8 +133,8 @@ public class PropertyListingService {
             query = SpecificationUtil.queryBuilder(query, notifications);
             return this.getPropertyListingByQuery(JwtAuthToken, query);
         } catch (Exception ex) {
-            System.out.println("Query exception "+ ex.getMessage());
-            return null;
+            log.error("Exception: ", ex);
+            throw new ResourceNotFoundException("Error retrieving results");
         }
     }
 
@@ -174,9 +172,9 @@ public class PropertyListingService {
             }
         } catch (IllegalArgumentException ae) {
             log.error("IllegalArgumentException: ", ae);
-            throw new ResourceNotFoundException("Malformed search query");
+            throw new ResourceNotFoundException("Illegal argument in search query");
         } catch (PropertyReferenceException pe) {
-            log.error("IllegalArgumentException: ", pe);
+            log.error("PropertyReferenceException: ", pe);
             throw new ResourceNotFoundException("Malformed search query");
         } catch (Exception e) {
             log.error("Exception: ", e);
