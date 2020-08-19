@@ -1,6 +1,6 @@
 package com.majoapps.propertyfinder.data.projection;
 
-public interface AddressList {
+public interface AddressListView {
         Integer getPropertyId();
         String getAddress();
 }

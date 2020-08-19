@@ -5,7 +5,7 @@ import static com.majoapps.propertyfinder.web.util.SpecificationUtil.to_tsquery;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
 import com.majoapps.propertyfinder.business.service.PropertyInformationService;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
-import com.majoapps.propertyfinder.data.projection.AddressList;
+import com.majoapps.propertyfinder.data.projection.AddressListView;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -30,7 +30,7 @@ public class PropertyInformationServiceController {
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.GET)
-    public List<AddressList> getPropertyInformationByElasticSearch(@RequestParam(value="address") String address) {
+    public List<AddressListView> getPropertyInformationByElasticSearch(@RequestParam(value="address") String address) {
         return propertyInformationService.getByElasticSearch(to_tsquery(address));
     }
 

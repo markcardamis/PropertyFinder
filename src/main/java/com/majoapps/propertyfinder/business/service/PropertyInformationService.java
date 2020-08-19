@@ -3,7 +3,7 @@ package com.majoapps.propertyfinder.business.service;
 import com.majoapps.propertyfinder.business.domain.AddressListDTO;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
-import com.majoapps.propertyfinder.data.projection.AddressList;
+import com.majoapps.propertyfinder.data.projection.AddressListView;
 import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository;
 import com.majoapps.propertyfinder.data.repository.PropertySalesRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
@@ -19,9 +19,8 @@ public class PropertyInformationService {
 
     private final PropertyInformationRepository propertyInformationRepository;
     private final PropertySalesRepository propertySalesRepository;
-    public static final AddressListDTO NO_ADDRESS_FOUND = new AddressListDTO(0, "no address found");
-    public static final AddressListDTO ADDRESS_SEARCH_TIMEOUT = new AddressListDTO(0, "keep typing");
-
+    public static final AddressListView NO_ADDRESS_FOUND = new AddressListDTO(0, "no address found");
+    public static final AddressListView ADDRESS_SEARCH_TIMEOUT = new AddressListDTO(0, "keep typing");
 
     @Autowired
     public PropertyInformationService(PropertyInformationRepository propertyInformationRepository,
@@ -46,19 +45,19 @@ public class PropertyInformationService {
         return propertyInformationDTO;
     }
 
-    public List<AddressList> getByElasticSearch(String address) {
-        List<AddressList> addressList = new ArrayList<>();
+    public List<AddressListView> getByElasticSearch(String address) {
+        List<AddressListView> addressListView = new ArrayList<>();
         try {
-            Iterable<AddressList> addressListResults = this.propertyInformationRepository
+            Iterable<AddressListView> addressListResults = this.propertyInformationRepository
                     .findByAddressString(address);
-            addressListResults.forEach(addressList::add);
-            if (addressList.size() == 0) {
-                addressList.add(NO_ADDRESS_FOUND);
+            addressListResults.forEach(addressListView::add);
+            if (addressListView.size() == 0) {
+                addressListView.add(NO_ADDRESS_FOUND);
             }
         } catch (Exception e) {
-            addressList.add(ADDRESS_SEARCH_TIMEOUT);
+            addressListView.add(ADDRESS_SEARCH_TIMEOUT);
         }
-        return addressList;
+        return addressListView;
     }
 
     public ResponseEntity<PropertyInformation> updatePropertyInformation(Integer id, 
