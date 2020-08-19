@@ -1,7 +1,9 @@
 package com.majoapps.propertyfinder.business.service;
 
+import com.majoapps.propertyfinder.business.domain.AddressListDTO;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
+import com.majoapps.propertyfinder.data.projection.AddressList;
 import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository;
 import com.majoapps.propertyfinder.data.repository.PropertySalesRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
@@ -17,6 +19,9 @@ public class PropertyInformationService {
 
     private final PropertyInformationRepository propertyInformationRepository;
     private final PropertySalesRepository propertySalesRepository;
+    public static final AddressListDTO NO_ADDRESS_FOUND = new AddressListDTO(0, "no address found");
+    public static final AddressListDTO ADDRESS_SEARCH_TIMEOUT = new AddressListDTO(0, "keep typing");
+
 
     @Autowired
     public PropertyInformationService(PropertyInformationRepository propertyInformationRepository,
@@ -41,17 +46,17 @@ public class PropertyInformationService {
         return propertyInformationDTO;
     }
 
-    public List<String> getByElasticSearch(String address) {
-        List<String> addressList = new ArrayList<>();
+    public List<AddressList> getByElasticSearch(String address) {
+        List<AddressList> addressList = new ArrayList<>();
         try {
-            Iterable<String> addressListResults = this.propertyInformationRepository
+            Iterable<AddressList> addressListResults = this.propertyInformationRepository
                     .findByAddressString(address);
             addressListResults.forEach(addressList::add);
             if (addressList.size() == 0) {
-                addressList.add("0,no address found");
+                addressList.add(NO_ADDRESS_FOUND);
             }
         } catch (Exception e) {
-            addressList.add("0,keep typing");
+            addressList.add(ADDRESS_SEARCH_TIMEOUT);
         }
         return addressList;
     }
