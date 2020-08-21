@@ -1,0 +1,68 @@
+@import '../../../styles/style.scss';
+
+.searchInput {
+    border-radius: 8px;
+    padding-left: 15px;
+    padding-right: 30px !important;
+    font-size: 18px;
+    font-family: $mavenPro;
+    border: none;
+    width: 300px;
+    height: 44px;
+
+    &:focus {
+        outline: none;
+        }
+    }
+.clearSearch {
+    font-size: 20px;
+    font-family: $mavenPro;
+    margin-left: -20px;
+    align-self: center;
+    cursor: default;
+    }
+.searchResults {
+    background-color: $white;
+    margin-top: 10px;
+    border-radius: 8px;
+    width: 300px;
+    padding: 10px;
+
+    .searchResultItem {
+        font-family: $mavenPro;
+        font-size: 14px;
+        padding: 3px;
+        width: 100%;
+        border-radius: 5px;
+        color: $dark-grey;
+        cursor: default;
+
+        &.hovered {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+    }
+    }
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .searchInput {
+        padding-right: 50px !important;
+        font-size: 30px !important;
+        width: 400px;
+        height: 88px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+    .clearSearch {
+        font-size: 32px !important;
+        font-family: $mavenPro;
+        margin-left: -40px !important;
+        align-self: center;
+        cursor: default;
+    }
+    .searchResultItem {
+        font-size: 34px;
+        padding: 20px;
+    }
+}

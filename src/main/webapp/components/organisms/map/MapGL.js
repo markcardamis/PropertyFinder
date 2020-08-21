@@ -75,29 +75,28 @@ handleViewportChange = () => {
     this.props.viewportChange({latitude: map.getCenter().lat, longitude: map.getCenter().lng});
 }
 
-renderPopup = (e) => {
-        const {base_date_1, base_date_2, base_date_3, base_date_4, base_date_5, base_date_0, land_value_1, land_value_2, land_value_3, land_value_4, land_value_5, land_value_0, property_sales} = this.props.popup;
-        const chartData={
-            baseDate: [base_date_5, base_date_4, base_date_3, base_date_2, base_date_1, base_date_0],
-            landValue: [land_value_5, land_value_4, land_value_3, land_value_2, land_value_1, land_value_0]
-        }
+// renderPopup = (e) => {
+//         const {base_date_1, base_date_2, base_date_3, base_date_4, base_date_5, base_date_0, land_value_1, land_value_2, land_value_3, land_value_4, land_value_5, land_value_0, property_sales} = this.props.popup;
+//         const chartData={
+//             baseDate: [base_date_5, base_date_4, base_date_3, base_date_2, base_date_1, base_date_0],
+//             landValue: [land_value_5, land_value_4, land_value_3, land_value_2, land_value_1, land_value_0]
+//         }
         
-        const popup = <Popup chartData={chartData} salesData={property_sales} propertyInfo={this.props.popup}/>
-        const propertyData = <div>{popup}</div>
+//         const popup = <Popup chartData={chartData} salesData={property_sales} propertyInfo={this.props.popup}/>
+//         const propertyData = <div>{popup}</div>
 
-        const addPopup=(el) =>{
-            const placeholder = document.createElement('div');
-            ReactDOM.render(el, placeholder);
+//         const addPopup=(el) =>{
+//             const placeholder = document.createElement('div');
+//             ReactDOM.render(el, placeholder);
         
-            const marker = new mapboxgl.Popup()
-                .setDOMContent(placeholder)
-                .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
-                //.setMaxWidth("354px")
-                .setMaxWidth("100%")
-                .addTo(map);
-        }
-        addPopup(propertyData)
-}
+//             const marker = new mapboxgl.Popup()
+//                 .setDOMContent(placeholder)
+//                 .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
+//                 .setMaxWidth("100%")
+//                 .addTo(map);
+//         }
+//         addPopup(propertyData)
+// }
 
 renderMarkers = async () => {
     const { mapMarker } = this.props;
@@ -126,7 +125,7 @@ handlePropertyClick = async (e) => {
          });
     if (displayFeatures[0].properties && displayFeatures[0].properties.propid) {
         let propid = displayFeatures[0].properties.propid;
-        this.props.getPopup(propid, e, this.renderPopup);
+        this.props.getPopup(propid, e);
     }
 }
 

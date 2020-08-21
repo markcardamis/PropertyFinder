@@ -1,24 +1,49 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {useSelector} from 'react-redux'
+import {useSelector, connect} from 'react-redux'
 import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
 import {IconFilter2, IconMenu2, IconClose, IconLayers, IconSearch} from '../../../assets/icons';
 import './filterButtonGroup.scss';
 import { useWindowSize } from '../../../modules/windowSize';
-import TextInput from '../../atoms/textInput/TextInput';
+import { getSearchResults } from '../../../store/actions/searchAction';
+import { getPopup } from '../../../store/actions/popupAction';
+import SearchInput from '../../atoms/searchInput/SearchInput';
 
 const FilterButtonGroup = props => {
     const searchModal = useSelector(state=>state.searchModal)
     const windowSize = useWindowSize()
     const [showSearchInput, setSearchInput] = useState(false);
-    const [search, setSearch] = useState('')
-
+    const [search, setSearch] = useState('');
+    const [hovered, setHovered] = useState({})
+    const [selected, setSelected] = useState({})
+    let timer;
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
+    }
     const handleCancelSearch = () => {
         setSearchInput(false);
         setSearch('')
     }
+    const handleKeyUp = (e) => {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => {
+        props.getSearchResults(search)
+        }, 500);
+      }
+    const handleKeyPress = (e) => {
+        window.clearTimeout(timer);
+      }
+    const handleSelect = (item) => {
+        handleCancelSearch;
+        setSelected(item);
+        props.getPopup(item.propertyId, ['lat', 'long'])
+    }
+    const handleHover = (item) => {
+        setHovered(item)
+    }
     return (
         <div className='filterButtonGroup'>
+
             <ButtonSquare 
                 icon={searchModal ? <IconClose/> : <IconMenu2 size={windowSize.width<982 ? 2 : 1}/>} 
                 onClick={props.onMenuClick}
@@ -35,20 +60,21 @@ const FilterButtonGroup = props => {
                 style={{marginRight: 14}}
                 onClick={props.onLayersClick}
                 />
-                {console.log(search)}
-            {!showSearchInput ? <ButtonSquare 
-                icon={<IconSearch size={windowSize.width<982 ? 2 : 1}/>} 
-                color={'#000000'} 
-                onClick={()=>setSearchInput(true)}
-                /> :
-                <>
-                    <input
-                        value={search}
-                        onChange={(e)=>setSearch(e.target.value)}
-                        className='searchInput'
-                        />
-                    <span className='clearSearch' onClick={handleCancelSearch}>x</span>
-                </>
+            {!showSearchInput ? 
+                <ButtonSquare 
+                    icon={<IconSearch size={windowSize.width<982 ? 2 : 1}/>} 
+                    color={'#000000'} 
+                    onClick={()=>setSearchInput(true)}
+                    /> :
+                <SearchInput
+                    search={search}
+                    onChange={(e)=>handleSearch(e)}
+                    onCancel={handleCancelSearch}
+                    onHover={handleHover}
+                    onSelect={handleSelect}
+                    onKeyPress={handleKeyPress}
+                    onKeyUp={handleKeyUp}
+                />
                 }
         </div>
     );
@@ -59,4 +85,15 @@ FilterButtonGroup.propTypes = {
     onFilterClick: PropTypes.func
 };
 
-export default FilterButtonGroup;
+const mapStateToProps = (state) => {
+    return {
+    
+    };
+};
+
+const mapDispatchToProps = {
+    getSearchResults,
+    getPopup
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterButtonGroup);
