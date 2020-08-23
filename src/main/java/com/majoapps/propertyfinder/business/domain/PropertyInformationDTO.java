@@ -70,8 +70,8 @@ public class PropertyInformationDTO implements Serializable {
     private String minimumLotSize;
     @JsonProperty("building_height")
     private BigDecimal buildingHeight;
-
-
+    @JsonProperty("latitude") private Double latitude;
+    @JsonProperty("longitude") private Double longitude;
 
     @JsonIgnoreProperties({"id", "districtCode", "propertyId", "saleCounter", "downloadDateTime",
             "propertyName", "unitNumber", "houseNumber", "streetName", "suburbName", "postCode", "area",
