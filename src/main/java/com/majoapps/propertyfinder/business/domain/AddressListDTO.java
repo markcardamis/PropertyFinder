@@ -15,5 +15,7 @@ public class AddressListDTO implements AddressListView, Serializable{
 
     @JsonProperty("propertyId") private Integer propertyId;
     @JsonProperty("address") private String address;
+    @JsonProperty("latitude") private Double latitude;
+    @JsonProperty("longitude") private Double longitude;
 
 }
