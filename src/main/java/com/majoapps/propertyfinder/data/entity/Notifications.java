@@ -3,6 +3,7 @@ package com.majoapps.propertyfinder.data.entity;
 import java.math.BigDecimal;
 import javax.persistence.*;
 import com.majoapps.propertyfinder.data.enums.Frequency;
+import com.majoapps.propertyfinder.web.util.FrequencyEnumConverter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,6 +19,7 @@ public class Notifications extends AuditModel {
     private Account account;
     @Column(name="title")
     private String title;
+    @Convert(converter = FrequencyEnumConverter.class)
     @Column(name="frequency")
     private Frequency frequency;
     @Column(name="property_zone")
