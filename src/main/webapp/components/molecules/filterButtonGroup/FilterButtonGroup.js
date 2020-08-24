@@ -36,7 +36,7 @@ const FilterButtonGroup = props => {
     const handleSelect = (item) => {
         handleCancelSearch;
         setSelected(item);
-        props.getPopup(item.propertyId, ['lat', 'long'])
+        props.getPopup(item.propertyId, item.longitude, item.latitude)
     }
     const handleHover = (item) => {
         setHovered(item)

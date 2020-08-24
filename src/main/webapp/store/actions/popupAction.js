@@ -8,7 +8,7 @@ import { showLoading, hideLoading } from "./loadingAction";
 
 const apiUrl = `/api/propertyinformation`;
 
-const renderPopup = (e) => {
+const renderPopup = (longitude, latitude) => {
   
   const property = store.getState().popup
   const {base_date_1, base_date_2, base_date_3, base_date_4, base_date_5, base_date_0, land_value_1, land_value_2, land_value_3, land_value_4, land_value_5, land_value_0, property_sales} = property;
@@ -26,21 +26,21 @@ const renderPopup = (e) => {
   
       const marker = new mapboxgl.Popup()
           .setDOMContent(placeholder)
-          .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
+          .setLngLat([longitude, latitude])
           .setMaxWidth("100%")
           .addTo(map);
   }
   addPopup(propertyData)
 }
 
-export const getPopup = (propId, e) => async dispatch => {
+export const getPopup = (propId, longitude, latitude) => async dispatch => {
     // dispatch(showLoading());
     dispatch(setPopupRequest());
     await fetch(`${apiUrl}/${propId}`)
         .then(response => response.json())
         .then(res=>dispatch({type: 'SET_POPUP_LOADED', property: res}))
         .catch(error => console.log(error));
-    renderPopup(e)
+    renderPopup(longitude, latitude)
     // dispatch(hideLoading());
 }
 

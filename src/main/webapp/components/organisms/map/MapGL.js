@@ -125,7 +125,7 @@ handlePropertyClick = async (e) => {
          });
     if (displayFeatures[0].properties && displayFeatures[0].properties.propid) {
         let propid = displayFeatures[0].properties.propid;
-        this.props.getPopup(propid, e);
+        this.props.getPopup(propid, e.lngLat.wrap().lng, e.lngLat.wrap().lat);
     }
 }
 
@@ -187,7 +187,7 @@ checkAuthentication = async () => {
             <div   
                 ref={el => this.mapContainer = el} 
                 className='mapContainer' 
-                id='map' 
+                // id='map' 
                 style={{left: searchModal ? '45%' : 0}}
                 >
                 {!filterModal && !saveModal && <FilterButtonGroup 
