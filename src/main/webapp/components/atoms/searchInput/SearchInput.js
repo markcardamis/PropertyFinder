@@ -7,7 +7,8 @@ import { searchResult } from '../../../../../../contsants_temp';
 
 const SearchInput = props => {
     const searchResults = useSelector(state=>state.searchResults);
-    const [hovered, setHovered] = useState('')
+    const [hovered, setHovered] = useState('');
+    const [showResults, setShowResults] = useState(false)
     
     const handleHover = (item) => {
         props.onHover(item);
@@ -50,14 +51,16 @@ const SearchInput = props => {
                     onKeyUp={props.onKeyUp}
                     onKeyPress={props.onKeyPress}
                     onKeyDown={handleKeyDown}
+                    onFocus={()=>setShowResults(true)}
+                    onBlur={()=>setShowResults(false)}
                     />
                 <span className='clearSearch' onClick={props.onCancel}>x</span>
-                <div 
+                {showResults&&<div 
                     className='searchResults'
                     onKeyDown={(e)=>handleKeyDown(e)}
                     >
                     {renderSearchResults()}
-                </div>
+                </div>}
             </div>
     );
 };

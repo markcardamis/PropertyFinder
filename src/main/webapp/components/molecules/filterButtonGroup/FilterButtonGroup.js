@@ -25,10 +25,12 @@ const FilterButtonGroup = props => {
         setSearch('')
     }
     const handleKeyUp = (e) => {
-        window.clearTimeout(timer);
-        timer = window.setTimeout(() => {
-        props.getSearchResults(search)
-        }, 500);
+        if (e.key!='Enter'&&e.key!='ArrowUp'&&e.key!='ArrowDown') {
+            window.clearTimeout(timer);
+            timer = window.setTimeout(() => {
+            props.getSearchResults(search)
+            }, 500);
+        }
       }
     const handleKeyPress = (e) => {
         window.clearTimeout(timer);
