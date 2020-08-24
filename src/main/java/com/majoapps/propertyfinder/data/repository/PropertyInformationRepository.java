@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface PropertyInformationRepository extends JpaRepository<PropertyInformation, Integer> {
 
         @Transactional(timeout = 2, readOnly = true)
-        @Query(value = "SELECT property_id as propertyId, concat_ws(' ', unit_number, house_number, street_name, suburb_name, post_code) as address FROM property_information WHERE to_tsvector('simple', f_concat_ws(' ', unit_number, house_number, street_name, suburb_name, post_code)) @@ to_tsquery('simple', :address) LIMIT 5", nativeQuery = true)
+        @Query(value = "SELECT property_id as propertyId, concat_ws(' ', unit_number, house_number, street_name, suburb_name, post_code) as address, latitude, longitude FROM property_information WHERE to_tsvector('simple', f_concat_ws(' ', unit_number, house_number, street_name, suburb_name, post_code)) @@ to_tsquery('simple', :address) LIMIT 5", nativeQuery = true)
         List<AddressListView> findByAddressString(@Param("address") String address);
 
 }

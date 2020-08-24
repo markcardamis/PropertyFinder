@@ -91,6 +91,8 @@ public class NotificationsService {
 
     public ResponseEntity<Notifications> updateNotifications(UUID id, Notifications newNotifications) {
         return notificationsRepository.findById(id).map(notifications -> {
+            notifications.setTitle(newNotifications.getTitle());
+            notifications.setFrequency(newNotifications.getFrequency());
             notifications.setPropertyZone(newNotifications.getPropertyZone());
             notifications.setPropertyAreaMin(newNotifications.getPropertyAreaMin());
             notifications.setPropertyAreaMax(newNotifications.getPropertyAreaMax());
@@ -110,6 +112,12 @@ public class NotificationsService {
 
     public ResponseEntity<Notifications> partialUpdateNotifications(UUID id, Notifications newNotifications) {
         return notificationsRepository.findById(id).map(notifications -> {
+            if (newNotifications.getTitle() != null) {
+                notifications.setTitle(newNotifications.getTitle());
+            }
+            if (newNotifications.getFrequency() != null) {
+                notifications.setFrequency(newNotifications.getFrequency());
+            }
             if (newNotifications.getPropertyZone() != null) {
                 notifications.setPropertyZone(newNotifications.getPropertyZone());
             }

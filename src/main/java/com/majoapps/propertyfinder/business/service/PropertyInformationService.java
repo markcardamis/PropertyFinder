@@ -19,8 +19,8 @@ public class PropertyInformationService {
 
     private final PropertyInformationRepository propertyInformationRepository;
     private final PropertySalesRepository propertySalesRepository;
-    public static final AddressListView NO_ADDRESS_FOUND = new AddressListDTO(0, "no address found");
-    public static final AddressListView ADDRESS_SEARCH_TIMEOUT = new AddressListDTO(0, "keep typing");
+    public static final AddressListView NO_ADDRESS_FOUND = new AddressListDTO(0, "no address found",0.0,0.0);
+    public static final AddressListView ADDRESS_SEARCH_TIMEOUT = new AddressListDTO(0, "keep typing",0.0,0.0);
 
     @Autowired
     public PropertyInformationService(PropertyInformationRepository propertyInformationRepository,
@@ -101,6 +101,8 @@ public class PropertyInformationService {
             propertyInformation.setFloorSpaceRatio(newAccount.getFloorSpaceRatio());
             propertyInformation.setMinimumLotSize(newAccount.getMinimumLotSize());
             propertyInformation.setBuildingHeight(newAccount.getBuildingHeight());
+            propertyInformation.setLatitude(newAccount.getLatitude());
+            propertyInformation.setLongitude(newAccount.getLongitude());
             propertyInformationRepository.save(propertyInformation);
             return ResponseEntity.ok(propertyInformation);
         }).orElseThrow(() -> new ResourceNotFoundException("Account ID " + id + " not found"));
@@ -185,6 +187,10 @@ public class PropertyInformationService {
                 propertyInformation.setMinimumLotSize(newAccount.getMinimumLotSize());
             if(newAccount.getBuildingHeight() != null) 
                 propertyInformation.setBuildingHeight(newAccount.getBuildingHeight());
+            if(newAccount.getLatitude() != null)
+                propertyInformation.setLatitude(newAccount.getLatitude());
+            if(newAccount.getLongitude() != null)
+                propertyInformation.setLongitude(newAccount.getLongitude());
             propertyInformationRepository.save(propertyInformation);
             return ResponseEntity.ok(propertyInformation);
         }).orElseThrow(() -> new ResourceNotFoundException("Account ID " + id + " not found"));
