@@ -9,7 +9,7 @@ import {IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, Ic
 import { useWindowSize } from '../../../modules/windowSize';
 
 const Popup = props => {
-    const {property_id, house_number, street_name, suburb_name, post_code, zone_code, area, floor_space_ratio, minimum_lot_size, building_height, land_value_1} = props.propertyInfo
+    const {property_id, house_number, street_name, suburb_name, post_code, zone_code, area, floor_space_ratio, minimum_lot_size, building_height, land_value_0} = props.propertyInfo
     const upperCase = (str) => {
         let splitStr = str.toLowerCase().split(' ');
         for (let i = 0; i < splitStr.length; i++) {
@@ -41,7 +41,7 @@ const Popup = props => {
                 <PropListItem 
                     icon={<IconLandvalG size={size.width<982 ? 2:1}/>} 
                     title={LAND_VALUE} 
-                    value11={land_value_1}
+                    value11={land_value_0}
                     />
                 {floor_space_ratio!==null&&
                     <PropListItem 
