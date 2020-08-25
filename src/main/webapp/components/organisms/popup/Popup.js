@@ -21,7 +21,7 @@ const Popup = props => {
     const size = useWindowSize()
     return (
         <div style={{width: size.width>982 ? 354 : 650}}>
-            {/* <Chart chartData={props.chartData} salesData={props.salesData}/> */}
+            <Chart chartData={props.chartData} salesData={props.salesData}/>
             <div className='popup-propertyInfo'>
                 <PropListItem 
                     icon={<IconAddressG size={size.width<982 ? 2:1}/>} 

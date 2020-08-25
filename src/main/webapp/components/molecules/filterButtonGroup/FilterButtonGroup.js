@@ -20,9 +20,7 @@ const FilterButtonGroup = props => {
     const [showResults, setShowResults] = useState(false)
     let timer;
     const handleSearch = (e) => {
-        // const regex = /[a-zA-Z0-9/s+-]/;
-        // regex.test(e.target.value) ? setSearch(e.target.value) : null;
-       setSearch(e.target.value)
+       setSearch(e.target.value.replace(/[^a-zA-Z0-9_ /]/gi, ''))
     }
     const handleCancelSearch = () => {
         setSearchInput(false);
