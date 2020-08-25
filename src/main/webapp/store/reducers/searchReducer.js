@@ -1,6 +1,6 @@
 import { searchResult } from "../../../../../contsants_temp";
 
-//const initialState = searchResult;
+// const initialState = searchResult;
 const initialState = [];
 
 const SearchResultsReducer = (state = initialState, action) => {

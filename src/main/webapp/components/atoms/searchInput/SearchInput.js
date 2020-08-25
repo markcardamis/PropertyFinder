@@ -1,14 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {useSelector, connect} from 'react-redux'
 import './searchInput.scss';
 import { getSearchResults } from '../../../store/actions/searchAction';
-import { searchResult } from '../../../../../../contsants_temp';
 
 const SearchInput = props => {
     const searchResults = useSelector(state=>state.searchResults);
     const [hovered, setHovered] = useState('');
-    const [showResults, setShowResults] = useState(false)
     
     const handleHover = (item) => {
         props.onHover(item);
@@ -27,6 +25,8 @@ const SearchInput = props => {
             hovered == '' ? setHovered(searchResults[0]) :
             hovered.propertyId === searchResults[(searchResults.length)-1].propertyId ? 
             setHovered(searchResults[0]) : setHovered(searchResults[hoveredIndex()+1])
+        } else if (props.search.length>=60) {
+            e.preventDefault()
         }
     }
     const renderSearchResults = () => {
@@ -51,11 +51,10 @@ const SearchInput = props => {
                     onKeyUp={props.onKeyUp}
                     onKeyPress={props.onKeyPress}
                     onKeyDown={handleKeyDown}
-                    onFocus={()=>setShowResults(true)}
-                    onBlur={()=>setShowResults(false)}
+                    onFocus={()=>props.setShowResults(true)}
                     />
                 <span className='clearSearch' onClick={props.onCancel}>x</span>
-                {showResults&&<div 
+                {props.showResults&&searchResults.length>0&&<div 
                     className='searchResults'
                     onKeyDown={(e)=>handleKeyDown(e)}
                     >

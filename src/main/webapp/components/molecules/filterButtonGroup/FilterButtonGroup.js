@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {useSelector, connect} from 'react-redux'
 import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
@@ -8,6 +8,7 @@ import { useWindowSize } from '../../../modules/windowSize';
 import { getSearchResults } from '../../../store/actions/searchAction';
 import { getPopup } from '../../../store/actions/popupAction';
 import SearchInput from '../../atoms/searchInput/SearchInput';
+import {map} from '../../organisms/map/MapGL'
 
 const FilterButtonGroup = props => {
     const searchModal = useSelector(state=>state.searchModal)
@@ -16,16 +17,19 @@ const FilterButtonGroup = props => {
     const [search, setSearch] = useState('');
     const [hovered, setHovered] = useState({})
     const [selected, setSelected] = useState({})
+    const [showResults, setShowResults] = useState(false)
     let timer;
     const handleSearch = (e) => {
-        setSearch(e.target.value);
+        // const regex = /[a-zA-Z0-9/s+-]/;
+        // regex.test(e.target.value) ? setSearch(e.target.value) : null;
+       setSearch(e.target.value)
     }
     const handleCancelSearch = () => {
         setSearchInput(false);
         setSearch('')
     }
     const handleKeyUp = (e) => {
-        if (e.key!='Enter'&&e.key!='ArrowUp'&&e.key!='ArrowDown') {
+        if (e.key!='ArrowUp'&&e.key!='ArrowDown') {
             window.clearTimeout(timer);
             timer = window.setTimeout(() => {
             props.getSearchResults(search)
@@ -38,7 +42,9 @@ const FilterButtonGroup = props => {
     const handleSelect = (item) => {
         handleCancelSearch;
         setSelected(item);
-        props.getPopup(item.propertyId, item.longitude, item.latitude)
+        map.flyTo({center: [item.longitude, item.latitude], zoom: 16});
+        props.getPopup(item.propertyId, item.longitude, item.latitude);
+        setShowResults(false)
     }
     const handleHover = (item) => {
         setHovered(item)
@@ -76,6 +82,8 @@ const FilterButtonGroup = props => {
                     onSelect={handleSelect}
                     onKeyPress={handleKeyPress}
                     onKeyUp={handleKeyUp}
+                    showResults={showResults}
+                    setShowResults={(state)=>setShowResults(state)}
                 />
                 }
         </div>
