@@ -20,8 +20,8 @@ class RegisterForm extends Component {
         errorMessage: '',
         validation: {}
       };
-      
-      this.oktaAuth = new OktaAuth({ url: 'https://dev-842802.okta.com' });
+
+      this.oktaAuth = new OktaAuth({ issuer: process.env.OKTA_URL });
       this.checkAuthentication();
     }
 
