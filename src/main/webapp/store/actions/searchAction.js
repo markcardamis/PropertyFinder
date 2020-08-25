@@ -1,14 +1,12 @@
 import React from 'react';
 import { hideLoading, showLoading } from "./loadingAction";
 
-// const apiUrl = '/api/propertyinformation/query?address=';
-const apiUrl = 'https://propertyfetch-staging.herokuapp.com/api/propertyinformation/query?address=';
+const apiUrl = '/api/propertyinformation/query?address=';
 
 export const getSearchResults = (query) => async dispatch => {
     dispatch(showLoading());
     dispatch(setSearchResultsRequest());
     await fetch(apiUrl+query)
-    //await fetch('https://jsonplaceholder.typicode.com/posts')
         .then(response => response.json())
         .then(res=>dispatch({type: 'SET_SEARCH_RESULTS_LOADED', searchResults: res}))
         .catch(error => console.log(error));
