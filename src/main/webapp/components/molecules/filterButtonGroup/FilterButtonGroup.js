@@ -7,7 +7,7 @@ import './filterButtonGroup.scss';
 import { useWindowSize } from '../../../modules/windowSize';
 import { getSearchResults } from '../../../store/actions/searchAction';
 import { getPopup } from '../../../store/actions/popupAction';
-import SearchInput from '../../atoms/searchInput/SearchInput';
+import SearchInput from '../searchInput/SearchInput';
 import {map} from '../../organisms/map/MapGL'
 
 const FilterButtonGroup = props => {

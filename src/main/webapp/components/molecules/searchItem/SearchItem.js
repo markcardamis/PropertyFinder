@@ -9,6 +9,7 @@ import DeviderLine from '../../atoms/deviderLine/DeviderLine';
 import ButtonProperty from '../../atoms/buttonProperty/ButtonProperty';
 import './searchItem.scss'
 import ImageLazy from '../../atoms/ImageLazy/ImageLazy';
+import {map} from '../../organisms/map/MapGL';
 
 const SearchItem = props => {
     const dispatch = useDispatch()
@@ -20,6 +21,7 @@ const SearchItem = props => {
         dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, status: 'marker-unvisited'})
         dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'marker-selected'})
         dispatch ({type: 'VIEWPORT_CHANGE', payload: {latitude: marker.latitude, longitude: marker.longitude}});
+        map.flyTo({center: [marker.longitude, marker.latitude], zoom: 10});
     }
     return (
         <div className='searchItem' onClick={handleClick}>
