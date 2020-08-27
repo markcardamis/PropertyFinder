@@ -43,7 +43,7 @@ module.exports = {
       'process.env': {
          'MAPBOX_API': JSON.stringify(process.env.MAPBOX_API),
          'MAPBOX_STYLE': JSON.stringify(process.env.MAPBOX_STYLE),
-         'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+         'LOGGING': JSON.stringify(process.env.LOGGING)
       }
     }),
     new HtmlWebpackPlugin({
