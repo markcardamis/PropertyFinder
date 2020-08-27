@@ -57,7 +57,76 @@ async componentDidMount() {
         map.setLayoutProperty('heritage', 'visibility', this.props.layers.heritage ? 'visible' : 'none');
         map.setLayoutProperty('mobile-internet', 'visibility', this.props.layers.mobileInternet ? 'visible' : 'none');
     });
+
+        let overlay = document.getElementById('map-overlay');
+
+        map.addSource('composite1', {
+            'type': 'vector',
+            'url': 'mapbox://markcardamis.52gy6wvu'
+        });
+
+        map.addLayer(
+            {
+                'id': 'nsw_property_latlong_highlighted',
+                'type': 'fill',
+                'source': 'composite1',
+                'source-layer': 'nsw_property_latlong',
+                'paint': {
+                    'fill-outline-color': 'rgba(0,0,0,0.1)',
+                    'fill-color': 'rgba(0,0,0,0.1)'
+                }
+            }
+        );
+
+        map.setFilter('nsw_property_latlong_highlighted', ['in', 'propid', '']);
+
+        map.on('mousemove', 'nsw-property-latlong', function(e) {
+        
+            map.getCanvas().style.cursor = 'default';
+
+            const feature = e.features[0];
     
+            const relatedFeatures = map.querySourceFeatures('composite1', {
+                sourceLayer: 'nsw_property_latlong',
+                filter: ['in', 'propid', feature.properties.propid],
+                validate: false
+            });
+
+            overlay.innerHTML = '';
+
+            const propertyid = relatedFeatures.reduce(function(memo, feature) {
+                return memo + feature.properties.propid;
+            }, 0);
+
+            const title = document.createElement('strong');
+            title.textContent =
+                feature.properties.propid +
+                ' (' +
+                relatedFeatures.length +
+                ' found)';
+
+            const population = document.createElement('div');
+            population.textContent =
+                'Property Id: ' + propertyid.toLocaleString();
+
+            overlay.appendChild(title);
+            overlay.appendChild(population);
+            overlay.style.display = 'block';
+            overlay.style.zIndex = '4';
+
+            map.setFilter('nsw_property_latlong_highlighted', [
+                'in',
+                'propid',
+                feature.properties.propid
+            ]);
+
+        });
+
+        map.on('mouseleave', 'nsw_property_latlong_highlighted', function() {
+            map.getCanvas().style.cursor = '';
+            map.setFilter('nsw_property_latlong_highlighted', ['in', 'propid', '']);
+            overlay.style.display = 'none';
+        });
 }
 
 componentDidUpdate() {
@@ -161,6 +230,7 @@ checkAuthentication = async () => {
     render() {
         const {searchModal, filterModal, saveModal, layers} = this.props
     return (
+        <>
             <div   
                 ref={el => this.mapContainer = el} 
                 className='mapContainer' 
@@ -174,6 +244,8 @@ checkAuthentication = async () => {
                 />}
                 {layers.showModal&&<LayerSelectModal/>}
             </div>
+            <div id="map-overlay" class="map-overlay"></div>
+        </>
         );
     }
 }
