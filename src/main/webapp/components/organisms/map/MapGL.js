@@ -68,12 +68,12 @@ async componentDidMount() {
         map.addLayer(
             {
                 'id': 'nsw_property_latlong_highlighted',
-                'type': 'fill',
+                'type': 'line',
                 'source': 'composite1',
                 'source-layer': 'nsw_property_latlong',
                 'paint': {
-                    'fill-outline-color': 'rgba(0,0,0,0.1)',
-                    'fill-color': 'rgba(0,0,0,0.1)'
+                    'line-color': 'hsl(110, 1%, 50%)',
+                    'line-width': 2
                 }
             }
         );
@@ -97,22 +97,6 @@ async componentDidMount() {
             const propertyid = relatedFeatures.reduce(function(memo, feature) {
                 return memo + feature.properties.propid;
             }, 0);
-
-            const title = document.createElement('strong');
-            title.textContent =
-                feature.properties.propid +
-                ' (' +
-                relatedFeatures.length +
-                ' found)';
-
-            const population = document.createElement('div');
-            population.textContent =
-                'Property Id: ' + propertyid.toLocaleString();
-
-            overlay.appendChild(title);
-            overlay.appendChild(population);
-            overlay.style.display = 'block';
-            overlay.style.zIndex = '4';
 
             map.setFilter('nsw_property_latlong_highlighted', [
                 'in',
