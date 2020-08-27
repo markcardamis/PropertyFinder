@@ -42,7 +42,8 @@ const FilterButtonGroup = props => {
         setSelected(item);
         map.flyTo({center: [item.longitude, item.latitude], zoom: 16});
         props.getPopup(item.propertyId, item.longitude, item.latitude);
-        setShowResults(false)
+        setShowResults(false);
+        setSearchInput(false);
     }
     const handleHover = (item) => {
         setHovered(item)

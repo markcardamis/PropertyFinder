@@ -45,6 +45,7 @@ const SearchInput = props => {
     return (
             <div>
                 <input
+                    autoFocus
                     value={props.search}
                     onChange={props.onChange}
                     className='searchInput'
