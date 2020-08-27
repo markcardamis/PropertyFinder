@@ -74,7 +74,8 @@ async componentDidMount() {
                 'paint': {
                     'line-color': 'hsl(110, 1%, 50%)',
                     'line-width': 2
-                }
+                },
+                'minzoom': 16
             }
         );
 
