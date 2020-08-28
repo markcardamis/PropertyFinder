@@ -15,9 +15,9 @@ const LayerSelectModal = props => {
     const windowSize = useWindowSize()
 
     useEffect(() => {
-        document.addEventListener("mousedown", handleClick);
+        document.addEventListener("click", handleClick);
         return () => {
-          document.removeEventListener("mousedown", handleClick);
+          document.removeEventListener("click", handleClick);
         };
       }, []);
 
@@ -25,7 +25,7 @@ const LayerSelectModal = props => {
         if (node.current.contains(e.target)) {
           return;
         }
-        dispatch(closeLayersModal())
+        dispatch(closeLayersModal());
       }
 
     const toggleLayers = (layerName, layer) => {

@@ -8,9 +8,13 @@ import { createLogger } from 'redux-logger'
 import App from '../components/App';
 import reducers from '../store/reducers/index';
 
-const logger = createLogger();
-//export const store= createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunk, logger));
-export const store= createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunk));
+const middlewares = [thunk];
+if (process.env.LOGGING === `development`) {
+    const logger = createLogger();
+  
+    middlewares.push(logger);
+  }
+export const store= createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(...middlewares));
 
     ReactDOM.render(
         <Provider store={store}>
