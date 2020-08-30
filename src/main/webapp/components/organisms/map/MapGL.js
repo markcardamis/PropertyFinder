@@ -23,6 +23,7 @@ import LayerSelectModal from '../layerSelectModal/LayerSelectModal';
     mapboxgl.accessToken = process.env.MAPBOX_API;
     export let map;
     let currentMarkers = [];
+    let hoverId = null;
  
 class MapGL extends React.Component {
     constructor(props) {
@@ -32,7 +33,6 @@ class MapGL extends React.Component {
              authenticated: null
         };
     }
-    
     
 async componentDidMount() {
     map = new mapboxgl.Map({
@@ -49,6 +49,8 @@ async componentDidMount() {
     map.on('click', (e) => this.handlePropertyClick(e)); 
     map.on('move', () => this.handleViewportChange());
     map.on('click', (e) => this.handleHoverLayer(e));
+    map.on('mousemove', 'nsw-property-latlong', (e) => this.handleHoverOnProperty(e));
+    map.on('mouseleave', 'nsw-property-latlong', () => this.handleHoverOffProperty());
     hotjar.initialize(1445331, 6);
     map.on('styledata', () => {
         map.setLayoutProperty('landzoning', 'visibility', this.props.layers.landZoning ? 'visible' : 'none');
@@ -58,60 +60,25 @@ async componentDidMount() {
         map.setLayoutProperty('mobile-internet', 'visibility', this.props.layers.mobileInternet ? 'visible' : 'none');
     });
 
-        let overlay = document.getElementById('map-overlay');
+    map.addSource('property_nsw', {
+        'type': 'vector',
+        'url': 'mapbox://markcardamis.52gy6wvu'
+    });
 
-        map.addSource('composite1', {
-            'type': 'vector',
-            'url': 'mapbox://markcardamis.52gy6wvu'
-        });
-
-        map.addLayer(
-            {
-                'id': 'nsw_property_latlong_highlighted',
-                'type': 'line',
-                'source': 'composite1',
-                'source-layer': 'nsw_property_latlong',
-                'paint': {
-                    'line-color': 'hsl(110, 1%, 50%)',
-                    'line-width': 2
-                },
-                'minzoom': 16
-            }
-        );
-
-        map.setFilter('nsw_property_latlong_highlighted', ['in', 'propid', '']);
-
-        map.on('mousemove', 'nsw-property-latlong', function(e) {
-        
-            map.getCanvas().style.cursor = 'default';
-
-            const feature = e.features[0];
-    
-            const relatedFeatures = map.querySourceFeatures('composite1', {
-                sourceLayer: 'nsw_property_latlong',
-                filter: ['in', 'propid', feature.properties.propid],
-                validate: false
-            });
-
-            overlay.innerHTML = '';
-
-            const propertyid = relatedFeatures.reduce(function(memo, feature) {
-                return memo + feature.properties.propid;
-            }, 0);
-
-            map.setFilter('nsw_property_latlong_highlighted', [
-                'in',
-                'propid',
-                feature.properties.propid
-            ]);
-
-        });
-
-        map.on('mouseleave', 'nsw_property_latlong_highlighted', function() {
-            map.getCanvas().style.cursor = '';
-            map.setFilter('nsw_property_latlong_highlighted', ['in', 'propid', '']);
-            overlay.style.display = 'none';
-        });
+    map.addLayer({
+        'id': 'nsw_property_latlong_highlighted',
+        'type': 'line',
+        'source': 'property_nsw',
+        'source-layer': 'nsw_property_latlong',
+        'paint': {
+            'line-color': 'hsl(110, 1%, 50%)',
+            'line-width': [
+                'case',
+                ['boolean', ['feature-state', 'hover'], false], 2, 0
+            ]
+        },
+        'minzoom': 16
+    });
 }
 
 componentDidUpdate() {
@@ -202,6 +169,41 @@ handleHoverLayer = (e) => {
                 }
             });
         }
+}
+
+handleHoverOnProperty = (e) => {
+    if (e.features.length > 0) {
+        if (hoverId) {
+            map.setFeatureState({
+                source: 'property_nsw',
+                sourceLayer: 'nsw_property_latlong',
+                id: hoverId,
+                }, {
+                hover: false
+            });
+        }
+        hoverId = e.features[0].id;
+        map.setFeatureState({
+            source: 'property_nsw',
+            sourceLayer: 'nsw_property_latlong',
+            id: hoverId,
+            }, {
+            hover: true
+        });
+    }
+}
+
+handleHoverOffProperty = () => {
+    if (hoverId) {
+        map.setFeatureState({
+            source: 'property_nsw',
+            sourceLayer: 'nsw_property_latlong',
+            id: hoverId,
+            }, {
+            hover: false
+        });
+    }
+    hoverId = null;
 }
 
 checkAuthentication = async () => {
