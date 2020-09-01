@@ -75,6 +75,7 @@ const FilterButtonGroup = props => {
                     /> :
                 <SearchInput
                     search={search}
+                    placeholder={'320 Pitt St Sydney NSW 2000'}
                     onChange={(e)=>handleSearch(e)}
                     onCancel={handleCancelSearch}
                     onHover={handleHover}

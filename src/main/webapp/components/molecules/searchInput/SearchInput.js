@@ -47,6 +47,7 @@ const SearchInput = props => {
                 <input
                     autoFocus
                     value={props.search}
+                    placeholder={props.placeholder}
                     onChange={props.onChange}
                     className='searchInput'
                     onKeyUp={props.onKeyUp}
