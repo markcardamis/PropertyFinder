@@ -56,6 +56,12 @@ const LayerSelectModal = props => {
                         Height of building
                 </div>
                 <div 
+                    className={`layerName ${layers.lotsize ? 'active' : ''}`} 
+                    onClick={()=>toggleLayers('lotsize', 'lotsize')}
+                    >
+                        Lot Size
+                </div>
+                <div 
                     className={`layerName ${layers.heritage ? 'active' : ''}`} 
                     onClick={()=>toggleLayers('heritage', 'heritage')}
                     >
