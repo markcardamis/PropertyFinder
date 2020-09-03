@@ -18,7 +18,7 @@ const Home = (props) => {
   const filterModal = useSelector(state=>state.filterModal);
   const propertyModal = useSelector(state=>state.propertyModal.isHidden);
   const showSave = useSelector(state=>state.showSaveModal);
-  const searchModal = useSelector(state=>state.searchModal)
+  const searchModal = useSelector(state=>state.searchModal);
 
   const handleCloseFilter = () => {
     dispatch(closeFilter())
