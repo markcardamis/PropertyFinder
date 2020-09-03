@@ -46,12 +46,15 @@ async componentDidMount() {
     this.checkAuthentication();
     await this.props.getMapMarkers(this.renderMarkers);
 
+    if ((process.env.LOGGING || '').trim() === 'production') {
+        hotjar.initialize(1445331, 6);
+    }
+
     map.on('click', (e) => this.handlePropertyClick(e)); 
     map.on('move', () => this.handleViewportChange());
     map.on('click', (e) => this.handleHoverLayer(e));
     map.on('mousemove', 'nsw-property-latlong', (e) => this.handleHoverOnProperty(e));
     map.on('mouseleave', 'nsw-property-latlong', () => this.handleHoverOffProperty());
-    hotjar.initialize(1445331, 6);
     map.on('styledata', () => {
         map.setLayoutProperty('landzoning', 'visibility', this.props.layers.landZoning ? 'visible' : 'none');
         map.setLayoutProperty('floorspaceratio', 'visibility', this.props.layers.floorSpaceRatio ? 'visible' : 'none');
