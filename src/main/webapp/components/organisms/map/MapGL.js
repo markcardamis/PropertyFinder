@@ -59,6 +59,7 @@ async componentDidMount() {
         map.setLayoutProperty('landzoning', 'visibility', this.props.layers.landZoning ? 'visible' : 'none');
         map.setLayoutProperty('floorspaceratio', 'visibility', this.props.layers.floorSpaceRatio ? 'visible' : 'none');
         map.setLayoutProperty('heightofbuilding', 'visibility', this.props.layers.heightOfBuilding ? 'visible' : 'none');
+        map.setLayoutProperty('lotsize', 'visibility', this.props.layers.lotsize ? 'visible' : 'none');
         map.setLayoutProperty('heritage', 'visibility', this.props.layers.heritage ? 'visible' : 'none');
         map.setLayoutProperty('mobile-internet', 'visibility', this.props.layers.mobileInternet ? 'visible' : 'none');
     });
@@ -161,7 +162,7 @@ handleHoverLayer = (e) => {
                             info = property.properties.MAX_B_H + property.properties.UNITS;
                             break;
                         case 'HER':
-                            info = property.properties.H_NAME + property.properties.UNITS;
+                            info = property.properties.H_NAME;
                             break;
                         default:
                         }
