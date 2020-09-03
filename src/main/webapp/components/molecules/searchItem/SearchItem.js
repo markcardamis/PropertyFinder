@@ -49,7 +49,7 @@ const SearchItem = props => {
                 <PropListItem icon={price ? <IconPriceG/> : <IconPriceG color={variables.lightGrey}/>} title={PRICE} value14={price}/>
                 <PropListItem2 
                     icon1={price_to_land_value ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} 
-                    title1={PRICE_TO_LAND_VALUE} value1={price_to_land_value&&`${price_to_land_value}%`}
+                    title1={PRICE_TO_LAND_VALUE} value1={price_to_land_value&&`${price_to_land_value}:1`}
                     icon2={minimum_lot_size ? <IconLotG/> : <IconLotG color={variables.lightGrey}/>} 
                     title2={MINIMUM_LOT_SIZE} value2={minimum_lot_size}
                     />
