@@ -4,7 +4,7 @@ import { withAuth } from '@okta/okta-react';
 import { connect } from 'react-redux';
 import SavedFiltersListItem from '../../molecules/savedFiltersListItem/SavedFiltersListItem';
 import { filters } from '../../../../../../contsants_temp';
-
+import {getNotifications, deleteNotification} from '../../../store/actions/notificationsAction';
 
 const savedFilter = [{propertyZone: 'Zone1'}, {propertyZone: 'Zone1'}];
 
@@ -24,36 +24,18 @@ class SavedFilters extends Component {
       this.setState({ authenticated });
     }
   }
-      
-  listSavedFilters = async () => {
-    this.props.dispatch({type: 'SHOW_LOADING'})
-    try {
-      const response = await fetch('/api/notifications', {
-        headers: {
-          Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-        }
-      });
-
-      const data = await response.json();
-      this.setState({ savedFilters : data });
-    } catch (err) {
-      // add notification
-    }
-    this.props.dispatch({type: 'HIDE_LOADING'})
-  }
-
 
   handleSelectFilter = (item) => {
     if(item!==undefined) {
     this.props.dispatch({type: 'FILTER', payload: {
-                                                  zone: item.propertyZone ? item.propertyZone : null,
-                                                  area: [item.propertyAreaMin ? item.propertyAreaMin : 0, item.propertyAreaMax ? item.propertyAreaMax : 20000],
-                                                  price: [item.propertyPriceMin ? item.propertyPriceMin : 100000, item.propertyPriceMax ? item.propertyPriceMax : 5000000],
-                                                  priceM2: [item.propertyPricePSMMin ? item.propertyPricePSMMin : 1, item.propertyPricePSMMax ? item.propertyPricePSMMax : 10000],
-                                                  postCode: item.propertyPostCode ? item.propertyPostCode : '',
-                                                  priceLandvalue: [item.propertyPriceToLandValueMin ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax? item.propertyPriceToLandValueMax : 10 ],
-                                                  floorspaceRatio: [item.propertyFloorSpaceRatioMin ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax ? item.propertyFloorSpaceRatioMax : 2]
-                                                }})  
+      zone: item.propertyZone ? item.propertyZone : null,
+      area: [item.propertyAreaMin ? item.propertyAreaMin : 0, item.propertyAreaMax ? item.propertyAreaMax : 20000],
+      price: [item.propertyPriceMin ? item.propertyPriceMin : 100000, item.propertyPriceMax ? item.propertyPriceMax : 5000000],
+      priceM2: [item.propertyPricePSMMin ? item.propertyPricePSMMin : 1, item.propertyPricePSMMax ? item.propertyPricePSMMax : 10000],
+      postCode: item.propertyPostCode ? item.propertyPostCode : '',
+      priceLandvalue: [item.propertyPriceToLandValueMin ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax? item.propertyPriceToLandValueMax : 10 ],
+      floorspaceRatio: [item.propertyFloorSpaceRatioMin ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax ? item.propertyFloorSpaceRatioMax : 2]
+    }})  
     this.props.handleSelectFilter(item)
                                               }
     this.props.dispatch({type: 'CLOSE_FILTER'})
@@ -61,37 +43,25 @@ class SavedFilters extends Component {
   handleEditFilter = (item) => {
     if (item!== undefined) {
     this.props.dispatch({type: 'FILTER', payload: {
-                                                  zone: item.propertyZone!== null ? item.propertyZone : null,
-                                                  area: [item.propertyAreaMin!== null? item.propertyAreaMin : 0, item.propertyAreaMax!== null ? item.propertyAreaMax : 20000],
-                                                  price: [item.propertyPriceMin!== null ? item.propertyPriceMin : 100000, item.propertyPriceMax!== null ? item.propertyPriceMax : 5000000],
-                                                  priceM2: [item.propertyPricePSMMin!== null ? item.propertyPricePSMMin : 1, item.propertyPricePSMMax!== null ? item.propertyPricePSMMax : 10000],
-                                                  postCode: item.propertyPostCode!== null ? item.propertyPostCode : '',
-                                                  priceLandvalue: [item.propertyPriceToLandValueMin!== null ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax!== null ? item.propertyPriceToLandValueMax : 10 ],
-                                                  floorspaceRatio: [item.propertyFloorSpaceRatioMin!== null ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax!== null ? item.propertyFloorSpaceRatioMax : 2]
-                                                }})  
+      zone: item.propertyZone!== null ? item.propertyZone : null,
+      area: [item.propertyAreaMin!== null? item.propertyAreaMin : 0, item.propertyAreaMax!== null ? item.propertyAreaMax : 20000],
+      price: [item.propertyPriceMin!== null ? item.propertyPriceMin : 100000, item.propertyPriceMax!== null ? item.propertyPriceMax : 5000000],
+      priceM2: [item.propertyPricePSMMin!== null ? item.propertyPricePSMMin : 1, item.propertyPricePSMMax!== null ? item.propertyPricePSMMax : 10000],
+      postCode: item.propertyPostCode!== null ? item.propertyPostCode : '',
+      priceLandvalue: [item.propertyPriceToLandValueMin!== null ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax!== null ? item.propertyPriceToLandValueMax : 10 ],
+      floorspaceRatio: [item.propertyFloorSpaceRatioMin!== null ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax!== null ? item.propertyFloorSpaceRatioMax : 2]
+    }})  
     this.props.handleEditFilter(item);
   }}
 
 
   handleDeleteFilter = async (item) => {
-    this.props.dispatch({type: 'SHOW_LOADING'})
-    try {
-      const response = await fetch(`/api/notifications/${item.id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-        }
-      });
-      const data = await response.json();
-    } catch (err) {
-      // add notification
-    }
-    this.props.dispatch({type: 'HIDE_LOADING'})
-    this.listSavedFilters();
+    this.props.deleteNotification(item, await this.props.auth.getAccessToken())
+    this.props.getNotifications(await this.props.auth.getAccessToken())
   }
 
   renderData = () => {
-    return this.state.savedFilters.map((item, index)=>{
+    return this.props.notifications.map((item, index)=>{
       return <SavedFiltersListItem
               key={index}
               index={index+1}
@@ -108,10 +78,10 @@ class SavedFilters extends Component {
     );
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.checkAuthentication();
     if (!this.state.authenticated) {
-        this.listSavedFilters();
+        this.props.getNotifications(await this.props.auth.getAccessToken())
         }
       }
 
@@ -127,8 +97,13 @@ class SavedFilters extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    savedFilters: state
+    savedFilters: state,
+    notifications: state.notifications
   };
 };
+const mapDispatchToProps = {
+  getNotifications,
+  deleteNotification
+};
 
-export default withAuth(connect(mapStateToProps)(SavedFilters));
+export default withAuth(connect(mapStateToProps, mapDispatchToProps)(SavedFilters));

@@ -45,7 +45,7 @@ export const ZoneSelect = (props) => {
                   </MenuItem>
         })
       }
-    const menu = <Menu onSelect={props.onSelect} className='dropdown'>
+    const menu = <Menu onSelect={props.onSelect}>
                     {renderZones()}
                 </Menu>
     return <div className='zoneSelect'>

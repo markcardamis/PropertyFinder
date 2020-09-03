@@ -1,14 +1,14 @@
-@import '../../../styles//style.scss';
+@import '../../../styles/style.scss';
 
 .saveModalContainer {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    height: 100vh;
+    margin-top: -80px;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    display: flex;
-    flex: 1
+    flex: 1;
 }
 .saveModal {
     width: 70%;
@@ -40,7 +40,7 @@
 
     .saveModalSwitch {
         margin-top: 40px;
-        margin-bottom: 48px;
+        margin-bottom: 68px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -52,4 +52,52 @@
             color: $black;
         }
     }
+
+    .frequencySelect{
+        width: 42%;
+        height: 34px;
+        border: 1px solid $dark-grey;
+        border-radius: 6px;
+        padding: 0 18px 0 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        font-family: $mavenPro;
+
+        .frequencySelectText {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+    .dropdown-container {
+        position: relative;
+       
+        .dropdown {
+            position: absolute;
+            height: auto;
+            border: 1px solid $dark-grey;
+            width: 42%;
+            margin-left: 58%;
+            margin-top: -60px;
+            border-radius: 6px;
+            background-color: $white;
+        
+            .dropdown-item {
+                padding-bottom: 0;
+                padding-top: 2px;
+
+                &:hover {
+                    background-color: $shadow-grey;
+                    transition: background-color $transition-05;
+                    color: $black;
+                    border-radius: 6px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    
 }

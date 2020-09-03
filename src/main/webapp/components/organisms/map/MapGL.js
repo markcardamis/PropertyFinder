@@ -243,7 +243,7 @@ const mapStateToProps = (state) => {
         mapMarker: state.mapMarker,
         searchModal: state.searchModal,
         filterModal: state.filterModal,
-        saveModal: state.saveModal,
+        saveModal: state.saveModal.showModal,
         popup: state.popup,
         layers: state.layers
     };

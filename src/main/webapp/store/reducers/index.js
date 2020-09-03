@@ -13,6 +13,7 @@ import mobileNavReducer from './mobileNavReducer';
 import searchModalReducer from './searchModalReducer';
 import layersReducer from './layersReducer';
 import searchResultsReducer from './searchReducer';
+import notificationsReducer from './notificationsReducer';
 
 const reducers = combineReducers({
     propertyModal: propertyModalReducer,
@@ -28,7 +29,8 @@ const reducers = combineReducers({
     mobileNav: mobileNavReducer,
     searchModal: searchModalReducer,
     layers: layersReducer,
-    searchResults: searchResultsReducer
+    searchResults: searchResultsReducer,
+    notifications: notificationsReducer
 });
 
 export default reducers; 

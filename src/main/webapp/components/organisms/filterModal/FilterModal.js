@@ -3,12 +3,12 @@ import { withAuth } from '@okta/okta-react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import "react-tabs/style/react-tabs.css";
+import Fade from 'react-reveal/Fade';
 
 import SavedFilters from '../savedFilters/SavedFilters';
 import FilterTab from '../filter/FilterTab';
 import CloseBtn from '../../atoms/closeBtn/CloseBtn';
 import './filterModal.scss';
-import Fade from 'react-reveal/Fade';
 
 
 class FilterModal extends Component {
@@ -94,6 +94,8 @@ class FilterModal extends Component {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            'title': notification.name,
+            'frequency': notification.frequency,
             'propertyZone': zone ? zone : null,
             'propertyAreaMin': area[0] !== 0 ? area[0] : null,
             'propertyAreaMax': area[1] !== 20000 ? area[1] : null,
@@ -138,7 +140,8 @@ class FilterModal extends Component {
             this.props.dispatch({type: 'HIDE_LOADING'});
 
         const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
-        result ? await this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : await this.saveFilter('POST', '/api/notifications');
+        // result ? await this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : await this.saveFilter('POST', '/api/notifications');
+        result ? await this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.props.dispatch({type: 'SHOW_SAVE_MODAL'});
       
         this.setState({ editedFilter: [], tabIndex : 1 });
       } else {
@@ -221,8 +224,16 @@ class FilterModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    filter: state
+    filter: state,
+    notification: state.saveModal
   };
 };
+
+// const mapDispatchToProps = {
+//   showSaveModal,
+//   showLoading,
+//   hideLoading,
+
+// }
 
 export default withAuth(connect(mapStateToProps)(FilterModal));
