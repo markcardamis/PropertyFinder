@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import './savedFiltersListItem.scss'
 import SavedFilterItem from '../../atoms/savedFilterItem/SavedFilterItem'
-import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, IconPostG, IconPencil, IconTrash } from '../../../assets/icons';
+import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, IconPostG, IconPencil, IconTrash, IconBellOff, IconBell7 } from '../../../assets/icons';
 
 const SavedFiltersListItem = props => {
     const {data} = props
@@ -12,6 +12,7 @@ const SavedFiltersListItem = props => {
           <div className='savedFilters-filterHeader' style={{display: 'flex'}}>
             <div onClick={props.onSelect} className='savedFilters-filterTitle'>Filter {props.index}</div>
             <div className='savedFilterEdit'>
+                <div onClick={props.onEdit} className='savedFilterEdit-icon'><IconBellOff/></div>
                 <div onClick={props.onEdit} className='savedFilterEdit-icon'><IconPencil/></div>
                 <div onClick={props.onDelete}><IconTrash/></div>
             </div>
