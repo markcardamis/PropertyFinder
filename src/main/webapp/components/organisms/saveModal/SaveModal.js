@@ -33,7 +33,7 @@ const SaveModal = withAuth((props) => {
     };
     const handleSaveFilter = () => {
         props.onSaveClick(title, frequency);
-        this.props.saveFilter(accessToken, title, frequency);
+        props.saveFilter(accessToken, title, frequency);
     };
 
     return (
