@@ -232,7 +232,8 @@ checkAuthentication = async () => {
                 style={{left: searchModal ? "45%" : 0, width: searchModal ? "55%" : "100%"}}
                 >
                 {!filterModal && !saveModal && <FilterButtonGroup 
-                    onMenuClick={()=> searchModal ? this.props.closeSearchModal() : this.props.showSearchModal()}
+                    onListViewClick={()=> this.props.showSearchModal()}
+                    onMapViewClick={()=> this.props.closeSearchModal()}
                     onFilterClick = {()=> filterModal ? this.props.closeFilter() : this.props.showFilter()}
                     onLayersClick = {()=> layers.showModal ? this.props.closeLayersModal() : this.props.showLayersModal()}
                 />}

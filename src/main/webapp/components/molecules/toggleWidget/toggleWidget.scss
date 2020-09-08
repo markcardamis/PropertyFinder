@@ -1,0 +1,55 @@
+@import '../../../styles/style.scss';
+
+.toggleWidget {
+    background-color: $white;
+    color: $light-grey;
+    min-width: 96px;
+    height: 44px;
+    box-shadow: $shadow-4;
+    border-radius: 25px;
+    padding-right: 10px;
+    padding-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .toggleWidget-devider {
+        width: 2px;
+        height: 100%;
+        background-color: $light-grey;
+    }
+
+    .toggleWidget-button {
+        padding-top: 2px;
+        padding-right: 15px;
+        padding-left: 15px;
+        font-size: 14px;
+        font-family: $mavenPro;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        cursor: default;
+    }
+
+    .activeButton {
+        color: $dark-grey;
+    }
+}
+.toggleWidgetSwitch {
+    display: none;
+}
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .toggleWidget {
+        display: none;
+    }
+    .toggleWidgetSwitch {
+        display: flex;
+    }
+}
+
+// .react-switch-handle {
+//     background-color: transparent;
+// }

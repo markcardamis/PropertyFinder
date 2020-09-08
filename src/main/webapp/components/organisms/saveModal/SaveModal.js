@@ -3,15 +3,15 @@ import { IconArD } from "../../../assets/icons";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import CloseBtn from "../../atoms/closeBtn/CloseBtn";
 import TextInput from "../../atoms/textInput/TextInput";
-import { useAuth } from "../../../modules/auth";
+//import { useAuth } from "../../../modules/auth";
 import { withAuth } from "@okta/okta-react";
 import { saveFilter } from "../../../store/actions/filterAction";
 import { connect } from "react-redux";
 import "./saveModal.scss";
 
-const SaveModal = withAuth((props) => {
+const SaveModal = async (props) => {
     const [title, setTiltle] = useState("Preferences 1.0");
-    const [accessToken] = useAuth(props.auth);
+    //const accessToken = await props.auth.getAccessToken();
     const [frequency, setFrequency] = useState("OFF");
     const [showDropdown, setShowDropdown] = useState(false);
     const frequencyOptions = ["OFF", "DAILY", "WEEKLY", "MONTHLY"];
@@ -31,14 +31,13 @@ const SaveModal = withAuth((props) => {
                     </div>;
         });
     };
-    const handleSaveFilter = () => {
+    const handleSaveFilter = async () => {
         props.onSaveClick(title, frequency);
-        props.saveFilter(accessToken, title, frequency);
+        props.saveFilter(await props.auth.getAccessToken(), title, frequency);
     };
 
     return (
         <div className='saveModalContainer'>
-            {console.log(props.auth)}
             <div className='saveModal'>
                 <div className='saveModalHeader'>
                     <div />
@@ -63,7 +62,7 @@ const SaveModal = withAuth((props) => {
           </div>
         </div>
     );
-});
+};
 
 const mapStateToProps = () => {
     return {
@@ -73,4 +72,4 @@ const mapStateToProps = () => {
 const mapDispatchToProps = {
     saveFilter
   };
-export default connect(mapStateToProps, mapDispatchToProps)(SaveModal);
+export default withAuth(connect(mapStateToProps, mapDispatchToProps)(SaveModal));

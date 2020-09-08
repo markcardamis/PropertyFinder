@@ -1,42 +1,43 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import {useSelector, connect} from 'react-redux'
-import ButtonSquare from '../../atoms/buttonSquare/ButtonSquare';
-import {IconFilter2, IconMenu2, IconClose, IconLayers, IconSearch} from '../../../assets/icons';
-import './filterButtonGroup.scss';
-import { useWindowSize } from '../../../modules/windowSize';
-import { getSearchResults } from '../../../store/actions/searchAction';
-import { getPopup } from '../../../store/actions/popupAction';
-import SearchInput from '../searchInput/SearchInput';
-import {map} from '../../organisms/map/MapGL'
+import React, {useState} from "react";
+import PropTypes from "prop-types";
+import {useSelector, connect} from "react-redux";
+import ButtonSquare from "../../atoms/buttonSquare/ButtonSquare";
+import {LogoBlack, IconLayers, IconSearch} from "../../../assets/icons";
+import "./filterButtonGroup.scss";
+import { useWindowSize } from "../../../modules/windowSize";
+import { getSearchResults } from "../../../store/actions/searchAction";
+import { getPopup } from "../../../store/actions/popupAction";
+import SearchInput from "../searchInput/SearchInput";
+import {map} from "../../organisms/map/MapGL";
+import ToggleWidget from "../toggleWidget/ToggleWidget";
 
 const FilterButtonGroup = props => {
-    const searchModal = useSelector(state=>state.searchModal)
-    const windowSize = useWindowSize()
+    const searchModal = useSelector(state=>state.searchModal);
+    const windowSize = useWindowSize();
     const [showSearchInput, setSearchInput] = useState(false);
-    const [search, setSearch] = useState('');
-    const [hovered, setHovered] = useState({})
-    const [selected, setSelected] = useState({})
-    const [showResults, setShowResults] = useState(false)
+    const [search, setSearch] = useState("");
+    const [hovered, setHovered] = useState({});
+    const [selected, setSelected] = useState({});
+    const [showResults, setShowResults] = useState(false);
     let timer;
     const handleSearch = (e) => {
-       setSearch(e.target.value.replace(/[^a-zA-Z0-9_ /]/gi, ''))
-    }
+       setSearch(e.target.value.replace(/[^a-zA-Z0-9_ /]/gi, ""));
+    };
     const handleCancelSearch = () => {
         setSearchInput(false);
-        setSearch('')
-    }
+        setSearch("");
+    };
     const handleKeyUp = (e) => {
-        if (e.key!='ArrowUp'&&e.key!='ArrowDown') {
+        if (e.key!="ArrowUp"&&e.key!="ArrowDown") {
             window.clearTimeout(timer);
             timer = window.setTimeout(() => {
-            props.getSearchResults(search)
+            props.getSearchResults(search);
             }, 500);
         }
-      }
+      };
     const handleKeyPress = (e) => {
         window.clearTimeout(timer);
-      }
+      };
     const handleSelect = (item) => {
         handleCancelSearch;
         setSelected(item);
@@ -44,38 +45,34 @@ const FilterButtonGroup = props => {
         props.getPopup(item.propertyId, item.longitude, item.latitude);
         setShowResults(false);
         setSearchInput(false);
-    }
+    };
     const handleHover = (item) => {
-        setHovered(item)
-    }
+        setHovered(item);
+    };
     return (
         <div className='filterButtonGroup'>
 
+            <div className='filterButtonGroup-left'>
             <ButtonSquare 
-                icon={searchModal ? <IconClose/> : <IconMenu2 size={windowSize.width<982 ? 2 : 1}/>} 
-                onClick={props.onMenuClick}
-                style={{marginRight: 14}}
-                />
-            <ButtonSquare 
-                icon={<IconFilter2 color={'#000000'} size={windowSize.width<982 ? 2.3 : 1.3}/>} 
+                icon={<LogoBlack color={"#000000"} size={windowSize.width<982 ? 2 : 1}/>} 
                 onClick={props.onFilterClick}
                 style={{marginRight: 14}}
                 />   
             <ButtonSquare 
                 icon={<IconLayers size={windowSize.width<982 ? 2 : 1}/>} 
-                color={'#000000'} 
+                color={"#000000"} 
                 style={{marginRight: 14}}
                 onClick={props.onLayersClick}
                 />
             {!showSearchInput ? 
                 <ButtonSquare 
                     icon={<IconSearch size={windowSize.width<982 ? 2 : 1}/>} 
-                    color={'#000000'} 
+                    color={"#000000"} 
                     onClick={()=>setSearchInput(true)}
                     /> :
                 <SearchInput
                     search={search}
-                    placeholder={'320 Pitt St Sydney NSW 2000'}
+                    placeholder={"320 Pitt St Sydney NSW 2000"}
                     onChange={(e)=>handleSearch(e)}
                     onCancel={handleCancelSearch}
                     onHover={handleHover}
@@ -86,6 +83,14 @@ const FilterButtonGroup = props => {
                     setShowResults={(state)=>setShowResults(state)}
                 />
                 }
+            </div>
+            <ToggleWidget
+                leftValue={"List View"}
+                rightValue={"Map View"}
+                activeButton={!searchModal ? "Map View" : "List View"}
+                onLeftClick={props.onListViewClick}
+                onRightClick={props.onMapViewClick}
+                />
         </div>
     );
 };
@@ -95,7 +100,7 @@ FilterButtonGroup.propTypes = {
     onFilterClick: PropTypes.func
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = () => {
     return {
     
     };
@@ -104,6 +109,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     getSearchResults,
     getPopup
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterButtonGroup);

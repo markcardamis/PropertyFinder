@@ -5,7 +5,6 @@ export const useAuth = auth => {
   const [user, setUser] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   useEffect(() => {
-    console.log(auth.getAccessToken());
     auth.isAuthenticated().then(isAuthenticated => {
       if (isAuthenticated !== authenticated) {
         setAuthenticated(isAuthenticated);

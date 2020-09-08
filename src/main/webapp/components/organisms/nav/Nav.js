@@ -13,7 +13,7 @@ import {login, logout} from "../../../store/actions/authAction";
 import { showSignIn } from "../../../store/actions/signInModalAction";
 
 const Nav = withAuth(({ auth }) => {
-    const [authenticated, user] = useAuth(auth);
+    const [authenticated] = useAuth(auth);
     const [authState, setAuth] = useState(authenticated);
     const location = useLocation();
     const dispatch = useDispatch();
