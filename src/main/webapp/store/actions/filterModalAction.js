@@ -1,11 +1,11 @@
 export const showFilter = () => dispatch => {
     dispatch({
-        type: 'SHOW_FILTER'
+        type: "SHOW_FILTER"
     });
 };
 
 export const closeFilter = () => dispatch => {
     dispatch({
-        type: 'CLOSE_FILTER'
+        type: "CLOSE_FILTER"
     });
 };

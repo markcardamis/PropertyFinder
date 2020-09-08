@@ -1,19 +1,19 @@
-import { combineReducers } from 'redux';
-import propertyModalReducer from './propertyModalReducer';
-import mapMarkerReducer from './mapMarkerReducer';
-import filterModalReducer from './filterModalReducer';
-import viewportChangeReducer from './viewportReducer';
-import signInModalReducer from './signInModalReducer';
-import authReducer from './authReducer';
-import popupReducer from './popupReducer';
-import filterReducer from './filterReducer';
-import saveModalReducer from './saveModalReducer';
-import loadingReducer from './loadingReducer';
-import mobileNavReducer from './mobileNavReducer';
-import searchModalReducer from './searchModalReducer';
-import layersReducer from './layersReducer';
-import searchResultsReducer from './searchReducer';
-import notificationsReducer from './notificationsReducer';
+import { combineReducers } from "redux";
+import propertyModalReducer from "./propertyModalReducer";
+import mapMarkerReducer from "./mapMarkerReducer";
+import filterModalReducer from "./filterModalReducer";
+import viewportChangeReducer from "./viewportReducer";
+import signInModalReducer from "./signInModalReducer";
+import authReducer from "./authReducer";
+import popupReducer from "./popupReducer";
+import filterReducer from "./filterReducer";
+import saveModalReducer from "./saveModalReducer";
+import loadingReducer from "./loadingReducer";
+import mobileNavReducer from "./mobileNavReducer";
+import searchModalReducer from "./searchModalReducer";
+import layersReducer from "./layersReducer";
+import searchResultsReducer from "./searchReducer";
+import notificationsReducer from "./notificationsReducer";
 
 const reducers = combineReducers({
     propertyModal: propertyModalReducer,

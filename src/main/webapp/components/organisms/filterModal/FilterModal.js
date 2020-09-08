@@ -1,15 +1,19 @@
-import React, { Component } from 'react';
-import { withAuth } from '@okta/okta-react';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { connect } from 'react-redux';
+import { withAuth } from "@okta/okta-react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Fade from "react-reveal/Fade";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import Fade from 'react-reveal/Fade';
-
-import SavedFilters from '../savedFilters/SavedFilters';
-import FilterTab from '../filter/FilterTab';
-import CloseBtn from '../../atoms/closeBtn/CloseBtn';
-import './filterModal.scss';
-
+import { applyFilter, selectFilter } from "../../../store/actions/mapMarkerAction";
+import CloseBtn from "../../atoms/closeBtn/CloseBtn";
+import FilterTab from "../filter/FilterTab";
+import SavedFilters from "../savedFilters/SavedFilters";
+import "./filterModal.scss";
+import { getFilter, saveFilter } from "../../../store/actions/filterAction";
+import { closeFilter } from "../../../store/actions/filterModalAction";
+import { showSignIn } from "../../../store/actions/signInModalAction";
+import { getNotifications } from "../../../store/actions/notificationsAction";
+import { showSaveModal } from "../../../store/actions/saveModalAction";
 
 class FilterModal extends Component {
 
@@ -36,161 +40,33 @@ class FilterModal extends Component {
     }
 
     handleSelectFilter = async (item) => {
-      //this.displayFilterValues(item);
       this.setState({ tabIndex : 0 });
-      this.props.dispatch({type: 'SHOW_LOADING'})
-  
-      try {
-        const response = await fetch(`/api/listing/notifications/${item.id}`, {
-          headers: {
-            Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-          }
-        });
-        const data = await response.json();
-        this.props.dispatch({
-          type: 'SET_MAP_MARKERS_LOADED',
-          markers: data
-        });
-
-      } catch (err) {
-        // add notification;
-      }
-      this.props.dispatch({type: 'HIDE_LOADING'})
+      this.props.selectFilter(item, await this.props.auth.getAccessToken());
     }
 
     handleEditFilter = async (item) => {
       this.setState({editedFilter: item, tabIndex : 0});
-      //this.displayFilterValues(item);
-      this.props.dispatch({type: 'SHOW_LOADING'})
-        try {
-          const response = await fetch(`/api/listing/notifications/${item.id}`, {
-            headers: {
-              Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-            }
-          });
-          const data = await response.json();
-        } catch (err) {
-          // add notification
-        };
-        this.props.dispatch({type: 'HIDE_LOADING'})
     }
 
-
-    displayFilterValues = (item) => {
-      // for (const prop in item) {
-      //   this.props.dispatch(change('filter', `${prop}`, item[prop]));
-      // }  
-      this.props.dispatch({type: 'FILTER', payload: item})  
-    };
-                
-    saveFilter = async (method, path) => {
-      const {zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio} = this.props.filter.filter
-      this.props.dispatch({type: 'SHOW_LOADING'})
-      try {
-        const response = await fetch(path, {
-          method: method,
-          headers: {
-            Authorization: 'Bearer ' + await this.props.auth.getAccessToken(),
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            'title': notification.name,
-            'frequency': notification.frequency,
-            'propertyZone': zone ? zone : null,
-            'propertyAreaMin': area[0] !== 0 ? area[0] : null,
-            'propertyAreaMax': area[1] !== 20000 ? area[1] : null,
-            'propertyPriceMin': price[0] !== 100000 ? price[0] : null,
-            'propertyPriceMax': price[1] !== 5000000 ? price[1] : null,
-            'propertyPricePSMMin': priceM2[0] !== 1 ? priceM2[0] : null,
-            'propertyPricePSMMax': priceM2[1] !== 10000 ? priceM2[1] : null,
-            'propertyPostCode': postCode !== '' ? postCode : null,
-            'propertyPriceToLandValueMin': priceLandvalue[0] !== 0 ? priceLandvalue[0] : null,
-            'propertyPriceToLandValueMax': priceLandvalue[1] !== 10 ? priceLandvalue[1] : null,
-            'propertyFloorSpaceRatioMin': floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : null,
-            'propertyFloorSpaceRatioMax': floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null
-          })
-        });
-
-        const data = await response.json();
-      } catch (err) {
-        // add notification 
-      }
-      this.props.dispatch({type: 'HIDE_LOADING'});
-    }
-
-    handleSaveFilter = async (values) => {
-      this.checkAuthentication();    
-
+    handleSaveFilter = async () => { 
       if (this.state.authenticated == true) {
-
-        // this.props.dispatch({type: 'SHOW_SAVE_MODAL'})
-        // this.props.dispatch({type: 'CLOSE_FILTER'})
-        this.props.dispatch({type: 'SHOW_LOADING'});
-            try {
-              const response = await fetch('/api/notifications', {
-                headers: {
-                    Authorization: 'Bearer ' + await this.props.auth.getAccessToken()
-                }
-              });
-              const data = await response.json();
-              this.setState({ savedFilters : data });
-            } catch (err) {
-              // add notification
-            }
-            this.props.dispatch({type: 'HIDE_LOADING'});
-
-        const result = this.state.savedFilters.find( filter => filter.id === this.state.editedFilter.id );
-        // result ? await this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : await this.saveFilter('POST', '/api/notifications');
-        result ? await this.saveFilter('PUT', `/api/notifications/${this.state.editedFilter.id}`) : this.props.dispatch({type: 'SHOW_SAVE_MODAL'});
-      
-        this.setState({ editedFilter: [], tabIndex : 1 });
+        this.props.getNotifications(await this.props.auth.getAccessToken());
+        const result = this.props.notifications.find( filter => filter.id === this.state.editedFilter.id );
+        console.log(this.state.editedFilter.name, this.state.editedFilter.frequency, this.state.editedFilter);
+        if (result&&result.length!==0) {
+            await this.props.saveFilter(await this.props.auth.getAccessToken(), this.state.editedFilter.name, this.state.editedFilter.frequency, this.state.editedFilter);
+            this.setState({tabIndex : 1});
+          } else {
+            this.props.closeFilter();
+            this.props.showSaveModal();
+          }
       } else {
-        this.props.dispatch({type: 'SHOW_SIGNIN'})
-    }
+        this.props.showSignIn();
+      }
   }
 
-
     handleSubmit = async () => {
-      const {zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio} = this.props.filter.filter
-      let headers = {
-        'Content-Type': 'application/json',
-        'centreLatitude': this.props.filter.viewport.latitude,
-        'centreLongitude': this.props.filter.viewport.longitude
-      };
-      headers = this.state.authenticated===false ?  
-          headers : { ...headers, 'Authorization': 'Bearer ' + await this.props.auth.getAccessToken()}
-
-          this.props.dispatch({type: 'SHOW_LOADING'});
-      try {
-
-        const response = await fetch('/api/listing/query', {
-          method: 'POST',
-          headers: headers,
-          body: JSON.stringify({
-            'propertyZone': zone ? zone : null,
-            'propertyAreaMin': area[0]&&area[0] !== 0 ? area[0] : null,
-            'propertyAreaMax': area[1]&&area[1] !== 20000 ? area[1] : null,
-            'propertyPriceMin': price[0]&&price[0] !== 100000 ? price[0] : null,
-            'propertyPriceMax': price[1]&&price[1] !== 5000000 ? price[1] : null,
-            'propertyPricePSMMin': priceM2[0] !== 1 ? priceM2[0] : null,
-            'propertyPricePSMMax': priceM2[1] !== 10000 ? priceM2[1] : null,
-            'propertyPostCode': postCode ? postCode : null,
-            'propertyPriceToLandValueMin': priceLandvalue[0] !== 0 ? priceLandvalue[0] : null,
-            'propertyPriceToLandValueMax': priceLandvalue[1] !== 10 ? priceLandvalue[1] : null,
-            'propertyFloorSpaceRatioMin': floorspaceRatio[0]&&floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : null,
-            'propertyFloorSpaceRatioMax': floorspaceRatio[1]&&floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null
-          })
-        });
-
-        const data = await response.json();    
-        this.props.dispatch({
-          type: 'SET_MAP_MARKERS_LOADED',
-          markers: data
-        });
-      } catch (err) {
-        // add notification  
-      }
-      this.props.dispatch({type: 'HIDE_LOADING'});
+      this.props.applyFilter(this.state.authenticated, await this.props.auth.getAccessToken());
     }
 
     render () {
@@ -225,15 +101,20 @@ class FilterModal extends Component {
 const mapStateToProps = (state) => {
   return {
     filter: state,
-    notification: state.saveModal
+    notification: state.saveModal,
+    notifications: state.notifications
   };
 };
 
-// const mapDispatchToProps = {
-//   showSaveModal,
-//   showLoading,
-//   hideLoading,
+const mapDispatchToProps = {
+  showSaveModal,
+  applyFilter,
+  getFilter,
+  saveFilter,
+  closeFilter,
+  selectFilter,
+  showSignIn,
+  getNotifications
+};
 
-// }
-
-export default withAuth(connect(mapStateToProps)(FilterModal));
+export default withAuth(connect(mapStateToProps, mapDispatchToProps)(FilterModal));

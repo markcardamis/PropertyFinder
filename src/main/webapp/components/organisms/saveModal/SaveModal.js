@@ -1,19 +1,25 @@
-import React, {useState} from 'react';
-import './saveModal.scss';
-import CloseBtn from '../../atoms/closeBtn/CloseBtn';
-import TextInput from '../../atoms/textInput/TextInput';
-import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled';
-import { IconArD } from '../../../assets/icons';
+import React, { useState } from "react";
+import { IconArD } from "../../../assets/icons";
+import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
+import CloseBtn from "../../atoms/closeBtn/CloseBtn";
+import TextInput from "../../atoms/textInput/TextInput";
+import { useAuth } from "../../../modules/auth";
+import { withAuth } from "@okta/okta-react";
+import { saveFilter } from "../../../store/actions/filterAction";
+import { connect } from "react-redux";
+import "./saveModal.scss";
 
-const SaveModal = (props) => {
-    const [title, setTiltle] = useState('Preferences 1.0')
-    const [frequency, setFrequency] = useState('OFF')
-    const [showDropdown, setShowDropdown] = useState(false)
-    const frequencyOptions = ['OFF', 'DAILY', 'WEEKLY', 'MONTHLY']
+const SaveModal = withAuth((props) => {
+    const [title, setTiltle] = useState("Preferences 1.0");
+    const [accessToken] = useAuth(props.auth);
+    const [frequency, setFrequency] = useState("OFF");
+    const [showDropdown, setShowDropdown] = useState(false);
+    const frequencyOptions = ["OFF", "DAILY", "WEEKLY", "MONTHLY"];
     const handleOptionClick = (item) => {
         setFrequency(item);
         setShowDropdown(false);
-    }
+    };
+
     const renderOptions = () => {
         return frequencyOptions.map((item, index)=>{
             return <div 
@@ -22,11 +28,17 @@ const SaveModal = (props) => {
                         onClick={()=>handleOptionClick(item)}
                     >
                         {item}
-                    </div>
-        })
-    }
+                    </div>;
+        });
+    };
+    const handleSaveFilter = () => {
+        props.onSaveClick(title, frequency);
+        this.props.saveFilter(accessToken, title, frequency);
+    };
+
     return (
         <div className='saveModalContainer'>
+            {console.log(props.auth)}
             <div className='saveModal'>
                 <div className='saveModalHeader'>
                     <div />
@@ -47,10 +59,18 @@ const SaveModal = (props) => {
                             {renderOptions()}
                         </div>}
                 </div>
-                <ButtonFilled title={'Save'} width={'100%'} onClick={()=>props.onSaveClick(title, frequency)}/>
+                <ButtonFilled title={"Save"} width={"100%"} onClick={handleSaveFilter}/>
           </div>
         </div>
-    )
-}
+    );
+});
 
-export default SaveModal;
+const mapStateToProps = () => {
+    return {
+    };
+};
+
+const mapDispatchToProps = {
+    saveFilter
+  };
+export default connect(mapStateToProps, mapDispatchToProps)(SaveModal);
