@@ -8,8 +8,6 @@ import {getNotifications, deleteNotification} from "../../../store/actions/notif
 import { getFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 
-const savedFilter = [{propertyZone: "Zone1"}, {propertyZone: "Zone1"}];
-
 class SavedFilters extends Component {
   constructor(props) {
     super(props);
@@ -56,10 +54,6 @@ class SavedFilters extends Component {
     this.props.handleEditFilter(item);
   }}
 
-  // handleChangeFrequency = () => {
-  //   this.props.saveFilter()
-  // }
-
   handleDeleteFilter = async (item) => {
     this.props.deleteNotification(item, await this.props.auth.getAccessToken());
     this.props.getNotifications(await this.props.auth.getAccessToken());
@@ -74,11 +68,20 @@ class SavedFilters extends Component {
               //onChangeFrequency={(e)=>{this.handleChangeFrequency(item); e.stopPropagation();}}
               onDelete={(e)=>{this.handleDeleteFilter(item); e.stopPropagation();}}
               onSelect={(e)=>{this.handleSelectFilter(item); e.stopPropagation();}}
-              data={{propertyZone: item.propertyZone, propertyAreaMin: item.propertyAreaMin, propertyAreaMax: item.propertyAreaMax,
-                      propertyPriceMin: item.propertyPriceMin, propertyPriceMax: item.propertyPriceMax, propertyPricePSMMin: item.propertyPricePSMMin,
-                      propertyPricePSMMax: item.propertyPricePSMMax, propertyPostCode: item.propertyPostCode, propertyPriceToLandValueMin: item.propertyPriceToLandValueMin,
-                      propertyPriceToLandValueMax: item.propertyPriceToLandValueMax, propertyFloorSpaceRatioMin: item.propertyFloorSpaceRatioMin,
-                      propertyFloorSpaceRatioMax: item.propertyFloorSpaceRatioMax}}
+              data={{
+                propertyZone: item.propertyZone, 
+                propertyAreaMin: item.propertyAreaMin, 
+                propertyAreaMax: item.propertyAreaMax,
+                propertyPriceMin: item.propertyPriceMin, 
+                propertyPriceMax: item.propertyPriceMax, 
+                propertyPricePSMMin: item.propertyPricePSMMin,
+                propertyPricePSMMax: item.propertyPricePSMMax, 
+                propertyPostCode: item.propertyPostCode, 
+                propertyPriceToLandValueMin: item.propertyPriceToLandValueMin,
+                propertyPriceToLandValueMax: item.propertyPriceToLandValueMax, 
+                propertyFloorSpaceRatioMin: item.propertyFloorSpaceRatioMin,
+                propertyFloorSpaceRatioMax: item.propertyFloorSpaceRatioMax
+              }}
             />;
     }
     );
