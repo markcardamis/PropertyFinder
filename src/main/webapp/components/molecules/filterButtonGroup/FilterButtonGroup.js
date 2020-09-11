@@ -65,7 +65,7 @@ const FilterButtonGroup = props => {
                 style={{marginRight: 14}}
                 onClick={props.onLayersClick}
                 />
-            {!showSearchInput&&!propertyModal ? 
+            {!showSearchInput ? 
                 <ButtonSquare 
                     icon={<IconSearch size={windowSize.width<982 ? 2 : 1}/>} 
                     color={"#000000"} 
@@ -85,13 +85,13 @@ const FilterButtonGroup = props => {
                 />
                 }
             </div>
-            <ToggleWidget
+            {!propertyModal && <ToggleWidget
                 leftValue={"List View"}
                 rightValue={"Map View"}
                 activeButton={!searchModal ? "Map View" : "List View"}
                 onLeftClick={props.onListViewClick}
                 onRightClick={props.onMapViewClick}
-                />
+                />}
         </div>
     );
 };
