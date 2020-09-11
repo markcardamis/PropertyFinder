@@ -13,6 +13,7 @@ import ToggleWidget from "../toggleWidget/ToggleWidget";
 
 const FilterButtonGroup = props => {
     const searchModal = useSelector(state=>state.searchModal);
+    const propertyModal = useSelector(state=>state.propertyModal.isHidden);
     const windowSize = useWindowSize();
     const [showSearchInput, setSearchInput] = useState(false);
     const [search, setSearch] = useState("");
@@ -64,7 +65,7 @@ const FilterButtonGroup = props => {
                 style={{marginRight: 14}}
                 onClick={props.onLayersClick}
                 />
-            {!showSearchInput ? 
+            {!showSearchInput&&!propertyModal ? 
                 <ButtonSquare 
                     icon={<IconSearch size={windowSize.width<982 ? 2 : 1}/>} 
                     color={"#000000"} 

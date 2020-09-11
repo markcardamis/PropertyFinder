@@ -3,13 +3,13 @@ import { IconArD } from "../../../assets/icons";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import CloseBtn from "../../atoms/closeBtn/CloseBtn";
 import TextInput from "../../atoms/textInput/TextInput";
-//import { useAuth } from "../../../modules/auth";
+import { useAuth } from "../../../modules/auth";
 import { withAuth } from "@okta/okta-react";
 import { saveFilter } from "../../../store/actions/filterAction";
 import { connect } from "react-redux";
 import "./saveModal.scss";
 
-const SaveModal = async (props) => {
+const SaveModal = (props) => {
     const [title, setTiltle] = useState("Preferences 1.0");
     //const accessToken = await props.auth.getAccessToken();
     const [frequency, setFrequency] = useState("OFF");
@@ -64,8 +64,9 @@ const SaveModal = async (props) => {
     );
 };
 
-const mapStateToProps = () => {
+const mapStateToProps = (state) => {
     return {
+        test: state
     };
 };
 

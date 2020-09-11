@@ -17,7 +17,6 @@ import FilterButtonGroup from "../../molecules/filterButtonGroup/FilterButtonGro
 import LayerSelectModal from "../layerSelectModal/LayerSelectModal";
 import "./MapGL.scss";
 
-
     mapboxgl.accessToken = process.env.MAPBOX_API;
     export let map;
     let currentMarkers = [];
@@ -50,7 +49,6 @@ async componentDidMount() {
     
     map.on("click", (e) => this.handlePropertyClick(e)); 
     map.on("move", () => this.handleViewportChange());
-    map.on("click", (e) => this.handleHoverLayer(e));
     map.on("mousemove", "nsw-property-latlong", (e) => this.handleHoverOnProperty(e));
     map.on("mouseleave", "nsw-property-latlong", () => this.handleHoverOffProperty());
     map.on("styledata", () => {
@@ -132,50 +130,6 @@ handlePropertyClick = async (e) => {
         let propid = displayFeatures[0].properties.propid;
         this.props.getPopup(propid, e.lngLat.wrap().lng, e.lngLat.wrap().lat);
     }
-}
-
-handleHoverLayer = (e) => {
-    let features = map.queryRenderedFeatures(e.point);
-
-        let displayProperties = ["properties"];
-
-        let displayFeatures = features.map(function(feat) {
-            let displayFeat = {};
-            displayProperties.forEach(function(prop) {
-                displayFeat[prop] = feat[prop];
-            });
-            return displayFeat;
-        });
-
-        if (displayFeatures.length > 0) {
-            displayFeatures.map(async (property) => {
-                if (property.properties && property.properties.MAP_TYPE) {
-                    let info;
-                    switch (property.properties.MAP_TYPE) {
-                        case "LZN":
-                            info = property.properties.SYM_CODE;
-                            break;
-                        case "LSZ":
-                            info = property.properties.LOT_SIZE + property.properties.UNITS;
-                            break;
-                        case "FSR":
-                            info = property.properties.FSR;
-                            break;
-                        case "HOB":
-                            info = property.properties.MAX_B_H + property.properties.UNITS;
-                            break;
-                        case "HER":
-                            info = property.properties.H_NAME;
-                            break;
-                        default:
-                        }
-                    let layerInfoPopup = new mapboxgl.Popup({ closeOnClick: true })
-                        .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
-                        .setHTML(`<br/><p>${info}</p>`)
-                        .addTo(map);
-                }
-            });
-        }
 }
 
 handleHoverOnProperty = (e) => {

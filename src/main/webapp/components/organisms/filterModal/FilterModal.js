@@ -24,6 +24,7 @@ class FilterModal extends Component {
         authenticated: null,
         savedFilters: [],
         editedFilter: []
+       // editedFilter: {"id":"f5e266e4-b729-4d72-8383-678faef08baf","createdAt":"2020-06-04T01:14:29.242+0000","updatedAt":"2020-09-08T09:38:31.943+0000","account":{"id":"9c867c05-e332-4a29-99ab-957b198f676f","createdAt":"2019-12-08T11:43:38.114+0000","updatedAt":"2020-09-10T20:01:57.991+0000","userId":"00u1ocauivq0h33sa357","firstName":null,"lastLogin":"2020-09-10T20:01:57.374+0000"},"title":"Untitled","frequency":"OFF","propertyZone":null,"propertyAreaMin":null,"propertyAreaMax":null,"propertyPriceMin":1630000,"propertyPriceMax":null,"propertyPricePSMMin":3650,"propertyPricePSMMax":6730,"propertyPostCode":null,"propertyPriceToLandValueMin":null,"propertyPriceToLandValueMax":null,"propertyFloorSpaceRatioMin":null,"propertyFloorSpaceRatioMax":null}
       };
     }
 
@@ -52,7 +53,6 @@ class FilterModal extends Component {
       if (this.state.authenticated == true) {
         this.props.getNotifications(await this.props.auth.getAccessToken());
         const result = this.props.notifications.find( filter => filter.id === this.state.editedFilter.id );
-        console.log(this.state.editedFilter.name, this.state.editedFilter.frequency, this.state.editedFilter);
         if (result&&result.length!==0) {
             await this.props.saveFilter(await this.props.auth.getAccessToken(), this.state.editedFilter.name, this.state.editedFilter.frequency, this.state.editedFilter);
             this.setState({tabIndex : 1});
