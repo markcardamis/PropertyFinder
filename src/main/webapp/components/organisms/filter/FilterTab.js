@@ -50,7 +50,6 @@ class FilterTab extends React.Component {
         await this.props.getFilter(this.props.filter);
         this.props.handleSubmit();
         this.props.closeFilter();
-        // window.innerWidth < 983 ? null : this.props.showSearchModal();
       }
     }
 

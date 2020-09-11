@@ -10,7 +10,7 @@ const SavedFiltersListItem = props => {
     return (
         <div className='savedFilters-filterItem' onClick={props.onSelect}>
           <div className='savedFilters-filterHeader' style={{display: "flex"}}>
-            <div onClick={props.onSelect} className='savedFilters-filterTitle'>{data.name ? data.name : "Untitled"}</div>
+            <div onClick={props.onSelect} className='savedFilters-filterTitle'>{data.title ? data.title : "Untitled"}</div>
             <div className='savedFilterEdit'>
                 <div onClick={props.onEdit} className='savedFilterEdit-icon'><IconBellOff/></div>
                 <div onClick={props.onEdit} className='savedFilterEdit-icon'><IconPencil/></div>
