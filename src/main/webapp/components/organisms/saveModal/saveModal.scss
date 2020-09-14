@@ -84,8 +84,10 @@
             background-color: $white;
         
             .dropdown-item {
-                padding-bottom: 0;
+                padding-bottom: 2px;
                 padding-top: 2px;
+                padding-bottom: 2px;
+                font-size: 14px;
 
                 &:hover {
                     background-color: $shadow-grey;
