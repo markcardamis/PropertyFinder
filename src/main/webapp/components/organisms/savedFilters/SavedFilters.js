@@ -55,7 +55,7 @@ class SavedFilters extends Component {
   }}
 
   handleDeleteFilter = async (item) => {
-    this.props.deleteNotification(item, await this.props.auth.getAccessToken());
+    await this.props.deleteNotification(item, await this.props.auth.getAccessToken());
     this.props.getNotifications(await this.props.auth.getAccessToken());
   }
 
