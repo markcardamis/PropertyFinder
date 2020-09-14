@@ -1,4 +1,4 @@
-import { propertyId } from "../../../../../contsants_temp";
+import { propertyId } from "../../../../../constants_temp";
 
 const initialState = {};
 //const initialState = propertyId;

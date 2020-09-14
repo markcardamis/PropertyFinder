@@ -1,4 +1,4 @@
-import { points } from "../../../../../contsants_temp";
+import { points } from "../../../../../constants_temp";
 
 const mapMarkerReducer = (state = [], action) => {
    //const mapMarkerReducer = (state = points, action) => {

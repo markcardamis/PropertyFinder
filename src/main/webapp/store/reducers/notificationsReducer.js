@@ -1,4 +1,4 @@
-import { filters } from "../../../../../contsants_temp";
+import { filters } from "../../../../../constants_temp";
 
 //const notificationsReducer = (state = [], action) => {
   const notificationsReducer = (state = filters, action) => {

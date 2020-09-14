@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { withAuth } from "@okta/okta-react";
 import { connect } from "react-redux";
 import SavedFiltersListItem from "../../molecules/savedFiltersListItem/SavedFiltersListItem";
-import { filters } from "../../../../../../contsants_temp";
+import { filters } from "../../../../../../constants_temp";
 import {getNotifications, deleteNotification} from "../../../store/actions/notificationsAction";
 import { getFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
