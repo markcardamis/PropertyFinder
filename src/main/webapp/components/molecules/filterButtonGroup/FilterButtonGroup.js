@@ -9,9 +9,14 @@ import { getSearchResults } from "../../../store/actions/searchAction";
 import { getPopup } from "../../../store/actions/popupAction";
 import SearchInput from "../searchInput/SearchInput";
 import {map} from "../../organisms/map/MapGL";
+import variables from "../../../styles/_variables.scss";
 import ToggleWidget from "../toggleWidget/ToggleWidget";
+import { useAuth } from "../../../modules/auth";
+import { withAuth } from "@okta/okta-react";
+import { applyFilter } from "../../../store/actions/mapMarkerAction";
+import { initialFilter } from "../../../store/reducers/filterReducer";
 
-const FilterButtonGroup = props => {
+const FilterButtonGroup = withAuth(props => {
     const searchModal = useSelector(state=>state.searchModal);
     const propertyModal = useSelector(state=>state.propertyModal.isHidden);
     const windowSize = useWindowSize();
@@ -20,6 +25,7 @@ const FilterButtonGroup = props => {
     const [hovered, setHovered] = useState({});
     const [selected, setSelected] = useState({});
     const [showResults, setShowResults] = useState(false);
+    const [authenticated, accessToken] = useAuth(props.auth);
     let timer;
     const handleSearch = (e) => {
        setSearch(e.target.value.replace(/[^a-zA-Z0-9_ /]/gi, ""));
@@ -36,7 +42,7 @@ const FilterButtonGroup = props => {
             }, 500);
         }
       };
-    const handleKeyPress = (e) => {
+    const handleKeyPress = () => {
         window.clearTimeout(timer);
       };
     const handleSelect = (item) => {
@@ -50,6 +56,10 @@ const FilterButtonGroup = props => {
     const handleHover = (item) => {
         setHovered(item);
     };
+    const handleSearchArea = async () => {
+        props.applyFilter(await authenticated, await accessToken);
+    };
+    const isFilterSet = JSON.stringify(initialFilter)===JSON.stringify(props.filter);
     return (
         <div className='filterButtonGroup'>
 
@@ -61,14 +71,13 @@ const FilterButtonGroup = props => {
                 />   
             <ButtonSquare 
                 icon={<IconLayers size={windowSize.width<982 ? 2 : 1}/>} 
-                color={"#000000"} 
                 style={{marginRight: 14}}
                 onClick={props.onLayersClick}
                 />
             {!showSearchInput ? 
                 <ButtonSquare 
                     icon={<IconSearch size={windowSize.width<982 ? 2 : 1}/>} 
-                    color={"#000000"} 
+                    style={{marginRight: 14}}
                     onClick={()=>setSearchInput(true)}
                     /> :
                 <SearchInput
@@ -84,7 +93,13 @@ const FilterButtonGroup = props => {
                     setShowResults={(state)=>setShowResults(state)}
                 />
                 }
+                {props.searchAreaBtn&&!isFilterSet&&<ButtonSquare 
+                  icon={<div>Search this area</div>} 
+                  style={{width: 120, color: variables.green, fontSize: 14}}
+                  onClick={handleSearchArea}
+                  />}
             </div>
+
             {!propertyModal && <ToggleWidget
                 leftValue={"List View"}
                 rightValue={"Map View"}
@@ -94,22 +109,20 @@ const FilterButtonGroup = props => {
                 />}
         </div>
     );
-};
+});
 
-FilterButtonGroup.propTypes = {
-    onMenuClick: PropTypes.func,
-    onFilterClick: PropTypes.func
-};
 
-const mapStateToProps = () => {
+const mapStateToProps = (state) => {
     return {
-    
+        searchAreaBtn: state.searchAreaBtn,
+        filter: state.filter
     };
 };
 
 const mapDispatchToProps = {
     getSearchResults,
-    getPopup
+    getPopup,
+    applyFilter
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterButtonGroup);

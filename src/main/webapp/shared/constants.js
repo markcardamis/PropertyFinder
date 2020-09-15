@@ -23,6 +23,8 @@ export const BATHROOMS = "Bathrooms";
 export const BEDROOMS = "Bedrooms";
 export const CAR_SPACES = "Car Spaces";
 
+export const FREQUENCY = ["OFF", "DAILY", "WEEKLY", "MONTHLY"];
+
     export const ZONES = [
         {
             id: 1, name: "B1", label: "B1 - Neighbourhood Centre", color: "#f4fefd"

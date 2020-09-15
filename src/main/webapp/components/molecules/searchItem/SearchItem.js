@@ -1,31 +1,30 @@
-import React, { useState, useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import PropListItem from '../../molecules/propListItem/PropListItem'
-import PropListItem2 from '../../molecules/propListItem2/PropListItem2'
-import { ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO, DEFAULT_HOUSE_IMAGE } from '../../../shared/constants';
-import {IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG} from '../../../assets/icons'
-import variables from '../../../styles/_variables.scss';
-import DeviderLine from '../../atoms/deviderLine/DeviderLine';
-import ButtonProperty from '../../atoms/buttonProperty/ButtonProperty';
-import './searchItem.scss'
-import ImageLazy from '../../atoms/ImageLazy/ImageLazy';
-import {map} from '../../organisms/map/MapGL';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import PropListItem from "../../molecules/propListItem/PropListItem";
+import PropListItem2 from "../../molecules/propListItem2/PropListItem2";
+import { ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO, DEFAULT_HOUSE_IMAGE } from "../../../shared/constants";
+import {IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG} from "../../../assets/icons";
+import variables from "../../../styles/_variables.scss";
+import DeviderLine from "../../atoms/deviderLine/DeviderLine";
+import ButtonProperty from "../../atoms/buttonProperty/ButtonProperty";
+import "./searchItem.scss";
+import ImageLazy from "../../atoms/ImageLazy/ImageLazy";
+import {map} from "../../organisms/map/MapGL";
 
 const SearchItem = props => {
-    const dispatch = useDispatch()
-    const all = useSelector(state=>state)
-    const {marker} = props
-    const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, land_value, price_psm, floor_space_ratio, price_to_land_value, minimum_lot_size, listing_url, summary_description, listing_photo, status} = props.marker
-    const [shadow, setShadow] = useState(status==='marker-selected')
+    const dispatch = useDispatch();
+    const {marker} = props;
+    const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, land_value, price_psm, floor_space_ratio, price_to_land_value, minimum_lot_size, listing_url, summary_description, listing_photo, status} = props.marker;
+    const [shadow, setShadow] = useState(status==="marker-selected");
     const handleClick = () => {
-        dispatch({type: 'CHANGE_ALL_MARKERS_STATUS', payload: marker, status: 'marker-unvisited'})
-        dispatch({type: 'CHANGE_MARKER_STATUS', payload: marker, status: 'marker-selected'})
-        dispatch ({type: 'VIEWPORT_CHANGE', payload: {latitude: marker.latitude, longitude: marker.longitude}});
+        dispatch({type: "CHANGE_ALL_MARKERS_STATUS", payload: marker, status: "marker-unvisited"});
+        dispatch({type: "CHANGE_MARKER_STATUS", payload: marker, status: "marker-selected"});
+        dispatch ({type: "VIEWPORT_CHANGE", payload: {latitude: marker.latitude, longitude: marker.longitude}});
         map.flyTo({center: [marker.longitude, marker.latitude], zoom: 10});
-    }
+    };
     return (
         <div className='searchItem' onClick={handleClick}>
-                <ImageLazy src={listing_photo || DEFAULT_HOUSE_IMAGE} shadow={status==='marker-selected'||shadow}/>
+                <ImageLazy src={listing_photo || DEFAULT_HOUSE_IMAGE} shadow={status==="marker-selected"||shadow}/>
            <div className='searchItemInfo'>
                 <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
                 <div className='searchItem-address'>{address}</div>
@@ -60,16 +59,16 @@ const SearchItem = props => {
                     title2={LAND_VALUE} value2={land_value}
                     />
                 <div className='propertyInformation-margin10'/>
-                <PropListItem title={DESCRIPTION} value14={' '}/>
+                <PropListItem title={DESCRIPTION} value14={" "}/>
                 <div className='searchItem-descr'>{summary_description}</div>
-                <ButtonProperty title={'GO TO PROPERTY'} url={listing_url}/>
+                <ButtonProperty title={"GO TO PROPERTY"} url={listing_url}/>
             </div>
         </div>
-    )
-}
+    );
+};
 
 SearchItem.propTypes = {
 
-}
+};
 
-export default SearchItem
+export default SearchItem;

@@ -1,12 +1,12 @@
 export const viewport = () => {
     return {
-        type: 'VIEWPORT'
+        type: "VIEWPORT"
     };
 };
 
 export const viewportChange = (viewport) => {
     return {
-        type: 'VIEWPORT_CHANGE',
+        type: "VIEWPORT_CHANGE",
         payload: viewport
     };
 };

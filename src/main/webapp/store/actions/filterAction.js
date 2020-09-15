@@ -20,6 +20,7 @@ export const saveFilter = (accessToken, name, frequency, editedFilter) => async 
         propertyFloorSpaceRatioMin: floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : null,
         propertyFloorSpaceRatioMax: floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null
     };
+
     dispatch(showLoading());
     dispatch(saveFilterRequest());
     fetch(`${apiUrl}${editedFilter ? "/"+editedFilter.id : ""}`, {
@@ -46,5 +47,11 @@ export const getFilter = (item) => dispatch => {
     dispatch({
         type: "GET_FILTER",
         payload: item
+    });
+};
+
+export const resetFilter = () => dispatch => {
+    dispatch({
+        type: "RESET_FILTER"
     });
 };

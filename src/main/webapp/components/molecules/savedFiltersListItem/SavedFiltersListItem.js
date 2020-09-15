@@ -3,16 +3,20 @@ import PropTypes from "prop-types";
 
 import "./savedFiltersListItem.scss";
 import SavedFilterItem from "../../atoms/savedFilterItem/SavedFilterItem";
-import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, IconPostG, IconPencil, IconTrash, IconBellOff, IconBell7 } from "../../../assets/icons";
+import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, IconPostG, IconPencil, IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30 } from "../../../assets/icons";
 
 const SavedFiltersListItem = props => {
     const {data} = props;
+    const notificationIcon = data.frequency=="DAILY"? <IconBell1/> : 
+      data.frequency=="WEEKLY"? <IconBell7/> : data.frequency=="MONTHLY"? <IconBell30/> : <IconBellOff/>;
+
     return (
         <div className='savedFilters-filterItem' onClick={props.onSelect}>
+          {console.log(data)}
           <div className='savedFilters-filterHeader' style={{display: "flex"}}>
             <div onClick={props.onSelect} className='savedFilters-filterTitle'>{data.title ? data.title : "Untitled"}</div>
             <div className='savedFilterEdit'>
-                <div onClick={props.onEdit} className='savedFilterEdit-icon'><IconBellOff/></div>
+                <div onClick={props.onChangeFrequency} className='savedFilterEdit-icon'>{notificationIcon}</div>
                 <div onClick={props.onEdit} className='savedFilterEdit-icon'><IconPencil/></div>
                 <div onClick={props.onDelete}><IconTrash/></div>
             </div>
@@ -36,7 +40,11 @@ const SavedFiltersListItem = props => {
 };
 
 SavedFiltersListItem.propTypes = {
-
+  onSelect: PropTypes.func,
+  onChangeFrequency: PropTypes.func,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
+  data: PropTypes.object
 };
 
 export default SavedFiltersListItem;

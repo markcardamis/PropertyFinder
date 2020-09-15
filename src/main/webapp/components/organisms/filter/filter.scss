@@ -6,6 +6,12 @@
     justify-content: space-between;
     align-items: center;
 }
+.resetFilterBtn {
+    margin-top: 20px;
+    color: $green;
+    cursor: pointer;
+    font-size: 16px;
+}
 .filterBtnContainer {
         display: flex;
         flex-direction: row;

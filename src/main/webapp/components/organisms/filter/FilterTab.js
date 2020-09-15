@@ -12,7 +12,7 @@ import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import {IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost} from "../../../assets/icons";
-import { getFilter } from "../../../store/actions/filterAction";
+import { getFilter, resetFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 import { showSearchModal } from "../../../store/actions/searchModalAction";
 
@@ -153,6 +153,7 @@ class FilterTab extends React.Component {
                   labelMin={"0.0"} 
                   labelMax={"10.0"}
                   />
+                  <div className="resetFilterBtn" onClick={()=>this.props.resetFilter()}>Reset filter</div>
                 </div> 
                  <div className='filterBtnContainer'>
                   <div className='btnSavePref'><ButtonOutlined title={"Save preferences"} onClick={this.handleSaveFilter}/></div>
@@ -171,7 +172,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     getFilter,
     closeFilter,
-    showSearchModal
+    showSearchModal,
+    resetFilter
   };
 
   export default withAuth(connect(mapStateToProps, mapDispatchToProps)(FilterTab));

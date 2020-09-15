@@ -16,6 +16,7 @@ import { viewportChange } from "../../../store/actions/viewportAction";
 import FilterButtonGroup from "../../molecules/filterButtonGroup/FilterButtonGroup";
 import LayerSelectModal from "../layerSelectModal/LayerSelectModal";
 import "./MapGL.scss";
+import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
 
     mapboxgl.accessToken = process.env.MAPBOX_API;
     export let map;
@@ -25,7 +26,6 @@ import "./MapGL.scss";
 class MapGL extends React.Component {
     constructor(props) {
         super(props);
-        const { dispatch } = props;
         this.state = {
              authenticated: null
         };
@@ -98,6 +98,7 @@ componentDidUpdate() {
 }
 
 handleViewportChange = () => {
+    this.props.showSearchArea();
     this.props.viewportChange({latitude: map.getCenter().lat, longitude: map.getCenter().lng});
 }
 
@@ -181,8 +182,8 @@ checkAuthentication = async () => {
         <>
             <div   
                 ref={el => this.mapContainer = el} 
-                className='mapContainer' 
-                id='map' 
+                className="mapContainer"
+                id="map"
                 style={{left: searchModal ? "45%" : 0, width: searchModal ? "55%" : "100%"}}
                 >
                 {!filterModal && !saveModal && <FilterButtonGroup 
@@ -220,7 +221,8 @@ const mapDispatchToProps = {
     getPopup,
     showLayersModal,
     closeLayersModal,
-    viewportChange
+    viewportChange,
+    showSearchArea
 };
 
 export default withAuth(connect(mapStateToProps, mapDispatchToProps)(MapGL));

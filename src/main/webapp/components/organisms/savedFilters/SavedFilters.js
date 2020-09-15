@@ -1,12 +1,11 @@
-import fetch from "isomorphic-fetch";
 import React, { Component } from "react";
 import { withAuth } from "@okta/okta-react";
 import { connect } from "react-redux";
 import SavedFiltersListItem from "../../molecules/savedFiltersListItem/SavedFiltersListItem";
-import { filters } from "../../../../../../contsants_temp";
 import {getNotifications, deleteNotification} from "../../../store/actions/notificationsAction";
-import { getFilter } from "../../../store/actions/filterAction";
+import { getFilter, saveFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
+import { FREQUENCY } from "../../../shared/constants";
 
 class SavedFilters extends Component {
   constructor(props) {
@@ -53,6 +52,15 @@ class SavedFilters extends Component {
     });  
     this.props.handleEditFilter(item);
   }}
+  handleChangeFrequency = async (item) => {
+    const getFrequency = () => {
+      const startFrequency = item.frequency==null || !item.frequency ? "OFF" : item.frequency;
+      const index = FREQUENCY.indexOf(startFrequency)<3 ? FREQUENCY.indexOf(startFrequency) + 1 : 0;
+      return FREQUENCY[index];
+    };
+    await this.props.getFilter({...this.props.filter, frequency: getFrequency()});
+    this.props.saveFilter(await this.props.auth.getAccessToken(), item.title, getFrequency(), item);
+  }
 
   handleDeleteFilter = async (item) => {
     this.props.deleteNotification(item, await this.props.auth.getAccessToken());
@@ -65,23 +73,10 @@ class SavedFilters extends Component {
               key={index}
               index={index+1}
               onEdit={(e)=>{this.handleEditFilter(item); e.stopPropagation();}}
-              //onChangeFrequency={(e)=>{this.handleChangeFrequency(item); e.stopPropagation();}}
+              onChangeFrequency={(e)=>{this.handleChangeFrequency(item); e.stopPropagation();}}
               onDelete={(e)=>{this.handleDeleteFilter(item); e.stopPropagation();}}
               onSelect={(e)=>{this.handleSelectFilter(item); e.stopPropagation();}}
-              data={{
-                propertyZone: item.propertyZone, 
-                propertyAreaMin: item.propertyAreaMin, 
-                propertyAreaMax: item.propertyAreaMax,
-                propertyPriceMin: item.propertyPriceMin, 
-                propertyPriceMax: item.propertyPriceMax, 
-                propertyPricePSMMin: item.propertyPricePSMMin,
-                propertyPricePSMMax: item.propertyPricePSMMax, 
-                propertyPostCode: item.propertyPostCode, 
-                propertyPriceToLandValueMin: item.propertyPriceToLandValueMin,
-                propertyPriceToLandValueMax: item.propertyPriceToLandValueMax, 
-                propertyFloorSpaceRatioMin: item.propertyFloorSpaceRatioMin,
-                propertyFloorSpaceRatioMax: item.propertyFloorSpaceRatioMax
-              }}
+              data={item}
             />;
     }
     );
@@ -107,6 +102,7 @@ class SavedFilters extends Component {
 const mapStateToProps = (state) => {
   return {
     savedFilters: state,
+    filter: state.filter,
     notifications: state.notifications
   };
 };
@@ -114,7 +110,8 @@ const mapDispatchToProps = {
   getNotifications,
   deleteNotification,
   getFilter,
-  closeFilter
+  closeFilter,
+  saveFilter
 };
 
 export default withAuth(connect(mapStateToProps, mapDispatchToProps)(SavedFilters));

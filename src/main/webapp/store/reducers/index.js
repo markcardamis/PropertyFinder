@@ -14,6 +14,7 @@ import searchModalReducer from "./searchModalReducer";
 import layersReducer from "./layersReducer";
 import searchResultsReducer from "./searchReducer";
 import notificationsReducer from "./notificationsReducer";
+import searchAreaBtnReducer from "./searchAraBtnReducer";
 
 const reducers = combineReducers({
     propertyModal: propertyModalReducer,
@@ -30,7 +31,8 @@ const reducers = combineReducers({
     searchModal: searchModalReducer,
     layers: layersReducer,
     searchResults: searchResultsReducer,
-    notifications: notificationsReducer
+    notifications: notificationsReducer,
+    searchAreaBtn: searchAreaBtnReducer
 });
 
 export default reducers; 
