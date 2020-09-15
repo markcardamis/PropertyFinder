@@ -1,4 +1,4 @@
-import { points } from "../../../../../contsants_temp";
+import { points } from "../../../../../constants_temp";
 const initialState = {isHidden: false};
 
 const propertyModalReducer = (state = initialState, action) => {

@@ -1,4 +1,4 @@
-import { searchResult } from "../../../../../contsants_temp";
+import { searchResult } from "../../../../../constants_temp";
 
 const initialState = searchResult;
 //const initialState = [];
