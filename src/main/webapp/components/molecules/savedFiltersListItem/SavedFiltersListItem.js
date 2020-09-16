@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 import "./savedFiltersListItem.scss";
 import SavedFilterItem from "../../atoms/savedFilterItem/SavedFilterItem";
@@ -7,12 +8,19 @@ import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, 
 
 const SavedFiltersListItem = props => {
     const {data} = props;
-    const notificationIcon = data.frequency=="DAILY"? <IconBell1/> : 
-      data.frequency=="WEEKLY"? <IconBell7/> : data.frequency=="MONTHLY"? <IconBell30/> : <IconBellOff/>;
+    const notifications = useSelector(state=>state.notifications);
+    const [frequency, setFrequency] = useState(data.frequency);
+
+    useEffect(()=>{
+      const item = notifications.filter(item=>item.id===data.id);
+      setFrequency(item[0].frequency);
+    });
+
+    const notificationIcon = frequency=="DAILY"? <IconBell1/> : 
+      frequency=="WEEKLY"? <IconBell7/> : frequency=="MONTHLY"? <IconBell30/> : <IconBellOff/>;
 
     return (
         <div className='savedFilters-filterItem' onClick={props.onSelect}>
-          {console.log(data)}
           <div className='savedFilters-filterHeader' style={{display: "flex"}}>
             <div onClick={props.onSelect} className='savedFilters-filterTitle'>{data.title ? data.title : "Untitled"}</div>
             <div className='savedFilterEdit'>

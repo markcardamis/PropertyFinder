@@ -13,9 +13,19 @@
         display: flex; 
     }
 }
+.searchBtn {
+    color: $dark-grey; 
+    font-size: 14px; 
+}
 
 @media only screen and (max-device-width: $breakpoint-mobile) {
     .filterButtonGroup {
         margin-top: 25px;
+    }
+    .searchBtn {
+        font-size: 22px; 
+        text-align: center;
+        margin-right: 10px;
+        margin-left: 10px;
     }
 }

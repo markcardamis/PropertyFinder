@@ -9,7 +9,6 @@ import { getSearchResults } from "../../../store/actions/searchAction";
 import { getPopup } from "../../../store/actions/popupAction";
 import SearchInput from "../searchInput/SearchInput";
 import {map} from "../../organisms/map/MapGL";
-import variables from "../../../styles/_variables.scss";
 import ToggleWidget from "../toggleWidget/ToggleWidget";
 import { useAuth } from "../../../modules/auth";
 import { withAuth } from "@okta/okta-react";
@@ -93,9 +92,9 @@ const FilterButtonGroup = withAuth(props => {
                     setShowResults={(state)=>setShowResults(state)}
                 />
                 }
-                {props.searchAreaBtn&&!isFilterSet&&<ButtonSquare 
-                  icon={<div>Search this area</div>} 
-                  style={{width: 120, color: variables.green, fontSize: 14}}
+                {props.searchAreaBtn&&!isFilterSet&&!showSearchInput&&<ButtonSquare 
+                  icon={<div className="searchBtn">Search this area</div>} 
+                  style={{width: 120, position: "absolute", marginLeft: "auto", marginRight: "auto", left: 0, right: 0 }}
                   onClick={handleSearchArea}
                   />}
             </div>
