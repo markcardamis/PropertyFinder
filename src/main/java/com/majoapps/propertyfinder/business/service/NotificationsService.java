@@ -93,6 +93,7 @@ public class NotificationsService {
         return notificationsRepository.findById(id).map(notifications -> {
             notifications.setTitle(newNotifications.getTitle());
             notifications.setFrequency(newNotifications.getFrequency());
+            notifications.setPropertyId(newNotifications.getPropertyId());
             notifications.setPropertyZone(newNotifications.getPropertyZone());
             notifications.setPropertyAreaMin(newNotifications.getPropertyAreaMin());
             notifications.setPropertyAreaMax(newNotifications.getPropertyAreaMax());
@@ -117,6 +118,10 @@ public class NotificationsService {
             }
             if (newNotifications.getFrequency() != null) {
                 notifications.setFrequency(newNotifications.getFrequency());
+            }
+            if (newNotifications.getPropertyId() != null &&
+                    newNotifications.getPropertyId() != 0) {
+                notifications.setPropertyId(newNotifications.getPropertyId());
             }
             if (newNotifications.getPropertyZone() != null) {
                 notifications.setPropertyZone(newNotifications.getPropertyZone());
