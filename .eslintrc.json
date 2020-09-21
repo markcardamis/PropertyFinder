@@ -28,6 +28,8 @@
         "quotes": ["error", "double"],
         "no-multi-spaces": ["error"],
         "space-unary-ops": ["error"],
-        "keyword-spacing": ["error", { "before": true }]
+        "keyword-spacing": ["error", { "before": true }],
+        "object-curly-spacing": ["error", "always"],
+        "array-bracket-spacing": ["error", "always"]
     }
 }

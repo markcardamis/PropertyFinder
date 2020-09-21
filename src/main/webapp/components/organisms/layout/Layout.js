@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector} from "react-redux";
-import { useHistory} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import Nav from "../nav/Nav";
-import {showFilter as showFilterAction, closeFilter} from "../../../store/actions/filterModalAction";
-import {closeSignIn, showSignIn} from "../../../store/actions/signInModalAction";
+import { showFilter as showFilterAction, closeFilter } from "../../../store/actions/filterModalAction";
+import { closeSignIn, showSignIn } from "../../../store/actions/signInModalAction";
 import AuthModal from "../authModal/AuthModal";
 import MobileNav from "../mobileNav/MobileNav";
 import "./layout.scss";
@@ -32,6 +32,8 @@ const Layout = props => {
     );
 };
 
-Layout.propTypes = {};
+Layout.propTypes = {
+    children: PropTypes.node.isRequired
+};
 
 export default Layout;

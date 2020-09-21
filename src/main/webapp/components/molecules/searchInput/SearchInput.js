@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {useSelector, connect} from "react-redux";
+import { useSelector, connect } from "react-redux";
 import "./searchInput.scss";
 import { getSearchResults } from "../../../store/actions/searchAction";
 
 const SearchInput = props => {
     const searchResults = useSelector(state=>state.searchResults);
-    const [hovered, setHovered] = useState("");
+    const [ hovered, setHovered ] = useState("");
     
     const handleHover = (item) => {
         props.onHover(item);
@@ -48,7 +48,6 @@ const SearchInput = props => {
                     autoFocus
                     placeholder={props.placeholder}
                     value={props.search}
-                    placeholder={props.placeholder}
                     onChange={props.onChange}
                     className='searchInput'
                     onKeyUp={props.onKeyUp}
@@ -72,7 +71,12 @@ SearchInput.propTypes = {
     onCancel: PropTypes.func,
     onKeyUp: PropTypes.func,
     onKeyPress: PropTypes.func,
-    search: PropTypes.string
+    search: PropTypes.string,
+    placeholder: PropTypes.string,
+    setShowResults: PropTypes.func,
+    onHover: PropTypes.func,
+    onSelect: PropTypes.func,
+    showResults: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {

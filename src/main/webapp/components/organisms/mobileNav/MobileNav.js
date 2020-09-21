@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Link, useLocation} from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { withAuth } from "@okta/okta-react";
 import "./mobileNav.scss";
 import { useAuth } from "../../../modules/auth";
@@ -15,8 +15,8 @@ import { IconExitMobile } from "../../../assets/icons";
 import DeviderLine from "../../../components/atoms/deviderLine/DeviderLine";
 
 const MobileNav = withAuth(({ auth }) => {
-    const [authenticated, user] = useAuth(auth);
-    const [state, setState] = useState("nav");
+    const [ authenticated, user ] = useAuth(auth);
+    const [ state, setState ] = useState("nav");
     const location = useLocation();
 
     const renderComponent = () => {

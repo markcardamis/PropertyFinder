@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './viewing.scss'
-import { IconEye } from '../../../assets/icons'
+import React from "react";
+import PropTypes from "prop-types";
+import "./viewing.scss";
+import { IconEye } from "../../../assets/icons";
 
 const Viewing = props => {
     return (
@@ -9,11 +9,12 @@ const Viewing = props => {
             <IconEye/>
             {props.children}
         </div>
-    )
-}
+    );
+};
 
 Viewing.propTypes = {
-    active: PropTypes.bool
-}
+    active: PropTypes.bool,
+    children: PropTypes.node.isRequired
+};
 
-export default Viewing
+export default Viewing;

@@ -7,9 +7,9 @@ import SavedFilterItem from "../../atoms/savedFilterItem/SavedFilterItem";
 import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, IconPostG, IconPencil, IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30 } from "../../../assets/icons";
 
 const SavedFiltersListItem = props => {
-    const {data} = props;
+    const { data } = props;
     const notifications = useSelector(state=>state.notifications);
-    const [frequency, setFrequency] = useState(data.frequency);
+    const [ frequency, setFrequency ] = useState(data.frequency);
 
     useEffect(()=>{
       const item = notifications.filter(item=>item.id===data.id);
@@ -21,7 +21,7 @@ const SavedFiltersListItem = props => {
 
     return (
         <div className='savedFilters-filterItem' onClick={props.onSelect}>
-          <div className='savedFilters-filterHeader' style={{display: "flex"}}>
+          <div className='savedFilters-filterHeader' style={{ display: "flex" }}>
             <div onClick={props.onSelect} className='savedFilters-filterTitle'>{data.title ? data.title : "Untitled"}</div>
             <div className='savedFilterEdit'>
                 <div onClick={props.onChangeFrequency} className='savedFilterEdit-icon'>{notificationIcon}</div>

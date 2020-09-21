@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./popup.scss";
 import Chart from "../../molecules/chart/Chart";
-import {ADDRESS, AREA, ZONE, LAND_VALUE, FLOOR_SPACE_RATIO, MINIMUM_LOT_SIZE, BUILDING_HEIGHT} from "../../../shared/constants";
+import { ADDRESS, AREA, ZONE, LAND_VALUE, FLOOR_SPACE_RATIO, MINIMUM_LOT_SIZE, BUILDING_HEIGHT } from "../../../shared/constants";
 import PropListItem from "../../molecules/propListItem/PropListItem";
 import PropListItem2 from "../../molecules/propListItem2/PropListItem2";
-import {IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight} from "../../../assets/icons";
+import { IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight } from "../../../assets/icons";
 import { useWindowSize } from "../../../modules/windowSize";
 
 const Popup = props => {
-    const {property_id, house_number, street_name, suburb_name, post_code, zone_code, area, floor_space_ratio, minimum_lot_size, building_height, land_value_0} = props.propertyInfo;
+    const { property_id, house_number, street_name, suburb_name, post_code, zone_code, area, floor_space_ratio, minimum_lot_size, building_height, land_value_0 } = props.propertyInfo;
     const upperCase = (str) => {
         let splitStr = str.toLowerCase().split(" ");
         for (let i = 0; i < splitStr.length; i++) {
@@ -21,7 +21,7 @@ const Popup = props => {
     const size = useWindowSize();
  
     return (
-        <div style={{width: size.width>982 ? 354 : 650}}>
+        <div style={{ width: size.width>982 ? 354 : 650 }}>
             <Chart chartData={props.chartData} salesData={props.salesData}/>
             <div className='popup-propertyInfo'>
                 <PropListItem 

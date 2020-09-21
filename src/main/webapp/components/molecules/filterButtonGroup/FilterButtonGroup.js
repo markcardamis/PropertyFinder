@@ -1,14 +1,14 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {useSelector, connect} from "react-redux";
+import { useSelector, connect } from "react-redux";
 import ButtonSquare from "../../atoms/buttonSquare/ButtonSquare";
-import {LogoBlack, IconLayers, IconSearch} from "../../../assets/icons";
+import { LogoBlack, IconLayers, IconSearch } from "../../../assets/icons";
 import "./filterButtonGroup.scss";
 import { useWindowSize } from "../../../modules/windowSize";
 import { getSearchResults } from "../../../store/actions/searchAction";
 import { getPopup } from "../../../store/actions/popupAction";
 import SearchInput from "../searchInput/SearchInput";
-import {map} from "../../organisms/map/MapGL";
+import { map } from "../../organisms/map/MapGL";
 import ToggleWidget from "../toggleWidget/ToggleWidget";
 import { useAuth } from "../../../modules/auth";
 import { withAuth } from "@okta/okta-react";
@@ -19,12 +19,12 @@ const FilterButtonGroup = withAuth(props => {
     const searchModal = useSelector(state=>state.searchModal);
     const propertyModal = useSelector(state=>state.propertyModal.isHidden);
     const windowSize = useWindowSize();
-    const [showSearchInput, setSearchInput] = useState(false);
-    const [search, setSearch] = useState("");
-    const [hovered, setHovered] = useState({});
-    const [selected, setSelected] = useState({});
-    const [showResults, setShowResults] = useState(false);
-    const [authenticated, accessToken] = useAuth(props.auth);
+    const [ showSearchInput, setSearchInput ] = useState(false);
+    const [ search, setSearch ] = useState("");
+    const [ hovered, setHovered ] = useState({});
+    const [ selected, setSelected ] = useState({});
+    const [ showResults, setShowResults ] = useState(false);
+    const [ authenticated, accessToken ] = useAuth(props.auth);
     let timer;
     const handleSearch = (e) => {
        setSearch(e.target.value.replace(/[^a-zA-Z0-9_ /]/gi, ""));
@@ -47,7 +47,7 @@ const FilterButtonGroup = withAuth(props => {
     const handleSelect = (item) => {
         handleCancelSearch;
         setSelected(item);
-        map.flyTo({center: [item.longitude, item.latitude], zoom: 16});
+        map.flyTo({ center: [ item.longitude, item.latitude ], zoom: 16 });
         props.getPopup(item.propertyId, item.longitude, item.latitude);
         setShowResults(false);
         setSearchInput(false);
@@ -66,17 +66,17 @@ const FilterButtonGroup = withAuth(props => {
             <ButtonSquare 
                 icon={<LogoBlack color={"#000000"} size={windowSize.width<982 ? 2 : 1}/>} 
                 onClick={props.onFilterClick}
-                style={{marginRight: 14}}
+                style={{ marginRight: 14 }}
                 />   
             <ButtonSquare 
                 icon={<IconLayers size={windowSize.width<982 ? 2 : 1}/>} 
-                style={{marginRight: 14}}
+                style={{ marginRight: 14 }}
                 onClick={props.onLayersClick}
                 />
             {!showSearchInput ? 
                 <ButtonSquare 
                     icon={<IconSearch size={windowSize.width<982 ? 2 : 1}/>} 
-                    style={{marginRight: 14}}
+                    style={{ marginRight: 14 }}
                     onClick={()=>setSearchInput(true)}
                     /> :
                 <SearchInput
@@ -94,7 +94,7 @@ const FilterButtonGroup = withAuth(props => {
                 }
                 {props.searchAreaBtn&&!isFilterSet&&!showSearchInput&&<ButtonSquare 
                   icon={<div className="searchBtn">Search this area</div>} 
-                  style={{width: 120, position: "absolute", marginLeft: "auto", marginRight: "auto", left: 0, right: 0 }}
+                  style={{ width: 120, position: "absolute", marginLeft: "auto", marginRight: "auto", left: 0, right: 0 }}
                   onClick={handleSearchArea}
                   />}
             </div>
@@ -122,6 +122,13 @@ const mapDispatchToProps = {
     getSearchResults,
     getPopup,
     applyFilter
+};
+
+FilterButtonGroup.propTypes = {
+    onListViewClick: PropTypes.func,
+    onMapViewClick: PropTypes.func,
+    onFilterClick: PropTypes.func,
+    onLayersClick: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterButtonGroup);

@@ -35,7 +35,7 @@ async componentDidMount() {
     map = new mapboxgl.Map({
         container: this.mapContainer,
         style: process.env.MAPBOX_STYLE,
-        center: [INITIAL_VIEWPORT.longitude, INITIAL_VIEWPORT.latitude],
+        center: [ INITIAL_VIEWPORT.longitude, INITIAL_VIEWPORT.latitude ],
         zoom: INITIAL_VIEWPORT.zoom
         });  
  
@@ -79,7 +79,7 @@ async componentDidMount() {
             "line-color": "hsl(110, 1%, 50%)",
             "line-width": [
                 "case",
-                ["boolean", ["feature-state", "hover"], false], 2, 0
+                [ "boolean", [ "feature-state", "hover" ], false ], 2, 0
             ]
         },
         "minzoom": 16
@@ -99,7 +99,7 @@ componentDidUpdate() {
 
 handleViewportChange = () => {
     this.props.showSearchArea();
-    this.props.viewportChange({latitude: map.getCenter().lat, longitude: map.getCenter().lng});
+    this.props.viewportChange({ latitude: map.getCenter().lat, longitude: map.getCenter().lng });
 }
 
 renderMarkers = async () => {
@@ -113,7 +113,7 @@ renderMarkers = async () => {
         el.onclick=()=>this.props.getPropertyInfo(marker);
        
         let oneMarker = new mapboxgl.Marker(el)
-          .setLngLat({lng: marker.longitude, lat: marker.latitude})
+          .setLngLat({ lng: marker.longitude, lat: marker.latitude })
           .addTo(map);
         currentMarkers.push(oneMarker);
     });
@@ -121,7 +121,7 @@ renderMarkers = async () => {
 
 handlePropertyClick = async (e) => {
      let features = map.queryRenderedFeatures(e.point);
-     let displayProperties = ["properties"];
+     let displayProperties = [ "properties" ];
      let displayFeatures = features.map(function(feat) {
          let displayFeat = {};
          displayFeat[displayProperties]=feat[displayProperties];
@@ -177,14 +177,14 @@ checkAuthentication = async () => {
   }
  
     render() {
-        const {searchModal, filterModal, saveModal, layers} = this.props;
+        const { searchModal, filterModal, saveModal, layers } = this.props;
     return (
         <>
             <div   
                 ref={el => this.mapContainer = el} 
                 className="mapContainer"
                 id="map"
-                style={{left: searchModal ? "45%" : 0, width: searchModal ? "55%" : "100%"}}
+                style={{ left: searchModal ? "45%" : 0, width: searchModal ? "55%" : "100%" }}
                 >
                 {!filterModal && !saveModal && <FilterButtonGroup 
                     onListViewClick={()=> this.props.showSearchModal()}

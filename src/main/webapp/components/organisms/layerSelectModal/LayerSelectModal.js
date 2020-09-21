@@ -1,14 +1,13 @@
-import React, {useEffect, useRef} from "react";
-import PropTypes from "prop-types";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import PopupContainer from "../../molecules/popupContainer/PopupContainer";
 import "./layerSelectModal.scss";
 import { toggleLayer, closeLayersModal } from "../../../store/actions/layersAction";
 import { useWindowSize } from "../../../modules/windowSize";
-import {map} from "../../organisms/map/MapGL";
+import { map } from "../../organisms/map/MapGL";
 
-const LayerSelectModal = props => {
+const LayerSelectModal = () => {
     const dispatch = useDispatch();
     const layers = useSelector(state=>state.layers);
     const node = useRef();
@@ -36,8 +35,8 @@ const LayerSelectModal = props => {
     return (
         <div ref={node}>
             <PopupContainer 
-                style={{left: 12, top: windowSize.width < 982 ? 120 : 80, width: windowSize.width < 982 ? "auto" : 170, zIndex: 3}}
-                tipStyle={{right: "45%", boxShadow: "3px 10px 0px 2px rgba(0, 0, 0, 0.03)"}}
+                style={{ left: 12, top: windowSize.width < 982 ? 120 : 80, width: windowSize.width < 982 ? "auto" : 170, zIndex: 3 }}
+                tipStyle={{ right: "45%", boxShadow: "3px 10px 0px 2px rgba(0, 0, 0, 0.03)" }}
                 >
                 <div 
                     className={`layerName ${layers.landZoning ? "active" : ""}`} 
@@ -78,10 +77,6 @@ const LayerSelectModal = props => {
             </PopupContainer>
         </div>
     );
-};
-
-LayerSelectModal.propTypes = {
-
 };
 
 export default LayerSelectModal;

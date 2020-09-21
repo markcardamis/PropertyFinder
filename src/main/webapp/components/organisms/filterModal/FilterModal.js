@@ -46,7 +46,7 @@ class FilterModal extends Component {
     }
 
     handleEditFilter = async (item) => {
-      this.setState({editedFilter: item, tabIndex : 0});
+      this.setState({ editedFilter: item, tabIndex : 0 });
     }
 
     handleSaveFilter = async () => { 
@@ -55,7 +55,7 @@ class FilterModal extends Component {
         const result = this.props.notifications.find( filter => filter.id === this.state.editedFilter.id );
         if (result&&result.length!==0) {
             await this.props.saveFilter(await this.props.auth.getAccessToken(), this.state.editedFilter.name, this.state.editedFilter.frequency, this.state.editedFilter);
-            this.setState({tabIndex : 1});
+            this.setState({ tabIndex : 1 });
           } else {
             this.props.closeFilter();
             this.props.showSaveModal();

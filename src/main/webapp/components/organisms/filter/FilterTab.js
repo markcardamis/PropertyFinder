@@ -2,16 +2,17 @@
 import React from "react";
 import { withAuth } from "@okta/okta-react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import "rc-slider/assets/index.css";
 import "rc-dropdown/assets/index.css";
 
-import {ZONES} from "../../../shared/constants";
+import { ZONES } from "../../../shared/constants";
 import "./filter.scss";
-import {FilterLine, ZoneSelect, PostCode} from "./components";
+import { FilterLine, ZoneSelect, PostCode } from "./components";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
-import {IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost} from "../../../assets/icons";
+import { IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost } from "../../../assets/icons";
 import { getFilter, resetFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 import { showSearchModal } from "../../../store/actions/searchModalAction";
@@ -44,9 +45,9 @@ class FilterTab extends React.Component {
     handleSubmit = async () => {
       const { postCode } = this.props.filter;
       if (postCode.length !== 4 && postCode.length !== 0) {
-        this.setState({showValidation: true});
+        this.setState({ showValidation: true });
       } else {
-        this.setState({showValidation: false});
+        this.setState({ showValidation: false });
         await this.props.getFilter(this.props.filter);
         this.props.handleSubmit();
         this.props.closeFilter();
@@ -54,26 +55,26 @@ class FilterTab extends React.Component {
     }
 
     onSelect = ({ key }) => {
-      this.props.getFilter({...this.props.filter, zone: key});
+      this.props.getFilter({ ...this.props.filter, zone: key });
       let zoneColor = ZONES.filter(item=>{
         return item.name===key;
       });
-      this.setState({zoneColor: zoneColor[0].color});
+      this.setState({ zoneColor: zoneColor[0].color });
     }
 
     handleSaveFilter = async () => {
       const { postCode } = this.props.filter;
       if (postCode.length !== 4 && postCode.length !== 0) {
-        this.setState({showValidation: true});
+        this.setState({ showValidation: true });
       } else {
-        this.setState({showValidation: false});
+        this.setState({ showValidation: false });
         await this.props.getFilter(this.props.filter);
         this.props.handleSaveFilter();
     }
   }
 
     render () {
-      const {filter} = this.props;
+      const { filter } = this.props;
         return (
             <div className='filterTab'> 
               <div className='filterInputContainer'>
@@ -89,7 +90,7 @@ class FilterTab extends React.Component {
                 icon={<IconPost/>} 
                 value={filter.postCode} 
                 showValidation={this.state.showValidation} 
-                onChange={(event)=>this.props.getFilter({...filter, postCode: event.target.value})}
+                onChange={(event)=>this.props.getFilter({ ...filter, postCode: event.target.value })}
                 />
               <DeviderLine/>
                 <FilterLine 
@@ -98,7 +99,7 @@ class FilterTab extends React.Component {
                   value={filter.area} 
                   step={100} 
                   showCurrency={false}
-                  onChange={(val)=>this.props.getFilter({...filter, area: val})} 
+                  onChange={(val)=>this.props.getFilter({ ...filter, area: val })} 
                   min={0} 
                   max={20000} 
                   labelMin={"0"} 
@@ -110,7 +111,7 @@ class FilterTab extends React.Component {
                   value={filter.floorspaceRatio} 
                   step={0.1} 
                   showCurrency={false}
-                  onChange={(val)=>this.props.getFilter({...filter, floorspaceRatio: val})} 
+                  onChange={(val)=>this.props.getFilter({ ...filter, floorspaceRatio: val })} 
                   min={0} 
                   max={2} 
                   labelMin={"0.0"} 
@@ -123,7 +124,7 @@ class FilterTab extends React.Component {
                   value={filter.price} 
                   step={10000} 
                   showCurrency={true}
-                  onChange={(val)=>this.props.getFilter({...filter, price: val})} 
+                  onChange={(val)=>this.props.getFilter({ ...filter, price: val })} 
                   min={100000} 
                   max={5000000} 
                   labelMin={"$100k"} 
@@ -135,7 +136,7 @@ class FilterTab extends React.Component {
                   value={filter.priceM2} 
                   step={10} 
                   showCurrency={true}
-                  onChange={(val)=>this.props.getFilter({...filter, priceM2: val})} 
+                  onChange={(val)=>this.props.getFilter({ ...filter, priceM2: val })} 
                   min={0} 
                   max={10000} 
                   labelMin={"$1"} 
@@ -147,7 +148,7 @@ class FilterTab extends React.Component {
                   value={filter.priceLandvalue} 
                   step={0.1} 
                   showCurrency={false}
-                  onChange={(val)=>this.props.getFilter({...filter, priceLandvalue: val})} 
+                  onChange={(val)=>this.props.getFilter({ ...filter, priceLandvalue: val })} 
                   min={0} 
                   max={10} 
                   labelMin={"0.0"} 
@@ -175,5 +176,9 @@ const mapDispatchToProps = {
     showSearchModal,
     resetFilter
   };
+
+FilterTab.propTypes = {
+    
+};
 
   export default withAuth(connect(mapStateToProps, mapDispatchToProps)(FilterTab));

@@ -1,7 +1,6 @@
-import React, {useState, useRef, useEffect} from "react";
-import PropTypes from "prop-types";
+import React, { useState, useRef, useEffect } from "react";
 import { withAuth } from "@okta/okta-react";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
 import { useAuth } from "../../../modules/auth";
@@ -15,8 +14,8 @@ import "./authModal.scss";
 
 const AuthModal = withAuth(({ auth }) => {
     const history = useHistory();
-    const [authenticated, user] = useAuth(auth);
-    const [state, setState] = useState( history.location.pathname === "/signup" ? "register" : "login");
+    const [ authenticated, user ] = useAuth(auth);
+    const [ state, setState ] = useState( history.location.pathname === "/signup" ? "register" : "login");
     const dispatch = useDispatch();
     const node = useRef();
 
@@ -31,7 +30,7 @@ const AuthModal = withAuth(({ auth }) => {
         if (node.current.contains(e.target)) {
           return;
         }
-        dispatch({type: "CLOSE_SIGNIN"});
+        dispatch({ type: "CLOSE_SIGNIN" });
       };
 
       
@@ -49,7 +48,7 @@ const AuthModal = withAuth(({ auth }) => {
       <div ref={node}>
         <Fade>
           <div className='authModal'>
-              <PopupContainer style={{right: "15px", top: "80px", width: "354px"}}>
+              <PopupContainer style={{ right: "15px", top: "80px", width: "354px" }}>
                   {renderComponent()}
               </PopupContainer>
           </div>
@@ -57,8 +56,5 @@ const AuthModal = withAuth(({ auth }) => {
       </div>
     );
 });
-
-AuthModal.propTypes = {
-};
 
 export default AuthModal;

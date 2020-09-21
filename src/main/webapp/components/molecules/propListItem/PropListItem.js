@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import './propListItem.scss';
-import PropListTitle from '../../atoms/propListTitle/PropListTitle';
-import variables from '../../../styles/_variables.scss';
+import "./propListItem.scss";
+import PropListTitle from "../../atoms/propListTitle/PropListTitle";
+import variables from "../../../styles/_variables.scss";
 
 const PropListItem = props => {
     return (

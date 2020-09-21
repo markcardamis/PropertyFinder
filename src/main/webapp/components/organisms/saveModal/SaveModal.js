@@ -10,11 +10,11 @@ import { connect } from "react-redux";
 import "./saveModal.scss";
 
 const SaveModal = (props) => {
-    const [title, setTiltle] = useState("Preferences 1.0");
+    const [ title, setTiltle ] = useState("Preferences 1.0");
     //const accessToken = await props.auth.getAccessToken();
-    const [frequency, setFrequency] = useState("OFF");
-    const [showDropdown, setShowDropdown] = useState(false);
-    const frequencyOptions = ["OFF", "DAILY", "WEEKLY", "MONTHLY"];
+    const [ frequency, setFrequency ] = useState("OFF");
+    const [ showDropdown, setShowDropdown ] = useState(false);
+    const frequencyOptions = [ "OFF", "DAILY", "WEEKLY", "MONTHLY" ];
     const handleOptionClick = (item) => {
         setFrequency(item);
         setShowDropdown(false);
@@ -66,7 +66,6 @@ const SaveModal = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        test: state
     };
 };
 

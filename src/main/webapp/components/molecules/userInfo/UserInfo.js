@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from 'react'
-import PropTypes from 'prop-types'
-import './userInfo.scss'
-import TextInput from '../../atoms/textInput/TextInput'
-import { IconAccount, IconUser, IconEmail } from '../../../assets/icons'
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import "./userInfo.scss";
+import { IconUser, IconEmail } from "../../../assets/icons";
 
 const UserInfo = props => {
-    const [user, setUser] = useState(props.user&&props.user)
+    const [ user, setUser ] = useState(props.user&&props.user);
     return (
         <div>
             {props.user&&<div className='userInfoHeader'>User Information</div>}
@@ -19,11 +18,11 @@ const UserInfo = props => {
             </div>}
             <div className='userInfoNote'>For changes to your account or lost password please contact us: <a href='mailto:info@propertyfetch.com.au'>info@propertyfetch.com.au</a></div>
         </div>
-    )
-}
+    );
+};
 
 UserInfo.propTypes = {
+    user: PropTypes.object
+};
 
-}
-
-export default UserInfo
+export default UserInfo;

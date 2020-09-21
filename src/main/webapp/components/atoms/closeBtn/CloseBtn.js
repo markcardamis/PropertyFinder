@@ -1,6 +1,7 @@
-import React from 'react';
-import './closeBtn.scss';
-import {IconClose, IconCloseMobile} from '../../../assets/icons';
+import React from "react";
+import "./closeBtn.scss";
+import PropTypes from "prop-types";
+import { IconClose, IconCloseMobile } from "../../../assets/icons";
 
 const CloseBtn = (props) => {
     
@@ -9,7 +10,11 @@ const CloseBtn = (props) => {
             <div className='iconClose'><IconClose/></div>
             <div className='iconCloseMobile'><IconCloseMobile/></div>
         </div>
-    )
-}
+    );
+};
+
+CloseBtn.propTypes = {
+    onClick: PropTypes.func 
+};
 
 export default CloseBtn;

@@ -1,23 +1,23 @@
-import fetch from 'isomorphic-fetch';
-import React, { Component } from 'react';
-import OktaAuth from '@okta/okta-auth-js';
-import { withAuth } from '@okta/okta-react';
-import './registerForm.scss'
-import TextInput from '../../atoms/textInput/TextInput'
-import ButtonFilled from '../../atoms/buttonFilled/ButtonFilled'
-import { IconUser, IconKey, IconEmail, IconArL } from '../../../assets/icons'
-import {validateEmail, validatePassword} from '../../../shared/validators'
+import fetch from "isomorphic-fetch";
+import React, { Component } from "react";
+import OktaAuth from "@okta/okta-auth-js";
+import { withAuth } from "@okta/okta-react";
+import "./registerForm.scss";
+import TextInput from "../../atoms/textInput/TextInput";
+import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
+import { IconUser, IconKey, IconEmail, IconArL } from "../../../assets/icons";
+import { validateEmail, validatePassword } from "../../../shared/validators";
 
 class RegisterForm extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
         sessionToken: null,
-        errorMessage: '',
+        errorMessage: "",
         validation: {}
       };
 
@@ -42,9 +42,9 @@ class RegisterForm extends Component {
         this.state.firstName.length>0&&
         this.state.lastName.length>0) {
 
-      fetch('/api/account', {
-        method: 'POST',
-        headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
+      fetch("/api/account", {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
         body: JSON.stringify(this.state)
       })
       .then(response => {
@@ -57,20 +57,20 @@ class RegisterForm extends Component {
           username: this.state.email,
           password: this.state.password
         })
-        .then(res => this.setState({sessionToken: res.sessionToken}))})
+        .then(res => this.setState({ sessionToken: res.sessionToken }));})
       .catch(err => {
         console.log(err.message);
-        this.setState({errorMessage: err.message});
-      })
+        this.setState({ errorMessage: err.message });
+      });
     } else {
       if (this.state.firstName.length===0 || this.state.lastName.length===0) {
-        this.setState(prevState =>({validation: {...prevState.validation, required: 'required'}}))
+        this.setState(prevState =>({ validation: { ...prevState.validation, required: "required" } }));
       }
       if (!validateEmail(this.state.email)) {
-        this.setState(prevState =>({validation: {...prevState.validation, email: 'invalid email'}
-      }))}
+        this.setState(prevState =>({ validation: { ...prevState.validation, email: "invalid email" }
+      }));}
       if (!validatePassword(this.state.password)) {
-        this.setState(prevState =>({validation: {...prevState.validation, password: 'invalid password'}}))
+        this.setState(prevState =>({ validation: { ...prevState.validation, password: "invalid password" } }));
       }
     }}
     
@@ -79,7 +79,7 @@ class RegisterForm extends Component {
         this.props.auth.redirect({ sessionToken: this.state.sessionToken });
         return null;
       }
-      const {validation, email, firstName, lastName, password} = this.state
+      const { validation, email, firstName, lastName, password } = this.state;
 
       return (
         <div className='registerForm'>
@@ -89,41 +89,41 @@ class RegisterForm extends Component {
                     Registration
                  <div/>
              </div>
-             <div className={'registerFormInput'}>
+             <div className={"registerFormInput"}>
                  <TextInput 
                     icon={<IconUser/>} 
-                    placeholder={'First Name'}
+                    placeholder={"First Name"}
                     value={firstName}
-                    onChange={(e)=>this.setState({firstName: e.target.value, validation: {}})}
+                    onChange={(e)=>this.setState({ firstName: e.target.value, validation: {} })}
                     />
             </div>
             <div className='validation'>{firstName.length==0&&validation.required&&validation.required}</div>
-            <div className={'registerFormInput'}>
+            <div className={"registerFormInput"}>
                  <TextInput 
                     icon={<IconUser/>} 
-                    placeholder={'Last Name'}
+                    placeholder={"Last Name"}
                     value={lastName}
-                    onChange={(e)=>this.setState({lastName: e.target.value, validation: {}})}
+                    onChange={(e)=>this.setState({ lastName: e.target.value, validation: {} })}
                     />
             </div>
             <div className='validation'>{lastName.length==0&&validation.required&&validation.required}</div>
               {/* <div>{validation.lastName&&validation.lastName}</div> */}
-            <div className={'registerFormInput'}>
+            <div className={"registerFormInput"}>
                 <TextInput 
                     icon={<IconEmail/>} 
-                    placeholder={'Email'}
+                    placeholder={"Email"}
                     value={this.state.email}
-                    onChange={(e)=>this.setState({email: e.target.value, validation: {}})}
+                    onChange={(e)=>this.setState({ email: e.target.value, validation: {} })}
                     />
             </div>
             <div className='validation'>{validation.email&&validation.email}</div>
-            <div className={'registerFormInput'}>
+            <div className={"registerFormInput"}>
                 <TextInput 
                     icon={<IconKey/>} 
-                    placeholder={'Password'}
-                    type={'password'}
+                    placeholder={"Password"}
+                    type={"password"}
                     value={this.state.password}
-                    onChange={(e)=>this.setState({password: e.target.value, validation: {}})}
+                    onChange={(e)=>this.setState({ password: e.target.value, validation: {} })}
                 />
             </div>
             <div className='validation'>{validation.password&&validation.password}</div>
@@ -132,7 +132,7 @@ class RegisterForm extends Component {
             { this.state.errorMessage && <div className="authError"> Password requirements: at least 8 characters, a lowercase letter, an uppercase letter, a number, no parts of your username. </div> }
             {/* <div className={'registerFormAgree'}>By clicking the button you accept the Terms and Conditions and Privacy Policy</div> */}
             </div>
-            <div className={'registerFormBtn'}><ButtonFilled title={'SIGN UP'} onClick={this.handleSubmit}/></div>
+            <div className={"registerFormBtn"}><ButtonFilled title={"SIGN UP"} onClick={this.handleSubmit}/></div>
         </div>
       );
     }

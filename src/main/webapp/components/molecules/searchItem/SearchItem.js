@@ -2,25 +2,26 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropListItem from "../../molecules/propListItem/PropListItem";
 import PropListItem2 from "../../molecules/propListItem2/PropListItem2";
+import PropTypes from "prop-types";
 import { ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO, DEFAULT_HOUSE_IMAGE } from "../../../shared/constants";
-import {IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG} from "../../../assets/icons";
+import { IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG } from "../../../assets/icons";
 import variables from "../../../styles/_variables.scss";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonProperty from "../../atoms/buttonProperty/ButtonProperty";
 import "./searchItem.scss";
 import ImageLazy from "../../atoms/ImageLazy/ImageLazy";
-import {map} from "../../organisms/map/MapGL";
+import { map } from "../../organisms/map/MapGL";
 
 const SearchItem = props => {
     const dispatch = useDispatch();
-    const {marker} = props;
-    const {id, area, zone, address, bathrooms, bedrooms, carspaces, price, land_value, price_psm, floor_space_ratio, price_to_land_value, minimum_lot_size, listing_url, summary_description, listing_photo, status} = props.marker;
-    const [shadow, setShadow] = useState(status==="marker-selected");
+    const { marker } = props;
+    const { id, area, zone, address, bathrooms, bedrooms, carspaces, price, land_value, price_psm, floor_space_ratio, price_to_land_value, minimum_lot_size, listing_url, summary_description, listing_photo, status } = props.marker;
+    const [ shadow, setShadow ] = useState(status==="marker-selected");
     const handleClick = () => {
-        dispatch({type: "CHANGE_ALL_MARKERS_STATUS", payload: marker, status: "marker-unvisited"});
-        dispatch({type: "CHANGE_MARKER_STATUS", payload: marker, status: "marker-selected"});
-        dispatch ({type: "VIEWPORT_CHANGE", payload: {latitude: marker.latitude, longitude: marker.longitude}});
-        map.flyTo({center: [marker.longitude, marker.latitude], zoom: 10});
+        dispatch({ type: "CHANGE_ALL_MARKERS_STATUS", payload: marker, status: "marker-unvisited" });
+        dispatch({ type: "CHANGE_MARKER_STATUS", payload: marker, status: "marker-selected" });
+        dispatch ({ type: "VIEWPORT_CHANGE", payload: { latitude: marker.latitude, longitude: marker.longitude } });
+        map.flyTo({ center: [ marker.longitude, marker.latitude ], zoom: 10 });
     };
     return (
         <div className='searchItem' onClick={handleClick}>
@@ -68,7 +69,7 @@ const SearchItem = props => {
 };
 
 SearchItem.propTypes = {
-
+    marker: PropTypes.object
 };
 
 export default SearchItem;
