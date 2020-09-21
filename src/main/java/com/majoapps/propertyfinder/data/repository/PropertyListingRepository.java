@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface PropertyListingRepository extends JpaRepository<PropertyListing, Integer>, 
         JpaSpecificationExecutor<PropertyListing> {
     List<PropertyListing> findByDomainListingId(Integer domainListingId);
-    List<PropertyListing> findByPlanningPortalPropId(String planningPortalPropId);
+    List<PropertyListing> findByPropertyId(Integer propertyId);
 }
