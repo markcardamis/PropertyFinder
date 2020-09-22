@@ -1,8 +1,10 @@
 package com.majoapps.propertyfinder.business.domain;
 
-import com.fasterxml.jackson.annotation.*;
-import com.majoapps.propertyfinder.data.entity.PropertySales;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,32 +16,19 @@ import java.util.List;
 public class PropertyInformationDTO implements Serializable {
     private static final long serialVersionUID = 9045863543269746292L;
 
-    @JsonProperty("district_code")
-    private short districtCode;
-    @JsonProperty("district_name")
-    private String districtName;
-    @JsonProperty("property_id")
-    private Integer propertyId;
-    @JsonProperty("property_type")
-    private String propertyType;
-    @JsonProperty("property_name")
-    private String propertyName;
-    @JsonProperty("unit_number")
-    private String unitNumber;
-    @JsonProperty("house_number")
-    private String houseNumber;
-    @JsonProperty("street_name")
-    private String streetName;
-    @JsonProperty("suburb_name")
-    private String suburbName;
-    @JsonProperty("post_code")
-    private String postCode;
-    @JsonProperty("zone_code")
-    private String zoneCode;
-    @JsonProperty("area")
-    private BigDecimal area;
-    @JsonProperty("area_type")
-    private String areaType;
+    @JsonProperty("district_code") private short districtCode;
+    @JsonProperty("district_name") private String districtName;
+    @JsonProperty("property_id") private Integer propertyId;
+    @JsonProperty("property_type") private String propertyType;
+    @JsonProperty("property_name") private String propertyName;
+    @JsonProperty("unit_number") private String unitNumber;
+    @JsonProperty("house_number") private String houseNumber;
+    @JsonProperty("street_name") private String streetName;
+    @JsonProperty("suburb_name") private String suburbName;
+    @JsonProperty("post_code") private String postCode;
+    @JsonProperty("zone_code") private String zoneCode;
+    @JsonProperty("area") private BigDecimal area;
+    @JsonProperty("area_type") private String areaType;
     @JsonProperty("base_date_0") private Date baseDate0;
     @JsonProperty("land_value_0") private Integer landValue0;
     @JsonProperty("authority_0") private String authority0;
@@ -64,61 +53,61 @@ public class PropertyInformationDTO implements Serializable {
     @JsonProperty("land_value_5") private Integer landValue5;
     @JsonProperty("authority_5") private String authority5;
     @JsonProperty("basis_5") private String basis5;
-    @JsonProperty("floor_space_ratio")
-    private BigDecimal floorSpaceRatio;
-    @JsonProperty("minimum_lot_size")
-    private String minimumLotSize;
-    @JsonProperty("building_height")
-    private BigDecimal buildingHeight;
+    @JsonProperty("floor_space_ratio") private BigDecimal floorSpaceRatio;
+    @JsonProperty("minimum_lot_size") private String minimumLotSize;
+    @JsonProperty("building_height") private BigDecimal buildingHeight;
     @JsonProperty("latitude") private Double latitude;
     @JsonProperty("longitude") private Double longitude;
+    @JsonProperty("property_sales") private List<PropertySalesDTO> propertySales;
+    @JsonProperty("land_values") private List<LandValueDTO> landValues;
 
-    @JsonIgnoreProperties({"id", "districtCode", "propertyId", "saleCounter", "downloadDateTime",
-            "propertyName", "unitNumber", "houseNumber", "streetName", "suburbName", "postCode", "area",
-            "areaType", "contractDate", "zone", "natureOfProperty", "primaryPurpose", "strataLotNumber", "componentCode",
-            "saleCode", "percentInterestOfSale", "dealingNumber"})
-    @JsonProperty("property_sales")
-    private List<PropertySales> propertySales;
-
-    private List<LandValue> landValues;
-
-    public void setLandValues() {
-        List<LandValue> landValuesTemp = new ArrayList<>();
+    @JsonIgnore
+    public List<LandValueDTO> getLandValuesList() {
+        List<LandValueDTO> landValuesTemp = new ArrayList<>();
 
         if (getBaseDate0() != null && getLandValue0() != null && getAuthority0() != null && getBasis0() != null) {
-            landValuesTemp.add(new LandValue(getBaseDate0(), getLandValue0(), getAuthority0(), getBasis0()));
+            landValuesTemp.add(new LandValueDTO(getBaseDate0(), getLandValue0()));
         }
         if (getBaseDate1() != null && getLandValue1() != null && getAuthority1() != null && getBasis1() != null) {
-            landValuesTemp.add(new LandValue(getBaseDate1(), getLandValue1(), getAuthority1(), getBasis1()));
+            landValuesTemp.add(new LandValueDTO(getBaseDate1(), getLandValue1()));
         }
         if (getBaseDate2() != null && getLandValue2() != null && getAuthority2() != null && getBasis2() != null) {
-            landValuesTemp.add(new LandValue(getBaseDate2(), getLandValue2(), getAuthority2(), getBasis2()));
+            landValuesTemp.add(new LandValueDTO(getBaseDate2(), getLandValue2()));
         }
         if (getBaseDate3() != null && getLandValue3() != null && getAuthority3() != null && getBasis3() != null) {
-            landValuesTemp.add(new LandValue(getBaseDate3(), getLandValue3(), getAuthority3(), getBasis3()));
+            landValuesTemp.add(new LandValueDTO(getBaseDate3(), getLandValue3()));
         }
         if (getBaseDate4() != null && getLandValue4() != null && getAuthority4() != null && getBasis4() != null) {
-            landValuesTemp.add(new LandValue(getBaseDate4(), getLandValue4(), getAuthority4(), getBasis4()));
+            landValuesTemp.add(new LandValueDTO(getBaseDate4(), getLandValue4()));
         }
         if (getBaseDate5() != null && getLandValue5() != null && getAuthority5() != null && getBasis5() != null) {
-            landValuesTemp.add(new LandValue(getBaseDate5(), getLandValue5(), getAuthority5(), getBasis5()));
+            landValuesTemp.add(new LandValueDTO(getBaseDate5(), getLandValue5()));
         }
-        setLandValues(landValuesTemp);
+       return landValuesTemp;
     }
 
     @Data
-    public static class LandValue  implements Serializable {
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    public static class LandValueDTO  implements Serializable {
         private static final long serialVersionUID = -6169041570452038221L;
-        private final Date baseDate;
-        private final Integer landValue;
-        private final String authority;
-        private final String basis;
-        public LandValue (Date baseDate, Integer landValue, String authority, String basis){
+
+        @JsonProperty("date") private final Date baseDate;
+        @JsonProperty("value") private final Integer landValue;
+
+        public LandValueDTO (Date baseDate, Integer landValue){
             this.baseDate = baseDate;
             this.landValue = landValue;
-            this.authority = authority;
-            this.basis = basis;
         }
+    }
+
+    @Data
+    @NoArgsConstructor
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    public static class PropertySalesDTO implements Serializable {
+        private static final long serialVersionUID = 9045863503269746292L;
+
+        @JsonProperty("date") private Date settlementDate;
+        @JsonProperty("value") private BigDecimal purchasePrice;
     }
 }
 
