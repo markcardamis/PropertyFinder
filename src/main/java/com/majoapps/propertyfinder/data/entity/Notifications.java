@@ -1,7 +1,9 @@
 package com.majoapps.propertyfinder.data.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.majoapps.propertyfinder.data.enums.Frequency;
 import com.majoapps.propertyfinder.web.util.FrequencyEnumConverter;
 import lombok.Data;
@@ -13,7 +15,8 @@ import lombok.EqualsAndHashCode;
 @Table(name="NOTIFICATIONS")
 public class Notifications extends AuditModel {
     private static final long serialVersionUID = -4880020817874864117L;
-    
+
+    @JsonIgnore
     @ManyToOne(targetEntity = Account.class)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
@@ -22,6 +25,12 @@ public class Notifications extends AuditModel {
     @Convert(converter = FrequencyEnumConverter.class)
     @Column(name="frequency")
     private Frequency frequency;
+    @JsonIgnore
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="last_triggered_at")
+    private Date lastTriggeredAt;
+    @Column(name="property_id")
+    private Integer propertyId;
     @Column(name="property_zone")
     private String propertyZone;
     @Column(name="property_area_min")

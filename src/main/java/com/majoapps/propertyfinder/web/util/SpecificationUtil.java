@@ -9,6 +9,10 @@ public class SpecificationUtil {
     public static String createSpecificationString(Notifications notifications) {
         StringBuilder sb = new StringBuilder("id>0");
         if (notifications != null) {
+            if (notifications.getPropertyId() != null && notifications.getPropertyId() != 0) {
+                sb.append(" AND propertyId:");
+                sb.append(notifications.getPropertyId());
+            }
             if (notifications.getPropertyZone() != null) {
                 sb.append(" AND zone:");
                 sb.append(notifications.getPropertyZone());
@@ -64,6 +68,7 @@ public class SpecificationUtil {
     public static String createQueryString(Notifications notifications, Double latitude, Double longitude) {
         StringBuilder sb = new StringBuilder("SELECT l FROM PropertyListing l WHERE l.id>0");
         if (notifications != null) {
+            sb.append(" AND ( :propertyId IS NULL OR l.propertyId = :propertyId)");
             sb.append(" AND ( :zone IS NULL OR l.zone = :zone)");
             sb.append(" AND ( :areaMin IS NULL OR l.area > :areaMin)");
             sb.append(" AND ( :areaMax IS NULL OR l.area < :areaMax)");
@@ -87,6 +92,7 @@ public class SpecificationUtil {
             TypedQuery<PropertyListing> query,
             Notifications notifications) {
         if (notifications != null) {
+            query.setParameter("propertyId", notifications.getPropertyId());
             query.setParameter("zone", notifications.getPropertyZone());
             query.setParameter("areaMin", notifications.getPropertyAreaMin());
             query.setParameter("areaMax", notifications.getPropertyAreaMax());
