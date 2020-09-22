@@ -7,7 +7,7 @@ export const getSearchResults = (query) => async dispatch => {
     dispatch(setSearchResultsRequest());
     await fetch(apiUrl+query)
         .then(response => response.json())
-        .then(res=>dispatch({type: "SET_SEARCH_RESULTS_LOADED", searchResults: res}))
+        .then(res=>dispatch({ type: "SET_SEARCH_RESULTS_LOADED", searchResults: res }))
         .catch(error => console.log(error));
     dispatch(hideLoading());
 };

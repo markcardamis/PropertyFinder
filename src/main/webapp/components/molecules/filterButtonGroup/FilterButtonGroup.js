@@ -45,6 +45,8 @@ const FilterButtonGroup = withAuth(props => {
         window.clearTimeout(timer);
       };
     const handleSelect = (item) => {
+        const popup = document.getElementsByClassName("mapboxgl-popup");
+        if ( popup.length ) popup[0].remove();
         handleCancelSearch;
         setSelected(item);
         map.flyTo({ center: [ item.longitude, item.latitude ], zoom: 16 });

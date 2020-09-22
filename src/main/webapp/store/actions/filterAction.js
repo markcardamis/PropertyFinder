@@ -3,7 +3,7 @@ import { hideLoading, showLoading } from "./loadingAction";
 const apiUrl = "/api/notifications";
 
 export const saveFilter = (accessToken, name, frequency, editedFilter) => async dispatch => {
-    const {zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio} = store.getState().filter;
+    const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio } = store.getState().filter;
     const filter = {
         title: name ? name : "Untitled",
         frequency: frequency==null ? "OFF" : frequency,
@@ -23,7 +23,7 @@ export const saveFilter = (accessToken, name, frequency, editedFilter) => async 
 
     dispatch(showLoading());
     dispatch(saveFilterRequest());
-    fetch(`${apiUrl}${editedFilter ? "/"+editedFilter.id : ""}`, {
+    await fetch(`${apiUrl}${editedFilter ? "/"+editedFilter.id : ""}`, {
         method: editedFilter ? "PUT" : "POST",
         headers: {
           Authorization: "Bearer " + accessToken,

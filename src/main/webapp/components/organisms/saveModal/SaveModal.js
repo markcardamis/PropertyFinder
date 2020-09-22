@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import "./saveModal.scss";
 
 const SaveModal = (props) => {
-    const [ title, setTiltle ] = useState("Preferences 1.0");
+    const [ title, setTiltle ] = useState("Preference 1");
     //const accessToken = await props.auth.getAccessToken();
     const [ frequency, setFrequency ] = useState("OFF");
     const [ showDropdown, setShowDropdown ] = useState(false);
@@ -36,15 +36,23 @@ const SaveModal = (props) => {
         props.saveFilter(await props.auth.getAccessToken(), title, frequency);
     };
 
+    const handleInput = (e) => {
+        const regex = /^[A-Za-z0-9 ]*[A-Za-z0-9][A-Za-z0-9 ]*$/;
+        if (regex.test(e.target.value)&&e.target.value.length<=30) {
+            setTiltle(e.target.value);
+        } else e.preventDefault;
+    };
+
     return (
         <div className='saveModalContainer'>
+            {console.log(title)}
             <div className='saveModal'>
                 <div className='saveModalHeader'>
                     <div />
                     Save Preferences
                     <CloseBtn onClick={props.onCloseClick}/>
                 </div>
-                <div className='saveModalInput'><TextInput value={title} onChange={(e)=>setTiltle(e.target.value)}/></div>
+                <div className='saveModalInput'><TextInput value={title} onChange={(e)=>handleInput(e)}/></div>
                 <div className='saveModalNote'>Name your saved preferences.</div>
                 <div className='saveModalSwitch'>
                     <div>Send a notification as soon as we find a suitable</div>

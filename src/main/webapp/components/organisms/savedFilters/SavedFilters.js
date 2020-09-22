@@ -58,8 +58,19 @@ class SavedFilters extends Component {
       const index = FREQUENCY.indexOf(startFrequency)<3 ? FREQUENCY.indexOf(startFrequency) + 1 : 0;
       return FREQUENCY[index];
     };
-    await this.props.getFilter({ ...this.props.filter, frequency: getFrequency() });
-    this.props.saveFilter(await this.props.auth.getAccessToken(), item.title, getFrequency(), item);
+    await this.props.getFilter({ 
+        frequency: getFrequency(),
+        zone: item.propertyZone ? item.propertyZone : null,
+        area: [ item.propertyAreaMin !== 0 ? item.propertyAreaMin : 0, item.propertyAreaMax !== 20000 ? item.propertyAreaMax : 20000 ],
+        price: [ item.propertyPriceMin !== 100000 ? item.propertyPriceMin : 100000, item.propertyPriceMax !== 5000000 ? item.propertyPriceMax : 5000000 ],
+        priceM2: [ item.propertyPricePSMMin !== 1 ? item.propertyPricePSMMin : 1, item.propertyPricePSMMax !== 10000 ? item.propertyPricePSMMax : 10000 ],
+        postCode: item.propertyPostCode !== "" ? item.propertyPostCode : "",
+        priceLandvalue: [ item.propertyPriceToLandValueMin !== 0 ? item.propertyPriceToLandValueMin : 0, item.propertyPriceToLandValueMax !== 10 ? item.propertyPriceToLandValueMax : 10 ],
+        floorspaceRatio: [ item.propertyFloorSpaceRatioMin !== 0 ? item.propertyFloorSpaceRatioMin : 0, item.propertyFloorSpaceRatioMax !== 2 ? item.propertyFloorSpaceRatioMax : 2 ]
+        });
+    // this.props.saveFilter(await this.props.auth.getAccessToken(), item.title, getFrequency(), item);
+    await this.props.saveFilter(await this.props.auth.getAccessToken(), item.title, getFrequency(), { ...this.props.filter, id: item.id });
+    this.props.getNotifications(await this.props.auth.getAccessToken());
   }
 
   handleDeleteFilter = async (item) => {

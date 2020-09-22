@@ -54,7 +54,7 @@ class FilterModal extends Component {
         this.props.getNotifications(await this.props.auth.getAccessToken());
         const result = this.props.notifications.find( filter => filter.id === this.state.editedFilter.id );
         if (result&&result.length!==0) {
-            await this.props.saveFilter(await this.props.auth.getAccessToken(), this.state.editedFilter.name, this.state.editedFilter.frequency, this.state.editedFilter);
+            await this.props.saveFilter(await this.props.auth.getAccessToken(), this.state.editedFilter.title, this.state.editedFilter.frequency, this.state.editedFilter);
             this.setState({ tabIndex : 1 });
           } else {
             this.props.closeFilter();
