@@ -40,8 +40,11 @@ public class PropertyInformationService {
         PropertyInformation propertyInformation = this.propertyInformationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Property ID " + id + "not found"));
         PropertyInformationDTO propertyInformationDTO = ObjectMapperUtils.map(propertyInformation, PropertyInformationDTO.class);
-        propertyInformationDTO.setLandValues();
-        propertyInformationDTO.setPropertySales(propertySalesRepository.findByPropertyIdOrderBySettlementDateDesc(id));
+        // Set the sales and land value data into the ChartData field
+        propertyInformationDTO.setChartData(new PropertyInformationDTO.ChartData(
+                ObjectMapperUtils.mapAll(propertySalesRepository.findByPropertyIdOrderBySettlementDateDesc(id),
+                PropertyInformationDTO.PropertySalesDTO.class),
+            propertyInformationDTO.getLandValuesList()));
         return propertyInformationDTO;
     }
 
