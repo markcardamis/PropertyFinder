@@ -4,12 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -58,8 +55,18 @@ public class PropertyInformationDTO implements Serializable {
     @JsonProperty("building_height") private BigDecimal buildingHeight;
     @JsonProperty("latitude") private Double latitude;
     @JsonProperty("longitude") private Double longitude;
-    @JsonProperty("property_sales") private List<PropertySalesDTO> propertySales;
-    @JsonProperty("land_values") private List<LandValueDTO> landValues;
+    @JsonProperty("chart_data") private ChartData chartData;
+
+    @Data
+    public static class ChartData {
+        @JsonProperty("property_sales") private List<PropertySalesDTO> propertySales;
+        @JsonProperty("land_values") private List<LandValueDTO> landValues;
+
+        public ChartData (List<PropertySalesDTO> propertySales, List<LandValueDTO> landValues) {
+            this.propertySales = propertySales;
+            this.landValues = landValues;
+        }
+    }
 
     @JsonIgnore
     public List<LandValueDTO> getLandValuesList() {
@@ -87,27 +94,15 @@ public class PropertyInformationDTO implements Serializable {
     }
 
     @Data
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public static class LandValueDTO  implements Serializable {
-        private static final long serialVersionUID = -6169041570452038221L;
-
+    public static class LandValueDTO {
         @JsonProperty("date") private final Date baseDate;
         @JsonProperty("value") private final Integer landValue;
-
-        public LandValueDTO (Date baseDate, Integer landValue){
-            this.baseDate = baseDate;
-            this.landValue = landValue;
-        }
     }
 
     @Data
-    @NoArgsConstructor
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public static class PropertySalesDTO implements Serializable {
-        private static final long serialVersionUID = 9045863503269746292L;
-
+    public static class PropertySalesDTO {
         @JsonProperty("date") private Date settlementDate;
-        @JsonProperty("value") private BigDecimal purchasePrice;
+        @JsonProperty("value") private Integer purchasePrice;
     }
 }
 
