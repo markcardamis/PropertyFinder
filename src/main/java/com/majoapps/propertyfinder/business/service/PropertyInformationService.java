@@ -2,6 +2,8 @@ package com.majoapps.propertyfinder.business.service;
 
 import com.majoapps.propertyfinder.business.domain.AddressListDTO;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
+import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO.PropertySalesDTO;
+import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO.ChartData;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.projection.AddressListView;
 import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository;
@@ -40,8 +42,11 @@ public class PropertyInformationService {
         PropertyInformation propertyInformation = this.propertyInformationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Property ID " + id + "not found"));
         PropertyInformationDTO propertyInformationDTO = ObjectMapperUtils.map(propertyInformation, PropertyInformationDTO.class);
-        propertyInformationDTO.setLandValues();
-        propertyInformationDTO.setPropertySales(propertySalesRepository.findByPropertyIdOrderBySettlementDateDesc(id));
+        // Set the sales and land value data into the ChartData field
+        propertyInformationDTO.setChartData(new ChartData(
+            ObjectMapperUtils.mapAll(propertySalesRepository.findByPropertyIdOrderBySettlementDateDesc(id), PropertySalesDTO.class),
+            propertyInformationDTO.getLandValuesList())
+        );
         return propertyInformationDTO;
     }
 
