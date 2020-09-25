@@ -11,13 +11,8 @@ const apiUrl = "/api/propertyinformation";
 const renderPopup = (longitude, latitude) => {
   
   const property = store.getState().popup;
-  const { base_date_1, base_date_2, base_date_3, base_date_4, base_date_5, base_date_0, land_value_1, land_value_2, land_value_3, land_value_4, land_value_5, land_value_0, property_sales } = property;
-  const chartData={
-      baseDate: [ base_date_5, base_date_4, base_date_3, base_date_2, base_date_1, base_date_0 ],
-      landValue: [ land_value_5, land_value_4, land_value_3, land_value_2, land_value_1, land_value_0 ]
-  };
-  
-  const popup = <Popup chartData={chartData} salesData={property_sales} propertyInfo={property}/>;
+  const { chart_data } = property;
+  const popup = <Popup chartData={chart_data} propertyInfo={property}/>;
   const propertyData = <div>{popup}</div>;
   
   const addPopup=(el) =>{

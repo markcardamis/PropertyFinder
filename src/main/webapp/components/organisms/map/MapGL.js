@@ -120,9 +120,9 @@ renderMarkers = async () => {
 }
 
 handlePropertyClick = async (e) => {
-     let features = map.queryRenderedFeatures(e.point);
-     let displayProperties = [ "properties" ];
-     let displayFeatures = features.map(function(feat) {
+    let features = map.queryRenderedFeatures(e.point);
+    let displayProperties = [ "properties" ];
+    let displayFeatures = features.map(function(feat) {
          let displayFeat = {};
          displayFeat[displayProperties]=feat[displayProperties];
          return displayFeat;
