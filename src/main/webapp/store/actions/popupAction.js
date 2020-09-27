@@ -29,14 +29,14 @@ const renderPopup = (longitude, latitude) => {
 };
 
 export const getPopup = (propId, longitude, latitude) => async dispatch => {
-    // dispatch(showLoading());
+    dispatch(showLoading());
     dispatch(setPopupRequest());
     await fetch(`${apiUrl}/${propId}`)
         .then(response => response.json())
         .then(res=>dispatch({ type: "SET_POPUP_LOADED", property: res }))
         .catch(error => console.log(error));
     renderPopup(longitude, latitude);
-    // dispatch(hideLoading());
+    dispatch(hideLoading());
 };
 
 export const setPopupRequest = () => dispatch => {

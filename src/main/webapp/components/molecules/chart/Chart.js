@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../../../../../node_modules/react-vis/dist/style.css";
-import { XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, Crosshair, MarkSeries } from "react-vis";
+import { XYPlot, LineSeries, HorizontalGridLines, DiscreteColorLegend, VerticalGridLines, XAxis, YAxis, Crosshair, MarkSeries } from "react-vis";
 import "./chart.scss";
 import PropTypes from "prop-types";
 import { useWindowSize } from "../../../modules/windowSize";
@@ -35,11 +35,11 @@ const Chart = (props) => {
             />
             <MarkSeries 
               data={getChartdata(land_values)}
-              color={"#12939a"}
+              color={"12939a"}
               />
             <MarkSeries 
               data={getChartdata(property_sales)}
-              color={"FDB813"}
+              color={"#FDB813"}
               />
             <MarkSeries 
               data={[ ...getChartdata(property_sales), ...getChartdata(land_values) ]}
@@ -48,6 +48,18 @@ const Chart = (props) => {
                 setCrosshairValues([ { x: value.x, y: value.y } ])
               }
               />
+            <div className='chart-legend'>
+              <DiscreteColorLegend 
+                items={[ {
+                  title: "Land value", color: "#12939a", strokeWidth: 5
+                } ]}
+              />
+              <DiscreteColorLegend 
+                items={[ {
+                  title: "Sell price", color: "#FDB813", strokeWidth: 5
+                } ]}
+              />
+            </div>
             <Crosshair values={crosshairValues}>
               <div className='chartInfo'>
                 <div className='chartInfo_text'>{crosshairValues[0]&&crosshairValues[0].y} AUD</div>
