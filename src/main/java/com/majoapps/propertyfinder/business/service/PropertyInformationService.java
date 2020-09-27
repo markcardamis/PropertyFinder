@@ -5,11 +5,14 @@ import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO.PropertySalesDTO;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO.ChartData;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
+import com.majoapps.propertyfinder.data.entity.PropertySales;
 import com.majoapps.propertyfinder.data.projection.AddressListView;
 import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository;
 import com.majoapps.propertyfinder.data.repository.PropertySalesRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 import com.majoapps.propertyfinder.web.util.ObjectMapperUtils;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ public class PropertyInformationService {
     private final PropertySalesRepository propertySalesRepository;
     public static final AddressListView NO_ADDRESS_FOUND = new AddressListDTO(0, "no address found",0.0,0.0);
     public static final AddressListView ADDRESS_SEARCH_TIMEOUT = new AddressListDTO(0, "keep typing",0.0,0.0);
+    private static final Date yearsBeforeDate = Date.valueOf(LocalDate.now().plusYears(-12)); // last 12 years data
 
     @Autowired
     public PropertyInformationService(PropertyInformationRepository propertyInformationRepository,
@@ -42,11 +46,17 @@ public class PropertyInformationService {
         PropertyInformation propertyInformation = this.propertyInformationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Property ID " + id + "not found"));
         PropertyInformationDTO propertyInformationDTO = ObjectMapperUtils.map(propertyInformation, PropertyInformationDTO.class);
+
+        // Get the recent sales data
+        List<PropertySales> recentPropertySales = propertySalesRepository.
+                findByPropertyIdAndSettlementDateGreaterThanOrderBySettlementDateDesc(id,  yearsBeforeDate);
+
         // Set the sales and land value data into the ChartData field
         propertyInformationDTO.setChartData(new ChartData(
-            ObjectMapperUtils.mapAll(propertySalesRepository.findByPropertyIdOrderBySettlementDateDesc(id), PropertySalesDTO.class),
-            propertyInformationDTO.getLandValuesList())
+                ObjectMapperUtils.mapAll(recentPropertySales, PropertySalesDTO.class),
+                propertyInformationDTO.getLandValuesList())
         );
+
         return propertyInformationDTO;
     }
 
