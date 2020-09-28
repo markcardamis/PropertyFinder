@@ -35,10 +35,12 @@ const Chart = (props) => {
             />
             <MarkSeries 
               data={getChartdata(land_values)}
+              size="2"
               color={"12939a"}
               />
             <MarkSeries 
               data={getChartdata(property_sales)}
+              size="3"
               color={"#FDB813"}
               />
             <MarkSeries 

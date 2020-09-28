@@ -22,6 +22,7 @@ public class PropertyInformationDTO implements Serializable {
     @JsonProperty("suburb_name") private String suburbName;
     @JsonProperty("post_code") private String postCode;
     @JsonProperty("zone_code") private String zoneCode;
+    @JsonProperty("land_value_0") private Integer landValue0;
     @JsonProperty("area") private BigDecimal area;
     @JsonProperty("area_type") private String areaType;
     @JsonProperty("floor_space_ratio") private BigDecimal floorSpaceRatio;
@@ -29,6 +30,7 @@ public class PropertyInformationDTO implements Serializable {
     @JsonProperty("building_height") private BigDecimal buildingHeight;
     @JsonProperty("last_sold") private String lastSold;
     @JsonProperty("chart_data") private ChartData chartData;
+    @JsonProperty("interested_people") private Long interestedPeople;
 
     @Data
     public static class ChartData {

@@ -7,6 +7,7 @@ import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO.ChartD
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.entity.PropertySales;
 import com.majoapps.propertyfinder.data.projection.AddressListView;
+import com.majoapps.propertyfinder.data.repository.NotificationsRepository;
 import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository;
 import com.majoapps.propertyfinder.data.repository.PropertySalesRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
@@ -26,6 +27,7 @@ public class PropertyInformationService {
 
     private final PropertyInformationRepository propertyInformationRepository;
     private final PropertySalesRepository propertySalesRepository;
+    private final NotificationsRepository notificationsRepository;
     public static final AddressListView NO_ADDRESS_FOUND = new AddressListDTO(0, "no address found",0.0,0.0);
     public static final AddressListView ADDRESS_SEARCH_TIMEOUT = new AddressListDTO(0, "keep typing",0.0,0.0);
     public static final SimpleDateFormat timeFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -33,9 +35,11 @@ public class PropertyInformationService {
 
     @Autowired
     public PropertyInformationService(PropertyInformationRepository propertyInformationRepository,
-                                      PropertySalesRepository propertySalesRepository) {
+                                      PropertySalesRepository propertySalesRepository,
+                                      NotificationsRepository notificationsRepository) {
         this.propertyInformationRepository = propertyInformationRepository;
         this.propertySalesRepository = propertySalesRepository;
+        this.notificationsRepository = notificationsRepository;
     }
 
     public List<PropertyInformation> getAllProperties() {
@@ -55,6 +59,9 @@ public class PropertyInformationService {
         lastSale.ifPresent(propertySales ->
                 propertyInformationDTO.setLastSold(timeFormat.format(propertySales.getSettlementDate()) + " $" +
                         propertySales.getPurchasePrice().toPlainString()));
+
+        // Add the number of people interested to the DTO
+        propertyInformationDTO.setInterestedPeople(notificationsRepository.countByPropertyId(id));
 
         // Get the recent sales data for chart
         List<PropertySales> recentPropertySales = propertySalesRepository.
