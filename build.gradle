@@ -1,6 +1,6 @@
 plugins {
-	id 'org.springframework.boot' version '2.1.9.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'org.springframework.boot' version '2.3.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 	id "com.moowork.node" version "1.3.1"
 }
@@ -44,12 +44,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	implementation 'com.sipios:spring-search:0.2.0'
 	implementation 'org.orbisgis:h2gis:1.5.0'
-	implementation 'org.hibernate:hibernate-spatial:5.4.10.Final'
-	compile 'org.springframework.boot:spring-boot-starter-log4j2'
-	implementation 'com.okta.spring:okta-spring-boot-starter:1.2.1'
-	compile 'org.modelmapper:modelmapper:1.1.0'
+	implementation 'org.hibernate:hibernate-spatial:5.4.21.Final'
+	implementation 'com.okta.spring:okta-spring-boot-starter:1.4.0'
+	implementation 'org.modelmapper:modelmapper:1.1.0'
 	implementation 'com.github.vladimir-bukhtoyarov:bucket4j-core:4.10.0'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
