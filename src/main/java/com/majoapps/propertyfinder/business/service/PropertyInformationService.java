@@ -26,7 +26,7 @@ public class PropertyInformationService {
     private final PropertySalesRepository propertySalesRepository;
     public static final AddressListView NO_ADDRESS_FOUND = new AddressListDTO(0, "no address found",0.0,0.0);
     public static final AddressListView ADDRESS_SEARCH_TIMEOUT = new AddressListDTO(0, "keep typing",0.0,0.0);
-    private static final Date yearsBeforeDate = Date.valueOf(LocalDate.now().plusYears(-12)); // last 12 years data
+    private static final Date yearsBeforeDate = Date.valueOf(LocalDate.now().plusYears(-6)); // last 6 years data
 
     @Autowired
     public PropertyInformationService(PropertyInformationRepository propertyInformationRepository,
