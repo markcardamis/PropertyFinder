@@ -3,8 +3,10 @@ package com.majoapps.propertyfinder.business.service;
 import com.majoapps.propertyfinder.business.domain.PropertyListingDTO;
 import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.entity.PropertyListing;
+import com.majoapps.propertyfinder.data.enums.AccountType;
 import com.majoapps.propertyfinder.data.repository.PropertyListingRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
+import com.majoapps.propertyfinder.security.JwtAuthenticationHelper;
 import com.majoapps.propertyfinder.web.util.ObjectMapperUtils;
 import com.majoapps.propertyfinder.web.util.SpecificationUtil;
 import com.sipios.springsearch.SpecificationsBuilder;
@@ -33,10 +35,6 @@ public class PropertyListingService {
 
     private final PropertyListingRepository propertyListingRepository;
     private final NotificationsService notificationsService;
-    private static final Integer adminResultsLimit = 10000;
-    private static final Integer authorisedResultsLimit = 200;
-    private static final Integer unauthorisedResultsLimit = 100;
-
 
     @Autowired
     public PropertyListingService(PropertyListingRepository propertyListingRepository,
@@ -46,41 +44,16 @@ public class PropertyListingService {
     }
 
     // return different amount of listings based on account priority
-    // return 100 listings for unauthenticated user
-    // return 200 listings for authenticated user
-    // return 10000 listings for an admin user
-    public List<PropertyListingDTO> getPropertyListingBySearch(JwtAuthenticationToken JwtAuthToken,
-            Specification<PropertyListing> searchSpec, Sort sort) {
+    public List<PropertyListingDTO> getPropertyListingBySearch(
+            JwtAuthenticationToken jwtAuthToken,
+            Specification<PropertyListing> searchSpec,
+            Sort sort) {
         try {
-            if (JwtAuthToken != null && JwtAuthToken.getTokenAttributes().containsKey("uid")) {
-                String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
-                // unauthenticated
-                if (token == null || token.isEmpty()) {
-                    Pageable pageable = PageRequest.of(0, unauthorisedResultsLimit, sort);
-                    List<PropertyListing> propertyListing = this.propertyListingRepository
-                            .findAll(Specification.where(searchSpec), pageable).getContent();
-                    return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
-                }
-                // admin
-                if (JwtAuthToken.getTokenAttributes().containsKey("groups")
-                        && JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
-                    Pageable pageable = PageRequest.of(0, adminResultsLimit, sort);
-                    List<PropertyListing> propertyListing = this.propertyListingRepository
-                            .findAll(Specification.where(searchSpec), pageable).getContent();
-                    return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
-                } else { // authenticated
-                    Pageable pageable = PageRequest.of(0, authorisedResultsLimit, sort);
-                    List<PropertyListing> propertyListing = this.propertyListingRepository
-                            .findAll(Specification.where(searchSpec), pageable).getContent();
-                    return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
-                }
-            } else {
-                // unauthenticated
-                Pageable pageable = PageRequest.of(0, unauthorisedResultsLimit, sort);
-                List<PropertyListing> propertyListing = this.propertyListingRepository
-                        .findAll(Specification.where(searchSpec), pageable).getContent();
-                return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
-            }
+            AccountType accountType = JwtAuthenticationHelper.getAccountTypeByToken(jwtAuthToken);
+            Pageable pageable = PageRequest.of(0, accountType.getLimit(), sort); // set page length
+            List<PropertyListing> propertyListing = this.propertyListingRepository
+                    .findAll(Specification.where(searchSpec), pageable).getContent();
+            return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
         } catch (IllegalArgumentException ae) {
             log.error("IllegalArgumentException: ", ae);
             throw new ResourceNotFoundException("Malformed search query");
@@ -99,31 +72,30 @@ public class PropertyListingService {
                 .orElseThrow(() -> new ResourceNotFoundException("Listing " + id + " not found"));
     }
 
-    public List<PropertyListingDTO> getPropertyListingsByNotificationsId(JwtAuthenticationToken JwtAuthToken, UUID id,
+    public List<PropertyListingDTO> getPropertyListingsByNotificationsId(
+            JwtAuthenticationToken jwtAuthToken,
+            UUID id,
             Sort sort) {
-        Objects.requireNonNull(JwtAuthToken);
         Objects.requireNonNull(id);
         Notifications notifications = this.notificationsService.getNotificationsById(id);
         String token = SpecificationUtil.createSpecificationString(notifications);
-        Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>().withSearch(token)
-                .build();
-        return (this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
+        Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>()
+                .withSearch(token).build();
+        return (this.getPropertyListingBySearch(jwtAuthToken, specification, sort));
     }
 
-    public List<PropertyListingDTO> getPropertyListingsByNotifications(JwtAuthenticationToken JwtAuthToken,
-            Notifications notifications, Sort sort) {
-        // Users can search without being logged in
-        // Objects.requireNonNull(JwtAuthToken);
-        // Passing in a null notification will just return all
-        // Objects.requireNonNull(notifications);
+    public List<PropertyListingDTO> getPropertyListingsByNotifications(
+            JwtAuthenticationToken jwtAuthToken,
+            Notifications notifications,
+            Sort sort) {
         String token = SpecificationUtil.createSpecificationString(notifications);
-        Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>().withSearch(token)
-                .build();
-        return (this.getPropertyListingBySearch(JwtAuthToken, specification, sort));
+        Specification<PropertyListing> specification = new SpecificationsBuilder<PropertyListing>()
+                .withSearch(token).build();
+        return (this.getPropertyListingBySearch(jwtAuthToken, specification, sort));
     }
 
     public List<PropertyListingDTO> queryHQL(
-            JwtAuthenticationToken JwtAuthToken, 
+            JwtAuthenticationToken jwtAuthToken,
             Notifications notifications, 
             Double latitude, 
             Double longitude) {
@@ -131,7 +103,7 @@ public class PropertyListingService {
             String queryString = SpecificationUtil.createQueryString(notifications, latitude, longitude);
             TypedQuery<PropertyListing> query = em.createQuery(queryString, PropertyListing.class);
             query = SpecificationUtil.queryBuilder(query, notifications);
-            return this.getPropertyListingByQuery(JwtAuthToken, query);
+            return this.getPropertyListingByQuery(jwtAuthToken, query);
         } catch (Exception ex) {
             log.error("Exception: ", ex);
             throw new ResourceNotFoundException("Error retrieving results");
@@ -139,37 +111,14 @@ public class PropertyListingService {
     }
 
     // return different amount of listings based on account priority
-    // return 100 listings for unauthenticated user
-    // return 1000 listings for authenticated user
-    // return 100000 listings for an admin user
-    public List<PropertyListingDTO> getPropertyListingByQuery(JwtAuthenticationToken JwtAuthToken,
+    public List<PropertyListingDTO> getPropertyListingByQuery(
+            JwtAuthenticationToken jwtAuthToken,
             TypedQuery<PropertyListing> query) {
         try {
-            if (JwtAuthToken != null && JwtAuthToken.getTokenAttributes().containsKey("uid")) {
-                String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
-                // unauthenticated
-                if (token == null || token.isEmpty()) {
-                    query.setMaxResults(unauthorisedResultsLimit);
-                    List<PropertyListing> propertyListing = query.getResultList();
-                    return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
-                }
-                // admin
-                if (JwtAuthToken.getTokenAttributes().containsKey("groups")
-                        && JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
-                    query.setMaxResults(adminResultsLimit);
-                    List<PropertyListing> propertyListing = query.getResultList();
-                    return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
-                } else { // authenticated
-                    query.setMaxResults(authorisedResultsLimit);
-                    List<PropertyListing> propertyListing = query.getResultList();
-                    return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
-                }
-            } else {
-                // unauthenticated
-                query.setMaxResults(unauthorisedResultsLimit);
-                List<PropertyListing> propertyListing = query.getResultList();
-                return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
-            }
+            AccountType accountType = JwtAuthenticationHelper.getAccountTypeByToken(jwtAuthToken);
+            query.setMaxResults(accountType.getLimit());
+            List<PropertyListing> propertyListing = query.getResultList();
+            return ObjectMapperUtils.mapAll(propertyListing, PropertyListingDTO.class);
         } catch (IllegalArgumentException ae) {
             log.error("IllegalArgumentException: ", ae);
             throw new ResourceNotFoundException("Illegal argument in search query");

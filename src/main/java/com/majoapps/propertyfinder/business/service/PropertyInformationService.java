@@ -4,13 +4,15 @@ import com.majoapps.propertyfinder.business.domain.AddressListDTO;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO.PropertySalesDTO;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO.ChartData;
+import com.majoapps.propertyfinder.data.entity.Account;
+import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.entity.PropertySales;
+import com.majoapps.propertyfinder.data.enums.AccountType;
 import com.majoapps.propertyfinder.data.projection.AddressListView;
-import com.majoapps.propertyfinder.data.repository.NotificationsRepository;
 import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository;
-import com.majoapps.propertyfinder.data.repository.PropertySalesRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
+import com.majoapps.propertyfinder.security.JwtAuthenticationHelper;
 import com.majoapps.propertyfinder.web.util.ObjectMapperUtils;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -18,16 +20,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class PropertyInformationService {
 
     private final PropertyInformationRepository propertyInformationRepository;
-    private final PropertySalesRepository propertySalesRepository;
-    private final NotificationsRepository notificationsRepository;
+    private final PropertySalesService propertySalesService;
+    private final NotificationsService notificationsService;
+    private final AccountService accountService;
     public static final AddressListView NO_ADDRESS_FOUND = new AddressListDTO(0, "no address found",0.0,0.0);
     public static final AddressListView ADDRESS_SEARCH_TIMEOUT = new AddressListDTO(0, "keep typing",0.0,0.0);
     public static final SimpleDateFormat timeFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -35,11 +41,13 @@ public class PropertyInformationService {
 
     @Autowired
     public PropertyInformationService(PropertyInformationRepository propertyInformationRepository,
-                                      PropertySalesRepository propertySalesRepository,
-                                      NotificationsRepository notificationsRepository) {
+                                      PropertySalesService propertySalesService,
+                                      NotificationsService notificationsService,
+                                      AccountService accountService) {
         this.propertyInformationRepository = propertyInformationRepository;
-        this.propertySalesRepository = propertySalesRepository;
-        this.notificationsRepository = notificationsRepository;
+        this.propertySalesService = propertySalesService;
+        this.notificationsService = notificationsService;
+        this.accountService = accountService;
     }
 
     public List<PropertyInformation> getAllProperties() {
@@ -49,29 +57,44 @@ public class PropertyInformationService {
         return properties;
     }
 
-    public PropertyInformationDTO getPropertyInformation(Integer id) {
+    public PropertyInformationDTO getPropertyInformation(
+            JwtAuthenticationToken jwtAuthToken,
+            Integer id) {
         PropertyInformation propertyInformation = this.propertyInformationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Property ID " + id + "not found"));
         PropertyInformationDTO propertyInformationDTO = ObjectMapperUtils.map(propertyInformation, PropertyInformationDTO.class);
 
         // Add the last sales data to the DTO
-        Optional<PropertySales> lastSale = propertySalesRepository.findFirstByPropertyIdOrderBySettlementDateDesc(id);
+        Optional<PropertySales> lastSale = propertySalesService.getLastPropertySales(id);
         lastSale.ifPresent(propertySales ->
                 propertyInformationDTO.setLastSold(timeFormat.format(propertySales.getSettlementDate()) + " $" +
                         propertySales.getPurchasePrice().toPlainString()));
 
-        // Add the number of people interested to the DTO
-        propertyInformationDTO.setInterestedPeople(notificationsRepository.countByPropertyId(id));
-
         // Get the recent sales data for chart
-        List<PropertySales> recentPropertySales = propertySalesRepository.
-                findByPropertyIdAndSettlementDateGreaterThanOrderBySettlementDateDesc(id,  yearsBeforeDate);
+        List<PropertySales> recentPropertySales = propertySalesService.getRecentPropertySales(
+                id, yearsBeforeDate);
 
         // Set the sales and land value data into the ChartData field
         propertyInformationDTO.setChartData(new ChartData(
                 ObjectMapperUtils.mapAll(recentPropertySales, PropertySalesDTO.class),
                 propertyInformationDTO.getLandValuesList(propertyInformation))
         );
+
+        // Add the number of people interested to the DTO
+        propertyInformationDTO.setInterestedPeople(notificationsService.countByPropertyId(id));
+
+        // Add if this property is currently being watched by user
+        if (JwtAuthenticationHelper.getAccountTypeByToken(jwtAuthToken) == AccountType.AUTHENTICATED) {
+            try {
+                String userByToken = JwtAuthenticationHelper.getUserByToken(jwtAuthToken);
+                List<Account> accountResponse = this.accountService.getAccountByUserId(userByToken);
+                List<Notifications> notificationsList = notificationsService
+                        .getByAccountIdAndPropertyId(accountResponse.get(0).getId(), id);
+                propertyInformationDTO.setInterestedUser((notificationsList.size() > 0));
+            } catch (Exception e) {
+                log.error("JWT Exception: ", e);
+            }
+        }
 
         return propertyInformationDTO;
     }

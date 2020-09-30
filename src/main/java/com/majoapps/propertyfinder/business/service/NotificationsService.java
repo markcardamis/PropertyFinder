@@ -2,8 +2,10 @@ package com.majoapps.propertyfinder.business.service;
 
 import com.majoapps.propertyfinder.data.entity.Account;
 import com.majoapps.propertyfinder.data.entity.Notifications;
+import com.majoapps.propertyfinder.data.enums.AccountType;
 import com.majoapps.propertyfinder.data.repository.NotificationsRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
+import com.majoapps.propertyfinder.security.JwtAuthenticationHelper;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,7 +26,7 @@ public class NotificationsService {
         this.accountService = accountService;
     }
 
-    public List<Notifications> getAllNotificationsForAccount(UUID account_id){
+    public List<Notifications> getAllNotificationsForAccount(UUID account_id) {
         return this.notificationsRepository.findByAccountId(account_id);
     }
 
@@ -34,50 +36,37 @@ public class NotificationsService {
         .orElseThrow(() -> new ResourceNotFoundException(("Notifications " + id + " not found")));
     }
 
-    public List<Notifications> getNotificationsByToken(JwtAuthenticationToken JwtAuthToken) {
-        Objects.requireNonNull(JwtAuthToken);
-        if (JwtAuthToken.getTokenAttributes().containsKey("uid")) {
-            String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
-            if (token == null || token.isEmpty()) {
-                throw new ResourceNotFoundException("uid is null in JWT ");
-            } else {
-            //return all Notifications for the logged in user
-                List<Account> accountResponse = this.accountService.getAccountByUserId(token);
-                if (accountResponse.size() == 0) {
-                    //no account for user
-                    throw new ResourceNotFoundException("Account " + token + " not found");
-                } else {
-                    // get account_id for logged in account
-                    return getAllNotificationsForAccount(accountResponse.get(0).getId());
-                }
-            }
-        } else {
-            throw new ResourceNotFoundException("Cannot find uid Key in JWT ");
+    public List<Notifications> getNotificationsByToken(JwtAuthenticationToken jwtAuthToken) {
+        String userByToken = JwtAuthenticationHelper.getUserByToken(jwtAuthToken);
+        // get accountId for the logged in user
+        List<Account> accountResponse = this.accountService.getAccountByUserId(userByToken);
+        if (accountResponse.size() == 0) {
+            throw new ResourceNotFoundException("Account " + userByToken + " not found");
         }
+        // return all Notifications for the logged in user
+        return getAllNotificationsForAccount(accountResponse.get(0).getId());
     }
 
-    public Notifications saveNotificationsByToken(JwtAuthenticationToken JwtAuthToken, 
-            Notifications notifications) {
-        Objects.requireNonNull(JwtAuthToken);
+    public Long countByPropertyId(Integer propertyId) {
+        return notificationsRepository.countByPropertyId(propertyId);
+    }
+
+    public List<Notifications> getByAccountIdAndPropertyId(UUID account_id, Integer propertyId) {
+        return notificationsRepository.findByAccountIdAndPropertyId(account_id, propertyId);
+    }
+
+    public Notifications saveNotificationsByToken(JwtAuthenticationToken jwtAuthToken,
+                                                  Notifications notifications) {
         Objects.requireNonNull(notifications);
-        if (JwtAuthToken.getTokenAttributes().containsKey("uid")) {
-            String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
-            if (token == null || token.isEmpty()) {
-                throw new ResourceNotFoundException("uid is null in JWT ");
-            } else {
-            //return all Notifications for the logged in user
-                List<Account> accountResponse = this.accountService.getAccountByUserId(token);
-                if (accountResponse.size() == 0) {
-                    //no account for user
-                    throw new ResourceNotFoundException("Account " + token + " not found");
-                } else {
-                    // save notifications for logged in account
-                    return saveNotifications(accountResponse.get(0).getId(), notifications);
-                }
-            }
-        } else {
-            throw new ResourceNotFoundException("Cannot find uid Key in JWT");
+        String userByToken = JwtAuthenticationHelper.getUserByToken(jwtAuthToken);
+        // get accountId for the logged in user
+        List<Account> accountResponse = this.accountService.getAccountByUserId(userByToken);
+        if (accountResponse.size() == 0) {
+            //no account for user
+            throw new ResourceNotFoundException("Account " + userByToken + " not found");
         }
+        // save notifications for logged in account
+        return saveNotifications(accountResponse.get(0).getId(), notifications);
     }
 
 
@@ -170,7 +159,7 @@ public class NotificationsService {
         }).orElseThrow(() -> new ResourceNotFoundException("Notifications " + id + " not found"));
     }
 
-    public ResponseEntity<?> deleteNotifications(UUID id){
+    public ResponseEntity<?> deleteNotifications(UUID id) {
         return this.notificationsRepository.findById(id).map(notification -> {
                     notificationsRepository.delete(notification);
                     return ResponseEntity.ok().build();

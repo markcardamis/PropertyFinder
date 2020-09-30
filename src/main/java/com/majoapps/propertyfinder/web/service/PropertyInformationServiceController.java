@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +26,9 @@ public class PropertyInformationServiceController {
     private PropertyInformationService propertyInformationService;
 
     @RequestMapping(value = "{propertyId}", method = RequestMethod.GET)
-    public PropertyInformationDTO getPropertyById(@PathVariable(value="propertyId") Integer id) {
-        return propertyInformationService.getPropertyInformation(id);
+    public PropertyInformationDTO getPropertyById(JwtAuthenticationToken JwtAuthToken,
+                                                  @PathVariable(value="propertyId") Integer id) {
+        return propertyInformationService.getPropertyInformation(JwtAuthToken, id);
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.GET)

@@ -31,6 +31,7 @@ public class PropertyInformationDTO implements Serializable {
     @JsonProperty("last_sold") private String lastSold;
     @JsonProperty("chart_data") private ChartData chartData;
     @JsonProperty("interested_people") private Long interestedPeople;
+    @JsonProperty("interested_user") private boolean interestedUser;
 
     @Data
     public static class ChartData {

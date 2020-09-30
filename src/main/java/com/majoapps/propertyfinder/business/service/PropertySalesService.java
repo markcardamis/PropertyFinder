@@ -5,9 +5,7 @@ import com.majoapps.propertyfinder.data.repository.PropertySalesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class PropertySalesService {
@@ -25,6 +23,17 @@ public class PropertySalesService {
         Iterable<PropertySales> results = this.propertySalesRepository.findByPropertyId(propertyId);
         results.forEach(propertySalesArrayList::add);
         return propertySalesArrayList;
+    }
+
+    public Optional<PropertySales> getLastPropertySales(Integer propertyId) {
+        return propertySalesRepository.findFirstByPropertyIdOrderBySettlementDateDesc(propertyId);
+    }
+
+    // Get the recent sales data for chart
+    public List<PropertySales> getRecentPropertySales(Integer propertyId, Date yearsBeforeDate) {
+        return propertySalesRepository.
+                findByPropertyIdAndSettlementDateGreaterThanOrderBySettlementDateDesc(
+                        propertyId, yearsBeforeDate);
     }
 
 }

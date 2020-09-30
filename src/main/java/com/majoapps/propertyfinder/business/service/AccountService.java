@@ -3,8 +3,10 @@ package com.majoapps.propertyfinder.business.service;
 import com.majoapps.propertyfinder.business.domain.OktaUser;
 import com.majoapps.propertyfinder.business.domain.OktaUserDTO;
 import com.majoapps.propertyfinder.data.entity.Account;
+import com.majoapps.propertyfinder.data.enums.AccountType;
 import com.majoapps.propertyfinder.data.repository.AccountRepository;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
+import com.majoapps.propertyfinder.security.JwtAuthenticationHelper;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,23 +62,12 @@ public class AccountService {
         return accountResponse;
     }
 
-    public List<Account> getAccountByToken(JwtAuthenticationToken JwtAuthToken) {
-        Objects.requireNonNull(JwtAuthToken);
-        if (JwtAuthToken.getTokenAttributes().containsKey("uid")) {
-            String token = JwtAuthToken.getTokenAttributes().get("uid").toString();
-            if (token == null || token.isEmpty()) {
-                throw new ResourceNotFoundException("uid is null in JWT ");
-            }
-            // return all Accounts if the user is an admin
-            if (JwtAuthToken.getTokenAttributes().containsKey("groups") &&
-                    JwtAuthToken.getTokenAttributes().get("groups").toString().contains("admin")) {
-                return getAllAccounts();
-            } else {
-                return getAccountByUserId(token);
-            }
-        } else {
-            throw new ResourceNotFoundException("Cannot find uid Key in JWT ");
+    public List<Account> getAccountByToken(JwtAuthenticationToken jwtAuthToken) {
+        if (JwtAuthenticationHelper.getAccountTypeByToken(jwtAuthToken) == AccountType.ADMIN) {
+            return getAllAccounts();
         }
+        return getAccountByUserId(JwtAuthenticationHelper.getUserByToken(jwtAuthToken));
+
     }
 
     public Account saveAccountwithCredentials(@NonNull OktaUserDTO oktaUserDTO) {

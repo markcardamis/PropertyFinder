@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface NotificationsRepository extends CrudRepository <Notifications, UUID> {
     List<Notifications> findByAccountId(@NotNull UUID accountId);
     Long countByPropertyId(@NotNull Integer propertyId);
+    List<Notifications> findByAccountIdAndPropertyId(@NotNull UUID accountId, @NotNull Integer propertyId);
 }
