@@ -27,7 +27,7 @@ public class NotificationsService {
     }
 
     public List<Notifications> getAllNotificationsForAccount(UUID account_id) {
-        return this.notificationsRepository.findByAccountId(account_id);
+        return this.notificationsRepository.findByAccountIdOrderByCreatedAtAsc(account_id);
     }
 
     public Notifications getNotificationsById(UUID id) {
