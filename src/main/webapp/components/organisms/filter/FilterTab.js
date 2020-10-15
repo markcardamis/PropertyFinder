@@ -16,7 +16,7 @@ import { IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPo
 import { getFilter, resetFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 import { showSearchModal } from "../../../store/actions/searchModalAction";
-import { hideSearchArea } from "../../../store/actions/searchAreaBtnAction";
+import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
 
 class FilterTab extends React.Component {
 
@@ -52,7 +52,7 @@ class FilterTab extends React.Component {
         await this.props.getFilter(this.props.filter);
         this.props.handleSubmit();
         this.props.closeFilter();
-        this.props.hideSearchArea();
+        this.props.showSearchArea();
       }
     }
 
@@ -177,7 +177,7 @@ const mapDispatchToProps = {
     closeFilter,
     showSearchModal,
     resetFilter,
-    hideSearchArea
+    showSearchArea
   };
 
 FilterTab.propTypes = {

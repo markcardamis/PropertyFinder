@@ -13,7 +13,6 @@ import ToggleWidget from "../toggleWidget/ToggleWidget";
 import { useAuth } from "../../../modules/auth";
 import { withAuth } from "@okta/okta-react";
 import { applyFilter } from "../../../store/actions/mapMarkerAction";
-import { initialFilter } from "../../../store/reducers/filterReducer";
 
 const FilterButtonGroup = withAuth(props => {
     const searchModal = useSelector(state=>state.searchModal);
@@ -60,7 +59,6 @@ const FilterButtonGroup = withAuth(props => {
     const handleSearchArea = async () => {
         props.applyFilter(await authenticated, await accessToken);
     };
-    const isFilterSet = JSON.stringify(initialFilter)===JSON.stringify(props.filter);
     return (
         <div className='filterButtonGroup'>
 
@@ -94,7 +92,7 @@ const FilterButtonGroup = withAuth(props => {
                     setShowResults={(state)=>setShowResults(state)}
                 />
                 }
-                {props.searchAreaBtn&&!isFilterSet&&!showSearchInput&&<ButtonSquare 
+                {props.searchAreaBtn&&!showSearchInput&&<ButtonSquare 
                   icon={<div className="searchBtn">Search this area</div>} 
                   style={{ width: 120, position: "absolute", marginLeft: "auto", marginRight: "auto", left: 0, right: 0 }}
                   onClick={handleSearchArea}
