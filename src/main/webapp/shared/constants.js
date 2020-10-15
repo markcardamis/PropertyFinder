@@ -8,6 +8,7 @@ export const INITIAL_VIEWPORT = {
         longitude: 151.018731,
         zoom: 10
     };
+export const LATITUDE_DIFF = 0.001;
 export const ADDRESS = "Address";
 export const AREA = "Area";
 export const ZONE = "Zone";

@@ -23,6 +23,9 @@
 .mapboxgl-popup-close-button {
     font-size: 20px;
 }
+.mapboxgl-popup {
+z-index: 2;
+}
 
 @media only screen and (max-device-width: $breakpoint-mobile) {
     .mapboxgl-popup-close-button {

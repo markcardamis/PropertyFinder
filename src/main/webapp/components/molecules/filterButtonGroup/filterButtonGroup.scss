@@ -7,10 +7,10 @@
     left: 15px;
     right: 15px;
     justify-content: space-between;
-    z-index: 1;
 
     .filterButtonGroup-left {
         display: flex; 
+        z-index: 3;
     }
 }
 .searchBtn {

@@ -13,6 +13,7 @@ import ToggleWidget from "../toggleWidget/ToggleWidget";
 import { useAuth } from "../../../modules/auth";
 import { withAuth } from "@okta/okta-react";
 import { applyFilter } from "../../../store/actions/mapMarkerAction";
+import { LATITUDE_DIFF } from "../../../shared/constants";
 
 const FilterButtonGroup = withAuth(props => {
     const searchModal = useSelector(state=>state.searchModal);
@@ -48,7 +49,7 @@ const FilterButtonGroup = withAuth(props => {
         if ( popup.length ) popup[0].remove();
         handleCancelSearch;
         setSelected(item);
-        map.flyTo({ center: [ item.longitude, item.latitude ], zoom: 16 });
+        map.flyTo({ center: [ item.longitude, item.latitude - LATITUDE_DIFF ], zoom: 16 });
         props.getPopup(item.propertyId, item.longitude, item.latitude);
         setShowResults(false);
         setSearchInput(false);
