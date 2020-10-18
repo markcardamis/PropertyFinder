@@ -23,6 +23,8 @@ export const BUILDING_HEIGHT = "Building Height";
 export const BATHROOMS = "Bathrooms";
 export const BEDROOMS = "Bedrooms";
 export const CAR_SPACES = "Car Spaces";
+export const LAST_SOLD = "Last sold date";
+export const INTERESTED_PEOPLE = "Interested people";
 
 export const FREQUENCY = ["OFF", "DAILY", "WEEKLY", "MONTHLY"];
 
