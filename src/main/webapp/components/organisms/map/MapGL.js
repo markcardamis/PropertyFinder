@@ -49,32 +49,32 @@ async componentDidMount() {
     
     map.on("click", (e) => this.handlePropertyClick(e)); 
     map.on("move", () => this.handleViewportChange());
-    map.on("mousemove", "nsw-property-latlong", (e) => this.handleHoverOnProperty(e));
-    map.on("mouseleave", "nsw-property-latlong", () => this.handleHoverOffProperty());
+    map.on("mousemove", "nsw-property", (e) => this.handleHoverOnProperty(e));
+    map.on("mouseleave", "nsw-property", () => this.handleHoverOffProperty());
     map.on("styledata", () => {
-        map.setLayoutProperty("landzoning", "visibility", this.props.layers.landZoning ? "visible" : "none");
-        map.setLayoutProperty("landzoning-labels", "visibility", this.props.layers.landZoning ? "visible" : "none");
-        map.setLayoutProperty("floorspaceratio", "visibility", this.props.layers.floorSpaceRatio ? "visible" : "none");
-        map.setLayoutProperty("floorspaceratio-labels", "visibility", this.props.layers.floorSpaceRatio ? "visible" : "none");
-        map.setLayoutProperty("heightofbuilding", "visibility", this.props.layers.heightOfBuilding ? "visible" : "none");
-        map.setLayoutProperty("heightofbuilding-labels", "visibility", this.props.layers.heightOfBuilding ? "visible" : "none");
-        map.setLayoutProperty("lotsize", "visibility", this.props.layers.lotsize ? "visible" : "none");
-        map.setLayoutProperty("lotsize-labels", "visibility", this.props.layers.lotsize ? "visible" : "none");
-        map.setLayoutProperty("heritage", "visibility", this.props.layers.heritage ? "visible" : "none");
-        map.setLayoutProperty("heritage-labels", "visibility", this.props.layers.heritage ? "visible" : "none");
+        map.setLayoutProperty("nswlandzoning", "visibility", this.props.layers.landZoning ? "visible" : "none");
+        map.setLayoutProperty("nswlandzoning-labels", "visibility", this.props.layers.landZoning ? "visible" : "none");
+        map.setLayoutProperty("nswfloorspaceratio", "visibility", this.props.layers.floorSpaceRatio ? "visible" : "none");
+        map.setLayoutProperty("nswfloorspaceratio-labels", "visibility", this.props.layers.floorSpaceRatio ? "visible" : "none");
+        map.setLayoutProperty("nswheightofbuilding", "visibility", this.props.layers.heightOfBuilding ? "visible" : "none");
+        map.setLayoutProperty("nswheightofbuilding-labels", "visibility", this.props.layers.heightOfBuilding ? "visible" : "none");
+        map.setLayoutProperty("nswlotsize", "visibility", this.props.layers.lotsize ? "visible" : "none");
+        map.setLayoutProperty("nswlotsize-labels", "visibility", this.props.layers.lotsize ? "visible" : "none");
+        map.setLayoutProperty("nswheritage", "visibility", this.props.layers.heritage ? "visible" : "none");
+        map.setLayoutProperty("nswheritage-labels", "visibility", this.props.layers.heritage ? "visible" : "none");
         map.setLayoutProperty("mobile-internet", "visibility", this.props.layers.mobileInternet ? "visible" : "none");
     });
 
-    map.addSource("property_nsw", {
+    map.addSource("nsw_property", {
         "type": "vector",
-        "url": "mapbox://markcardamis.52gy6wvu"
+        "url": "mapbox://markcardamis.nsw_property_latlong"
     });
 
     map.addLayer({
         "id": "nsw_property_latlong_highlighted",
         "type": "line",
-        "source": "property_nsw",
-        "source-layer": "nsw_property_latlong",
+        "source": "nsw_property",
+        "source-layer": "nsw_property",
         "paint": {
             "line-color": "hsl(110, 1%, 50%)",
             "line-width": [
@@ -137,8 +137,8 @@ handleHoverOnProperty = (e) => {
     if (e.features.length > 0) {
         if (hoverId) {
             map.setFeatureState({
-                source: "property_nsw",
-                sourceLayer: "nsw_property_latlong",
+                source: "nsw_property",
+                sourceLayer: "nsw_property",
                 id: hoverId,
                 }, {
                 hover: false
@@ -146,8 +146,8 @@ handleHoverOnProperty = (e) => {
         }
         hoverId = e.features[0].id;
         map.setFeatureState({
-            source: "property_nsw",
-            sourceLayer: "nsw_property_latlong",
+            source: "nsw_property",
+            sourceLayer: "nsw_property",
             id: hoverId,
             }, {
             hover: true
@@ -158,8 +158,8 @@ handleHoverOnProperty = (e) => {
 handleHoverOffProperty = () => {
     if (hoverId) {
         map.setFeatureState({
-            source: "property_nsw",
-            sourceLayer: "nsw_property_latlong",
+            source: "nsw_property",
+            sourceLayer: "nsw_property",
             id: hoverId,
             }, {
             hover: false
