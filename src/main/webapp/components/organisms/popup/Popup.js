@@ -47,7 +47,7 @@ const Popup = props => {
                 <PropListItem 
                     icon={<IconLandvalG size={size.width<982 ? 2:1}/>} 
                     title={LAND_VALUE} 
-                    value11={land_value_0}
+                    value11={`$${land_value_0}`}
                     />
                 {floor_space_ratio!==null&&
                     <PropListItem 
@@ -62,7 +62,7 @@ const Popup = props => {
                     value1={minimum_lot_size}
                     icon2={building_height!==null&&<IconHeight size={size.width<982 ? 2:1}/>} 
                     title2={building_height!==null&&BUILDING_HEIGHT} 
-                    value2={building_height}
+                    value2={`${building_height} M`}
                     />
                 <PropListItem 
                     icon={<IconInterest size={size.width<982 ? 2:1}/>} 
