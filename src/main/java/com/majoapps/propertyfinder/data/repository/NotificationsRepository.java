@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NotificationsRepository extends CrudRepository <Notifications, UUID> {
     List<Notifications> findByAccountIdOrderByCreatedAtAsc(@NotNull UUID accountId);
+    List<Notifications> findByAccountIdAndPropertyIdIsNullOrderByCreatedAtAsc(@NotNull UUID accountId);
+    List<Notifications> findByAccountIdAndPropertyIdIsNotNullOrderByCreatedAtAsc(@NotNull UUID accountId);
     Long countByPropertyId(@NotNull Integer propertyId);
     List<Notifications> findByAccountIdAndPropertyId(@NotNull UUID accountId, @NotNull Integer propertyId);
 }

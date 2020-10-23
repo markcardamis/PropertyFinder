@@ -36,15 +36,22 @@ public class NotificationsService {
         .orElseThrow(() -> new ResourceNotFoundException(("Notifications " + id + " not found")));
     }
 
-    public List<Notifications> getNotificationsByToken(JwtAuthenticationToken jwtAuthToken) {
+    public List<Notifications> getNotificationsByToken(JwtAuthenticationToken jwtAuthToken, String type) {
         String userByToken = JwtAuthenticationHelper.getUserByToken(jwtAuthToken);
         // get accountId for the logged in user
         List<Account> accountResponse = this.accountService.getAccountByUserId(userByToken);
         if (accountResponse.size() == 0) {
             throw new ResourceNotFoundException("Account " + userByToken + " not found");
         }
-        // return all Notifications for the logged in user
-        return getAllNotificationsForAccount(accountResponse.get(0).getId());
+        UUID account_id = accountResponse.get(0).getId();
+        if (type.equals("filters")) {
+            return notificationsRepository.findByAccountIdAndPropertyIdIsNullOrderByCreatedAtAsc(account_id);
+        } else if (type.equals("watchlist")) {
+            return notificationsRepository.findByAccountIdAndPropertyIdIsNotNullOrderByCreatedAtAsc(account_id);
+        } else {
+            // return all Notifications for the logged in user
+            return getAllNotificationsForAccount(account_id);
+        }
     }
 
     public Long countByPropertyId(Integer propertyId) {
