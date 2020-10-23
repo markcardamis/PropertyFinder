@@ -8,12 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value="/api/notifications")
@@ -23,16 +18,18 @@ public class NotificationsServiceController {
     private NotificationsService notificationsService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Notifications> getNotificationsByToken(JwtAuthenticationToken JwtAuthToken) {
-        return this.notificationsService.getNotificationsByToken(JwtAuthToken);
+    public List<Notifications> getNotificationsByToken(
+            JwtAuthenticationToken jwtAuthToken,
+            @RequestParam(value="type", required = false, defaultValue = "") String type) {
+        return this.notificationsService.getNotificationsByToken(jwtAuthToken, type);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(code = HttpStatus.CREATED)
     public Notifications saveNotificationsByToken(
-            JwtAuthenticationToken JwtAuthToken, 
+            JwtAuthenticationToken jwtAuthToken,
             @RequestBody Notifications notifications) {
-        return this.notificationsService.saveNotificationsByToken(JwtAuthToken, notifications);
+        return this.notificationsService.saveNotificationsByToken(jwtAuthToken, notifications);
     }
 
     @RequestMapping(value = "/account/{account_id}", method = RequestMethod.GET)
