@@ -13,7 +13,7 @@ export { default as IconBell30 } from "./IconBell30";
 export { default as IconCancel } from "./IconCancel";
 export { default as IconCarG } from "./IconCarG";
 export { default as IconClose } from "./IconClose";
-export { default as IconClock } from "./IconClock";
+export { default as IconSold } from "./IconSold";
 export { default as IconCloseMobile } from "./IconCloseMobile";
 export { default as IconCompass } from "./IconCompass";
 export { default as IconEmail } from "./IconEmail";

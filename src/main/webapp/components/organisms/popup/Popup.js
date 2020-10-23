@@ -5,7 +5,7 @@ import Chart from "../../molecules/chart/Chart";
 import { ADDRESS, AREA, ZONE, LAND_VALUE, FLOOR_SPACE_RATIO, MINIMUM_LOT_SIZE, BUILDING_HEIGHT, LAST_SOLD, INTERESTED_PEOPLE } from "../../../shared/constants";
 import PropListItem from "../../molecules/propListItem/PropListItem";
 import PropListItem2 from "../../molecules/propListItem2/PropListItem2";
-import { IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight, IconClock, IconInterest, } from "../../../assets/icons";
+import { IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight, IconInterest, IconSold, } from "../../../assets/icons";
 import { useWindowSize } from "../../../modules/windowSize";
 
 const Popup = props => {
@@ -40,7 +40,7 @@ const Popup = props => {
                     />
                 <div className='popup-devider'/>
                 <PropListItem 
-                    icon={<IconClock size={size.width<982 ? 2:1}/>} 
+                    icon={<IconSold size={size.width<982 ? 2:1}/>} 
                     title={LAST_SOLD} 
                     value11={last_sold}
                     />

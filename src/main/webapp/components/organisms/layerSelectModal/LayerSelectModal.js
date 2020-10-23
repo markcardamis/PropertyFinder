@@ -40,31 +40,31 @@ const LayerSelectModal = () => {
                 >
                 <div 
                     className={`layerName ${layers.landZoning ? "active" : ""}`} 
-                    onClick={()=>toggleLayers("landzoning", "landZoning")}
+                    onClick={()=>toggleLayers("nswlandzoning", "landZoning")}
                     >
                         Land zoning
                 </div>
                 <div
                     className={`layerName ${layers.floorSpaceRatio ? "active" : ""}`}
-                    onClick={()=>toggleLayers("floorspaceratio", "floorSpaceRatio")}
+                    onClick={()=>toggleLayers("nswfloorspaceratio", "floorSpaceRatio")}
                     >
                         Floor space ratio
                 </div>
                 <div 
                     className={`layerName ${layers.heightOfBuilding ? "active" : ""}`} 
-                    onClick={()=>toggleLayers("heightofbuilding", "heightOfBuilding")}
+                    onClick={()=>toggleLayers("nswheightofbuilding", "heightOfBuilding")}
                     >
                         Height of building
                 </div>
                 <div 
                     className={`layerName ${layers.lotsize ? "active" : ""}`} 
-                    onClick={()=>toggleLayers("lotsize", "lotsize")}
+                    onClick={()=>toggleLayers("nswlotsize", "lotsize")}
                     >
                         Lot Size
                 </div>
                 <div 
                     className={`layerName ${layers.heritage ? "active" : ""}`} 
-                    onClick={()=>toggleLayers("heritage", "heritage")}
+                    onClick={()=>toggleLayers("nswheritage", "heritage")}
                     >
                         Heritage
                 </div>
