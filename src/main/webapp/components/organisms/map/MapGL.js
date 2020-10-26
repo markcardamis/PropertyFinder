@@ -65,25 +65,6 @@ async componentDidMount() {
         map.setLayoutProperty("mobile-internet", "visibility", this.props.layers.mobileInternet ? "visible" : "none");
     });
 
-    map.addSource("nsw_property", {
-        "type": "vector",
-        "url": "mapbox://markcardamis.nsw_property_latlong"
-    });
-
-    map.addLayer({
-        "id": "nsw_property_latlong_highlighted",
-        "type": "line",
-        "source": "nsw_property",
-        "source-layer": "nsw_property",
-        "paint": {
-            "line-color": "hsl(110, 1%, 50%)",
-            "line-width": [
-                "case",
-                [ "boolean", [ "feature-state", "hover" ], false ], 2, 0
-            ]
-        },
-        "minzoom": 16
-    });
 }
 
 componentDidUpdate() {
@@ -137,7 +118,7 @@ handleHoverOnProperty = (e) => {
     if (e.features.length > 0) {
         if (hoverId) {
             map.setFeatureState({
-                source: "nsw_property",
+                source: "composite",
                 sourceLayer: "nsw_property",
                 id: hoverId,
                 }, {
@@ -146,7 +127,7 @@ handleHoverOnProperty = (e) => {
         }
         hoverId = e.features[0].id;
         map.setFeatureState({
-            source: "nsw_property",
+            source: "composite",
             sourceLayer: "nsw_property",
             id: hoverId,
             }, {
@@ -158,7 +139,7 @@ handleHoverOnProperty = (e) => {
 handleHoverOffProperty = () => {
     if (hoverId) {
         map.setFeatureState({
-            source: "nsw_property",
+            source: "composite",
             sourceLayer: "nsw_property",
             id: hoverId,
             }, {
