@@ -81,6 +81,7 @@ componentDidUpdate() {
 handleViewportChange = () => {
     this.props.showSearchArea();
     this.props.viewportChange({ latitude: map.getCenter().lat, longitude: map.getCenter().lng });
+    this.handleRemoveParcels();
 }
 
 renderMarkers = async () => {
@@ -111,6 +112,7 @@ handlePropertyClick = async (e) => {
     if (displayFeatures[0].properties && displayFeatures[0].properties.propid) {
         let propid = displayFeatures[0].properties.propid;
         this.props.getPopup(propid, e.lngLat.wrap().lng, e.lngLat.wrap().lat);
+        this.handleDisplayParcels([ propid ]);
     }
 }
 
@@ -147,6 +149,17 @@ handleHoverOffProperty = () => {
         });
     }
     hoverId = null;
+}
+
+handleDisplayParcels = async (e) => {
+    if (e.length > 0) { // array of property_id
+        let filter = [ 'in', [ 'get', 'propid' ], [ 'literal', e ] ];
+        map.setFilter('nsw-property-highlighted', filter);
+    }
+}
+
+handleRemoveParcels = () => {
+    map.setFilter("nsw-property-highlighted", [ 'in', 'propid', '' ]);
 }
 
 checkAuthentication = async () => {
