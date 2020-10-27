@@ -1,6 +1,8 @@
 package com.majoapps.propertyfinder.web.util;
 
+import com.majoapps.propertyfinder.business.domain.PropertyInformationSearchDTO;
 import com.majoapps.propertyfinder.data.entity.Notifications;
+import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.entity.PropertyListing;
 import javax.persistence.TypedQuery;
 
@@ -105,6 +107,45 @@ public class SpecificationUtil {
             query.setParameter("priceToLandValueMax", notifications.getPropertyPriceToLandValueMax());
             query.setParameter("floorSpaceRatioMin", notifications.getPropertyFloorSpaceRatioMin());
             query.setParameter("floorSpaceRatioMax", notifications.getPropertyFloorSpaceRatioMax());
+        }
+        return query;
+    }
+
+    public static String createQueryString(
+            PropertyInformationSearchDTO propertyInformation, Double latitude, Double longitude) {
+        StringBuilder sb = new StringBuilder("SELECT l FROM PropertyInformation l WHERE l.propertyId>0");
+        if (propertyInformation != null) {
+            sb.append(" AND ( :zoneCode IS NULL OR l.zoneCode = :zoneCode)");
+            sb.append(" AND ( :postCode IS NULL OR l.postCode = :postCode)");
+            sb.append(" AND ( :areaMin IS NULL OR l.area > :areaMin)");
+            sb.append(" AND ( :areaMax IS NULL OR l.area < :areaMax)");
+            sb.append(" AND ( :landValueMin IS NULL OR l.landValue0 > :landValueMin)");
+            sb.append(" AND ( :landValueMax IS NULL OR l.landValue0 < :landValueMax)");
+            sb.append(" AND ( :buildingHeightMin IS NULL OR l.buildingHeight > :buildingHeightMin)");
+            sb.append(" AND ( :buildingHeightMax IS NULL OR l.buildingHeight < :buildingHeightMax)");
+            sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio > :floorSpaceRatioMin)");
+            sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio < :floorSpaceRatioMax)");
+        }
+        if (latitude != null && longitude != null) {
+            sb.append(" ORDER BY distance(l.geometry, 'SRID=4326;Point("+ longitude + " " + latitude + ")')");
+        }
+        return sb.toString();
+    }
+
+    public static TypedQuery<PropertyInformation> queryBuilder(
+            TypedQuery<PropertyInformation> query,
+            PropertyInformationSearchDTO propertyInformation) {
+        if (propertyInformation != null) {
+            query.setParameter("zoneCode", propertyInformation.getZoneCode());
+            query.setParameter("postCode", propertyInformation.getPostCode());
+            query.setParameter("areaMin", propertyInformation.getAreaMin());
+            query.setParameter("areaMax", propertyInformation.getAreaMax());
+            query.setParameter("landValueMin", propertyInformation.getLandValueMin());
+            query.setParameter("landValueMax", propertyInformation.getLandValueMax());
+            query.setParameter("buildingHeightMin", propertyInformation.getBuildingHeightMin());
+            query.setParameter("buildingHeightMax", propertyInformation.getBuildingHeightMax());
+            query.setParameter("floorSpaceRatioMin", propertyInformation.getFloorSpaceRatioMin());
+            query.setParameter("floorSpaceRatioMax", propertyInformation.getFloorSpaceRatioMax());
         }
         return query;
     }
