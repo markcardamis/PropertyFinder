@@ -3,6 +3,8 @@ package com.majoapps.propertyfinder.web.service;
 import static com.majoapps.propertyfinder.web.util.SpecificationUtil.to_tsquery;
 
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
+import com.majoapps.propertyfinder.business.domain.PropertyInformationResponseDTO;
+import com.majoapps.propertyfinder.business.domain.PropertyInformationSearchDTO;
 import com.majoapps.propertyfinder.business.service.PropertyInformationService;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.projection.AddressListView;
@@ -11,12 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value="/api/propertyinformation")
@@ -24,6 +21,15 @@ public class PropertyInformationServiceController {
 
     @Autowired
     private PropertyInformationService propertyInformationService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<PropertyInformationResponseDTO> getAllPropertyInformationByQuery(
+            JwtAuthenticationToken JwtAuthToken, 
+            PropertyInformationSearchDTO propertyInformation,
+            @RequestHeader(value = "centreLatitude", required = false) Double latitude,
+            @RequestHeader(value = "centreLongitude", required = false) Double longitude) {
+        return propertyInformationService.queryHQL(JwtAuthToken, propertyInformation, latitude, longitude);
+    }
 
     @RequestMapping(value = "{propertyId}", method = RequestMethod.GET)
     public PropertyInformationDTO getPropertyById(JwtAuthenticationToken JwtAuthToken,

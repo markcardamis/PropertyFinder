@@ -4,6 +4,8 @@ import com.majoapps.propertyfinder.business.domain.AddressListDTO;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO.PropertySalesDTO;
 import com.majoapps.propertyfinder.business.domain.PropertyInformationDTO.ChartData;
+import com.majoapps.propertyfinder.business.domain.PropertyInformationResponseDTO;
+import com.majoapps.propertyfinder.business.domain.PropertyInformationSearchDTO;
 import com.majoapps.propertyfinder.data.entity.Account;
 import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
@@ -14,14 +16,19 @@ import com.majoapps.propertyfinder.data.repository.PropertyInformationRepository
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 import com.majoapps.propertyfinder.security.JwtAuthenticationHelper;
 import com.majoapps.propertyfinder.web.util.ObjectMapperUtils;
+import com.majoapps.propertyfinder.web.util.SpecificationUtil;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -29,6 +36,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class PropertyInformationService {
+
+    @PersistenceContext
+    private EntityManager em;
 
     private final PropertyInformationRepository propertyInformationRepository;
     private final PropertySalesService propertySalesService;
@@ -55,6 +65,43 @@ public class PropertyInformationService {
         Iterable<PropertyInformation> results = this.propertyInformationRepository.findAll();
         results.forEach(properties::add);
         return properties;
+    }
+
+    public List<PropertyInformationResponseDTO> queryHQL(
+            JwtAuthenticationToken jwtAuthToken,
+            PropertyInformationSearchDTO propertyInformation,
+            Double latitude, 
+            Double longitude) {
+        try {
+            String queryString = SpecificationUtil.createQueryString(propertyInformation, latitude, longitude);
+            TypedQuery<PropertyInformation> query = em.createQuery(queryString, PropertyInformation.class);
+            query = SpecificationUtil.queryBuilder(query, propertyInformation);
+            return this.getPropertyInformationByQuery(jwtAuthToken, query);
+        } catch (Exception ex) {
+            log.error("Exception: ", ex);
+            throw new ResourceNotFoundException("Error retrieving results");
+        }
+    }
+
+    // return different amount of listings based on account priority
+    public List<PropertyInformationResponseDTO> getPropertyInformationByQuery(
+            JwtAuthenticationToken jwtAuthToken,
+            TypedQuery<PropertyInformation> query) {
+        try {
+            AccountType accountType = JwtAuthenticationHelper.getAccountTypeByToken(jwtAuthToken);
+            query.setMaxResults(accountType.getLimit());
+            List<PropertyInformation> propertyListing = query.getResultList();
+            return ObjectMapperUtils.mapAll(propertyListing, PropertyInformationResponseDTO.class);
+        } catch (IllegalArgumentException ae) {
+            log.error("IllegalArgumentException: ", ae);
+            throw new ResourceNotFoundException("Illegal argument in search query");
+        } catch (PropertyReferenceException pe) {
+            log.error("PropertyReferenceException: ", pe);
+            throw new ResourceNotFoundException("Malformed search query");
+        } catch (Exception e) {
+            log.error("Exception: ", e);
+            throw new ResourceNotFoundException("Error retrieving results");
+        }
     }
 
     public PropertyInformationDTO getPropertyInformation(
