@@ -4,6 +4,7 @@ import com.majoapps.propertyfinder.business.domain.PropertyInformationSearchDTO;
 import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.entity.PropertyListing;
+import org.jetbrains.annotations.NotNull;
 import javax.persistence.TypedQuery;
 
 public class SpecificationUtil {
@@ -84,10 +85,7 @@ public class SpecificationUtil {
             sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio > :floorSpaceRatioMin)");
             sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio < :floorSpaceRatioMax)");
         }
-        if (latitude != null && longitude != null) {
-            sb.append(" ORDER BY distance(l.geometry, 'SRID=4326;Point("+ longitude + " " + latitude + ")')");
-        }
-        return sb.toString();
+        return appendOrderBy(latitude, longitude, sb);
     }
 
     public static TypedQuery<PropertyListing> queryBuilder(
@@ -126,10 +124,7 @@ public class SpecificationUtil {
             sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio > :floorSpaceRatioMin)");
             sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio < :floorSpaceRatioMax)");
         }
-        if (latitude != null && longitude != null) {
-            sb.append(" ORDER BY distance(l.geometry, 'SRID=4326;Point("+ longitude + " " + latitude + ")')");
-        }
-        return sb.toString();
+        return appendOrderBy(latitude, longitude, sb);
     }
 
     public static TypedQuery<PropertyInformation> queryBuilder(
@@ -148,6 +143,18 @@ public class SpecificationUtil {
             query.setParameter("floorSpaceRatioMax", propertyInformation.getFloorSpaceRatioMax());
         }
         return query;
+    }
+
+    @NotNull
+    private static String appendOrderBy(Double latitude, Double longitude, StringBuilder sb) {
+        if (latitude != null && longitude != null) {
+            sb.append(" ORDER BY distance(l.geometry, 'SRID=4326;Point(");
+            sb.append(longitude);
+            sb.append(" ");
+            sb.append(latitude);
+            sb.append(")')");
+        }
+        return sb.toString();
     }
 
     public static String to_tsquery (String address) {
