@@ -1,5 +1,6 @@
 package com.majoapps.propertyfinder.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
+import org.locationtech.jts.geom.Geometry;
 
 @Entity
 @Data
@@ -106,5 +108,8 @@ public class PropertyInformation {
     private Double latitude;
     @Column(name="longitude")
     private Double longitude;
+    @JsonIgnore
+    @Column(name="geometry")
+    private Geometry geometry;
 
 }
