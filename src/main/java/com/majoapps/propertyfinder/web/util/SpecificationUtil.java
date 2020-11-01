@@ -114,7 +114,7 @@ public class SpecificationUtil {
         StringBuilder sb = new StringBuilder("SELECT l FROM PropertyInformation l WHERE l.propertyId>0");
         if (propertyInformation != null) {
             sb.append(" AND ( :zoneCode IS NULL OR l.zoneCode = :zoneCode)");
-            sb.append(" AND ( :postCode IS NULL OR l.postCode = :postCode)");
+            sb.append(" AND ( :postCode IS NULL OR l.postCode LIKE :postCode)");
             sb.append(" AND ( :areaMin IS NULL OR l.area > :areaMin)");
             sb.append(" AND ( :areaMax IS NULL OR l.area < :areaMax)");
             sb.append(" AND ( :landValueMin IS NULL OR l.landValue0 > :landValueMin)");
@@ -132,7 +132,7 @@ public class SpecificationUtil {
             PropertyInformationSearchDTO propertyInformation) {
         if (propertyInformation != null) {
             query.setParameter("zoneCode", propertyInformation.getZoneCode());
-            query.setParameter("postCode", propertyInformation.getPostCode());
+            query.setParameter("postCode", propertyInformation.getPostCode() + '%');
             query.setParameter("areaMin", propertyInformation.getAreaMin());
             query.setParameter("areaMax", propertyInformation.getAreaMax());
             query.setParameter("landValueMin", propertyInformation.getLandValueMin());
