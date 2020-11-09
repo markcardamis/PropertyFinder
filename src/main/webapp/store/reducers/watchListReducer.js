@@ -1,7 +1,7 @@
 import { filters } from "../../../../../constants_temp";
 
-//const watchListReducer = (state = [], action) => {
-  const watchListReducer = (state = filters, action) => {
+const watchListReducer = (state = [], action) => {
+//   const watchListReducer = (state = filters, action) => {
     switch (action.type) {
         case "SET_WATCH_LIST_REQUEST":
             return state;

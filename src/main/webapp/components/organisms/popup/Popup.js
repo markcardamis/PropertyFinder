@@ -19,7 +19,7 @@ const Popup = props => {
     const size = useWindowSize();
     const [watchListItem, setwatchListItem] = useState(interested_user);
     const addToWatchList = () => {
-        props.saveWatchListItem;
+        props.saveWatchListItem();
         setwatchListItem(!watchListItem)
     }
  

@@ -9,8 +9,8 @@ export const saveWatchListItem = (item, frequency) => async dispatch => {
   const { accessToken } = store.getState().auth;
     const address = `${house_number} ${getUpperCase(street_name)}, ${getUpperCase(suburb_name)}, ${post_code}`;
     const data = {
-        "propertyId": item.id || property_id,
-        "frequency": frequency || "WEEKLY",
+        "propertyId": item ? item.id : property_id,
+        "frequency": frequency ? frequency : "WEEKLY",
         "title": address
     };
   
