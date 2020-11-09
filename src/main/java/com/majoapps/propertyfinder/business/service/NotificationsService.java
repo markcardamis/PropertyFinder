@@ -2,14 +2,18 @@ package com.majoapps.propertyfinder.business.service;
 
 import com.majoapps.propertyfinder.data.entity.Account;
 import com.majoapps.propertyfinder.data.entity.Notifications;
-import com.majoapps.propertyfinder.data.enums.AccountType;
 import com.majoapps.propertyfinder.data.repository.NotificationsRepository;
+import com.majoapps.propertyfinder.exception.MethodArgumentNotValidException;
+import com.majoapps.propertyfinder.exception.PropertyAlreadyExistsException;
 import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 import com.majoapps.propertyfinder.security.JwtAuthenticationHelper;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -62,6 +66,18 @@ public class NotificationsService {
         return notificationsRepository.findByAccountIdAndPropertyId(account_id, propertyId);
     }
 
+    // all create/update methods use this method to catch duplicate propertyId constraints
+    public Notifications saveNotifications(Notifications notifications) {
+        Objects.requireNonNull(notifications);
+        try {
+            return notificationsRepository.save(notifications);
+        } catch (DataIntegrityViolationException dataEx) {
+            throw new PropertyAlreadyExistsException("Duplicate PropertyId: " + notifications.getPropertyId());
+        } catch (Exception ex) {
+            throw new MethodArgumentNotValidException(ex.getLocalizedMessage());
+        }
+    }
+
     public Notifications saveNotificationsByToken(JwtAuthenticationToken jwtAuthToken,
                                                   Notifications notifications) {
         Objects.requireNonNull(notifications);
@@ -73,16 +89,15 @@ public class NotificationsService {
             throw new ResourceNotFoundException("Account " + userByToken + " not found");
         }
         // save notifications for logged in account
-        return saveNotifications(accountResponse.get(0).getId(), notifications);
+        return saveNotificationsByAccountId(accountResponse.get(0).getId(), notifications);
     }
 
-
-    public Notifications saveNotifications(UUID accountId, Notifications notifications) {
+    public Notifications saveNotificationsByAccountId(UUID accountId, Notifications notifications) {
         Objects.requireNonNull(accountId);
         Objects.requireNonNull(notifications);
         Account account = accountService.getAccountById(accountId);
         notifications.setAccount(account);
-        return notificationsRepository.save(notifications);
+        return this.saveNotifications(notifications);
     }
 
     public ResponseEntity<Notifications> updateNotifications(UUID id, Notifications newNotifications) {
@@ -102,7 +117,7 @@ public class NotificationsService {
             notifications.setPropertyPriceToLandValueMax(newNotifications.getPropertyPriceToLandValueMax());
             notifications.setPropertyFloorSpaceRatioMin(newNotifications.getPropertyFloorSpaceRatioMin());
             notifications.setPropertyFloorSpaceRatioMax(newNotifications.getPropertyFloorSpaceRatioMax());
-            notificationsRepository.save(notifications);
+            this.saveNotifications(notifications);
             return ResponseEntity.ok(notifications);
         }).orElseThrow(() -> new ResourceNotFoundException("Notifications " + id + " not found"));
     }
@@ -161,7 +176,7 @@ public class NotificationsService {
             if (newNotifications.getPropertyFloorSpaceRatioMax() != null) {
                 notifications.setPropertyFloorSpaceRatioMax(newNotifications.getPropertyFloorSpaceRatioMax());
             }
-            notificationsRepository.save(notifications);
+            this.saveNotifications(notifications);
             return ResponseEntity.ok(notifications);
         }).orElseThrow(() -> new ResourceNotFoundException("Notifications " + id + " not found"));
     }
