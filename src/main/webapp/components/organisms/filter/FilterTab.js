@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import "rc-slider/assets/index.css";
 import "rc-dropdown/assets/index.css";
 
-import { ZONES } from "../../../shared/constants";
+import { ZONES } from "../../../shared/constants/zones";
 import "./filter.scss";
 import { FilterLine, ZoneSelect, PostCode } from "./components";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";

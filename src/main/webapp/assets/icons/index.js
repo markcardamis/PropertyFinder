@@ -56,6 +56,7 @@ export { default as IconPriceMg } from "./IconPriceMg";
 export { default as IconSearch } from "./IconSearch";
 export { default as IconSlider } from "./IconSlider";
 export { default as IconSettings } from "./IconSettings";
+export { default as IconStar } from "./IconStar";
 export { default as IconTitle } from "./IconTitle";
 export { default as IconTrash } from "./IconTrash";
 export { default as IconUser } from "./IconUser";
