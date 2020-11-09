@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector, connect } from "react-redux";
+import { withAuth } from "@okta/okta-react";
+
 import ButtonSquare from "../../atoms/buttonSquare/ButtonSquare";
 import { LogoBlack, IconLayers, IconSearch } from "../../../assets/icons";
 import "./filterButtonGroup.scss";
@@ -11,9 +13,8 @@ import SearchInput from "../searchInput/SearchInput";
 import { map } from "../../organisms/map/MapGL";
 import ToggleWidget from "../toggleWidget/ToggleWidget";
 import { useAuth } from "../../../modules/auth";
-import { withAuth } from "@okta/okta-react";
 import { applyFilter } from "../../../store/actions/mapMarkerAction";
-import { LATITUDE_DIFF } from "../../../shared/constants";
+import { LATITUDE_DIFF } from "../../../shared/constants/constants";
 
 const FilterButtonGroup = withAuth(props => {
     const searchModal = useSelector(state=>state.searchModal);
@@ -24,7 +25,7 @@ const FilterButtonGroup = withAuth(props => {
     const [ hovered, setHovered ] = useState({});
     const [ selected, setSelected ] = useState({});
     const [ showResults, setShowResults ] = useState(false);
-    const [ authenticated, accessToken ] = useAuth(props.auth);
+    const [ authenticated, user, accessToken ] = useAuth(props.auth);
     let timer;
     const handleSearch = (e) => {
        setSearch(e.target.value.replace(/[^a-zA-Z0-9_ /]/gi, ""));
@@ -57,12 +58,11 @@ const FilterButtonGroup = withAuth(props => {
     const handleHover = (item) => {
         setHovered(item);
     };
-    const handleSearchArea = async () => {
-        props.applyFilter(await authenticated, await accessToken);
+    const handleSearchArea = () => {
+        props.applyFilter(authenticated, accessToken);
     };
     return (
         <div className='filterButtonGroup'>
-
             <div className='filterButtonGroup-left'>
             <ButtonSquare 
                 icon={<LogoBlack color={"#000000"} size={windowSize.width<982 ? 2 : 1}/>} 

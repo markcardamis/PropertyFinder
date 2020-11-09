@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./imageLazy.scss";
-import { DEFAULT_HOUSE_IMAGE as placeHolder } from "../../../shared/constants";
+import { DEFAULT_HOUSE_IMAGE as placeHolder } from "../../../shared/constants/constants";
 
 const ImageLazy = ({ src, shadow }) => {
   const [ imageSrc, setImageSrc ] = useState(placeHolder);

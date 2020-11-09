@@ -27,6 +27,37 @@
 z-index: 2;
 }
 
+.popup-favourite-icon {
+    position: absolute;
+    top: 5px;
+}
+
+.popup-watchList {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 5px 5px 5px;
+    margin-top: 10px;
+    margin-right: 5px;
+    margin-left: 50%;
+    font-size: 16px;
+    font-family: $mavenPro;
+    border: 1px $white solid;
+    cursor: default;
+
+        &:hover {
+        border: 1px $black solid;
+        border-radius: 4px;
+
+    }
+    .popup-watchList-plus-icon {
+        font-size: 25px;
+        margin-right: 5px;
+    }
+}
+
+
 @media only screen and (max-device-width: $breakpoint-mobile) {
     .mapboxgl-popup-close-button {
         font-size: 44px;

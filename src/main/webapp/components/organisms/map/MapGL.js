@@ -5,7 +5,7 @@ import React from "react";
 import { hotjar } from "react-hotjar";
 import { connect } from "react-redux";
 import { MapMarker } from "../../../assets/icons";
-import { INITIAL_VIEWPORT } from "../../../shared/constants";
+import { INITIAL_VIEWPORT } from "../../../shared/constants/constants";
 import { closeFilter, showFilter } from "../../../store/actions/filterModalAction";
 import { closeLayersModal, showLayersModal } from "../../../store/actions/layersAction";
 import { getMapMarkers } from "../../../store/actions/mapMarkerAction";

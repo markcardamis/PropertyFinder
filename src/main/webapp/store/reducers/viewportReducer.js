@@ -1,4 +1,4 @@
-import { INITIAL_VIEWPORT } from "../../shared/constants";
+import { INITIAL_VIEWPORT } from "../../shared/constants/constants";
 
 const viewportChangeReducer = (state=INITIAL_VIEWPORT, action) => {
     switch (action.type) {
