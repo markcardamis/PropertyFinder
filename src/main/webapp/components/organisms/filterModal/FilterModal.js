@@ -15,7 +15,7 @@ import { closeFilter } from "../../../store/actions/filterModalAction";
 import { showSignIn } from "../../../store/actions/signInModalAction";
 import { getNotifications } from "../../../store/actions/notificationsAction/getNotificationsAction";
 import { showSaveModal } from "../../../store/actions/saveModalAction";
-import WatchList from "./watchList/WatchList";
+import WatchList from "../watchList/WatchList";
 import ParcelSearch from "../parcelSearch/ParcelSearch";
 
 class FilterModal extends Component {
