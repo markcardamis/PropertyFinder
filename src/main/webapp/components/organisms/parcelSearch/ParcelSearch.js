@@ -1,6 +1,5 @@
 
-import React from "react";
-import { withAuth } from "@okta/okta-react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import "rc-slider/assets/index.css";
@@ -11,87 +10,45 @@ import "./parcelSearch.scss";
 import { FilterLine, ZoneSelect, PostCode } from "./components";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
-import { IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost } from "../../../assets/icons";
-import { resetFilter } from "../../../store/actions/filterAction";
-import { closeFilter } from "../../../store/actions/filterModalAction";
-import { showSearchModal } from "../../../store/actions/searchModalAction";
-import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
+import { IconArea, IconFsr, IconPrice, IconZone, IconPost } from "../../../assets/icons";
 import { setParcelFilter, resetParcelFilter } from '../../../store/actions/parcelSearchAction/setParcelFilter';
 
 const ParcelSearch = (props) => {
+    const { parcelSearch } = props;
+    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue } = props.parcelSearch
 
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         authenticated: false,
-    //         zone: this.props.filter.zone,
-    //         zoneColor: null,
-    //         showValidation: false      
-    //     };
+    const onSelect = ({ key }) => {
+      props.setParcelFilter({ ...parcelSearch, zone: key });
+      let zoneColor = ZONES.filter(item=>{
+        return item.name===key;
+      });
+      setZoneColor(zoneColor[0].color);
+    }
+    const [zoneColor, setZoneColor] = useState(null)
 
-    //    this.checkAuthentication();
-    // }
-
-//    checkAuthentication = async () => {
-//         const authenticated = await this.props.auth.isAuthenticated();
-//         if (authenticated !== this.state.authenticated) {
-//           this.setState({ authenticated });
-//         }
-//       }
-          
-//     componentDidUpdate() {
-//         this.checkAuthentication();
-//       }
-
-//     handleSubmit = async () => {
-//       const { postCode } = this.props.filter;
-//       if (postCode.length !== 4 && postCode.length !== 0) {
-//         this.setState({ showValidation: true });
-//       } else {
-//         this.setState({ showValidation: false });
-//         await this.props.getFilter(this.props.filter);
-//         this.props.handleSubmit();
-//         this.props.closeFilter();
-//         this.props.showSearchArea();
-//       }
-//     }
-
-//     onSelect = ({ key }) => {
-//       this.props.getFilter({ ...this.props.filter, zone: key });
-//       let zoneColor = ZONES.filter(item=>{
-//         return item.name===key;
-//       });
-//       this.setState({ zoneColor: zoneColor[0].color });
-//     }
-
-//     handleSaveFilter = async () => {
-//       const { postCode } = this.props.filter;
-//       if (postCode.length !== 4 && postCode.length !== 0) {
-//         this.setState({ showValidation: true });
-//       } else {
-//         this.setState({ showValidation: false });
-//         await this.props.getFilter(this.props.filter);
-//         this.props.handleSaveFilter();
-//     }
-//   }
-
-const { zone, area, buildingHeight, floorspaceRatio, landValue } = props.parcelSearch
-const { parcelSearch } = props
-
-const handleSubmit = (val) => {
-    console.log(val)
-}
+    const handleSubmit = (val) => {
+        console.log(val)
+    }
 
         return (
             <div className='filterTab'> 
               <div className='filterInputContainer'>
-              {/* <ZoneSelect 
-                zone={filter.zone} 
-                zoneColor={this.state.zoneColor} 
+              <ZoneSelect 
+                zone={zone} 
+                zoneColor={zoneColor} 
                 title22={"Zone"} 
                 icon={<IconZone/>} 
-                onSelect={this.onSelect}
-                /> */}
+                onSelect={onSelect}
+                />
+               <PostCode 
+                title22={"Post Code"} 
+                icon={<IconPost/>} 
+                value={postCode} 
+                showValidation={false}
+                onChange={(event)=>props.setParcelFilter({ ...parcelSearch, postCode: event.target.value })}
+                />
+                <DeviderLine/>
+
               <FilterLine 
                   title22={"Area"} 
                   icon={<IconArea/>} 
@@ -104,7 +61,6 @@ const handleSubmit = (val) => {
                   labelMin={"0"} 
                   labelMax={"20 000+"}
                 />
-              <DeviderLine/>
 
                 <FilterLine 
                   title22={"Building Height"} 
@@ -171,13 +127,10 @@ const handleSubmit = (val) => {
 const mapStateToProps = (state) => {
   return {
     parcelSearch: state.parcelSearch,
-    // filter: state.filter
   };
 };
 const mapDispatchToProps = {
     setParcelFilter,
-    closeFilter,
-    showSearchModal,
     resetParcelFilter,
   };
 
@@ -185,4 +138,4 @@ ParcelSearch.propTypes = {
     
 };
 
-  export default withAuth(connect(mapStateToProps, mapDispatchToProps)(ParcelSearch));
+  export default connect(mapStateToProps, mapDispatchToProps)(ParcelSearch);
