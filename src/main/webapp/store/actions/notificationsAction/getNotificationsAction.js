@@ -1,11 +1,11 @@
 import { hideLoading, showLoading } from "../loadingAction";
 
-const apiUrl = "/api/notifications";
+const apiUrl = "/api/notifications?type=filters";
 
 export const getNotifications = (accessToken) => async dispatch => {
   dispatch(showLoading());
     dispatch(setNotificationsRequest());
-    await fetch(`${apiUrl}?type=filters`, {
+    await fetch(apiUrl, {
       headers: {
         Authorization: "Bearer " + accessToken
       }

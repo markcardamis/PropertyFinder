@@ -6,6 +6,7 @@ import { store } from "../../../webapp/javascript/index";
 import { map } from "../../components/organisms/map/MapGL";
 import { showLoading, hideLoading } from "./loadingAction";
 import { Provider } from "react-redux";
+import { showSignIn } from "./signInModalAction";
 
 const apiUrl = "/api/propertyinformation";
 
@@ -30,12 +31,22 @@ const renderPopup = (longitude, latitude) => {
 };
 
 export const getPopup = (propId, longitude, latitude) => async dispatch => {
+  const { accessToken } = store.getState().auth;
+
     dispatch(showLoading());
     dispatch(setPopupRequest());
-    await fetch(`${apiUrl}/${propId}`)
+    await fetch(`${apiUrl}/${propId}`, {
+      headers: {
+        Authorization: "Bearer " + accessToken
+      }
+    })
         .then(response => response.json())
         .then(res=>dispatch({ type: "SET_POPUP_LOADED", property: res }))
-        .catch(error => console.log(error));
+        .catch(error => {
+          console.log(error)
+          dispatch(hideLoading());
+          dispatch(showSignIn());
+        });
     renderPopup(longitude, latitude);
     dispatch(hideLoading());
 };

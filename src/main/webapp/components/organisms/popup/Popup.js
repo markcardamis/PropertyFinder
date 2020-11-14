@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -17,15 +17,13 @@ const Popup = props => {
 
     const address = `${house_number} ${getUpperCase(street_name)}, ${getUpperCase(suburb_name)}, ${post_code}`;
     const size = useWindowSize();
-    const [watchListItem, setwatchListItem] = useState(interested_user);
     const addToWatchList = () => {
         props.saveWatchListItem();
-        setwatchListItem(!watchListItem)
     }
  
     return (
         <div style={{ width: size.width>982 ? 354 : 650 }}>
-            <IconStar className="popup-favourite-icon" fill={watchListItem ? "#FFC107" : 'none'} onClick={addToWatchList}/>
+            <IconStar className="popup-favourite-icon" fill={interested_user ? "#FFC107" : 'none'} onClick={addToWatchList}/>
             <Chart chartData={props.chartData} salesData={props.salesData}/>
             <div className='popup-propertyInfo'>
                 <PropListItem 
@@ -75,7 +73,7 @@ const Popup = props => {
                     />
             </div>
             <div className="popup-watchList" onClick={addToWatchList}>
-                <span className="popup-watchList-plus-icon">+</span> Add to Wach List
+                <span className="popup-watchList-plus-icon">+</span> Add to Watch List
             </div>
         </div>
     );

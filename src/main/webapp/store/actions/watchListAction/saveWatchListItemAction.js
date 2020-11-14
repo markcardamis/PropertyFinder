@@ -4,16 +4,16 @@ import { hideLoading, showLoading } from "../loadingAction";
 
 const apiUrl = "/api/notifications";
 
-export const saveWatchListItem = (item, frequency) => async dispatch => {
-  const { property_id, house_number, street_name, suburb_name, post_code } = store.getState().popup;
+export const saveWatchListItem = () => async dispatch => {
+
   const { accessToken } = store.getState().auth;
-    const address = `${house_number} ${getUpperCase(street_name)}, ${getUpperCase(suburb_name)}, ${post_code}`;
-    const data = {
-        "propertyId": item ? item.id : property_id,
-        "frequency": frequency ? frequency : "WEEKLY",
+  const { property_id, house_number, street_name, suburb_name, post_code } = store.getState().popup;
+  const address = `${house_number} ${getUpperCase(street_name)}, ${getUpperCase(suburb_name)}, ${post_code}`;
+  const data = {
+        "propertyId": property_id,
+        "frequency": "WEEKLY",
         "title": address
-    };
-  
+    }
     dispatch(showLoading());
     dispatch(saveWatchListItemRequest());
     await fetch(apiUrl, {

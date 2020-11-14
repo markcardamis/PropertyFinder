@@ -9,6 +9,8 @@ const watchListReducer = (state = [], action) => {
             return action.data;
         case "DELETE_WATCH_LIST_ITEM":
             return state;
+        case "CHANGE_WATCH_LIST_FREQUENCY_REQUEST":
+            return state;
         default:
             return state;
     }
