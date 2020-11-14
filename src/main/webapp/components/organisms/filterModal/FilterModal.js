@@ -16,6 +16,7 @@ import { showSignIn } from "../../../store/actions/signInModalAction";
 import { getNotifications } from "../../../store/actions/notificationsAction/getNotificationsAction";
 import { showSaveModal } from "../../../store/actions/saveModalAction";
 import WatchList from "./watchList/WatchList";
+import ParcelSearch from "../parcelSearch/ParcelSearch";
 
 class FilterModal extends Component {
 
@@ -82,10 +83,15 @@ class FilterModal extends Component {
                   </div>
                   <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
                     <TabList>
-                      <Tab>Search Filters</Tab>
-                      <Tab disabled={!authenticated}>Saved Filters</Tab>
-                      <Tab disabled={!authenticated}>Watch List</Tab>
+                      <Tab>Parcel Filter</Tab>
+                      <Tab>Listings Search</Tab>
+                      <Tab disabled={!authenticated}>Saved Search</Tab>
+                      <Tab disabled={!authenticated}>Watchlist</Tab>
                     </TabList>
+                    <TabPanel>
+                      <ParcelSearch handleSubmit={this.handleSubmit}/>
+                      {/* <FilterTab handleSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/> */}
+                    </TabPanel>
                     <TabPanel>
                       <FilterTab handleSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
                     </TabPanel>

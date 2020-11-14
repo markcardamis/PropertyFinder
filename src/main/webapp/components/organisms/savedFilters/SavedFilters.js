@@ -99,7 +99,6 @@ class SavedFilters extends Component {
     this.checkAuthentication();
     if (!this.state.authenticated) {
         this.props.getNotifications(await this.props.auth.getAccessToken());
-        this.props.getWatchList(await this.props.auth.getAccessToken())
         }
       }
 

@@ -1,0 +1,153 @@
+@import '../../../styles//style.scss';
+
+.filterLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.resetFilterBtn {
+    margin-top: 20px;
+    color: $green;
+    cursor: pointer;
+    font-size: 16px;
+}
+.filterBtnContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .btnSavePref {
+            width: 25%;
+        }
+        .btnSearch {
+            width: 65%;
+        }
+    }
+.zoneSelect {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .zoneSelectBtn {
+        width: 42%;
+        height: 34px;
+        border: 1px solid $dark-grey;
+        border-radius: 6px;
+        padding: 0 18px 0 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        font-family: $mavenPro;
+
+        .zoneSelectText {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .zoneColor {
+            align-self: center;
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+    }
+
+}
+
+.postCode {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    font-size: 14px;
+}
+.validation {
+    color: red;
+    font-size: 12px;
+    height: 14px;
+    font-family: $mavenPro;
+    display: flex;
+    justify-content: flex-end;
+}
+.rc-dropdown {
+    height: 250px;
+    overflow-y: scroll;
+    border: 1px solid $dark-grey;
+    border-radius: 4px;
+}
+.rc-dropdown-menu {
+    box-shadow: none;
+    border-radius: 0;
+    border-top: none;
+}
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+
+    .checkbox {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        color: $dark-grey;
+        justify-content: center;
+        margin-right: 10px;
+        align-items: center;
+        font-family: $mavenPro;
+    }
+}
+
+
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .filterTab {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .filterInputContainer {
+            flex: 4;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .filterLine {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 10px;
+            }
+            .postCode{
+                margin-top: 20px;
+            }
+        }
+
+        .filterBtnContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+    
+            .btnSavePref {
+                width: 100%;
+            }
+            .btnSearch {
+                width: 100%;
+                margin: 25px 0 25px 0;
+                //margin-top: 50px;
+            }
+        }
+
+    }
+
+    .react-tabs__tab-list {
+        margin-top: 17px !important;
+        margin-bottom: 24px !important;
+        margin-right: 34px !important;
+    }
+}

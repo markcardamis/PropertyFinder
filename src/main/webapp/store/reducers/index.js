@@ -16,6 +16,7 @@ import searchResultsReducer from "./searchReducer";
 import notificationsReducer from "./notificationsReducer";
 import searchAreaBtnReducer from "./searchAraBtnReducer";
 import watchListReducer from './watchListReducer';
+import parcelSearchReducer from './parcelSearchReducer';
 
 const reducers = combineReducers({
     propertyModal: propertyModalReducer,
@@ -34,7 +35,8 @@ const reducers = combineReducers({
     searchResults: searchResultsReducer,
     notifications: notificationsReducer,
     searchAreaBtn: searchAreaBtnReducer,
-    watchList: watchListReducer
+    watchList: watchListReducer,
+    parcelSearch: parcelSearchReducer
 });
 
 export default reducers; 
