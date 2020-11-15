@@ -80,4 +80,6 @@ public class PropertyListing {
     @JsonIgnore
     @Column(name="geometry")
     private Geometry geometry;
+    @Column(name="property_type")
+    private String propertyType;
 }

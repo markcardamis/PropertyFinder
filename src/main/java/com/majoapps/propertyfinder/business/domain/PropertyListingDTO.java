@@ -29,5 +29,6 @@ public class PropertyListingDTO implements Serializable {
     @JsonProperty("land_value") private Integer landValue;
     @JsonProperty("price_psm") private Integer pricePSM;
     @JsonProperty("price_to_land_value") private BigDecimal priceToLandValue;
+    @JsonProperty("property_type") private String propertyType;
 }
 
