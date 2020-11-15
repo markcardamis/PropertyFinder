@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-import "../../../molecules/savedFiltersListItem/savedFiltersListItem.scss";
-import { IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30 } from "../../../../assets/icons";
+import "../../molecules/savedFiltersListItem/savedFiltersListItem.scss";
+import { IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30 } from "../../../assets/icons";
 
 export const WatchListListItem = (props) => {
     const { data } = props
