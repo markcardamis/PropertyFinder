@@ -16,6 +16,8 @@ const parselSearchReducer = (state = initialFilter, action) => {
             return initialFilter;
         case "APPLY_PARCEL_SEARCH_REQUEST":
             return state;
+        case "PARCEL_SEARCH_LOADED":
+            return {...state, result: action.payload};
         default:
             return state;
     }

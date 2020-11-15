@@ -1,28 +1,28 @@
-import { store } from "../../../webapp/javascript/index";
-import { hideLoading, showLoading } from "./loadingAction";
-const apiUrl = "/api/propertyinformation?";
+import { store } from "../../../../webapp/javascript/index";
+import { hideLoading, showLoading } from "../loadingAction";
+const apiUrl = "/api/propertyinformation";
 
 export const applyParcelSearch = () => async dispatch => {
-    const {zone, postCode, area, buildingHeight, postCode, landValue, floorspaceRatio} = store.getState().parcelSearch;
+    const {zone, postCode, area, buildingHeight, landValue, floorspaceRatio} = store.getState().parcelSearch;
   
     const values = {
-        zone: `zoneCode=${zone ? zone : null}`,
-        postCode: `&postCode=${postCode !== "" ? postCode : null}`,
-        areaMin: `&areaMin=${area[0] !== 0 ? area[0] : null}`,
-        areaMax: `&areaMax=${area[1] !== 20000 ? area[1] : null}`,
-        landValueMin: `&landValueMin=${landValue[0] !== 5000 ? landValue[0] : null}`,
-        landValueMax: `&landValueMax=${landValue[1] !== 5000000 ? landValue[1] : null}`,
-        buildingHeightMin: `&buildingHeightMin=${buildingHeight[0] !== 0 ? buildingHeight[0] : null}`,
-        buildingHeightMax: `&buildingHeightMax=${buildingHeight[1] !== 100 ? buildingHeight[0] : null}`,
-        floorSpaceRatioMin: `&floorSpaceRatioMin=${floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : null}`,
-        floorSpaceRatioMax: `&floorSpaceRatioMax=${floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null}`
+        zone: `zoneCode=${zone !== null ? zone : ''}`,
+        postCode: `&postCode=${postCode}`,
+        areaMin: `&areaMin=${area[0]}`,
+        areaMax: `&areaMax=${area[1]}`,
+        landValueMin: `&landValueMin=${landValue[0]}`,
+        landValueMax: `&landValueMax=${landValue[1]}`,
+        buildingHeightMin: `&buildingHeightMin=${buildingHeight[0]}`,
+        buildingHeightMax: `&buildingHeightMax=${buildingHeight[1]}`,
+        floorSpaceRatioMin: `&floorSpaceRatioMin=${floorspaceRatio[0]}`,
+        floorSpaceRatioMax: `&floorSpaceRatioMax=${floorspaceRatio[1]}`
     };
     const query = Object.values(values).join("")
     dispatch(showLoading());
     dispatch(applyParcelSearchRequest());
-    await fetch(`${apiUrl}/query`)
+    await fetch(`${apiUrl}?${query}`)
         .then(response => response.json())
-        .then(res=>dispatch({type: "PARCEL_SEARCH_LOADED", markers: res}))
+        .then(res=>dispatch({type: "PARCEL_SEARCH_LOADED", payload: res}))
         .catch(error => console.log(error));
     dispatch(hideLoading());
   };

@@ -1,7 +1,7 @@
 import { store } from "../../../javascript";
 import { hideLoading, showLoading } from "../loadingAction";
 
-const apiUrl = "/api/notifications?type=wastchlist";
+const apiUrl = "/api/notifications?type=watchlist";
 
 export const getWatchList = () => async dispatch => {
   const { accessToken } = store.getState().auth;

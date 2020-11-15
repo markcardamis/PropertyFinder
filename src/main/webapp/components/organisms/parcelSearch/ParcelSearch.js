@@ -12,6 +12,7 @@ import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import { IconArea, IconFsr, IconPrice, IconZone, IconPost } from "../../../assets/icons";
 import { setParcelFilter, resetParcelFilter } from '../../../store/actions/parcelSearchAction/setParcelFilter';
+import { applyParcelSearch } from '../../../store/actions/parcelSearchAction/parcelSearchAction';
 
 const ParcelSearch = (props) => {
     const { parcelSearch } = props;
@@ -27,7 +28,7 @@ const ParcelSearch = (props) => {
     const [zoneColor, setZoneColor] = useState(null)
 
     const handleSubmit = (val) => {
-        console.log(val)
+        props.applyParcelSearch()
     }
 
         return (
@@ -132,6 +133,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     setParcelFilter,
     resetParcelFilter,
+    applyParcelSearch
   };
 
 ParcelSearch.propTypes = {
