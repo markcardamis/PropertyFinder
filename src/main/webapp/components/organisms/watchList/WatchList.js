@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import {WatchListListItem} from '../../../organisms/filterModal/watchList/WatchListListItem'
-import {getWatchList} from '../../../../store/actions/watchListAction/getWatchListAction'
-import {deleteWatchListItem} from '../../../../store/actions/watchListAction/deleteWatchListListItemAction'
-import { changeWatchListFrequency } from '../../../../store/actions/watchListAction/changeWatchListFrequency'
-import { FREQUENCY } from '../../../../shared/constants/constants'
+import {WatchListListItem} from './WatchListListItem'
+import {getWatchList} from '../../../store/actions/watchListAction/getWatchListAction'
+import {deleteWatchListItem} from '../../../store/actions/watchListAction/deleteWatchListListItemAction'
+import { changeWatchListFrequency } from '../../../store/actions/watchListAction/changeWatchListFrequency'
+import { FREQUENCY } from '../../../shared/constants/constants'
 
 
 const WatchList = (props) => {
