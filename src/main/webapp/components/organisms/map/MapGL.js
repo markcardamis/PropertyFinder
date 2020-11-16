@@ -157,7 +157,6 @@ handleDisplayParcels = async () => {
     parcels.map(item=>array = [...array, Object.values(item)[0]])
     if (array.length > 0) {
         let filter = [ 'in', [ 'get', 'propid' ], [ 'literal', array ] ];
-        console.log(filter)
         map.setFilter('nsw-property-highlighted', filter);
     }
 }

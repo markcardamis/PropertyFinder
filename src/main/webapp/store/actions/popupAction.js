@@ -35,18 +35,14 @@ export const getPopup = (propId, longitude, latitude) => async dispatch => {
 
     dispatch(showLoading());
     dispatch(setPopupRequest());
-    await fetch(`${apiUrl}/${propId}`, {
+    await fetch(`${apiUrl}/${propId}`, accessToken ? {
       headers: {
         Authorization: "Bearer " + accessToken
       }
-    })
+    } : {})
         .then(response => response.json())
         .then(res=>dispatch({ type: "SET_POPUP_LOADED", property: res }))
-        .catch(error => {
-          console.log(error)
-          dispatch(hideLoading());
-          // dispatch(showSignIn());
-        });
+        .catch(error => console.log(error));
     renderPopup(longitude, latitude);
     dispatch(hideLoading());
 };
