@@ -1,3 +1,4 @@
+import { parcels } from "../../../../../constants_temp";
 const initialFilter = { 
     zone: null,
     postCode: "",
@@ -5,6 +6,8 @@ const initialFilter = {
     buildingHeight: [ 0, 100 ],
     floorspaceRatio: [ 0, 2 ],
     landValue: [ 5000, 5000000 ],
+    result: []
+    // result: parcels
 };
 
 const parselSearchReducer = (state = initialFilter, action) => {

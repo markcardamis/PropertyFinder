@@ -112,7 +112,7 @@ handlePropertyClick = async (e) => {
     if (displayFeatures[0].properties && displayFeatures[0].properties.propid) {
         let propid = displayFeatures[0].properties.propid;
         this.props.getPopup(propid, e.lngLat.wrap().lng, e.lngLat.wrap().lat);
-        this.handleDisplayParcels([ propid ]);
+        this.handleDisplayParcels();
     }
 }
 
@@ -151,9 +151,13 @@ handleHoverOffProperty = () => {
     hoverId = null;
 }
 
-handleDisplayParcels = async (e) => {
-    if (e.length > 0) { // array of property_id
-        let filter = [ 'in', [ 'get', 'propid' ], [ 'literal', e ] ];
+handleDisplayParcels = async () => {
+    const { parcels } = this.props
+    let array = []
+    parcels.map(item=>array = [...array, Object.values(item)[0]])
+    if (array.length > 0) {
+        let filter = [ 'in', [ 'get', 'propid' ], [ 'literal', array ] ];
+        console.log(filter)
         map.setFilter('nsw-property-highlighted', filter);
     }
 }
@@ -202,7 +206,8 @@ const mapStateToProps = (state) => {
         filterModal: state.filterModal,
         saveModal: state.saveModal.showModal,
         popup: state.popup,
-        layers: state.layers
+        layers: state.layers,
+        parcels: state.parcelSearch.result
     };
 };
 const mapDispatchToProps = {

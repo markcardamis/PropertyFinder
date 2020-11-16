@@ -13,6 +13,7 @@ import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import { IconArea, IconFsr, IconPrice, IconZone, IconPost } from "../../../assets/icons";
 import { setParcelFilter, resetParcelFilter } from '../../../store/actions/parcelSearchAction/setParcelFilter';
 import { applyParcelSearch } from '../../../store/actions/parcelSearchAction/parcelSearchAction';
+import { closeFilter } from '../../../store/actions/filterModalAction'
 
 const ParcelSearch = (props) => {
     const { parcelSearch } = props;
@@ -27,8 +28,9 @@ const ParcelSearch = (props) => {
     }
     const [zoneColor, setZoneColor] = useState(null)
 
-    const handleSubmit = (val) => {
-        props.applyParcelSearch()
+    const handleSubmit = async () => {
+        await props.applyParcelSearch();
+        props.closeFilter();
     }
 
         return (
@@ -67,13 +69,13 @@ const ParcelSearch = (props) => {
                   title22={"Building Height"} 
                   icon={<IconFsr/>} 
                   value={buildingHeight}
-                  step={0.1} 
+                  step={10} 
                   showCurrency={false}
                   onChange={(val)=>props.setParcelFilter({ ...parcelSearch, buildingHeight: val })} 
                   min={0} 
-                  max={2} 
-                  labelMin={"0.0"} 
-                  labelMax={"2.0+"}
+                  max={100} 
+                  labelMin={"0"} 
+                  labelMax={"100+"}
                   />
           
                 <FilterLine 
@@ -133,7 +135,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     setParcelFilter,
     resetParcelFilter,
-    applyParcelSearch
+    applyParcelSearch,
+    closeFilter
   };
 
 ParcelSearch.propTypes = {

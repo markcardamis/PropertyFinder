@@ -45,7 +45,7 @@ export const getPopup = (propId, longitude, latitude) => async dispatch => {
         .catch(error => {
           console.log(error)
           dispatch(hideLoading());
-          dispatch(showSignIn());
+          // dispatch(showSignIn());
         });
     renderPopup(longitude, latitude);
     dispatch(hideLoading());

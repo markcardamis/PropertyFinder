@@ -1,6 +1,7 @@
 import { getUpperCase } from "../../../shared/utils/getUppercase";
 import { store } from "../../../javascript";
 import { hideLoading, showLoading } from "../loadingAction";
+import { showSignIn } from '../signInModalAction'
 
 const apiUrl = "/api/notifications";
 
@@ -14,6 +15,7 @@ export const saveWatchListItem = () => async dispatch => {
         "frequency": "WEEKLY",
         "title": address
     }
+  if (accessToken) {
     dispatch(showLoading());
     dispatch(saveWatchListItemRequest());
     await fetch(apiUrl, {
@@ -28,6 +30,9 @@ export const saveWatchListItem = () => async dispatch => {
         .then(res=>console.log(res))
         .catch(error => console.log(error));
     dispatch(hideLoading());
+  } else {
+    dispatch(showSignIn());
+    }
   };
 
   export const saveWatchListItemRequest = () => dispatch => {
