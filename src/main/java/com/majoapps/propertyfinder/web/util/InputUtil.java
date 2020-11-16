@@ -8,4 +8,8 @@ public class InputUtil {
     public static boolean isNotNullOrZero(Integer input) {
         return(input != null && input > 0);
     }
+
+    public static String returnStringOrNull(String str) {
+        return(isNotNullOrEmpty(str) ? str : null);
+    }
 }

@@ -4,6 +4,7 @@ import com.majoapps.propertyfinder.business.domain.PropertyInformationSearchDTO;
 import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.entity.PropertyListing;
+import com.majoapps.propertyfinder.web.util.InputUtil;
 import org.jetbrains.annotations.NotNull;
 import javax.persistence.TypedQuery;
 
@@ -131,8 +132,8 @@ public class SpecificationUtil {
             TypedQuery<PropertyInformation> query,
             PropertyInformationSearchDTO propertyInformation) {
         if (propertyInformation != null) {
-            query.setParameter("zoneCode", propertyInformation.getZoneCode());
-            query.setParameter("postCode", propertyInformation.getPostCode());
+            query.setParameter("zoneCode", InputUtil.returnStringOrNull(propertyInformation.getZoneCode()));
+            query.setParameter("postCode", InputUtil.returnStringOrNull(propertyInformation.getPostCode()));
             query.setParameter("areaMin", propertyInformation.getAreaMin());
             query.setParameter("areaMax", propertyInformation.getAreaMax());
             query.setParameter("landValueMin", propertyInformation.getLandValueMin());
