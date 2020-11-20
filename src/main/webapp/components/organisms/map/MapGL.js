@@ -152,12 +152,12 @@ handleHoverOffProperty = () => {
 }
 
 handleDisplayParcels = async () => {
-    const { parcels } = this.props
-    let array = []
-    parcels.map(item=>array = [...array, Object.values(item)[0]])
+    const { parcels } = this.props;
+
+    let array = parcels.map(item => item.property_id);
+    
     if (array.length > 0) {
         let filter = [ 'in', [ 'get', 'propid' ], [ 'literal', array ] ];
-        console.log(filter)
         map.setFilter('nsw-property-highlighted', filter);
     }
 }
