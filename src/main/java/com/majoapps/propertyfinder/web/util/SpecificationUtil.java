@@ -65,6 +65,9 @@ public class SpecificationUtil {
                 sb.append(" AND floorSpaceRatio<");
                 sb.append(notifications.getPropertyFloorSpaceRatioMax());
             }
+            if (notifications.getLandOnly() != null && notifications.getLandOnly()) {
+                sb.append(" AND propertyType:VacantLand");
+            }
         }
         return sb.toString();
     }
@@ -85,6 +88,7 @@ public class SpecificationUtil {
             sb.append(" AND ( :priceToLandValueMax IS NULL OR l.priceToLandValue < :priceToLandValueMax)");
             sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio > :floorSpaceRatioMin)");
             sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio < :floorSpaceRatioMax)");
+            sb.append(" AND ( :landOnly IS NULL OR :landOnly IS FALSE OR ( :landOnly IS TRUE AND l.propertyType LIKE '%Land%') )");
         }
         return appendOrderBy(latitude, longitude, sb);
     }
@@ -106,6 +110,7 @@ public class SpecificationUtil {
             query.setParameter("priceToLandValueMax", notifications.getPropertyPriceToLandValueMax());
             query.setParameter("floorSpaceRatioMin", notifications.getPropertyFloorSpaceRatioMin());
             query.setParameter("floorSpaceRatioMax", notifications.getPropertyFloorSpaceRatioMax());
+            query.setParameter("landOnly", notifications.getLandOnly());
         }
         return query;
     }

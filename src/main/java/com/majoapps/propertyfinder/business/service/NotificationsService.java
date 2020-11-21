@@ -117,6 +117,7 @@ public class NotificationsService {
             notifications.setPropertyPriceToLandValueMax(newNotifications.getPropertyPriceToLandValueMax());
             notifications.setPropertyFloorSpaceRatioMin(newNotifications.getPropertyFloorSpaceRatioMin());
             notifications.setPropertyFloorSpaceRatioMax(newNotifications.getPropertyFloorSpaceRatioMax());
+            notifications.setLandOnly(newNotifications.getLandOnly());
             this.saveNotifications(notifications);
             return ResponseEntity.ok(notifications);
         }).orElseThrow(() -> new ResourceNotFoundException("Notifications " + id + " not found"));
@@ -175,6 +176,9 @@ public class NotificationsService {
             }
             if (newNotifications.getPropertyFloorSpaceRatioMax() != null) {
                 notifications.setPropertyFloorSpaceRatioMax(newNotifications.getPropertyFloorSpaceRatioMax());
+            }
+            if (newNotifications.getLandOnly() != null) {
+                notifications.setLandOnly(newNotifications.getLandOnly());
             }
             this.saveNotifications(notifications);
             return ResponseEntity.ok(notifications);
