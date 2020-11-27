@@ -23,16 +23,16 @@ export const applyParcelSearch = () => async dispatch => {
     };
 
     const queryValues = {
-        zone: `zoneCode=${zone !== null ? zone : ''}`,
+        zone: `zoneCode=${zone !== null ? zone : ""}`,
         postCode: `&postCode=${postCode}`,
-        areaMin: `&areaMin=${area[0]}`,
-        areaMax: `&areaMax=${area[1]}`,
-        landValueMin: `&landValueMin=${landValue[0]}`,
-        landValueMax: `&landValueMax=${landValue[1]}`,
-        buildingHeightMin: `&buildingHeightMin=${buildingHeight[0]}`,
-        buildingHeightMax: `&buildingHeightMax=${buildingHeight[1]}`,
-        floorSpaceRatioMin: `&floorSpaceRatioMin=${floorspaceRatio[0]}`,
-        floorSpaceRatioMax: `&floorSpaceRatioMax=${floorspaceRatio[1]}`
+        areaMin: `&areaMin=${area[0] !== 0 ? area[0] : ""}`,
+        areaMax: `&areaMax=${area[1] !== 20000 ? area[1] : ""}`,
+        landValueMin: `&landValueMin=${landValue[0] !== 100000 ? landValue[0] : ""}`,
+        landValueMax: `&landValueMax=${landValue[1] !== 5000000 ? landValue[1] : ""}`,
+        buildingHeightMin: `&buildingHeightMin=${buildingHeight[0] !== 0 ? buildingHeight[0] : ""}`,
+        buildingHeightMax: `&buildingHeightMax=${buildingHeight[1] !== 100 ? buildingHeight[1] : ""}`,
+        floorSpaceRatioMin: `&floorSpaceRatioMin=${floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : ""}`,
+        floorSpaceRatioMax: `&floorSpaceRatioMax=${floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : ""}`
     };
     const queryParameters = Object.values(queryValues).join("");
     dispatch(showLoading());
