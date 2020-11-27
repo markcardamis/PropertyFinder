@@ -7,9 +7,9 @@ const apiUrl = "/api/propertyinformation";
 export const applyParcelSearch = () => async dispatch => {
     const { zone, postCode, area, buildingHeight, landValue, floorspaceRatio } = store.getState().parcelSearch;
     const { latitude, longitude } = store.getState().viewport;
-    const parcels = store.getState().parcelSearch.result;
 
     const handleDisplayParcels = () => {
+      const parcels = store.getState().parcelSearch.result;
       let array = parcels.map(item => item.property_id);
       if (array.length > 0) {
           let filter = [ 'in', [ 'get', 'propid' ], [ 'literal', array ] ];
