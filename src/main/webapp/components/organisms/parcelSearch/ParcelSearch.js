@@ -68,7 +68,7 @@ const ParcelSearch = (props) => {
                   title22={"Building Height"} 
                   icon={<IconFsr/>} 
                   value={buildingHeight}
-                  step={10} 
+                  step={1} 
                   showCurrency={false}
                   onChange={(val)=>props.setParcelFilter({ ...parcelSearch, buildingHeight: val })} 
                   min={0} 
