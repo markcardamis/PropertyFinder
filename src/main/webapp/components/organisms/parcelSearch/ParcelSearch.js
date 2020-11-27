@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -11,13 +10,13 @@ import { FilterLine, ZoneSelect, PostCode } from "./components";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import { IconArea, IconFsr, IconPrice, IconZone, IconPost } from "../../../assets/icons";
-import { setParcelFilter, resetParcelFilter } from '../../../store/actions/parcelSearchAction/setParcelFilter';
-import { applyParcelSearch } from '../../../store/actions/parcelSearchAction/parcelSearchAction';
-import { closeFilter } from '../../../store/actions/filterModalAction'
+import { setParcelFilter, resetParcelFilter } from "../../../store/actions/parcelSearchAction/setParcelFilter";
+import { applyParcelSearch } from "../../../store/actions/parcelSearchAction/parcelSearchAction";
+import { closeFilter } from "../../../store/actions/filterModalAction";
 
 const ParcelSearch = (props) => {
     const { parcelSearch } = props;
-    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue } = props.parcelSearch
+    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue } = props.parcelSearch;
 
     const onSelect = ({ key }) => {
       props.setParcelFilter({ ...parcelSearch, zone: key });
@@ -25,13 +24,13 @@ const ParcelSearch = (props) => {
         return item.name===key;
       });
       setZoneColor(zoneColor[0].color);
-    }
-    const [zoneColor, setZoneColor] = useState(null)
+    };
+    const [ zoneColor, setZoneColor ] = useState(null);
 
     const handleSubmit = async () => {
         await props.applyParcelSearch();
         props.closeFilter();
-    }
+    };
 
         return (
             <div className='filterTab'> 
