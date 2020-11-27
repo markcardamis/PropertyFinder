@@ -112,7 +112,6 @@ handlePropertyClick = async (e) => {
     if (displayFeatures[0].properties && displayFeatures[0].properties.propid) {
         let propid = displayFeatures[0].properties.propid;
         this.props.getPopup(propid, e.lngLat.wrap().lng, e.lngLat.wrap().lat);
-        this.handleDisplayParcels();
     }
 }
 
@@ -149,17 +148,6 @@ handleHoverOffProperty = () => {
         });
     }
     hoverId = null;
-}
-
-handleDisplayParcels = async () => {
-    const { parcels } = this.props;
-
-    let array = parcels.map(item => item.property_id);
-    
-    if (array.length > 0) {
-        let filter = [ 'in', [ 'get', 'propid' ], [ 'literal', array ] ];
-        map.setFilter('nsw-property-highlighted', filter);
-    }
 }
 
 handleRemoveParcels = () => {
