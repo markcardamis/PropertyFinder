@@ -5,7 +5,7 @@ const initialFilter = {
     area: [ 0, 20000 ],
     buildingHeight: [ 0, 100 ],
     floorspaceRatio: [ 0, 2 ],
-    landValue: [ 5000, 5000000 ],
+    landValue: [ 100000, 5000000 ],
     result: []
     // result: parcels
 };
