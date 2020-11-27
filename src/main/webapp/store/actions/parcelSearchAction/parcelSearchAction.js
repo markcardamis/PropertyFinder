@@ -5,20 +5,24 @@ import { hideLoading, showLoading } from "../loadingAction";
 const apiUrl = "/api/propertyinformation";
 
 export const applyParcelSearch = () => async dispatch => {
-    const {zone, postCode, area, buildingHeight, landValue, floorspaceRatio} = store.getState().parcelSearch;
-    const {latitude, longitude} = store.getState().viewport;
+    const { zone, postCode, area, buildingHeight, landValue, floorspaceRatio } = store.getState().parcelSearch;
+    const { latitude, longitude } = store.getState().viewport;
     const parcels = store.getState().parcelSearch.result;
 
     const handleDisplayParcels = () => {
       let array = parcels.map(item => item.property_id);
-      
       if (array.length > 0) {
           let filter = [ 'in', [ 'get', 'propid' ], [ 'literal', array ] ];
           map.setFilter('nsw-property-highlighted', filter);
       }
-    }
+    };
 
-    const values = {
+    let headers = {
+      "centreLatitude": latitude,
+      "centreLongitude": longitude
+    };
+
+    const queryValues = {
         zone: `zoneCode=${zone !== null ? zone : ''}`,
         postCode: `&postCode=${postCode}`,
         areaMin: `&areaMin=${area[0]}`,
@@ -28,16 +32,14 @@ export const applyParcelSearch = () => async dispatch => {
         buildingHeightMin: `&buildingHeightMin=${buildingHeight[0]}`,
         buildingHeightMax: `&buildingHeightMax=${buildingHeight[1]}`,
         floorSpaceRatioMin: `&floorSpaceRatioMin=${floorspaceRatio[0]}`,
-        floorSpaceRatioMax: `&floorSpaceRatioMax=${floorspaceRatio[1]}`,
-        centreLatitude: `&centreLatitude=${latitude}`,
-        centreLongitude: `&centreLongitude=${longitude}`
+        floorSpaceRatioMax: `&floorSpaceRatioMax=${floorspaceRatio[1]}`
     };
-    const query = Object.values(values).join("")
+    const queryParameters = Object.values(queryValues).join("");
     dispatch(showLoading());
     dispatch(applyParcelSearchRequest());
-    await fetch(`${apiUrl}?${query}`)
+    await fetch(`${apiUrl}?${queryParameters}`, { headers: headers })
         .then(response => response.json())
-        .then(res=>dispatch({type: "PARCEL_SEARCH_LOADED", payload: res}))
+        .then(res => dispatch({ type: "PARCEL_SEARCH_LOADED", payload: res }))
         .catch(error => console.log(error));
     handleDisplayParcels();
     dispatch(hideLoading());
