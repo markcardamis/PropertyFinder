@@ -1,35 +1,55 @@
 import React from "react";
-import { Range, Handle } from "rc-slider";
+import { Range } from "rc-slider";
 import PropTypes from "prop-types";
+
+import variables from "../../../styles/_variables.scss";
 import "./slider.scss";
 
 const Slider = (props) => {
 
   const { showCurrency } = props;
+  const k = "k";
+  const m = "M";
+  const aud = showCurrency ? "$" : "";
 
-  const SliderHandle = (props) => {
-    const { value, dragging, index, ...rest } = props;
-    const k = "k";
-    const m = "M";
-    const aud = showCurrency ? "$" : "";
-    return (
-      <Handle className='flexHandle' key={index} value={value} {...rest}>
-        {dragging && <div className='handleValueContainer'>
-              <div className='handleValue'>{`${value>999999 ? aud+value/1000000+m : value>999 ? aud+value/1000+k : aud+value}`}</div>
-            </div>}
-      </Handle>
-    );
-  };
+  const isValueInitial = props.value[0]===props.min && props.value[1]===props.max;
+  const trackColor = isValueInitial ? variables.lightGrey : variables.green;
+  const trackStyle = [{backgroundColor: trackColor}, {backgroundColor: trackColor}];
+  const railStyle = {backgroundColor: variables.lightGrey};
+
+  const formatValue = (value) => {
+    if (value>999999) {
+      return `${aud}${value/1000000}${m}`
+    } else if (value>999) {
+      return `${aud}${value/1000}${k}`
+    } else {
+      return `${aud}${value}`
+    }
+  }
+
+  const getRange = () => {
+    if (props.value[0]===props.min && props.value[1]===props.max) {
+      return 'Any'
+    } else if (props.value[1]===props.max) {
+      return `Above ${formatValue(props.value[0])}`
+    } else if (props.value[0]===props.min) {
+      return `Below ${formatValue(props.value[1])}`
+    } else {
+      return `${formatValue(props.value[0])} - ${formatValue(props.value[1])}`
+    }
+  }
 
   return (
     <div className='sliderContainer'>
+      <div>{getRange()}</div>
       <Range
         value={props.value}
         onChange={props.onChange}
         min={props.min}
         max={props.max}
         step={props.step}
-        handle={SliderHandle}
+        trackStyle={trackStyle}
+        railStyle={railStyle}
       />
       <div className='sliderLegend'>
         <div className='sliderLabel'>{props.labelMin}</div>

@@ -139,7 +139,7 @@ class FilterTab extends React.Component {
                   step={10} 
                   showCurrency={true}
                   onChange={(val)=>this.props.getFilter({ ...filter, priceM2: val })} 
-                  min={0} 
+                  min={1} 
                   max={10000} 
                   labelMin={"$1"} 
                   labelMax={"$10 000+"}
