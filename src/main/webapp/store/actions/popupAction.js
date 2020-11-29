@@ -5,6 +5,8 @@ import Popup from "../../components/organisms/popup/Popup";
 import { store } from "../../../webapp/javascript/index";
 import { map } from "../../components/organisms/map/MapGL";
 import { showLoading, hideLoading } from "./loadingAction";
+import { Provider } from "react-redux";
+import { showSignIn } from "./signInModalAction";
 
 const apiUrl = "/api/propertyinformation";
 
@@ -12,7 +14,7 @@ const renderPopup = (longitude, latitude) => {
   
   const property = store.getState().popup;
   const { chart_data } = property;
-  const popup = <Popup chartData={chart_data} propertyInfo={property}/>;
+  const popup = <Provider store={store}><Popup chartData={chart_data} propertyInfo={property}/></Provider>;
   const propertyData = <div>{popup}</div>;
   
   const addPopup=(el) =>{
@@ -29,9 +31,15 @@ const renderPopup = (longitude, latitude) => {
 };
 
 export const getPopup = (propId, longitude, latitude) => async dispatch => {
+  const { accessToken } = store.getState().auth;
+
     dispatch(showLoading());
     dispatch(setPopupRequest());
-    await fetch(`${apiUrl}/${propId}`)
+    await fetch(`${apiUrl}/${propId}`, accessToken ? {
+      headers: {
+        Authorization: "Bearer " + accessToken
+      }
+    } : {})
         .then(response => response.json())
         .then(res=>dispatch({ type: "SET_POPUP_LOADED", property: res }))
         .catch(error => console.log(error));

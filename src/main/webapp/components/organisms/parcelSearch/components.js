@@ -1,10 +1,11 @@
 import React from "react";
-import "./filter.scss";
+import "./parcelSearch.scss";
 import PropTypes from "prop-types";
-import PropListTitle from "../../atoms/propListTitle/PropListTitle";
-import Slider from "../../atoms/slider/Slider";
 import Dropdown from "rc-dropdown";
 import Menu, { Item as MenuItem } from "rc-menu";
+
+import Slider from "../../atoms/slider/Slider";
+import PropListTitle from "../../atoms/propListTitle/PropListTitle";
 import { ZONES } from "../../../shared/constants/zones";
 import { IconArD } from "../../../assets/icons";
 import TextInput from "../../atoms/textInput/TextInput";

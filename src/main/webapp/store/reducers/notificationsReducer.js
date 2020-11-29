@@ -1,7 +1,7 @@
 import { filters } from "../../../../../constants_temp";
 
-//const notificationsReducer = (state = [], action) => {
-  const notificationsReducer = (state = filters, action) => {
+const notificationsReducer = (state = [], action) => {
+//   const notificationsReducer = (state = filters, action) => {
     switch (action.type) {
         case "SET_NOTIFICATIONS_REQUEST":
             return state;

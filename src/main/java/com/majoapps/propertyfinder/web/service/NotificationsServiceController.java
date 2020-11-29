@@ -43,7 +43,7 @@ public class NotificationsServiceController {
     public Notifications saveNotifications(
             @PathVariable (value="account_id") UUID accountId, 
             @RequestBody Notifications notifications) {
-        return notificationsService.saveNotifications(accountId, notifications);
+        return notificationsService.saveNotificationsByAccountId(accountId, notifications);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)

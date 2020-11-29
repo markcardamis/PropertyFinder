@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { withAuth } from "@okta/okta-react";
 import { connect } from "react-redux";
 import SavedFiltersListItem from "../../molecules/savedFiltersListItem/SavedFiltersListItem";
-import { getNotifications, deleteNotification } from "../../../store/actions/notificationsAction";
+import { getNotifications } from "../../../store/actions/notificationsAction/getNotificationsAction";
+import { deleteNotification } from "../../../store/actions/notificationsAction/deleteNotificationAction";
 import { getFilter, saveFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
-import { FREQUENCY } from "../../../shared/constants";
+import { FREQUENCY } from "../../../shared/constants/constants";
+import {getWatchList} from '../../../store/actions/watchListAction/getWatchListAction'
 
 class SavedFilters extends Component {
   constructor(props) {
@@ -122,7 +124,8 @@ const mapDispatchToProps = {
   deleteNotification,
   getFilter,
   closeFilter,
-  saveFilter
+  saveFilter,
+  getWatchList
 };
 
 export default withAuth(connect(mapStateToProps, mapDispatchToProps)(SavedFilters));

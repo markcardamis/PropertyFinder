@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Fade from "react-reveal/Fade";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+
 import "react-tabs/style/react-tabs.css";
 import { applyFilter, selectFilter } from "../../../store/actions/mapMarkerAction";
 import CloseBtn from "../../atoms/closeBtn/CloseBtn";
@@ -12,8 +13,10 @@ import "./filterModal.scss";
 import { getFilter, saveFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 import { showSignIn } from "../../../store/actions/signInModalAction";
-import { getNotifications } from "../../../store/actions/notificationsAction";
+import { getNotifications } from "../../../store/actions/notificationsAction/getNotificationsAction";
 import { showSaveModal } from "../../../store/actions/saveModalAction";
+import WatchList from "../watchList/WatchList";
+import ParcelSearch from "../parcelSearch/ParcelSearch";
 
 class FilterModal extends Component {
 
@@ -24,7 +27,6 @@ class FilterModal extends Component {
         authenticated: null,
         savedFilters: [],
         editedFilter: []
-       // editedFilter: {"id":"f5e266e4-b729-4d72-8383-678faef08baf","createdAt":"2020-06-04T01:14:29.242+0000","updatedAt":"2020-09-08T09:38:31.943+0000","account":{"id":"9c867c05-e332-4a29-99ab-957b198f676f","createdAt":"2019-12-08T11:43:38.114+0000","updatedAt":"2020-09-10T20:01:57.991+0000","userId":"00u1ocauivq0h33sa357","firstName":null,"lastLogin":"2020-09-10T20:01:57.374+0000"},"title":"Untitled","frequency":"OFF","propertyZone":null,"propertyAreaMin":null,"propertyAreaMax":null,"propertyPriceMin":1630000,"propertyPriceMax":null,"propertyPricePSMMin":3650,"propertyPricePSMMax":6730,"propertyPostCode":null,"propertyPriceToLandValueMin":null,"propertyPriceToLandValueMax":null,"propertyFloorSpaceRatioMin":null,"propertyFloorSpaceRatioMax":null}
       };
     }
 
@@ -81,14 +83,23 @@ class FilterModal extends Component {
                   </div>
                   <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
                     <TabList>
-                      <Tab>Search Filters</Tab>
-                      <Tab disabled={!authenticated}>Saved Filters</Tab>
+                      <Tab>Listing Search</Tab>
+                      <Tab>Parcel Finder</Tab>
+                      <Tab disabled={!authenticated}>Saved Searches</Tab>
+                      <Tab disabled={!authenticated}>Parcel Watchlist</Tab>
                     </TabList>
                     <TabPanel>
                       <FilterTab handleSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
                     </TabPanel>
                     <TabPanel>
+                      <ParcelSearch handleSubmit={this.handleSubmit}/>
+                      {/* <FilterTab handleSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/> */}
+                    </TabPanel>
+                    <TabPanel>
                       <SavedFilters handleSelectFilter={this.handleSelectFilter} handleEditFilter={this.handleEditFilter}/>
+                    </TabPanel>
+                    <TabPanel>
+                      <WatchList />
                     </TabPanel>
                   </Tabs>
               </div>

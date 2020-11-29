@@ -4,6 +4,7 @@ import com.majoapps.propertyfinder.business.domain.PropertyInformationSearchDTO;
 import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.entity.PropertyListing;
+import com.majoapps.propertyfinder.web.util.InputUtil;
 import org.jetbrains.annotations.NotNull;
 import javax.persistence.TypedQuery;
 
@@ -64,6 +65,9 @@ public class SpecificationUtil {
                 sb.append(" AND floorSpaceRatio<");
                 sb.append(notifications.getPropertyFloorSpaceRatioMax());
             }
+            if (notifications.getLandOnly() != null && notifications.getLandOnly()) {
+                sb.append(" AND propertyType:VacantLand");
+            }
         }
         return sb.toString();
     }
@@ -84,6 +88,7 @@ public class SpecificationUtil {
             sb.append(" AND ( :priceToLandValueMax IS NULL OR l.priceToLandValue < :priceToLandValueMax)");
             sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio > :floorSpaceRatioMin)");
             sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio < :floorSpaceRatioMax)");
+            sb.append(" AND ( :landOnly IS NULL OR :landOnly IS FALSE OR ( :landOnly IS TRUE AND l.propertyType LIKE '%Land%') )");
         }
         return appendOrderBy(latitude, longitude, sb);
     }
@@ -105,6 +110,7 @@ public class SpecificationUtil {
             query.setParameter("priceToLandValueMax", notifications.getPropertyPriceToLandValueMax());
             query.setParameter("floorSpaceRatioMin", notifications.getPropertyFloorSpaceRatioMin());
             query.setParameter("floorSpaceRatioMax", notifications.getPropertyFloorSpaceRatioMax());
+            query.setParameter("landOnly", notifications.getLandOnly());
         }
         return query;
     }
@@ -131,8 +137,8 @@ public class SpecificationUtil {
             TypedQuery<PropertyInformation> query,
             PropertyInformationSearchDTO propertyInformation) {
         if (propertyInformation != null) {
-            query.setParameter("zoneCode", propertyInformation.getZoneCode());
-            query.setParameter("postCode", propertyInformation.getPostCode());
+            query.setParameter("zoneCode", InputUtil.returnStringOrNull(propertyInformation.getZoneCode()));
+            query.setParameter("postCode", InputUtil.returnStringOrNull(propertyInformation.getPostCode()));
             query.setParameter("areaMin", propertyInformation.getAreaMin());
             query.setParameter("areaMax", propertyInformation.getAreaMax());
             query.setParameter("landValueMin", propertyInformation.getLandValueMin());

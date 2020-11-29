@@ -5,7 +5,7 @@ import React from "react";
 import { hotjar } from "react-hotjar";
 import { connect } from "react-redux";
 import { MapMarker } from "../../../assets/icons";
-import { INITIAL_VIEWPORT } from "../../../shared/constants";
+import { INITIAL_VIEWPORT } from "../../../shared/constants/constants";
 import { closeFilter, showFilter } from "../../../store/actions/filterModalAction";
 import { closeLayersModal, showLayersModal } from "../../../store/actions/layersAction";
 import { getMapMarkers } from "../../../store/actions/mapMarkerAction";
@@ -112,7 +112,6 @@ handlePropertyClick = async (e) => {
     if (displayFeatures[0].properties && displayFeatures[0].properties.propid) {
         let propid = displayFeatures[0].properties.propid;
         this.props.getPopup(propid, e.lngLat.wrap().lng, e.lngLat.wrap().lat);
-        this.handleDisplayParcels([ propid ]);
     }
 }
 
@@ -149,13 +148,6 @@ handleHoverOffProperty = () => {
         });
     }
     hoverId = null;
-}
-
-handleDisplayParcels = async (e) => {
-    if (e.length > 0) { // array of property_id
-        let filter = [ 'in', [ 'get', 'propid' ], [ 'literal', e ] ];
-        map.setFilter('nsw-property-highlighted', filter);
-    }
 }
 
 handleRemoveParcels = () => {
@@ -202,7 +194,8 @@ const mapStateToProps = (state) => {
         filterModal: state.filterModal,
         saveModal: state.saveModal.showModal,
         popup: state.popup,
-        layers: state.layers
+        layers: state.layers,
+        parcels: state.parcelSearch.result
     };
 };
 const mapDispatchToProps = {

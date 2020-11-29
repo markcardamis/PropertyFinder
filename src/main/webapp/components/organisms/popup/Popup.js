@@ -1,27 +1,32 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 import "./popup.scss";
 import Chart from "../../molecules/chart/Chart";
-import { ADDRESS, AREA, ZONE, LAND_VALUE, FLOOR_SPACE_RATIO, MINIMUM_LOT_SIZE, BUILDING_HEIGHT, LAST_SOLD, INTERESTED_PEOPLE } from "../../../shared/constants";
+import { ADDRESS, AREA, ZONE, LAND_VALUE, FLOOR_SPACE_RATIO, MINIMUM_LOT_SIZE, BUILDING_HEIGHT, LAST_SOLD, INTERESTED_PEOPLE } from "../../../shared/constants/constants";
 import PropListItem from "../../molecules/propListItem/PropListItem";
 import PropListItem2 from "../../molecules/propListItem2/PropListItem2";
-import { IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight, IconInterest, IconSold, } from "../../../assets/icons";
+import { IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight, IconInterest, IconSold, IconStar, } from "../../../assets/icons";
 import { useWindowSize } from "../../../modules/windowSize";
+import { getUpperCase } from "../../../shared/utils/getUppercase";
+import { saveWatchListItem } from '../../../store/actions/watchListAction/saveWatchListItemAction'
+import { showSignIn } from "../../../store/actions/signInModalAction";
 
 const Popup = props => {
-    const { property_id, house_number, street_name, suburb_name, post_code, zone_code, area, area_type, floor_space_ratio, minimum_lot_size, building_height, land_value_0, last_sold, interested_people } = props.propertyInfo;
-    const upperCase = (str) => {
-        let splitStr = str.toLowerCase().split(" ");
-        for (let i = 0; i < splitStr.length; i++) {
-            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
-        }
-        return splitStr.join(" "); 
-    };
-    const address = `${house_number} ${upperCase(street_name)}, ${upperCase(suburb_name)}, ${post_code}`;
+    const { property_id, house_number, street_name, suburb_name, post_code, zone_code, area, area_type, floor_space_ratio, minimum_lot_size, building_height, land_value_0, last_sold, interested_people, interested_user } = props.propertyInfo;
+    const {accessToken} = props.auth
+    const address = `${house_number} ${getUpperCase(street_name)}, ${getUpperCase(suburb_name)}, ${post_code}`;
     const size = useWindowSize();
+    const [interestedUser, setInterestedUser] = useState(interested_user)
+    const addToWatchList = async () => {
+        await props.saveWatchListItem();
+        accessToken ? setInterestedUser(!interestedUser) : showSignIn()
+    }
  
     return (
         <div style={{ width: size.width>982 ? 354 : 650 }}>
+            <IconStar className="popup-favourite-icon" fill={interestedUser ? "#FFC107" : 'none'} onClick={addToWatchList}/>
             <Chart chartData={props.chartData} salesData={props.salesData}/>
             <div className='popup-propertyInfo'>
                 <PropListItem 
@@ -70,15 +75,22 @@ const Popup = props => {
                     value11={interested_people}
                     />
             </div>
+            <div className="popup-watchList" onClick={addToWatchList}>
+                <span className="popup-watchList-plus-icon">+</span> Add to Watch List
+            </div>
         </div>
     );
 };
 
-Popup.propTypes = {
-    chartData: PropTypes.object,
-    salesData: PropTypes.object,
-    propertyInfo: PropTypes.object,
-    closePopup: PropTypes.func
-};
-
-export default Popup;
+const mapStateToProps = (state) => {
+    return {
+      auth: state.auth,
+      watchList: state.watchList
+    };
+  };
+  const mapDispatchToProps = {
+    saveWatchListItem,
+    showSignIn
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Popup)
