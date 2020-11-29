@@ -83,17 +83,17 @@ class FilterModal extends Component {
                   </div>
                   <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
                     <TabList>
-                      <Tab>Parcel Filter</Tab>
-                      <Tab>Listings Search</Tab>
-                      <Tab disabled={!authenticated}>Saved Search</Tab>
-                      <Tab disabled={!authenticated}>Watchlist</Tab>
+                      <Tab>Listing Search</Tab>
+                      <Tab>Parcel Finder</Tab>
+                      <Tab disabled={!authenticated}>Saved Searches</Tab>
+                      <Tab disabled={!authenticated}>Parcel Watchlist</Tab>
                     </TabList>
+                    <TabPanel>
+                      <FilterTab handleSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
+                    </TabPanel>
                     <TabPanel>
                       <ParcelSearch handleSubmit={this.handleSubmit}/>
                       {/* <FilterTab handleSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/> */}
-                    </TabPanel>
-                    <TabPanel>
-                      <FilterTab handleSubmit={this.handleSubmit} handleSaveFilter={this.handleSaveFilter}/>
                     </TabPanel>
                     <TabPanel>
                       <SavedFilters handleSelectFilter={this.handleSelectFilter} handleEditFilter={this.handleEditFilter}/>
