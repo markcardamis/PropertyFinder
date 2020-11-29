@@ -11,7 +11,6 @@ import "./saveModal.scss";
 
 const SaveModal = (props) => {
     const [ title, setTiltle ] = useState("Preference 1");
-    //const accessToken = await props.auth.getAccessToken();
     const [ frequency, setFrequency ] = useState("OFF");
     const [ showDropdown, setShowDropdown ] = useState(false);
     const frequencyOptions = [ "OFF", "DAILY", "WEEKLY", "MONTHLY" ];

@@ -1,4 +1,4 @@
-@import '../../../styles//style.scss';
+@import '../../../styles/style.scss';
 
 
 .filterContainer {
@@ -128,7 +128,6 @@ margin-top: 20px;
 @media (max-device-width: $breakpoint-tablet) {
     .filterModal {
         width: 80%;
-        //height: 100%;
         height: auto;
         max-height: 60%;
         max-height: 715px;

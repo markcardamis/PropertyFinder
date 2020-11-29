@@ -1,9 +1,8 @@
-@import '../../../styles//style.scss';
+@import '../../../styles/style.scss';
 
 .buttonOutlined {
     border: 1px solid $light-grey;
     border-radius: 8px;
-    //height: 54px;
     height: 35px;
     display: flex;
     flex-direction: row;

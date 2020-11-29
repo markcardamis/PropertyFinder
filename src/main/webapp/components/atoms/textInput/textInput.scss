@@ -1,4 +1,4 @@
-@import '../../../styles//style.scss';
+@import '../../../styles/style.scss';
 
 .textInputContainer {
     display: flex;
@@ -26,7 +26,6 @@
     }
     .inputIcon {
         font-size: 16px;
-        //text-align: center !important;
         padding-left: 50px;
     }
 }
@@ -35,7 +34,6 @@
     .inputIcon {
         font-size: 40px !important;
         height: 80px !important;
-        //text-align: center !important;
         padding-left: 50px !important;
         background-color: $light-blue !important;
     }

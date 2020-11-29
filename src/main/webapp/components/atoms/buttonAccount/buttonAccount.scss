@@ -1,4 +1,4 @@
-@import '../../../styles//style.scss';
+@import '../../../styles/style.scss';
 
 .accountBtn {
     background-color: $white;
@@ -9,16 +9,6 @@
     padding-left: 40px;
     justify-content: space-between;
     align-items: center;
-
-    // &:hover {
-    //     background-color: $black;
-    //     -webkit-transition: background-color 1s;
-    //     transition: background-color 1s;
-    // }
-    // &:hover .title{
-    //     color: $white;
-    //     opacity: 1;
-    // }
 
     .accountBtnTitle {
         font-family: $mavenPro;

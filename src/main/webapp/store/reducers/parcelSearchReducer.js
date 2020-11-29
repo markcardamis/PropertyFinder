@@ -7,7 +7,6 @@ const initialFilter = {
     floorspaceRatio: [ 0, 2 ],
     landValue: [ 100000, 5000000 ],
     result: []
-    // result: parcels
 };
 
 const parselSearchReducer = (state = initialFilter, action) => {

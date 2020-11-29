@@ -1,4 +1,4 @@
-@import '../../../styles//style.scss';
+@import '../../../styles/style.scss';
 
 .authModalAccount-btn {
     height: 44px;
@@ -13,8 +13,5 @@
     }
 }
 @media (max-device-width: $breakpoint-mobile) {
-    // .authModalAccount-btn {
-    //     height: 60px;
-    //     font-size: 25px;
-    // }
+
 }
