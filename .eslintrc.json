@@ -12,11 +12,14 @@
         }
     },
     "plugins": [
-        "react"
+        "react",
+        "prettier"
     ],
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "prettier",
+        "prettier/react"
     ],
     "globals": {
         "Atomics": "readonly",
