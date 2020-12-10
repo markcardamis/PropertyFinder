@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { changeMarker, changeAllMarkers } from "./mapMarkerAction";
 import { showLoading, hideLoading } from "./loadingAction";
 const apiUrl = "/api/listing";
@@ -5,9 +7,8 @@ const apiUrl = "/api/listing";
 export const getPropertyInfo = (mapMarker) => async dispatch => {
     dispatch(showLoading());
     dispatch(setPropertyInfoRequest());
-    fetch(`${apiUrl}/${mapMarker.id}`)
-        .then(response => response.json())
-        .then(res=>dispatch({ type: "SET_PROPERTY_INFO_LOADED", markers: res }))
+    axios.get(`${apiUrl}/${mapMarker.id}`)
+        .then(res=>dispatch({ type: "SET_PROPERTY_INFO_LOADED", markers: res.data }))
         .catch(error => console.log(error));
     dispatch(changeAllMarkers(mapMarker, "marker-unvisited"));
     dispatch(changeMarker(mapMarker, "marker-selected"));

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { store } from "../../../javascript";
 import { hideLoading, showLoading } from "../loadingAction";
 
@@ -9,16 +11,11 @@ export const changeWatchListFrequency = (item, frequency) => async dispatch => {
 
     dispatch(showLoading());
     dispatch(changeWatchListFrequencyRequest());
-    await fetch(`${apiUrl}/${item.id}`, {
-        method: "PATCH",
-        headers: {
+    await axios.patch(`${apiUrl}/${item.id}`, JSON.stringify(data), {
           Authorization: "Bearer " + accessToken,
           "Content-Type": "application/json",
-            },
-        body: JSON.stringify(data)
     })
-        .then(response => response.json())
-        .then(res=>console.log(res))
+        .then(res=>console.log(res.data))
         .catch(error => console.log(error));
     dispatch(hideLoading());
   };

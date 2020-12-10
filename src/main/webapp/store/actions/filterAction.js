@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { store } from "../../../webapp/javascript/index";
 import { hideLoading, showLoading } from "./loadingAction";
 const apiUrl = "/api/notifications";
@@ -23,16 +25,12 @@ export const saveFilter = (accessToken, name, frequency, editedFilter) => async 
 
     dispatch(showLoading());
     dispatch(saveFilterRequest());
-    await fetch(`${apiUrl}${editedFilter ? "/"+editedFilter.id : ""}`, {
-        method: editedFilter ? "PUT" : "POST",
-        headers: {
+    const method = editedFilter ? axios.put : axios.post
+    await method(`${apiUrl}${editedFilter ? "/"+editedFilter.id : ""}`, JSON.stringify(filter), {
           Authorization: "Bearer " + accessToken,
           "Content-Type": "application/json",
-            },
-        body: JSON.stringify(filter)
-    })
-        .then(response => response.json())
-        .then(res=>console.log(res))
+    }, )
+        .then(res=>console.log(res.data))
         .catch(error => console.log(error));
     dispatch(hideLoading());
 };

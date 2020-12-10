@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { store } from "../../../javascript";
 import { hideLoading, showLoading } from "../loadingAction";
 
@@ -7,13 +9,12 @@ export const getWatchList = () => async dispatch => {
   const { accessToken } = store.getState().auth;
   dispatch(showLoading());
     dispatch(setWatchListRequest());
-    await fetch(apiUrl, {
+    await axios.get(apiUrl, {
       headers: {
         Authorization: "Bearer " + accessToken
       }
     })
-        .then(response => response.json())
-        .then(res=>dispatch({ type: "SET_WATCH_LIST_LOADED", data: res }))
+        .then(res=>dispatch({ type: "SET_WATCH_LIST_LOADED", data: res.data }))
         .catch(error => console.log(error));
   dispatch(hideLoading());
 };

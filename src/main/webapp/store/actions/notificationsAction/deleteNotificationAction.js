@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { hideLoading, showLoading } from "../loadingAction";
 
 const apiUrl = "/api/notifications";
@@ -5,14 +7,10 @@ const apiUrl = "/api/notifications";
 export const deleteNotification = (item, accessToken) => async dispatch => {
     dispatch(showLoading());
       dispatch(deleteNotificationRequest());
-      await fetch(`${apiUrl}/${item.id}`, {
-        method: "DELETE",
-        headers: {
+      await axios.delete(`${apiUrl}/${item.id}`, {
           Authorization: "Bearer " + accessToken
-        }
       })
-          .then(response => response.json())
-          .then(res=>console.log(res))
+          .then(res=>console.log(res.data))
           .catch(error => console.log(error));
     dispatch(hideLoading());
   };

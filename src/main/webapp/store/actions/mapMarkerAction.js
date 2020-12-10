@@ -1,4 +1,6 @@
 import React from "react";
+import axios from 'axios';
+
 import { store } from "../../../webapp/javascript/index";
 import MapMarker from "../../assets/icons/MapMarker";
 import { hideLoading, showLoading } from "./loadingAction";
@@ -9,9 +11,8 @@ const apiUrl = "/api/listing";
 export const getMapMarkers = (renderMarkers) => async dispatch => {
     dispatch(showLoading());
     dispatch(setMapMarkersRequest());
-    await fetch(apiUrl)
-        .then(response => response.json())
-        .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res }))
+    await axios.get(apiUrl)
+        .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data }))
         .catch(error => console.log(error));
     const mp = <div><MapMarker/></div>;
     renderMarkers(mp);
@@ -73,13 +74,8 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
   };
   dispatch(showLoading());
   dispatch(applyFilterRequest());
-  await fetch(`${apiUrl}/query`, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(filter)
-  })
-      .then(response => response.json())
-      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res }))
+  await axios.post(`${apiUrl}/query`, JSON.stringify(filter), {headers})
+      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data }))
       .catch(error => console.log(error));
   dispatch(hideLoading());
 };
@@ -94,13 +90,12 @@ export const applyFilterRequest = () => dispatch => {
 export const selectFilter = (item, accessToken) => async dispatch => {
   dispatch(showLoading());
   dispatch(selectFilterRequest());
-  await fetch(`${apiUrl}/notifications/${item.id}`, {
+  await axios.get(`${apiUrl}/notifications/${item.id}`, {
       headers: {
         "Authorization": "Bearer " + accessToken
         },
       })
-      .then(response => response.json())
-      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res }))
+      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data }))
       .catch(error => console.log(error));
   dispatch(hideLoading());
   dispatch(closeFilter());

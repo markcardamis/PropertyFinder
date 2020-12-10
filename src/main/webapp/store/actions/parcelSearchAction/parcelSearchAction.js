@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { store } from "../../../../webapp/javascript/index";
 import { map } from "../../../components/organisms/map/MapGL";
 import { hideLoading, showLoading } from "../loadingAction";
@@ -37,9 +39,8 @@ export const applyParcelSearch = () => async dispatch => {
     const queryParameters = Object.values(queryValues).join("");
     dispatch(showLoading());
     dispatch(applyParcelSearchRequest());
-    await fetch(`${apiUrl}?${queryParameters}`, { headers: headers })
-        .then(response => response.json())
-        .then(res => dispatch({ type: "PARCEL_SEARCH_LOADED", payload: res }))
+    await axios.get(`${apiUrl}?${queryParameters}`, { headers: headers })
+        .then(res => dispatch({ type: "PARCEL_SEARCH_LOADED", payload: res.data }))
         .catch(error => console.log(error));
     handleDisplayParcels();
     dispatch(hideLoading());

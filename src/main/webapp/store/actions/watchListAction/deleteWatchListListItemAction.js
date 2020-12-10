@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { store } from "../../../javascript";
 import { showLoading, hideLoading } from "../loadingAction";
 
@@ -7,14 +9,10 @@ const apiUrl = "/api/notifications";
 
   dispatch(showLoading());
     dispatch(deleteWatchListItemRequest());
-    await fetch(`${apiUrl}/${item.id}`, {
-      method: "DELETE",
-      headers: {
+    await axios.delete(`${apiUrl}/${item.id}`, {
         Authorization: "Bearer " + accessToken
-      }
     })
-        .then(response => response.json())
-        .then(res=>console.log(res))
+        .then(res=>console.log(res.data))
         .catch(error => console.log(error));
   dispatch(hideLoading());
 };

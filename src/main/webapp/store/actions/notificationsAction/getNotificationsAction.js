@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { hideLoading, showLoading } from "../loadingAction";
 
 const apiUrl = "/api/notifications?type=filters";
@@ -5,13 +7,12 @@ const apiUrl = "/api/notifications?type=filters";
 export const getNotifications = (accessToken) => async dispatch => {
   dispatch(showLoading());
     dispatch(setNotificationsRequest());
-    await fetch(apiUrl, {
+    await axios.get(apiUrl, {
       headers: {
         Authorization: "Bearer " + accessToken
       }
     })
-        .then(response => response.json())
-        .then(res=>dispatch({ type: "SET_NOTIFICATIONS_LOADED", notifications: res }))
+        .then(res=>dispatch({ type: "SET_NOTIFICATIONS_LOADED", notifications: res.data }))
         .catch(error => console.log(error));
   dispatch(hideLoading());
 };
