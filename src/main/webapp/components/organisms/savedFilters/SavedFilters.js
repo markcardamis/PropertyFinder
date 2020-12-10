@@ -7,7 +7,7 @@ import { deleteNotification } from "../../../store/actions/notificationsAction/d
 import { getFilter, saveFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 import { FREQUENCY } from "../../../shared/constants/constants";
-import {getWatchList} from '../../../store/actions/watchListAction/getWatchListAction'
+import { getWatchList } from "../../../store/actions/watchListAction/getWatchListAction";
 
 class SavedFilters extends Component {
   constructor(props) {

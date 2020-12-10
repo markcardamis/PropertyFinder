@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import './pages.scss';
-import Layout from '../components/organisms/layout/Layout';
+import "./pages.scss";
+import Layout from "../components/organisms/layout/Layout";
 
 const AboutPage = props => {
     return (

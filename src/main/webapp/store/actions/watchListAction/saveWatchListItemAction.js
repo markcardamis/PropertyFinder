@@ -1,7 +1,7 @@
 import { getUpperCase } from "../../../shared/utils/getUppercase";
 import { store } from "../../../javascript";
 import { hideLoading, showLoading } from "../loadingAction";
-import { showSignIn } from '../signInModalAction'
+import { showSignIn } from "../signInModalAction";
 
 const apiUrl = "/api/notifications";
 
@@ -14,7 +14,7 @@ export const saveWatchListItem = () => async dispatch => {
         "propertyId": property_id,
         "frequency": "WEEKLY",
         "title": address
-    }
+    };
   if (accessToken) {
     dispatch(showLoading());
     dispatch(saveWatchListItemRequest());

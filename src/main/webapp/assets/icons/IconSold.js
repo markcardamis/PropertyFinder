@@ -1,7 +1,7 @@
 import React from "react";
 
 function Icon(props) {
-  const size = 14*props.size || 14
+  const size = 14*props.size || 14;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,4 +17,4 @@ function Icon(props) {
   );
 }
 
-export default Icon
+export default Icon;

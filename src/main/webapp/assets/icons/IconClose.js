@@ -1,7 +1,7 @@
 import * as React from "react";
 
 function SvgIconClose(props) {
-  const size = props.size || 1
+  const size = props.size || 1;
   return (
     <svg width={14} height={14} fill="none" {...props}>
       <g transform={`scale(${size})`}>

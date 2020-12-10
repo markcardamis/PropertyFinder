@@ -1,7 +1,7 @@
 import * as React from "react";
 
 function SvgIconMenu2(props) {
-  const size = 26*props.size
+  const size = 26*props.size;
   return (
     <svg 
       width={size} 

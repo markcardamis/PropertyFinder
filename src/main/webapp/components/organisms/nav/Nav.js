@@ -18,8 +18,8 @@ const Nav = withAuth(({ auth }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        authenticated ? dispatch(login({authenticated, user, accessToken})) : dispatch(logout({authenticated, user, accessToken}))
-    }, [authenticated, user, accessToken])
+        authenticated ? dispatch(login({ authenticated, user, accessToken })) : dispatch(logout({ authenticated, user, accessToken }));
+    }, [ authenticated, user, accessToken ]);
 
 
         return (

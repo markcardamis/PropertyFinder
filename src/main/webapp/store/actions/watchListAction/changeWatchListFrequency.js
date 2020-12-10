@@ -5,7 +5,7 @@ const apiUrl = "/api/notifications";
 
 export const changeWatchListFrequency = (item, frequency) => async dispatch => {
   const { accessToken } = store.getState().auth;
-  const data = { "frequency": frequency }
+  const data = { "frequency": frequency };
 
     dispatch(showLoading());
     dispatch(changeWatchListFrequencyRequest());

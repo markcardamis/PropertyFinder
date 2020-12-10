@@ -1,7 +1,7 @@
 import React from "react";
 
 function Icon(props) {
-  const size = props.size || 1
+  const size = props.size || 1;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

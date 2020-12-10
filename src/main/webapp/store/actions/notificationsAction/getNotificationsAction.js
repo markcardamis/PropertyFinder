@@ -11,7 +11,7 @@ export const getNotifications = (accessToken) => async dispatch => {
       }
     })
         .then(response => response.json())
-        .then(res=>dispatch({type: "SET_NOTIFICATIONS_LOADED", notifications: res}))
+        .then(res=>dispatch({ type: "SET_NOTIFICATIONS_LOADED", notifications: res }))
         .catch(error => console.log(error));
   dispatch(hideLoading());
 };

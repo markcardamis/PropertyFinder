@@ -14,30 +14,30 @@ const Slider = (props) => {
 
   const isValueInitial = props.value[0]===props.min && props.value[1]===props.max;
   const trackColor = isValueInitial ? variables.lightGrey : variables.green;
-  const trackStyle = [{backgroundColor: trackColor}, {backgroundColor: trackColor}];
-  const railStyle = {backgroundColor: variables.lightGrey};
+  const trackStyle = [ { backgroundColor: trackColor }, { backgroundColor: trackColor } ];
+  const railStyle = { backgroundColor: variables.lightGrey };
 
   const formatValue = (value) => {
     if (value>999999) {
-      return `${aud}${value/1000000}${m}`
+      return `${aud}${value/1000000}${m}`;
     } else if (value>999) {
-      return `${aud}${value/1000}${k}`
+      return `${aud}${value/1000}${k}`;
     } else {
-      return `${aud}${value}`
+      return `${aud}${value}`;
     }
-  }
+  };
 
   const getRange = () => {
     if (props.value[0]===props.min && props.value[1]===props.max) {
-      return 'Any'
+      return "Any";
     } else if (props.value[1]===props.max) {
-      return `Above ${formatValue(props.value[0])}`
+      return `Above ${formatValue(props.value[0])}`;
     } else if (props.value[0]===props.min) {
-      return `Below ${formatValue(props.value[1])}`
+      return `Below ${formatValue(props.value[1])}`;
     } else {
-      return `${formatValue(props.value[0])} - ${formatValue(props.value[1])}`
+      return `${formatValue(props.value[0])} - ${formatValue(props.value[1])}`;
     }
-  }
+  };
 
   return (
     <div className='sliderContainer'>

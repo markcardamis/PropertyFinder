@@ -10,12 +10,12 @@ const initialState = {
 
 const layersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SHOW_LAYERS_MODAL':
-            return {...state, showModal: true};
-        case 'CLOSE_LAYERS_MODAL': 
-            return {...state, showModal: false};
-        case 'TOGGLE_LAYER':
-            return {...state, [action.layer]: !state[action.layer]};
+        case "SHOW_LAYERS_MODAL":
+            return { ...state, showModal: true };
+        case "CLOSE_LAYERS_MODAL": 
+            return { ...state, showModal: false };
+        case "TOGGLE_LAYER":
+            return { ...state, [action.layer]: !state[action.layer] };
         default: 
             return state;
     }

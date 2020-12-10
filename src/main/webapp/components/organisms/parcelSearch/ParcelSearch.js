@@ -124,7 +124,7 @@ const ParcelSearch = (props) => {
                 </div>
               </div>
         );
-    }
+    };
 
 const mapStateToProps = (state) => {
   return {

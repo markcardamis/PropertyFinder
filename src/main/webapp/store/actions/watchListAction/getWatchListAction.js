@@ -13,7 +13,7 @@ export const getWatchList = () => async dispatch => {
       }
     })
         .then(response => response.json())
-        .then(res=>dispatch({type: "SET_WATCH_LIST_LOADED", data: res}))
+        .then(res=>dispatch({ type: "SET_WATCH_LIST_LOADED", data: res }))
         .catch(error => console.log(error));
   dispatch(hideLoading());
 };

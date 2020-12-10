@@ -2,7 +2,7 @@ import React from "react";
 import { store } from "../../../webapp/javascript/index";
 import MapMarker from "../../assets/icons/MapMarker";
 import { hideLoading, showLoading } from "./loadingAction";
-import {closeFilter } from "./filterModalAction";
+import { closeFilter } from "./filterModalAction";
 
 const apiUrl = "/api/listing";
 
@@ -11,7 +11,7 @@ export const getMapMarkers = (renderMarkers) => async dispatch => {
     dispatch(setMapMarkersRequest());
     await fetch(apiUrl)
         .then(response => response.json())
-        .then(res=>dispatch({type: "SET_MAP_MARKERS_LOADED", markers: res}))
+        .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res }))
         .catch(error => console.log(error));
     const mp = <div><MapMarker/></div>;
     renderMarkers(mp);
@@ -48,14 +48,14 @@ export const changeAllMarkers = (item, status) => {
 };
 
 export const applyFilter = (authenticated, accessToken) => async dispatch => {
-  const {zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio} = store.getState().filter;
-  const {latitude, longitude} = store.getState().viewport;
+  const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio } = store.getState().filter;
+  const { latitude, longitude } = store.getState().viewport;
   let headers = {
     "Content-Type": "application/json",
     "centreLatitude": latitude,
     "centreLongitude": longitude
   };
-  headers = authenticated===false ? headers : { ...headers, "Authorization": "Bearer " + accessToken};
+  headers = authenticated===false ? headers : { ...headers, "Authorization": "Bearer " + accessToken };
 
   const filter = {
       propertyZone: zone ? zone : null,
@@ -79,7 +79,7 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
       body: JSON.stringify(filter)
   })
       .then(response => response.json())
-      .then(res=>dispatch({type: "SET_MAP_MARKERS_LOADED", markers: res}))
+      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res }))
       .catch(error => console.log(error));
   dispatch(hideLoading());
 };
@@ -100,7 +100,7 @@ export const selectFilter = (item, accessToken) => async dispatch => {
         },
       })
       .then(response => response.json())
-      .then(res=>dispatch({type: "SET_MAP_MARKERS_LOADED", markers: res}))
+      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res }))
       .catch(error => console.log(error));
   dispatch(hideLoading());
   dispatch(closeFilter());

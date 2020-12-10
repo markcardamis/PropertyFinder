@@ -12,8 +12,8 @@ export const applyParcelSearch = () => async dispatch => {
       const parcels = store.getState().parcelSearch.result;
       let array = parcels.map(item => item.property_id);
       if (array.length > 0) {
-          let filter = [ 'in', [ 'get', 'propid' ], [ 'literal', array ] ];
-          map.setFilter('nsw-property-highlighted', filter);
+          let filter = [ "in", [ "get", "propid" ], [ "literal", array ] ];
+          map.setFilter("nsw-property-highlighted", filter);
       }
     };
 

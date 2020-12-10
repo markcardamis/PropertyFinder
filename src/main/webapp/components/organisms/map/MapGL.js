@@ -151,7 +151,7 @@ handleHoverOffProperty = () => {
 }
 
 handleRemoveParcels = () => {
-    map.setFilter("nsw-property-highlighted", [ 'in', 'propid', '' ]);
+    map.setFilter("nsw-property-highlighted", [ "in", "propid", "" ]);
 }
 
 checkAuthentication = async () => {

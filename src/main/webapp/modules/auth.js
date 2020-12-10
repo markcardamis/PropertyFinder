@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 export const useAuth = auth => {
-  const [authenticated, setAuthenticated] = useState(null);
-  const [user, setUser] = useState(null);
-  const [accessToken, setAccessToken] = useState(null);
+  const [ authenticated, setAuthenticated ] = useState(null);
+  const [ user, setUser ] = useState(null);
+  const [ accessToken, setAccessToken ] = useState(null);
   useEffect(() => {
     auth.isAuthenticated().then(isAuthenticated => {
       if (isAuthenticated !== authenticated) {
@@ -20,7 +20,7 @@ export const useAuth = auth => {
       setUser(null);
       setAccessToken(null);
     }
-  }, [authenticated]);
+  }, [ authenticated ]);
 
-  return [authenticated, user, accessToken];
+  return [ authenticated, user, accessToken ];
 };

@@ -15,8 +15,8 @@ import layersReducer from "./layersReducer";
 import searchResultsReducer from "./searchReducer";
 import notificationsReducer from "./notificationsReducer";
 import searchAreaBtnReducer from "./searchAraBtnReducer";
-import watchListReducer from './watchListReducer';
-import parcelSearchReducer from './parcelSearchReducer';
+import watchListReducer from "./watchListReducer";
+import parcelSearchReducer from "./parcelSearchReducer";
 
 const reducers = combineReducers({
     propertyModal: propertyModalReducer,
