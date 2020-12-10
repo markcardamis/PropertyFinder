@@ -8,10 +8,14 @@
     "build": "webpack --mode production",
     "heroku-postbuild": "webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "lint-staged",
+    "husky": {
+      "hooks": {
+        "pre-commit": "lint-staged"
+      }
+    },
     "lint-staged": {
-      "*.{js, jsx}": [
-        "prettier --write",
+      "**/*.js": [
+        "eslint --fix",
         "git add"
       ]
     }
