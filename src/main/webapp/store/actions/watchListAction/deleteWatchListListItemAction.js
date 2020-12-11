@@ -9,9 +9,11 @@ const apiUrl = "/api/notifications";
 
   dispatch(showLoading());
     dispatch(deleteWatchListItemRequest());
-    await axios.delete(`${apiUrl}/${item.id}`, {
-        Authorization: "Bearer " + accessToken
-    })
+    await axios.delete(`${apiUrl}/${item.id}`, 
+        {timeout: 5000},
+        {
+            Authorization: "Bearer " + accessToken
+        })
         .then(res=>console.log(res.data))
         .catch(error => console.log(error));
   dispatch(hideLoading());

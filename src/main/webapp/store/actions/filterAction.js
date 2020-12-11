@@ -26,10 +26,14 @@ export const saveFilter = (accessToken, name, frequency, editedFilter) => async 
     dispatch(showLoading());
     dispatch(saveFilterRequest());
     const method = editedFilter ? axios.put : axios.post
-    await method(`${apiUrl}${editedFilter ? "/"+editedFilter.id : ""}`, JSON.stringify(filter), {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-    }, )
+    await method(
+            `${apiUrl}${editedFilter ? "/"+editedFilter.id : ""}`,
+            JSON.stringify(filter), 
+            { timeout: 5000 },
+            {
+                Authorization: "Bearer " + accessToken,
+                "Content-Type": "application/json",
+            }, )
         .then(res=>console.log(res.data))
         .catch(error => console.log(error));
     dispatch(hideLoading());

@@ -7,7 +7,9 @@ const apiUrl = "/api/notifications";
 export const deleteNotification = (item, accessToken) => async dispatch => {
     dispatch(showLoading());
       dispatch(deleteNotificationRequest());
-      await axios.delete(`${apiUrl}/${item.id}`, {
+      await axios.delete(`${apiUrl}/${item.id}`, 
+      {timeout: 10000},
+      {
           Authorization: "Bearer " + accessToken
       })
           .then(res=>console.log(res.data))

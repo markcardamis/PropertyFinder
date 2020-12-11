@@ -11,10 +11,13 @@ export const changeWatchListFrequency = (item, frequency) => async dispatch => {
 
     dispatch(showLoading());
     dispatch(changeWatchListFrequencyRequest());
-    await axios.patch(`${apiUrl}/${item.id}`, JSON.stringify(data), {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-    })
+    await axios.patch(`${apiUrl}/${item.id}`, 
+          JSON.stringify(data), 
+          {timeout: 5000},
+          {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          })
         .then(res=>console.log(res.data))
         .catch(error => console.log(error));
     dispatch(hideLoading());

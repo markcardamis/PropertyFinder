@@ -20,7 +20,9 @@ export const saveWatchListItem = () => async dispatch => {
   if (accessToken) {
     dispatch(showLoading());
     dispatch(saveWatchListItemRequest());
-    await axios.post(apiUrl, JSON.stringify(data), {
+    await axios.post(apiUrl, JSON.stringify(data), 
+          {timeout: 10000},
+    {
           Authorization: "Bearer " + accessToken,
           "Content-Type": "application/json",
     })

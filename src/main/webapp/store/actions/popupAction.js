@@ -37,7 +37,9 @@ export const getPopup = (propId, longitude, latitude) => async dispatch => {
 
     dispatch(showLoading());
     dispatch(setPopupRequest());
-    await axios.get(`${apiUrl}/${propId}`, accessToken ? {
+    await axios.get(`${apiUrl}/${propId}`, 
+      {timeout: 5000},
+      accessToken ? {
       headers: {
         Authorization: "Bearer " + accessToken
       }

@@ -7,7 +7,9 @@ const apiUrl = "/api/notifications?type=filters";
 export const getNotifications = (accessToken) => async dispatch => {
   dispatch(showLoading());
     dispatch(setNotificationsRequest());
-    await axios.get(apiUrl, {
+    await axios.get(apiUrl, 
+      {timeout: 10000},
+      {
       headers: {
         Authorization: "Bearer " + accessToken
       }

@@ -9,7 +9,9 @@ export const getWatchList = () => async dispatch => {
   const { accessToken } = store.getState().auth;
   dispatch(showLoading());
     dispatch(setWatchListRequest());
-    await axios.get(apiUrl, {
+    await axios.get(apiUrl, 
+      {timeout: 10000},
+      {
       headers: {
         Authorization: "Bearer " + accessToken
       }

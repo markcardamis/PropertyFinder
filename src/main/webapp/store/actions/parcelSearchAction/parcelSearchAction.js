@@ -39,7 +39,9 @@ export const applyParcelSearch = () => async dispatch => {
     const queryParameters = Object.values(queryValues).join("");
     dispatch(showLoading());
     dispatch(applyParcelSearchRequest());
-    await axios.get(`${apiUrl}?${queryParameters}`, { headers: headers })
+    await axios.get(`${apiUrl}?${queryParameters}`, 
+          {timeout: 1000},
+          { headers: headers })
         .then(res => dispatch({ type: "PARCEL_SEARCH_LOADED", payload: res.data }))
         .catch(error => console.log(error));
     handleDisplayParcels();

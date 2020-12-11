@@ -7,7 +7,7 @@ const apiUrl = "/api/listing";
 export const getPropertyInfo = (mapMarker) => async dispatch => {
     dispatch(showLoading());
     dispatch(setPropertyInfoRequest());
-    axios.get(`${apiUrl}/${mapMarker.id}`)
+    axios.get(`${apiUrl}/${mapMarker.id}`, {timeout: 5000})
         .then(res=>dispatch({ type: "SET_PROPERTY_INFO_LOADED", markers: res.data }))
         .catch(error => console.log(error));
     dispatch(changeAllMarkers(mapMarker, "marker-unvisited"));
