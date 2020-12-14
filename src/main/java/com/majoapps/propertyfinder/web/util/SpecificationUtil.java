@@ -22,27 +22,27 @@ public class SpecificationUtil {
                 sb.append(notifications.getPropertyZone());
             }
             if (notifications.getPropertyAreaMin() != null && notifications.getPropertyAreaMin() != 0) {
-                sb.append(" AND area>");
+                sb.append(" AND area>=");
                 sb.append(notifications.getPropertyAreaMin());
             }
             if (notifications.getPropertyAreaMax() != null && notifications.getPropertyAreaMax() != 0) {
-                sb.append(" AND area<");
+                sb.append(" AND area<=");
                 sb.append(notifications.getPropertyAreaMax());
             }
             if (notifications.getPropertyPriceMin() != null && notifications.getPropertyPriceMin() != 0) {
-                sb.append(" AND priceInt>");
+                sb.append(" AND priceInt>=");
                 sb.append(notifications.getPropertyPriceMin());
             }
             if (notifications.getPropertyPriceMax() != null && notifications.getPropertyPriceMax() != 0) {
-                sb.append(" AND priceInt<");
+                sb.append(" AND priceInt<=");
                 sb.append(notifications.getPropertyPriceMax());
             }
             if (notifications.getPropertyPricePSMMin() != null && notifications.getPropertyPricePSMMin() != 0) {
-                sb.append(" AND pricePSM>");
+                sb.append(" AND pricePSM>=");
                 sb.append(notifications.getPropertyPricePSMMin());
             }
             if (notifications.getPropertyPricePSMMax() != null && notifications.getPropertyPricePSMMax() != 0) {
-                sb.append(" AND pricePSM<");
+                sb.append(" AND pricePSM<=");
                 sb.append(notifications.getPropertyPricePSMMax());
             }
             if (notifications.getPropertyPostCode() != null) {
@@ -50,19 +50,19 @@ public class SpecificationUtil {
                 sb.append(notifications.getPropertyPostCode());
             }
             if (notifications.getPropertyPriceToLandValueMin() != null) {
-                sb.append(" AND priceToLandValue>");
+                sb.append(" AND priceToLandValue>=");
                 sb.append(notifications.getPropertyPriceToLandValueMin());
             }
             if (notifications.getPropertyPriceToLandValueMax() != null) {
-                sb.append(" AND priceToLandValue<");
+                sb.append(" AND priceToLandValue<=");
                 sb.append(notifications.getPropertyPriceToLandValueMax());
             }
             if (notifications.getPropertyFloorSpaceRatioMin() != null) {
-                sb.append(" AND floorSpaceRatio>");
+                sb.append(" AND floorSpaceRatio>=");
                 sb.append(notifications.getPropertyFloorSpaceRatioMin());
             }
             if (notifications.getPropertyFloorSpaceRatioMax() != null) {
-                sb.append(" AND floorSpaceRatio<");
+                sb.append(" AND floorSpaceRatio<=");
                 sb.append(notifications.getPropertyFloorSpaceRatioMax());
             }
             if (notifications.getLandOnly() != null && notifications.getLandOnly()) {
@@ -77,17 +77,17 @@ public class SpecificationUtil {
         if (notifications != null) {
             sb.append(" AND ( :propertyId IS NULL OR l.propertyId = :propertyId)");
             sb.append(" AND ( :zone IS NULL OR l.zone = :zone)");
-            sb.append(" AND ( :areaMin IS NULL OR l.area > :areaMin)");
-            sb.append(" AND ( :areaMax IS NULL OR l.area < :areaMax)");
-            sb.append(" AND ( :priceIntMin IS NULL OR l.priceInt > :priceIntMin)");
-            sb.append(" AND ( :priceIntMax IS NULL OR l.priceInt < :priceIntMax)");
-            sb.append(" AND ( :pricePSMMin IS NULL OR l.pricePSM > :pricePSMMin)");
-            sb.append(" AND ( :pricePSMMax IS NULL OR l.pricePSM < :pricePSMMax)");
+            sb.append(" AND ( :areaMin IS NULL OR l.area >= :areaMin)");
+            sb.append(" AND ( :areaMax IS NULL OR l.area <= :areaMax)");
+            sb.append(" AND ( :priceIntMin IS NULL OR l.priceInt >= :priceIntMin)");
+            sb.append(" AND ( :priceIntMax IS NULL OR l.priceInt <= :priceIntMax)");
+            sb.append(" AND ( :pricePSMMin IS NULL OR l.pricePSM >= :pricePSMMin)");
+            sb.append(" AND ( :pricePSMMax IS NULL OR l.pricePSM <= :pricePSMMax)");
             sb.append(" AND ( :postCode IS NULL OR l.postCode = :postCode)");
-            sb.append(" AND ( :priceToLandValueMin IS NULL OR l.priceToLandValue > :priceToLandValueMin)");
-            sb.append(" AND ( :priceToLandValueMax IS NULL OR l.priceToLandValue < :priceToLandValueMax)");
-            sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio > :floorSpaceRatioMin)");
-            sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio < :floorSpaceRatioMax)");
+            sb.append(" AND ( :priceToLandValueMin IS NULL OR l.priceToLandValue >= :priceToLandValueMin)");
+            sb.append(" AND ( :priceToLandValueMax IS NULL OR l.priceToLandValue <= :priceToLandValueMax)");
+            sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio >= :floorSpaceRatioMin)");
+            sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio <= :floorSpaceRatioMax)");
             sb.append(" AND ( :landOnly IS NULL OR :landOnly IS FALSE OR ( :landOnly IS TRUE AND l.propertyType LIKE '%Land%') )");
         }
         return appendOrderBy(latitude, longitude, sb);
@@ -121,14 +121,14 @@ public class SpecificationUtil {
         if (propertyInformation != null) {
             sb.append(" AND ( :zoneCode IS NULL OR l.zoneCode = :zoneCode)");
             sb.append(" AND ( :postCode IS NULL OR l.postCode = :postCode)");
-            sb.append(" AND ( :areaMin IS NULL OR l.area > :areaMin)");
-            sb.append(" AND ( :areaMax IS NULL OR l.area < :areaMax)");
-            sb.append(" AND ( :landValueMin IS NULL OR l.landValue0 > :landValueMin)");
-            sb.append(" AND ( :landValueMax IS NULL OR l.landValue0 < :landValueMax)");
-            sb.append(" AND ( :buildingHeightMin IS NULL OR l.buildingHeight > :buildingHeightMin)");
-            sb.append(" AND ( :buildingHeightMax IS NULL OR l.buildingHeight < :buildingHeightMax)");
-            sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio > :floorSpaceRatioMin)");
-            sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio < :floorSpaceRatioMax)");
+            sb.append(" AND ( :areaMin IS NULL OR l.area >= :areaMin)");
+            sb.append(" AND ( :areaMax IS NULL OR l.area <= :areaMax)");
+            sb.append(" AND ( :landValueMin IS NULL OR l.landValue0 >= :landValueMin)");
+            sb.append(" AND ( :landValueMax IS NULL OR l.landValue0 <= :landValueMax)");
+            sb.append(" AND ( :buildingHeightMin IS NULL OR l.buildingHeight >= :buildingHeightMin)");
+            sb.append(" AND ( :buildingHeightMax IS NULL OR l.buildingHeight <= :buildingHeightMax)");
+            sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio >= :floorSpaceRatioMin)");
+            sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio <= :floorSpaceRatioMax)");
         }
         return appendOrderBy(latitude, longitude, sb);
     }
