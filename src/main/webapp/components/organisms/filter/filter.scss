@@ -12,6 +12,22 @@
     cursor: pointer;
     font-size: 16px;
 }
+.landOnly {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    margin-top: 10px;
+    
+    .landOnlyWrapper {
+        width: 50%;
+    }
+    .resetFilterWrapper {
+        display: flex;
+        width: 40%;
+        align-items: center;
+    }
+}
 .filterBtnContainer {
         display: flex;
         flex-direction: row;

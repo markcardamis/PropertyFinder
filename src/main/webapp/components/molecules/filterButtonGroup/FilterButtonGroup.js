@@ -28,7 +28,7 @@ const FilterButtonGroup = withAuth(props => {
     const [ authenticated, user, accessToken ] = useAuth(props.auth);
     let timer;
     const handleSearch = (e) => {
-       setSearch(e.target.value.replace(/[^a-zA-Z0-9_ /]/gi, ""));
+       setSearch(e.target.value.replace(/[^a-zA-Z0-9-_ /]/gi, ""));
     };
     const handleCancelSearch = () => {
         setSearchInput(false);

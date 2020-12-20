@@ -6,11 +6,27 @@
     justify-content: space-between;
     align-items: center;
 }
-.resetFilterBtn {
-    margin-top: 20px;
-    color: $green;
-    cursor: pointer;
-    font-size: 16px;
+.landOnly {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    
+    .landOnlyWrapper {
+        width: 50%;
+    }
+    .resetFilterWrapper {
+        display: flex;
+        width: 40%;
+        align-items: center;
+
+        .resetFilterBtn {
+            margin-top: 0;
+            color: $green;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    }
 }
 .filterBtnContainer {
         display: flex;

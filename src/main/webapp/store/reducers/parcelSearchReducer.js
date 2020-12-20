@@ -6,6 +6,7 @@ const initialFilter = {
     buildingHeight: [ 0, 100 ],
     floorspaceRatio: [ 0, 2 ],
     landValue: [ 100000, 5000000 ],
+    landOnly: false,
     result: []
 };
 

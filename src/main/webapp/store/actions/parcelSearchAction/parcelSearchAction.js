@@ -7,7 +7,7 @@ import { hideLoading, showLoading } from "../loadingAction";
 const apiUrl = "/api/propertyinformation";
 
 export const applyParcelSearch = () => async dispatch => {
-    const { zone, postCode, area, buildingHeight, landValue, floorspaceRatio } = store.getState().parcelSearch;
+    const { zone, postCode, area, buildingHeight, landValue, floorspaceRatio, landOnly } = store.getState().parcelSearch;
     const { latitude, longitude } = store.getState().viewport;
 
     const handleDisplayParcels = () => {
@@ -34,7 +34,8 @@ export const applyParcelSearch = () => async dispatch => {
         buildingHeightMin: `&buildingHeightMin=${buildingHeight[0] !== 0 ? buildingHeight[0] : ""}`,
         buildingHeightMax: `&buildingHeightMax=${buildingHeight[1] !== 100 ? buildingHeight[1] : ""}`,
         floorSpaceRatioMin: `&floorSpaceRatioMin=${floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : ""}`,
-        floorSpaceRatioMax: `&floorSpaceRatioMax=${floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : ""}`
+        floorSpaceRatioMax: `&floorSpaceRatioMax=${floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : ""}`,
+        landOnly
     };
     const queryParameters = Object.values(queryValues).join("");
     dispatch(showLoading());

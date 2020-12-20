@@ -9,14 +9,15 @@ import "./parcelSearch.scss";
 import { FilterLine, ZoneSelect, PostCode } from "./components";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
-import { IconArea, IconFsr, IconPrice, IconZone, IconPost } from "../../../assets/icons";
+import { IconArea, IconFsr, IconPrice, IconZone, IconPost, IconBuildingHeight, IconLandOnly } from "../../../assets/icons";
 import { setParcelFilter, resetParcelFilter } from "../../../store/actions/parcelSearchAction/setParcelFilter";
 import { applyParcelSearch } from "../../../store/actions/parcelSearchAction/parcelSearchAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
+import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
 
 const ParcelSearch = (props) => {
     const { parcelSearch } = props;
-    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue } = props.parcelSearch;
+    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue, landOnly } = props.parcelSearch;
 
     const onSelect = ({ key }) => {
       props.setParcelFilter({ ...parcelSearch, zone: key });
@@ -66,7 +67,7 @@ const ParcelSearch = (props) => {
 
                 <FilterLine 
                   title22={"Building Height"} 
-                  icon={<IconFsr/>} 
+                  icon={<IconBuildingHeight/>} 
                   value={buildingHeight}
                   step={1} 
                   showCurrency={false}
@@ -103,20 +104,19 @@ const ParcelSearch = (props) => {
                   labelMin={"$100k"} 
                   labelMax={"$5M"}
                   />
-                {/* <FilterLine 
-                  title22={"Street Frontage"} 
-                  icon={<IconPriceM/>} 
-                  value={filter.priceM2} 
-                  step={10} 
-                  showCurrency={true}
-                  onChange={(val)=>this.props.getFilter({ ...filter, priceM2: val })} 
-                  min={0} 
-                  max={10000} 
-                  labelMin={"$1"} 
-                  labelMax={"$10 000+"}
-                  /> */}
-                {/* <div>Sold in last 6 years</div> */}
-                 <div className="resetFilterBtn" onClick={props.resetParcelFilter}>Reset filter</div>
+                <div className="landOnly"> 
+                  <div className="landOnlyWrapper">
+                    <CheckboxFilterLine 
+                      title='Land Only' 
+                      icon={<IconLandOnly/>}
+                      value={landOnly} 
+                      onClick={()=>props.setParcelFilter({ ...parcelSearch, landOnly: !landOnly })}
+                      />
+                  </div>
+                  <div className="resetFilterWrapper">
+                    <div className="resetFilterBtn" onClick={props.resetParcelFilter}>Reset filter</div>
+                  </div>
+                </div>
                 </div> 
                   <div className='filterBtnContainer'>
                   <div className='btnSavePref'/>

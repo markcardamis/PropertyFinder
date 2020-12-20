@@ -8,15 +8,18 @@ import "rc-dropdown/assets/index.css";
 
 import { ZONES } from "../../../shared/constants/zones";
 import "./filter.scss";
-import { FilterLine, ZoneSelect, PostCode } from "./components";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
-import { IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost } from "../../../assets/icons";
+import { IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost, IconLandOnly } from "../../../assets/icons";
 import { getFilter, resetFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 import { showSearchModal } from "../../../store/actions/searchModalAction";
 import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
+import { FilterLine } from "./FilterLine";
+import { PostCode } from "./PostCode";
+import { ZoneSelect } from "./ZoneSelect";
+import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
 
 class FilterTab extends React.Component {
 
@@ -156,7 +159,21 @@ class FilterTab extends React.Component {
                   labelMin={"0.0"} 
                   labelMax={"10.0"}
                   />
-                  <div className="resetFilterBtn" onClick={()=>this.props.resetFilter()}>Reset filter</div>
+
+                <div className="landOnly"> 
+                  <div className="landOnlyWrapper">
+                    <CheckboxFilterLine 
+                      title='Land Only' 
+                      icon={<IconLandOnly/>}
+                      value={filter.landOnly} 
+                      onClick={()=>this.props.getFilter({ ...filter, landOnly: !filter.landOnly })}
+                      />
+                  </div>
+                  <div className="resetFilterWrapper">
+                    <div className="resetFilterBtn" onClick={()=>this.props.resetFilter()}>Reset filter</div>
+                  </div>
+                </div>
+
                 </div> 
                  <div className='filterBtnContainer'>
                   <div className='btnSavePref'><ButtonOutlined title={"Save preferences"} onClick={this.handleSaveFilter}/></div>

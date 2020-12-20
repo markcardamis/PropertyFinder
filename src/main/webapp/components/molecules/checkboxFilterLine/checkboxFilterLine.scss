@@ -1,0 +1,12 @@
+@import '../../../styles/style.scss';
+
+.checkboxFilterLine {
+    display: flex;
+    justify-content: space-between;
+
+    .checkboxContainer {
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+    }
+}
