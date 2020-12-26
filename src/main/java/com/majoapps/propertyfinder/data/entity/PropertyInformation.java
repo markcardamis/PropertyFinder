@@ -3,20 +3,23 @@ package com.majoapps.propertyfinder.data.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import lombok.Data;
 import org.locationtech.jts.geom.Geometry;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Data
 @Table(name="property_information")
 public class PropertyInformation {
-    
+
+    @JsonIgnore
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at", nullable = false)
+    @LastModifiedDate
+    private Date updatedAt;
     @Column(name = "district_code")
     private short districtCode;
     @Column(name="district_name")
@@ -44,15 +47,6 @@ public class PropertyInformation {
     private BigDecimal area;
     @Column(name="area_type")
     private String areaType;
-    @Temporal(TemporalType.DATE)
-    @Column(name="base_date_0")
-    private Date baseDate0;
-    @Column(name="land_value_0")
-    private Integer landValue0;
-    @Column(name="authority_0")
-    private String authority0;
-    @Column(name="basis_0")
-    private String basis0;
     @Temporal(TemporalType.DATE)
     @Column(name="base_date_1")
     private Date baseDate1;
@@ -108,8 +102,11 @@ public class PropertyInformation {
     private Double latitude;
     @Column(name="longitude")
     private Double longitude;
+    @Column(name="street_frontage")
+    private Double streetFrontage;
+    @Column(name="legislation_url")
+    private String legislationURL;
     @JsonIgnore
     @Column(name="geometry")
     private Geometry geometry;
-
 }

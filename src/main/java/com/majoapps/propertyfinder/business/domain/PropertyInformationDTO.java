@@ -22,7 +22,7 @@ public class PropertyInformationDTO implements Serializable {
     @JsonProperty("suburb_name") private String suburbName;
     @JsonProperty("post_code") private String postCode;
     @JsonProperty("zone_code") private String zoneCode;
-    @JsonProperty("land_value_0") private Integer landValue0;
+    @JsonProperty("land_value_1") private Integer landValue1;
     @JsonProperty("area") private BigDecimal area;
     @JsonProperty("area_type") private String areaType;
     @JsonProperty("floor_space_ratio") private BigDecimal floorSpaceRatio;
@@ -48,9 +48,6 @@ public class PropertyInformationDTO implements Serializable {
     public List<LandValueDTO> getLandValuesList(PropertyInformation propertyInformation) {
         List<LandValueDTO> landValueDTOList = new ArrayList<>();
 
-        if (propertyInformation.getBaseDate0() != null && InputUtil.isNotNullOrZero(propertyInformation.getLandValue0())) {
-            landValueDTOList.add(new LandValueDTO(propertyInformation.getBaseDate0(), propertyInformation.getLandValue0()));
-        }
         if (propertyInformation.getBaseDate1() != null && InputUtil.isNotNullOrZero(propertyInformation.getLandValue1())) {
             landValueDTOList.add(new LandValueDTO(propertyInformation.getBaseDate1(), propertyInformation.getLandValue1()));
         }
@@ -66,7 +63,7 @@ public class PropertyInformationDTO implements Serializable {
         if (propertyInformation.getBaseDate5() != null && InputUtil.isNotNullOrZero(propertyInformation.getLandValue5())) {
             landValueDTOList.add(new LandValueDTO(propertyInformation.getBaseDate5(), propertyInformation.getLandValue5()));
         }
-       return landValueDTOList;
+        return landValueDTOList;
     }
 
     @Data
