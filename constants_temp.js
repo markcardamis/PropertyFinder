@@ -98,7 +98,7 @@ export const propertyId = {
     house_number: "239",
     interested_people: 0,
     interested_user: false,
-    land_value_0: 563000,
+    land_value_1: 563000,
     last_sold: "21/01/2008 $280000",
     minimum_lot_size: "450",
     post_code: "2144",
