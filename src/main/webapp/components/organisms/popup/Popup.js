@@ -14,7 +14,7 @@ import { saveWatchListItem } from '../../../store/actions/watchListAction/saveWa
 import { showSignIn } from "../../../store/actions/signInModalAction";
 
 const Popup = props => {
-    const { property_id, house_number, street_name, suburb_name, post_code, zone_code, area, area_type, floor_space_ratio, minimum_lot_size, building_height, land_value_0, last_sold, interested_people, interested_user } = props.propertyInfo;
+    const { property_id, house_number, street_name, suburb_name, post_code, zone_code, area, area_type, floor_space_ratio, minimum_lot_size, building_height, land_value_1, last_sold, interested_people, interested_user } = props.propertyInfo;
     const {accessToken} = props.auth
     const address = `${house_number} ${getUpperCase(street_name)}, ${getUpperCase(suburb_name)}, ${post_code}`;
     const size = useWindowSize();
@@ -52,7 +52,7 @@ const Popup = props => {
                 <PropListItem 
                     icon={<IconLandvalG size={size.width<982 ? 2:1}/>} 
                     title={LAND_VALUE} 
-                    value11={`$${land_value_0}`}
+                    value11={`$${land_value_1}`}
                     />
                 {floor_space_ratio!==null&&
                     <PropListItem 
