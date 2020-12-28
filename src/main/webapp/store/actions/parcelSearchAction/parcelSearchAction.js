@@ -35,7 +35,7 @@ export const applyParcelSearch = () => async dispatch => {
         buildingHeightMax: `&buildingHeightMax=${buildingHeight[1] !== 100 ? buildingHeight[1] : ""}`,
         floorSpaceRatioMin: `&floorSpaceRatioMin=${floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : ""}`,
         floorSpaceRatioMax: `&floorSpaceRatioMax=${floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : ""}`,
-        landOnly
+        landOnly: `&landOnly=${landOnly !== null ? landOnly : false}`
     };
     const queryParameters = Object.values(queryValues).join("");
     dispatch(showLoading());

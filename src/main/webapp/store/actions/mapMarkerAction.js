@@ -49,7 +49,7 @@ export const changeAllMarkers = (item, status) => {
 };
 
 export const applyFilter = (authenticated, accessToken) => async dispatch => {
-  const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio } = store.getState().filter;
+  const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly } = store.getState().filter;
   const { latitude, longitude } = store.getState().viewport;
   let headers = {
     "Content-Type": "application/json",
@@ -70,7 +70,8 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
       propertyPriceToLandValueMin: priceLandvalue[0] !== 0 ? priceLandvalue[0] : null,
       propertyPriceToLandValueMax: priceLandvalue[1] !== 10 ? priceLandvalue[1] : null,
       propertyFloorSpaceRatioMin: floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : null,
-      propertyFloorSpaceRatioMax: floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null
+      propertyFloorSpaceRatioMax: floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null,
+      landOnly: landOnly !== null ? landOnly : false
   };
   dispatch(showLoading());
   dispatch(applyFilterRequest());

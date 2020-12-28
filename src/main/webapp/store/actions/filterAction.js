@@ -21,7 +21,7 @@ export const saveFilter = (accessToken, name, frequency, editedFilter) => async 
         propertyPriceToLandValueMax: priceLandvalue[1] !== 10 ? priceLandvalue[1] : null,
         propertyFloorSpaceRatioMin: floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : null,
         propertyFloorSpaceRatioMax: floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null,
-        landOnly
+        landOnly: landOnly !== null ? landOnly : false
     };
 
     dispatch(showLoading());
