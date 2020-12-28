@@ -123,8 +123,8 @@ public class SpecificationUtil {
             sb.append(" AND ( :postCode IS NULL OR l.postCode = :postCode)");
             sb.append(" AND ( :areaMin IS NULL OR l.area >= :areaMin)");
             sb.append(" AND ( :areaMax IS NULL OR l.area <= :areaMax)");
-            sb.append(" AND ( :landValueMin IS NULL OR l.landValue0 >= :landValueMin)");
-            sb.append(" AND ( :landValueMax IS NULL OR l.landValue0 <= :landValueMax)");
+            sb.append(" AND ( :landValueMin IS NULL OR l.landValue1 >= :landValueMin)");
+            sb.append(" AND ( :landValueMax IS NULL OR l.landValue1 <= :landValueMax)");
             sb.append(" AND ( :buildingHeightMin IS NULL OR l.buildingHeight >= :buildingHeightMin)");
             sb.append(" AND ( :buildingHeightMax IS NULL OR l.buildingHeight <= :buildingHeightMax)");
             sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio >= :floorSpaceRatioMin)");
