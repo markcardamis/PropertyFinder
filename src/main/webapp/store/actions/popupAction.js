@@ -33,16 +33,12 @@ const renderPopup = (longitude, latitude) => {
 
 export const getPopup = (propId, longitude, latitude) => async dispatch => {
   const { accessToken } = store.getState().auth;
-
+  const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {}
+  
     dispatch(showLoading());
     dispatch(setPopupRequest());
     await axios.get(`${apiUrl}/${propId}`, 
-      {timeout: 5000},
-      accessToken ? {
-      headers: {
-        Authorization: "Bearer " + accessToken
-      }
-    } : {})
+      {timeout: 5000, headers })
         .then(res=>dispatch({ type: "SET_POPUP_LOADED", property: res.data }))
         .catch(error => console.log(error));
     renderPopup(longitude, latitude);
