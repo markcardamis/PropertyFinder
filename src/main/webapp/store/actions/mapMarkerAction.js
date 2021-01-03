@@ -1,6 +1,6 @@
 import React from "react";
-import axios from 'axios';
 
+import axios from '../../api/axiosConfig'
 import { store } from "../../../webapp/javascript/index";
 import MapMarker from "../../assets/icons/MapMarker";
 import { hideLoading, showLoading } from "./loadingAction";
@@ -52,7 +52,6 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
   const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly } = store.getState().filter;
   const { latitude, longitude } = store.getState().viewport;
   let headers = {
-    "Content-Type": "application/json",
     "centreLatitude": latitude,
     "centreLongitude": longitude
   };

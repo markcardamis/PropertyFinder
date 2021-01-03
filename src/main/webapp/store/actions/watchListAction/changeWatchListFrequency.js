@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from '../../../api/axiosConfig';
 import { store } from "../../../javascript";
 import { hideLoading, showLoading } from "../loadingAction";
 
@@ -16,7 +15,6 @@ export const changeWatchListFrequency = (item, frequency) => async dispatch => {
           {timeout: 5000},
           {
             Authorization: "Bearer " + accessToken,
-            "Content-Type": "application/json",
           })
         .then(res=>console.log(res.data))
         .catch(error => console.log(error));

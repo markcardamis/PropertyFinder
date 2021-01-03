@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import mapboxgl from "mapbox-gl";
-import axios from 'axios';
 
+import axios from '../../api/axiosConfig';
 import Popup from "../../components/organisms/popup/Popup";
 import { store } from "../../../webapp/javascript/index";
 import { map } from "../../components/organisms/map/MapGL";
 import { showLoading, hideLoading } from "./loadingAction";
 import { Provider } from "react-redux";
-import { showSignIn } from "./signInModalAction";
 
 const apiUrl = "/api/propertyinformation";
 

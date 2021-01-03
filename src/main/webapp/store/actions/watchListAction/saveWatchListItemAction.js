@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from '../../../api/axiosConfig';
 import { getUpperCase } from "../../../shared/utils/getUppercase";
 import { store } from "../../../javascript";
 import { hideLoading, showLoading } from "../loadingAction";
@@ -24,7 +23,6 @@ export const saveWatchListItem = () => async dispatch => {
           {timeout: 10000},
     {
           Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
     })
         .then(res=>console.log(res.data))
         .catch(error => console.log(error));

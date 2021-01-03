@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from '../../../api/axiosConfig';
 import { store } from "../../../../webapp/javascript/index";
 import { map } from "../../../components/organisms/map/MapGL";
 import { hideLoading, showLoading } from "../loadingAction";

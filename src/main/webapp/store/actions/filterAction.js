@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from '../../api/axiosConfig';
 import { store } from "../../../webapp/javascript/index";
 import { hideLoading, showLoading } from "./loadingAction";
 const apiUrl = "/api/notifications";
@@ -33,7 +32,6 @@ export const saveFilter = (accessToken, name, frequency, editedFilter) => async 
             { timeout: 5000 },
             {
                 Authorization: "Bearer " + accessToken,
-                "Content-Type": "application/json",
             }, )
         .then(res=>console.log(res.data))
         .catch(error => console.log(error));

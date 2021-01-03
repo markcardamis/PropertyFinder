@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from '../../api/axiosConfig';
 import { hideLoading, showLoading } from "./loadingAction";
 
 const apiUrl = "/api/propertyinformation/query?address=";
