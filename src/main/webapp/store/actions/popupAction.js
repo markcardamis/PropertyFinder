@@ -38,7 +38,7 @@ export const getPopup = (propId, longitude, latitude) => async dispatch => {
     dispatch(showLoading());
     dispatch(setPopupRequest());
     await axios.get(`${apiUrl}/${propId}`, 
-      {timeout: 5000, headers })
+      { timeout: 5000, headers })
         .then(res=>dispatch({ type: "SET_POPUP_LOADED", property: res.data }))
         .catch(error => console.log(error));
     renderPopup(longitude, latitude);

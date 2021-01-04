@@ -9,7 +9,7 @@ const apiUrl = "/api/notifications";
   dispatch(showLoading());
     dispatch(deleteWatchListItemRequest());
     await axios.delete(`${apiUrl}/${item.id}`, 
-        {timeout: 5000},
+        { timeout: 5000 },
         {
             Authorization: "Bearer " + accessToken
         })

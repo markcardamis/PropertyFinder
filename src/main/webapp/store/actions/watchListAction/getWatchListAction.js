@@ -11,7 +11,7 @@ export const getWatchList = () => async dispatch => {
   dispatch(showLoading());
     dispatch(setWatchListRequest());
     await axios.get(apiUrl, 
-      {timeout: 10000, headers })
+      { timeout: 10000, headers })
         .then(res=>dispatch({ type: "SET_WATCH_LIST_LOADED", data: res.data }))
         .catch(error => console.log(error));
   dispatch(hideLoading());

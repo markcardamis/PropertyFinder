@@ -9,7 +9,7 @@ export const getNotifications = (accessToken) => async dispatch => {
   dispatch(showLoading());
     dispatch(setNotificationsRequest());
     await axios.get(apiUrl, 
-      {timeout: 10000, headers})
+      { timeout: 10000, headers })
         .then(res=>dispatch({ type: "SET_NOTIFICATIONS_LOADED", notifications: res.data }))
         .catch(error => console.log(error));
   dispatch(hideLoading());
