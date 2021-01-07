@@ -6,7 +6,8 @@ import "./loginForm.scss";
 import TextInput from "../../atoms/textInput/TextInput";
 import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
-import { IconUser, IconKey } from "../../../assets/icons";
+import { IconUser, IconKey, IconEye } from "../../../assets/icons";
+import variables from "../../../styles/_variables.scss";
 
 class LoginForm extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class LoginForm extends Component {
         data: null,
         userName: "",
         password: "",
+        showPassword: false,
         errorMessage: ""
       };
       this.oktaAuth = new OktaAuth({ issuer: process.env.OKTA_URL });
@@ -43,6 +45,7 @@ class LoginForm extends Component {
         this.props.auth.redirect({ sessionToken: this.state.sessionToken });
         return null;
       }
+      const passIconColor = this.state.showPassword && Boolean(this.state.password) ? variables.darkGrey : variables.lightGrey;
  
       return (
         <div className='loginForm'>
@@ -59,7 +62,9 @@ class LoginForm extends Component {
             <div className={"loginFormInput"}>
                 <TextInput 
                     icon={<IconKey/>} 
-                    type={"password"}
+                    rightIcon={<IconEye color={passIconColor}/>}
+                    onRightIconClick={() => this.setState({showPassword: !this.state.showPassword})}
+                    type={this.state.showPassword ? "text" : "password"}
                     placeholder={"Password"}
                     value={this.state.password}
                     onChange={(e)=>this.setState({ password: e.target.value })}
@@ -87,4 +92,3 @@ class LoginForm extends Component {
 };
 
 export default withAuth(connect(mapStateToProps)(LoginForm));
-

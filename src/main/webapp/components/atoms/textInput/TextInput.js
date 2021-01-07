@@ -3,22 +3,26 @@ import PropTypes from "prop-types";
 import "./textInput.scss";
 
 const TextInput = (props) => {
+    const { icon, rightIcon, onRightIconClick, width, type, value, onChange, placeholder } = props
     return (
-        <div className='textInputContainer' style={{ width: props.width || "100%" }}>
-            {props.icon&&<div className='textInputIcon'>{props.icon}</div>}
+        <div className='textInputContainer' style={{ width: width || "100%" }}>
+            {icon && <div className='textInputIcon'>{icon}</div>}
             <input 
-                type={props.type || "text"} 
-                value={props.value} 
-                onChange={props.onChange} 
-                placeholder={props.placeholder}
-                className={`textInput ${props.icon ? "inputIcon" : ""}`}
-                />   
+                type={type || "text"} 
+                value={value} 
+                onChange={onChange} 
+                placeholder={placeholder}
+                className={`textInput ${icon ? "inputIcon" : ""}`}
+                /> 
+            {rightIcon && <div onClick={onRightIconClick} className='textInputRightIcon'>{rightIcon}</div>}  
         </div>
     );
 };
 
 TextInput.propTypes = {
     icon: PropTypes.any,
+    rightIcon: PropTypes.any,
+    onRightIconClick: PropTypes.any,
     type: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
