@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import mapboxgl from "mapbox-gl";
-import axios from 'axios';
 
+import axios from '../../api/axiosConfig';
 import Popup from "../../components/organisms/popup/Popup";
 import { store } from "../../../webapp/javascript/index";
 import { map } from "../../components/organisms/map/MapGL";
 import { showLoading, hideLoading } from "./loadingAction";
 import { Provider } from "react-redux";
-import { showSignIn } from "./signInModalAction";
 
 const apiUrl = "/api/propertyinformation";
 
@@ -34,16 +33,12 @@ const renderPopup = (longitude, latitude) => {
 
 export const getPopup = (propId, longitude, latitude) => async dispatch => {
   const { accessToken } = store.getState().auth;
-
+  const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {}
+  
     dispatch(showLoading());
     dispatch(setPopupRequest());
     await axios.get(`${apiUrl}/${propId}`, 
-      {timeout: 5000},
-      accessToken ? {
-      headers: {
-        Authorization: "Bearer " + accessToken
-      }
-    } : {})
+      { timeout: 5000, headers })
         .then(res=>dispatch({ type: "SET_POPUP_LOADED", property: res.data }))
         .catch(error => console.log(error));
     renderPopup(longitude, latitude);

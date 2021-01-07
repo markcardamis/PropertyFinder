@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from '../../../api/axiosConfig';
 import { store } from "../../../../webapp/javascript/index";
 import { map } from "../../../components/organisms/map/MapGL";
 import { hideLoading, showLoading } from "../loadingAction";
@@ -41,8 +40,7 @@ export const applyParcelSearch = () => async dispatch => {
     dispatch(showLoading());
     dispatch(applyParcelSearchRequest());
     await axios.get(`${apiUrl}?${queryParameters}`, 
-          {timeout: 15000},
-          { headers: headers })
+          { timeout: 15000, headers })
         .then(res => dispatch({ type: "PARCEL_SEARCH_LOADED", payload: res.data }))
         .catch(error => console.log(error));
     handleDisplayParcels();

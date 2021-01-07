@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from '../../../api/axiosConfig';
 import { store } from "../../../javascript";
 import { showLoading, hideLoading } from "../loadingAction";
 
@@ -10,7 +9,7 @@ const apiUrl = "/api/notifications";
   dispatch(showLoading());
     dispatch(deleteWatchListItemRequest());
     await axios.delete(`${apiUrl}/${item.id}`, 
-        {timeout: 5000},
+        { timeout: 5000 },
         {
             Authorization: "Bearer " + accessToken
         })

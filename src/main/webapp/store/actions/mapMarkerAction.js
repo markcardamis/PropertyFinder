@@ -1,6 +1,6 @@
 import React from "react";
-import axios from 'axios';
 
+import axios from '../../api/axiosConfig'
 import { store } from "../../../webapp/javascript/index";
 import MapMarker from "../../assets/icons/MapMarker";
 import { hideLoading, showLoading } from "./loadingAction";
@@ -11,7 +11,7 @@ const apiUrl = "/api/listing";
 export const getMapMarkers = (renderMarkers) => async dispatch => {
     dispatch(showLoading());
     dispatch(setMapMarkersRequest());
-    await axios.get(apiUrl, {timeout: 10000})
+    await axios.get(apiUrl, { timeout: 10000 })
         .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data }))
         .catch(error => console.log(error));
     const mp = <div><MapMarker/></div>;
@@ -52,7 +52,6 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
   const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly } = store.getState().filter;
   const { latitude, longitude } = store.getState().viewport;
   let headers = {
-    "Content-Type": "application/json",
     "centreLatitude": latitude,
     "centreLongitude": longitude
   };
@@ -75,7 +74,7 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
   };
   dispatch(showLoading());
   dispatch(applyFilterRequest());
-  await axios.post(`${apiUrl}/query`, JSON.stringify(filter), {timeout: 1000}, {headers})
+  await axios.post(`${apiUrl}/query`, JSON.stringify(filter), { timeout: 10000, headers })
       .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data }))
       .catch(error => console.log(error));
   dispatch(hideLoading());
@@ -89,15 +88,11 @@ export const applyFilterRequest = () => dispatch => {
 
 
 export const selectFilter = (item, accessToken) => async dispatch => {
+  const headers = { "Authorization": "Bearer " + accessToken }
   dispatch(showLoading());
   dispatch(selectFilterRequest());
   await axios.get(`${apiUrl}/notifications/${item.id}`, 
-    {timeout: 5000},
-    {
-      headers: {
-        "Authorization": "Bearer " + accessToken
-        },
-      })
+    { timeout: 5000, headers })
       .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data }))
       .catch(error => console.log(error));
   dispatch(hideLoading());

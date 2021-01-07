@@ -178,7 +178,7 @@ public class SpecificationUtil {
         StringBuilder sb = new StringBuilder(search.length());
         for (int i = 0; i < search.length(); ++i) {
             char ch = search.charAt(i);
-            if (Character.isLetterOrDigit(ch) || ch == ' ' || ch == '\'') {
+            if (Character.isLetterOrDigit(ch) || ch == ' ' || ch == '\'' || ch == '-') {
                 sb.append(ch);
             } else if (ch == '/') {
                 sb.append(' '); // use space as street number prefix
