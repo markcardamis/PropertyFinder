@@ -12,7 +12,7 @@ export const changeWatchListFrequency = (item, frequency) => async dispatch => {
     dispatch(changeWatchListFrequencyRequest());
     await axios.patch(`${apiUrl}/${item.id}`, 
           JSON.stringify(data), 
-          {timeout: 5000},
+          { timeout: 5000 },
           {
             Authorization: "Bearer " + accessToken,
           })
