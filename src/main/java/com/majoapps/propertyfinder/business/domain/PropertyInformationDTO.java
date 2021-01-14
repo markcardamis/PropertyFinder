@@ -28,6 +28,8 @@ public class PropertyInformationDTO implements Serializable {
     @JsonProperty("floor_space_ratio") private BigDecimal floorSpaceRatio;
     @JsonProperty("minimum_lot_size") private String minimumLotSize;
     @JsonProperty("building_height") private BigDecimal buildingHeight;
+    @JsonProperty("street_frontage") private BigDecimal streetFrontage;
+    @JsonProperty("legislation_url") private String legislationUrl;
     @JsonProperty("last_sold") private String lastSold;
     @JsonProperty("chart_data") private ChartData chartData;
     @JsonProperty("interested_people") private Long interestedPeople;
