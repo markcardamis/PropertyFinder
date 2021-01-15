@@ -27,12 +27,12 @@ export const setPropertyInfoLoaded = (property) => dispatch => {
   });
 };
 
-export const showProperty = (item) => {
-    return {
-        type: "SHOW_PROPERTY_INFO",
-        payload: item
-    };
-};
+// export const showProperty = (item) => {
+//     return {
+//         type: "SHOW_PROPERTY_INFO",
+//         payload: item
+//     };
+// };
 
 export const closeProperty = () => {
     return {

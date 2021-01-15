@@ -1,8 +1,5 @@
-import React from "react";
-
 import axios from '../../api/axiosConfig'
 import { store } from "../../../webapp/javascript/index";
-import MapMarker from "../../assets/icons/MapMarker";
 import { hideLoading, showLoading } from "./loadingAction";
 import { closeFilter } from "./filterModalAction";
 
@@ -12,10 +9,9 @@ export const getMapMarkers = (renderMarkers) => async dispatch => {
     dispatch(showLoading());
     dispatch(setMapMarkersRequest());
     await axios.get(apiUrl, { timeout: 10000 })
-        .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data }))
+        .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data, nearbyDAMarkers: [] }))
         .catch(error => console.log(error));
-    const mp = <div><MapMarker/></div>;
-    renderMarkers(mp);
+    renderMarkers();
     dispatch(hideLoading());
 };
 
@@ -25,10 +21,11 @@ export const setMapMarkersRequest = () => dispatch => {
     });
   };
 
-export const setMapMarkersLoaded = (markers) => dispatch => {
+export const setMapMarkersLoaded = (markers, nearbyDAMarkers) => dispatch => {
   dispatch({
     type: "SET_MAP_MARKERS_LOADED",
-    markers
+    markers, 
+    nearbyDAMarkers
   });
 };
 
@@ -49,8 +46,11 @@ export const changeAllMarkers = (item, status) => {
 };
 
 export const applyFilter = (authenticated, accessToken) => async dispatch => {
-  const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly } = store.getState().filter;
+  
+  const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly, nearbyDA } = store.getState().filter;
   const { latitude, longitude } = store.getState().viewport;
+  const { markers, nearbyDAMarkers } = store.getState().mapMarker;
+  const nearbyDAUrl = `https://api.planningalerts.org.au/applications.js?key=1iQRahpMr6dxwRGN9fgM&lat=${latitude}&lng=${longitude}&radius=2000`
   let headers = {
     "centreLatitude": latitude,
     "centreLongitude": longitude
@@ -75,8 +75,14 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
   dispatch(showLoading());
   dispatch(applyFilterRequest());
   await axios.post(`${apiUrl}/query`, JSON.stringify(filter), { timeout: 10000, headers })
-      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data }))
+      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", payload: { markers: res.data, nearbyDAMarkers } }))
       .catch(error => console.log(error));
+  nearbyDA ? 
+    await axios.get(nearbyDAUrl, { timeout: 5000 })
+        .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", payload: { markers, nearbyDAMarkers: res.data } }))
+        .catch(error => console.log(error)) 
+        : 
+    dispatch({ type: "SET_MAP_MARKERS_LOADED", payload: { markers, nearbyDAMarkers: [] } });
   dispatch(hideLoading());
 };
 

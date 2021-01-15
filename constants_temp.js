@@ -142,3 +142,44 @@ export const parcels = [
         "property_id": 1992428
     }
 ]
+
+export const nearbyDA = [
+    {
+        "application": {
+            "id": 1865329,
+            "council_reference": "X/4/2021",
+            "date_scraped": "2021-01-10T01:00:05.000Z",
+            "address": "12 Barnet Street Glenbrook NSW 2773",
+            "description": "Demolition of two existing sheds, construction of new shed",
+            "info_url": "https://www2.bmcc.nsw.gov.au/DATracking/Pages/XC.Track/SearchApplication.aspx?id=834011",
+            "comment_url": null,
+            "date_received": "2021-01-06",
+            "on_notice_from": null,
+            "on_notice_to": null,
+            "lat": -33.7620328,
+            "lng": 150.6258556,
+            "authority": {
+                "full_name": "Blue Mountains City Council"
+            }
+        }
+    },
+    {
+        "application": {
+            "id": 1865331,
+            "council_reference": "XM/560/2020/A",
+            "date_scraped": "2021-01-10T01:00:05.000Z",
+            "address": "9 York Street Glenbrook NSW 2773",
+            "description": "Alterations and additions to existing dwelling and detached garage - as modified - PAN-60039",
+            "info_url": "https://www2.bmcc.nsw.gov.au/DATracking/Pages/XC.Track/SearchApplication.aspx?id=834448",
+            "comment_url": null,
+            "date_received": "2021-01-08",
+            "on_notice_from": null,
+            "on_notice_to": null,
+            "lat": -33.7598177,
+            "lng": 150.6249257,
+            "authority": {
+                "full_name": "Blue Mountains City Council"
+            }
+        }
+    },
+]

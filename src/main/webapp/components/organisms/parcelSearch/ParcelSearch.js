@@ -17,7 +17,7 @@ import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxF
 
 const ParcelSearch = (props) => {
     const { parcelSearch } = props;
-    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue, landOnly } = props.parcelSearch;
+    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue, landOnly, nearbyDA } = props.parcelSearch;
 
     const onSelect = ({ key }) => {
       props.setParcelFilter({ ...parcelSearch, zone: key });
@@ -112,11 +112,19 @@ const ParcelSearch = (props) => {
                       value={landOnly} 
                       onClick={()=>props.setParcelFilter({ ...parcelSearch, landOnly: !landOnly })}
                       />
+                    <CheckboxFilterLine 
+                      title='Include nearby DA' 
+                      icon={<IconLandOnly/>}
+                      value={nearbyDA} 
+                      onClick={()=>props.setParcelFilter({ ...parcelSearch, nearbyDA: !nearbyDA })}
+                      />
                   </div>
+
                   <div className="resetFilterWrapper">
                     <div className="resetFilterBtn" onClick={props.resetParcelFilter}>Reset filter</div>
                   </div>
                 </div>
+
                 </div> 
                   <div className='filterBtnContainer'>
                   <div className='btnSavePref'/>

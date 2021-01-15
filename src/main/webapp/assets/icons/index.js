@@ -66,5 +66,4 @@ export { default as IconUser } from "./IconUser";
 export { default as IconZone } from "./IconZone";
 export { default as IconZoneG } from "./IconZoneG";
 export { default as Logo } from "./Logo";
-export { default as MapMarker } from "./MapMarker";
 export { default as PropertyFetch } from "./PropertyFetch";

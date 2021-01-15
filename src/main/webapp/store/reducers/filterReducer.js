@@ -6,7 +6,8 @@ export const initialFilter = {
                         postCode: "",
                         priceLandvalue: [ 0, 10 ],
                         floorspaceRatio: [ 0, 2 ],
-                        landOnly: false
+                        landOnly: false,
+                        nearbyDA: false
                     };
 
 const filterReducer = (state = initialFilter, action) => {

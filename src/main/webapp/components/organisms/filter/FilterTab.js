@@ -170,11 +170,19 @@ class FilterTab extends React.Component {
                       value={filter.landOnly} 
                       onClick={()=>this.props.getFilter({ ...filter, landOnly: !filter.landOnly })}
                       />
+                    <CheckboxFilterLine 
+                      title='Include nearby DA' 
+                      icon={<IconLandOnly/>}
+                      value={filter.nearbyDA} 
+                      onClick={()=>this.props.getFilter({ ...filter, nearbyDA: !filter.nearbyDA })}
+                      />
                   </div>
                   <div className="resetFilterWrapper">
                     <div className="resetFilterBtn" onClick={()=>this.props.resetFilter()}>Reset filter</div>
                   </div>
+
                 </div>
+
 
                 </div> 
                  <div className='filterBtnContainer'>

@@ -7,6 +7,7 @@ const initialFilter = {
     floorspaceRatio: [ 0, 2 ],
     landValue: [ 100000, 5000000 ],
     landOnly: false,
+    nearbyDA: false,
     result: []
 };
 

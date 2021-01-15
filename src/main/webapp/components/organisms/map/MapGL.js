@@ -1,10 +1,10 @@
+import React from "react";
 import { withAuth } from "@okta/okta-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import React from "react";
 import { hotjar } from "react-hotjar";
 import { connect } from "react-redux";
-import { MapMarker } from "../../../assets/icons";
+
 import { INITIAL_VIEWPORT } from "../../../shared/constants/constants";
 import { closeFilter, showFilter } from "../../../store/actions/filterModalAction";
 import { closeLayersModal, showLayersModal } from "../../../store/actions/layersAction";
@@ -74,8 +74,7 @@ componentDidUpdate() {
         }
     }
     currentMarkers = [];
-    const mp = <div><MapMarker/></div>;
-    this.renderMarkers(mp);   
+    this.renderMarkers(); 
 }
 
 handleViewportChange = () => {
@@ -85,17 +84,29 @@ handleViewportChange = () => {
 }
 
 renderMarkers = async () => {
-    const { mapMarker } = this.props;
-    mapMarker.forEach((marker) => {
-        var el = document.createElement("div");
+    const { markers, nearbyDAMarkers } = this.props.mapMarker;
+    markers.forEach((marker) => {
+        const el = document.createElement("div");
         el.tabIndex = 0;
         el.className = marker.status;
         el.onmouseover=()=>el.id="marker-hovered";
         el.onmouseout=()=>el.removeAttribute("id");
         el.onclick=()=>this.props.getPropertyInfo(marker);
        
-        let oneMarker = new mapboxgl.Marker(el)
+        const oneMarker = new mapboxgl.Marker(el)
           .setLngLat({ lng: marker.longitude, lat: marker.latitude })
+          .addTo(map);
+        currentMarkers.push(oneMarker);
+    });
+
+    nearbyDAMarkers.forEach((marker) => {
+        const el = document.createElement("div");
+        el.tabIndex = 0;
+        el.className = "marker-nearbyDA";
+        el.onclick=()=>console.log(marker.application);
+       
+        const oneMarker = new mapboxgl.Marker(el)
+          .setLngLat({ lng: marker.application.lng, lat: marker.application.lat })
           .addTo(map);
         currentMarkers.push(oneMarker);
     });
@@ -180,7 +191,7 @@ checkAuthentication = async () => {
                 />}
                 {layers.showModal&&<LayerSelectModal/>}
             </div>
-            <div id="map-overlay" className="map-overlay"></div>
+            <div id="map-overlay" className="map-overlay"/>
         </>
         );
     }
