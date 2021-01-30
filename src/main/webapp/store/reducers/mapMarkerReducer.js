@@ -10,7 +10,7 @@ const mapMarkerReducer = (state = { markers: [], nearbyDAMarkers: [] }, action) 
             const newArr = action.markers.map(v => ({ ...v, status: "marker-unvisited" }));
             return ({
                     markers: newArr,
-                    nearbyDAMarkers: action.payload.nearbyDAMarkers
+                    nearbyDAMarkers: action.nearbyDAMarkers
             });
 
         case "CHANGE_MARKER_STATUS":
