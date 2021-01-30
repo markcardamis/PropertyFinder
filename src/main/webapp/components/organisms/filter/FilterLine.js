@@ -6,7 +6,7 @@ import Slider from "../../atoms/slider/Slider";
 
 export const FilterLine = (props) => {
     return <div className='filterLine'>
-                <PropListTitle title22={props.title22} icon={props.icon}/>
+                <PropListTitle title22={props.title22} icon={props.icon} />
                 <Slider
                     value={props.value}
                     onChange={props.onChange}
@@ -16,6 +16,7 @@ export const FilterLine = (props) => {
                     labelMin={props.labelMin}
                     labelMax={props.labelMax}
                     showCurrency={props.showCurrency}
+                    style={{ width: "50%" }}
                     />
             </div>;
 };

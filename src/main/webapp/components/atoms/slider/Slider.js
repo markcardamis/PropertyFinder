@@ -40,7 +40,7 @@ const Slider = (props) => {
   };
 
   return (
-    <div className='sliderContainer'>
+    <div className='sliderContainer' style={props.style}>
       <div>{getRange()}</div>
       <Range
         value={props.value}
@@ -69,7 +69,8 @@ Slider.propTypes = {
   labelMax: PropTypes.string,
   showCurrency: PropTypes.bool,
   index: PropTypes.number,
-  dragging: PropTypes.bool
+  dragging: PropTypes.bool,
+  style: PropTypes.object
 };
 
 export default Slider;

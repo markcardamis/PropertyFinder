@@ -17,6 +17,7 @@ import FilterButtonGroup from "../../molecules/filterButtonGroup/FilterButtonGro
 import LayerSelectModal from "../layerSelectModal/LayerSelectModal";
 import "./MapGL.scss";
 import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
+import { renderPopup } from "../../../shared/utils/renderPopup";
 
     mapboxgl.accessToken = process.env.MAPBOX_API;
     export let map;
@@ -103,7 +104,7 @@ renderMarkers = async () => {
         const el = document.createElement("div");
         el.tabIndex = 0;
         el.className = "marker-nearbyDA";
-        el.onclick=()=>console.log(marker.application);
+        el.onclick=()=>renderPopup(marker.application.lng, marker.application.lat, <div style={{ backgroundColor: 'red', width: 20, height: 20}}/>);
        
         const oneMarker = new mapboxgl.Marker(el)
           .setLngLat({ lng: marker.application.lng, lat: marker.application.lat })

@@ -9,11 +9,13 @@ import "./parcelSearch.scss";
 import { FilterLine, ZoneSelect, PostCode } from "./components";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
-import { IconArea, IconFsr, IconPrice, IconZone, IconPost, IconBuildingHeight, IconLandOnly } from "../../../assets/icons";
+import { IconArea, IconFsr, IconPrice, IconZone, IconPost, IconBuildingHeight, IconLandOnly, IconNearBy } from "../../../assets/icons";
 import { setParcelFilter, resetParcelFilter } from "../../../store/actions/parcelSearchAction/setParcelFilter";
 import { applyParcelSearch } from "../../../store/actions/parcelSearchAction/parcelSearchAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
+import variables from "../../../styles/_variables.scss";
+import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 
 const ParcelSearch = (props) => {
     const { parcelSearch } = props;
@@ -104,31 +106,27 @@ const ParcelSearch = (props) => {
                   labelMin={"$100k"} 
                   labelMax={"$5M"}
                   />
-                <div className="landOnly"> 
-                  <div className="landOnlyWrapper">
+                <div className="checkboxLine"> 
                     <CheckboxFilterLine 
                       title='Land Only' 
                       icon={<IconLandOnly/>}
                       value={landOnly} 
                       onClick={()=>props.setParcelFilter({ ...parcelSearch, landOnly: !landOnly })}
+                      style={{ paddingRight: "5px" }}
                       />
                     <CheckboxFilterLine 
                       title='Include nearby DA' 
-                      icon={<IconLandOnly/>}
+                      icon={<IconNearBy color={variables.darkGrey} />}
                       value={nearbyDA} 
                       onClick={()=>props.setParcelFilter({ ...parcelSearch, nearbyDA: !nearbyDA })}
+                      style={{ paddingLeft: "5px" }}
                       />
-                  </div>
-
-                  <div className="resetFilterWrapper">
-                    <div className="resetFilterBtn" onClick={props.resetParcelFilter}>Reset filter</div>
-                  </div>
                 </div>
-
                 </div> 
-                  <div className='filterBtnContainer'>
-                  <div className='btnSavePref'/>
-                  <div className='btnSearch'><ButtonFilled title={"Search"} onClick={handleSubmit}/></div>
+
+                <div className='filterBtnContainer'>
+                  <ButtonOutlined title={"Reset filter"} onClick={props.resetParcelFilter} style={{ width: "22%" }} titleStyle={{ color: variables.green }} />
+                  <ButtonFilled title={"Search"} onClick={handleSubmit} style={{ width: "53%" }} />
                 </div>
               </div>
         );
@@ -147,7 +145,11 @@ const mapDispatchToProps = {
   };
 
 ParcelSearch.propTypes = {
-    
+  resetParcelFilter: PropTypes.func,
+  setParcelFilter: PropTypes.func,
+  applyParcelSearch: PropTypes.func,
+  closeFilter: PropTypes.func,
+  parcelSearch: PropTypes.object
 };
 
   export default connect(mapStateToProps, mapDispatchToProps)(ParcelSearch);

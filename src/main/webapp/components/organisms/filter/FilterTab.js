@@ -11,7 +11,7 @@ import "./filter.scss";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
-import { IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost, IconLandOnly } from "../../../assets/icons";
+import { IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost, IconLandOnly, IconNearBy } from "../../../assets/icons";
 import { getFilter, resetFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 import { showSearchModal } from "../../../store/actions/searchModalAction";
@@ -20,6 +20,7 @@ import { FilterLine } from "./FilterLine";
 import { PostCode } from "./PostCode";
 import { ZoneSelect } from "./ZoneSelect";
 import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
+import variables from "../../../styles/_variables.scss";
 
 class FilterTab extends React.Component {
 
@@ -106,7 +107,7 @@ class FilterTab extends React.Component {
                   // step={100} 
                   step={this.state.areaStep}
                   showCurrency={false}
-                  onChange={(val, prevState)=>{this.props.getFilter({ ...filter, area: val }); this.setState({areaStep: prevState*1.5})}} 
+                  onChange={(val, prevState)=>{this.props.getFilter({ ...filter, area: val }); this.setState({ areaStep: prevState*1.5 });}} 
                   min={0} 
                   max={20000} 
                   labelMin={"0"} 
@@ -162,32 +163,28 @@ class FilterTab extends React.Component {
                   labelMax={"10.0"}
                   />
 
-                <div className="landOnly"> 
-                  <div className="landOnlyWrapper">
+                <div className="checkboxLine"> 
                     <CheckboxFilterLine 
                       title='Land Only' 
                       icon={<IconLandOnly/>}
                       value={filter.landOnly} 
                       onClick={()=>this.props.getFilter({ ...filter, landOnly: !filter.landOnly })}
+                      style={{ paddingRight: "5px" }}
                       />
                     <CheckboxFilterLine 
                       title='Include nearby DA' 
-                      icon={<IconLandOnly/>}
+                      icon={<IconNearBy color={variables.darkGrey} />}
                       value={filter.nearbyDA} 
                       onClick={()=>this.props.getFilter({ ...filter, nearbyDA: !filter.nearbyDA })}
+                      style={{ paddingLeft: "5px" }}
                       />
-                  </div>
-                  <div className="resetFilterWrapper">
-                    <div className="resetFilterBtn" onClick={()=>this.props.resetFilter()}>Reset filter</div>
-                  </div>
-
                 </div>
-
 
                 </div> 
                  <div className='filterBtnContainer'>
-                  <div className='btnSavePref'><ButtonOutlined title={"Save preferences"} onClick={this.handleSaveFilter}/></div>
-                  <div className='btnSearch'><ButtonFilled title={"Search"} onClick={this.handleSubmit}/></div>
+                  <ButtonOutlined title={"Reset filter"} onClick={this.props.resetFilter} style={{ width: "22%" }} titleStyle={{ color: variables.green }} />
+                  <ButtonOutlined title={"Save preferences"} onClick={this.handleSaveFilter} style={{ width: "22%" }} />
+                  <ButtonFilled title={"Search"} onClick={this.handleSubmit} style={{ width: "53%" }} />
                 </div>
               </div>
         );
@@ -208,7 +205,14 @@ const mapDispatchToProps = {
   };
 
 FilterTab.propTypes = {
-    
+  resetFilter: PropTypes.func,
+  getFilter: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  closeFilter: PropTypes.func,
+  showSearchArea: PropTypes.func,
+  handleSaveFilter: PropTypes.func,
+  filter: PropTypes.object,
+  auth: PropTypes.object
 };
 
   export default withAuth(connect(mapStateToProps, mapDispatchToProps)(FilterTab));

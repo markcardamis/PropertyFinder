@@ -4,16 +4,17 @@ import "./buttonOutlined.scss";
 
 const ButtonOutlined = props => {
     return (
-            <div className='buttonOutlined' onClick={props.onClick} style={{ width: props.width || "100%" }}>
-                <div className='buttonOutlinedTitle'>{props.title}</div>
+            <div className='buttonOutlined' onClick={props.onClick} style={props.style}>
+                <div className='buttonOutlinedTitle' style={props.titleStyle}>{props.title}</div>
             </div>
     );
 };
 
 ButtonOutlined.propTypes = {
     title: PropTypes.string,
-    width: PropTypes.string,
-    onClick: PropTypes.func
+    style: PropTypes.object,
+    onClick: PropTypes.func,
+    titleStyle: PropTypes.object,
 };
 
 export default ButtonOutlined;

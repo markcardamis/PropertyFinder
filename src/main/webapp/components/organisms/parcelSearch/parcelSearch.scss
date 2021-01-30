@@ -6,39 +6,11 @@
     justify-content: space-between;
     align-items: center;
 }
-.landOnly {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex: 1;
-    
-    .landOnlyWrapper {
-        width: 50%;
-    }
-    .resetFilterWrapper {
-        display: flex;
-        width: 40%;
-        align-items: center;
 
-        .resetFilterBtn {
-            margin-top: 0;
-            color: $green;
-            cursor: pointer;
-            font-size: 16px;
-        }
-    }
-}
 .filterBtnContainer {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-
-        .btnSavePref {
-            width: 25%;
-        }
-        .btnSearch {
-            width: 65%;
-        }
     }
 .zoneSelect {
     display: flex;
@@ -46,7 +18,7 @@
     justify-content: space-between;
 
     .zoneSelectBtn {
-        width: 42%;
+        width: 50%;
         height: 34px;
         border: 1px solid $dark-grey;
         border-radius: 6px;

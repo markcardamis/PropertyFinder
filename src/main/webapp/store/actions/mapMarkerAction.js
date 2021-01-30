@@ -75,14 +75,12 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
   dispatch(showLoading());
   dispatch(applyFilterRequest());
   await axios.post(`${apiUrl}/query`, JSON.stringify(filter), { timeout: 10000, headers })
-      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", payload: { markers: res.data, nearbyDAMarkers } }))
+      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data, nearbyDAMarkers }))
       .catch(error => console.log(error));
-  nearbyDA ? 
+  nearbyDA &&
     await axios.get(nearbyDAUrl, { timeout: 5000 })
-        .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", payload: { markers, nearbyDAMarkers: res.data } }))
-        .catch(error => console.log(error)) 
-        : 
-    dispatch({ type: "SET_MAP_MARKERS_LOADED", payload: { markers, nearbyDAMarkers: [] } });
+        .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers, nearbyDAMarkers: res.data }))
+        .catch(error => console.log(error));
   dispatch(hideLoading());
 };
 
@@ -99,7 +97,7 @@ export const selectFilter = (item, accessToken) => async dispatch => {
   dispatch(selectFilterRequest());
   await axios.get(`${apiUrl}/notifications/${item.id}`, 
     { timeout: 5000, headers })
-      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data }))
+      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data, nearbyDAMarkers: [] }))
       .catch(error => console.log(error));
   dispatch(hideLoading());
   dispatch(closeFilter());

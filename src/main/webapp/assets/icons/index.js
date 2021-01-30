@@ -30,6 +30,7 @@ export { default as IconFsrG } from "./IconFsrG";
 export { default as IconHeight } from "./IconHeight";
 export { default as IconHouse } from "./IconHouse";
 export { default as IconKey } from "./IconKey";
+export { default as IconNearBy } from "./IconNearBy";
 export { default as IconLandOnly } from "./IconLandOnly";
 export { default as IconLandval } from "./IconLandval";
 export { default as IconLandvalG } from "./IconLandvalG";

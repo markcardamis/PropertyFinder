@@ -4,7 +4,7 @@ import "./buttonFilled.scss";
 
 const ButtonFilled = props => {
     return (
-            <div className='buttonFilled' onClick={props.onClick} style={{ width: props.width || "100%" }}>
+            <div className='buttonFilled' onClick={props.onClick} style={props.style}>
                 <div className='buttonFilledTitle'>{props.title}</div>
             </div>
     );
@@ -12,7 +12,8 @@ const ButtonFilled = props => {
 
 ButtonFilled.propTypes = {
     title: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    style: PropTypes.object,
 };
 
 export default ButtonFilled;

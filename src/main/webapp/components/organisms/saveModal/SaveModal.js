@@ -65,7 +65,7 @@ const SaveModal = (props) => {
                             {renderOptions()}
                         </div>}
                 </div>
-                <ButtonFilled title={"Save"} width={"100%"} onClick={handleSaveFilter}/>
+                <ButtonFilled title={"Save"} style={{ width: "100%" }} onClick={handleSaveFilter}/>
           </div>
         </div>
     );
