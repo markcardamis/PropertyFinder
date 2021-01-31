@@ -31,7 +31,6 @@ class FilterTab extends React.Component {
             zone: this.props.filter.zone,
             zoneColor: null,
             showValidation: false,
-            areaStep: 100    
         };
 
        this.checkAuthentication();
@@ -104,10 +103,9 @@ class FilterTab extends React.Component {
                   title22={"Area"} 
                   icon={<IconArea/>} 
                   value={filter.area} 
-                  // step={100} 
-                  step={this.state.areaStep}
+                  step={100} 
                   showCurrency={false}
-                  onChange={(val, prevState)=>{this.props.getFilter({ ...filter, area: val }); this.setState({ areaStep: prevState*1.5 });}} 
+                  onChange={val=>this.props.getFilter({ ...filter, area: val })} 
                   min={0} 
                   max={20000} 
                   labelMin={"0"} 
