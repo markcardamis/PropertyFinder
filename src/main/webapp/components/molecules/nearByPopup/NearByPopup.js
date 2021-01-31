@@ -1,10 +1,20 @@
-import React from 'react'
+import React from "react";
+import PropTypes from "prop-types";
 
-export const NearByPopup = () => {
+
+export const NearByPopup = ({ title, url, description, date }) => {
     return (
-        <div style={{height: 50, width: 50, backgroundColor: 'red'}}>
-            this is popup
-            
-        </div>
-    )
-}
+        <>
+            <a href={url} target="_blank" >{title}</a>
+            <div>on {date} applied for </div>
+            <div>{description}</div>
+        </>
+    );
+};
+
+NearByPopup.propTypes = {
+    title: PropTypes.string, 
+    url: PropTypes.string, 
+    description: PropTypes.string, 
+    date: PropTypes.string,
+};

@@ -1,4 +1,4 @@
-import axios from '../../api/axiosConfig'
+import axios from "../../api/axiosConfig";
 import { store } from "../../../webapp/javascript/index";
 import { hideLoading, showLoading } from "./loadingAction";
 import { closeFilter } from "./filterModalAction";
@@ -49,7 +49,6 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
   
   const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly, nearbyDA } = store.getState().filter;
   const { latitude, longitude } = store.getState().viewport;
-  const { markers, nearbyDAMarkers } = store.getState().mapMarker;
   const nearbyDAUrl = `https://api.planningalerts.org.au/applications.js?key=1iQRahpMr6dxwRGN9fgM&lat=${latitude}&lng=${longitude}&radius=2000`
   let headers = {
     "centreLatitude": latitude,
@@ -72,16 +71,23 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
       propertyFloorSpaceRatioMax: floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null,
       landOnly: landOnly !== null ? landOnly : false
   };
+  const getMarkersRequest = axios.post(`${apiUrl}/query`, JSON.stringify(filter), { timeout: 10000, headers });
+  const getNearbyDARequest = axios.get(nearbyDAUrl, { timeout: 5000 });
   dispatch(showLoading());
   dispatch(applyFilterRequest());
-  await axios.post(`${apiUrl}/query`, JSON.stringify(filter), { timeout: 10000, headers })
-      .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers: res.data, nearbyDAMarkers }))
+  await axios.all([ getMarkersRequest, nearbyDA && getNearbyDARequest ])
+        .then(
+          axios.spread((...res) => {
+            dispatch({ 
+              type: "SET_MAP_MARKERS_LOADED", 
+              markers: res[0].data, 
+              nearbyDAMarkers: nearbyDA ? res[1].data : [] 
+            });
+          })
+        )
       .catch(error => console.log(error));
-  nearbyDA &&
-    await axios.get(nearbyDAUrl, { timeout: 5000 })
-        .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers, nearbyDAMarkers: res.data }))
-        .catch(error => console.log(error));
   dispatch(hideLoading());
+
 };
 
 export const applyFilterRequest = () => dispatch => {

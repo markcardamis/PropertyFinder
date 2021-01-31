@@ -18,6 +18,7 @@ import LayerSelectModal from "../layerSelectModal/LayerSelectModal";
 import "./MapGL.scss";
 import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
 import { renderPopup } from "../../../shared/utils/renderPopup";
+import { NearByPopup } from "../../molecules/nearByPopup/NearByPopup";
 
     mapboxgl.accessToken = process.env.MAPBOX_API;
     export let map;
@@ -48,7 +49,8 @@ async componentDidMount() {
         hotjar.initialize(1445331, 6);
     }
     
-    map.on("click", (e) => this.handlePropertyClick(e)); 
+    // map.on("click", (e) => this.handlePropertyClick(e)); 
+    map.on("click", (e) => console.log('clicked property')); 
     map.on("move", () => this.handleViewportChange());
     map.on("mousemove", "nsw-property", (e) => this.handleHoverOnProperty(e));
     map.on("mouseleave", "nsw-property", () => this.handleHoverOffProperty());
@@ -104,8 +106,18 @@ renderMarkers = async () => {
         const el = document.createElement("div");
         el.tabIndex = 0;
         el.className = "marker-nearbyDA";
-        el.onclick=()=>renderPopup(marker.application.lng, marker.application.lat, <div style={{ backgroundColor: 'red', width: 20, height: 20}}/>);
-       
+        el.onclick=(e)=>{
+            e.stopPropagation(); 
+            renderPopup(
+                marker.application.lng, 
+                marker.application.lat, 
+                <NearByPopup 
+                    title={marker.application.address}
+                    url={marker.application.info_url}
+                    date={marker.application.date_received}
+                    description={marker.application.description}
+                    />
+            );};
         const oneMarker = new mapboxgl.Marker(el)
           .setLngLat({ lng: marker.application.lng, lat: marker.application.lat })
           .addTo(map);

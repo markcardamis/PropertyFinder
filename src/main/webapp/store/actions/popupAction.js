@@ -1,6 +1,6 @@
 import React from "react";
 
-import axios from '../../api/axiosConfig';
+import axios from "../../api/axiosConfig";
 import Popup from "../../components/organisms/popup/Popup";
 import { store } from "../../../webapp/javascript/index";
 import { showLoading, hideLoading } from "./loadingAction";
@@ -11,12 +11,10 @@ const apiUrl = "/api/propertyinformation";
 
 export const getPopup = (propId, longitude, latitude) => async dispatch => {
   const { accessToken } = store.getState().auth;
-  const property = store.getState().popup;
-  const { chart_data } = property;
+  const propertyInfo = store.getState().popup;
   const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {}
 
-  const popup = <Provider store={store}><Popup chartData={chart_data} propertyInfo={property}/></Provider>;
-
+  const popup = <Provider store={store}><Popup propertyInfo={propertyInfo}/></Provider>;
   
     dispatch(showLoading());
     dispatch(setPopupRequest());
