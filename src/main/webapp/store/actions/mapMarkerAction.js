@@ -49,7 +49,7 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
   
   const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly, nearbyDA } = store.getState().filter;
   const { latitude, longitude } = store.getState().viewport;
-  const nearbyDAUrl = `https://api.planningalerts.org.au/applications.js?key=${process.env.PLANNING_ALERTS_API}&lat=${latitude}&lng=${longitude}&radius=2000`
+  const nearbyDAUrl = `https://api.planningalerts.org.au/applications.js?key=${process.env.DA_API_KEY}&lat=${latitude}&lng=${longitude}&radius=2000`
   let headers = {
     "centreLatitude": latitude,
     "centreLongitude": longitude
