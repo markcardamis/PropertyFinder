@@ -46,7 +46,7 @@ export const applyParcelSearch = () => async dispatch => {
         .then(res => dispatch({ type: "PARCEL_SEARCH_LOADED", payload: res.data }))
         .catch(error => console.log(error));
     nearbyDA && 
-      await axios.get(nearbyDAUrl, { timeout: 5000 })
+      await axios.get(nearbyDAUrl, { timeout: 10000 })
           .then(res=>dispatch({ type: "SET_MAP_MARKERS_LOADED", markers, nearbyDAMarkers: res.data }))
           .catch(error => console.log(error));
     handleDisplayParcels();

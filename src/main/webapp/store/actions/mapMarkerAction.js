@@ -72,7 +72,7 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
       landOnly: landOnly !== null ? landOnly : false
   };
   const getMarkersRequest = axios.post(`${apiUrl}/query`, JSON.stringify(filter), { timeout: 10000, headers });
-  const getNearbyDARequest = axios.get(nearbyDAUrl, { timeout: 5000 });
+  const getNearbyDARequest = axios.get(nearbyDAUrl, { timeout: 10000 });
   dispatch(showLoading());
   dispatch(applyFilterRequest());
   await axios.all([ getMarkersRequest, nearbyDA && getNearbyDARequest ])
