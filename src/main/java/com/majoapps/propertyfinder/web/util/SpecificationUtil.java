@@ -129,6 +129,8 @@ public class SpecificationUtil {
             sb.append(" AND ( :buildingHeightMax IS NULL OR l.buildingHeight <= :buildingHeightMax)");
             sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio >= :floorSpaceRatioMin)");
             sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio <= :floorSpaceRatioMax)");
+            sb.append(" AND ( :streetFrontageMin IS NULL OR l.streetFrontage >= :streetFrontageMin)");
+            sb.append(" AND ( :streetFrontageMax IS NULL OR l.streetFrontage <= :streetFrontageMax)");
         }
         return appendOrderBy(latitude, longitude, sb);
     }
@@ -147,6 +149,8 @@ public class SpecificationUtil {
             query.setParameter("buildingHeightMax", propertyInformation.getBuildingHeightMax());
             query.setParameter("floorSpaceRatioMin", propertyInformation.getFloorSpaceRatioMin());
             query.setParameter("floorSpaceRatioMax", propertyInformation.getFloorSpaceRatioMax());
+            query.setParameter("streetFrontageMin", propertyInformation.getStreetFrontageMin());
+            query.setParameter("streetFrontageMax", propertyInformation.getStreetFrontageMax());
         }
         return query;
     }

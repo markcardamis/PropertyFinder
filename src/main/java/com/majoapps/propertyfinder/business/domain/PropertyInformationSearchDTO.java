@@ -21,5 +21,7 @@ public class PropertyInformationSearchDTO implements Serializable {
     @JsonProperty("building_height_max") private BigDecimal buildingHeightMax;
     @JsonProperty("floor_space_ratio_min") private BigDecimal floorSpaceRatioMin;
     @JsonProperty("floor_space_ratio_max") private BigDecimal floorSpaceRatioMax;
+    @JsonProperty("street_frontage_min") private BigDecimal streetFrontageMin;
+    @JsonProperty("street_frontage_max") private BigDecimal streetFrontageMax;
 }
 
