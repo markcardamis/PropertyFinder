@@ -50,7 +50,7 @@ async componentDidMount() {
     }
     
     // map.on("click", (e) => this.handlePropertyClick(e)); 
-    map.on("click", (e) => console.log('clicked property')); 
+    map.on("click", (e) => console.log("clicked property")); 
     map.on("move", () => this.handleViewportChange());
     map.on("mousemove", "nsw-property", (e) => this.handleHoverOnProperty(e));
     map.on("mouseleave", "nsw-property", () => this.handleHoverOffProperty());

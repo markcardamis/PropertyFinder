@@ -1,4 +1,4 @@
-import axios from '../../../api/axiosConfig';
+import axios from "../../../api/axiosConfig";
 import { store } from "../../../javascript";
 import { hideLoading, showLoading } from "../loadingAction";
 

@@ -1,4 +1,4 @@
-import axios from '../../../api/axiosConfig';
+import axios from "../../../api/axiosConfig";
 import { hideLoading, showLoading } from "../loadingAction";
 
 const apiUrl = "/api/notifications?type=filters";

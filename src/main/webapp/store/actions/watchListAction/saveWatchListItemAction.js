@@ -1,4 +1,4 @@
-import axios from '../../../api/axiosConfig';
+import axios from "../../../api/axiosConfig";
 import { getUpperCase } from "../../../shared/utils/getUppercase";
 import { store } from "../../../javascript";
 import { hideLoading, showLoading } from "../loadingAction";

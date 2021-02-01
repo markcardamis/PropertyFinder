@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export const NearByPopup = ({ title, url, description, date }) => {
     return (
         <>
-            <a href={url} target="_blank" >{title}</a>
+            <a href={url} target="_blank" rel="noopener noreferrer" >{title}</a>
             <div>on {date} applied for </div>
             <div>{description}</div>
         </>

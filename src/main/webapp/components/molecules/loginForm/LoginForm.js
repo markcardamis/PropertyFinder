@@ -63,7 +63,7 @@ class LoginForm extends Component {
                 <TextInput 
                     icon={<IconKey/>} 
                     rightIcon={<IconEye color={passIconColor}/>}
-                    onRightIconClick={() => this.setState({showPassword: !this.state.showPassword})}
+                    onRightIconClick={() => this.setState({ showPassword: !this.state.showPassword })}
                     type={this.state.showPassword ? "text" : "password"}
                     placeholder={"Password"}
                     value={this.state.password}

@@ -1,4 +1,4 @@
-import axios from '../../api/axiosConfig';
+import axios from "../../api/axiosConfig";
 import { store } from "../../../webapp/javascript/index";
 import { hideLoading, showLoading } from "./loadingAction";
 const apiUrl = "/api/notifications";
@@ -27,7 +27,7 @@ export const saveFilter = (accessToken, name, frequency, editedFilter) => async 
     
     dispatch(showLoading());
     dispatch(saveFilterRequest());
-    const method = editedFilter ? axios.put : axios.post
+    const method = editedFilter ? axios.put : axios.post;
     await method(
             `${apiUrl}${editedFilter ? "/"+editedFilter.id : ""}`,
             JSON.stringify(filter), 

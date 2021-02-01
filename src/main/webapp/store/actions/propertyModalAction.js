@@ -1,4 +1,4 @@
-import axios from '../../api/axiosConfig';
+import axios from "../../api/axiosConfig";
 import { changeMarker, changeAllMarkers } from "./mapMarkerAction";
 import { showLoading, hideLoading } from "./loadingAction";
 const apiUrl = "/api/listing";

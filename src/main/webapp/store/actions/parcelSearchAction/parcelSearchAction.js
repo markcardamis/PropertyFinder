@@ -1,4 +1,4 @@
-import axios from '../../../api/axiosConfig';
+import axios from "../../../api/axiosConfig";
 import { store } from "../../../../webapp/javascript/index";
 import { map } from "../../../components/organisms/map/MapGL";
 import { hideLoading, showLoading } from "../loadingAction";
@@ -9,7 +9,7 @@ export const applyParcelSearch = () => async dispatch => {
     const { zone, postCode, area, buildingHeight, landValue, floorspaceRatio, landOnly, nearbyDA } = store.getState().parcelSearch;
     const { latitude, longitude } = store.getState().viewport;
     const { markers } = store.getState().mapMarker;
-    const nearbyDAUrl = `https://api.planningalerts.org.au/applications.js?key=1iQRahpMr6dxwRGN9fgM&lat=${latitude}&lng=${longitude}&radius=2000`
+    const nearbyDAUrl = `https://api.planningalerts.org.au/applications.js?key=1iQRahpMr6dxwRGN9fgM&lat=${latitude}&lng=${longitude}&radius=2000`;
 
     const handleDisplayParcels = () => {
       const parcels = store.getState().parcelSearch.result;

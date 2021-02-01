@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 
-import { IconCheckmark } from '../../../assets/icons'
+import { IconCheckmark } from "../../../assets/icons";
 
-import './checkbox.scss'
+import "./checkbox.scss";
 
-export const Checkbox = ({value, onClick}) => {
+export const Checkbox = ({ value, onClick }) => {
     return (
         <div 
             className="checkboxContainer"
@@ -12,5 +12,5 @@ export const Checkbox = ({value, onClick}) => {
             >
             {value && <IconCheckmark/>}
         </div>
-    )
-}
+    );
+};

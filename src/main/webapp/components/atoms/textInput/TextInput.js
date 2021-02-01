@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./textInput.scss";
 
 const TextInput = (props) => {
-    const { icon, rightIcon, onRightIconClick, width, type, value, onChange, placeholder } = props
+    const { icon, rightIcon, onRightIconClick, width, type, value, onChange, placeholder } = props;
     return (
         <div className='textInputContainer' style={{ width: width || "100%" }}>
             {icon && <div className='textInputIcon'>{icon}</div>}
