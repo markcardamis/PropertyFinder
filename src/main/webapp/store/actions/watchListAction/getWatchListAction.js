@@ -6,7 +6,7 @@ const apiUrl = "/api/notifications?type=watchlist";
 
 export const getWatchList = () => async dispatch => {
   const { accessToken } = store.getState().auth;
-  const headers = { Authorization: "Bearer " + accessToken }
+  const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
 
   dispatch(showLoading());
     dispatch(setWatchListRequest());

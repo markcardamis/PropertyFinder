@@ -2,17 +2,16 @@ import axios from '../../../api/axiosConfig';
 import { store } from "../../../javascript";
 import { showLoading, hideLoading } from "../loadingAction";
 
+const apiUrl = "/api/notifications";
+
 export const deleteWatchListItem = (item) => async dispatch => {
 const { accessToken } = store.getState().auth;
-const apiUrl = "/api/notifications";
+const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
 
   dispatch(showLoading());
     dispatch(deleteWatchListItemRequest());
     await axios.delete(`${apiUrl}/${item.id}`, 
-        { timeout: 5000 },
-        {
-            Authorization: "Bearer " + accessToken
-        })
+        { timeout: 5000, headers })
         .then(res=>console.log(res.data))
         .catch(error => console.log(error));
   dispatch(hideLoading());

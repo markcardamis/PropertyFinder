@@ -23,17 +23,15 @@ export const saveFilter = (accessToken, name, frequency, editedFilter) => async 
         landOnly: landOnly !== null ? landOnly : false,
         nearbyDA: nearbyDA !== null ? nearbyDA : false,
     };
-
+    const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
+    
     dispatch(showLoading());
     dispatch(saveFilterRequest());
     const method = editedFilter ? axios.put : axios.post
     await method(
             `${apiUrl}${editedFilter ? "/"+editedFilter.id : ""}`,
             JSON.stringify(filter), 
-            { timeout: 5000 },
-            {
-                Authorization: "Bearer " + accessToken,
-            }, )
+            { timeout: 5000, headers })
         .then(res=>console.log(res.data))
         .catch(error => console.log(error));
     dispatch(hideLoading());

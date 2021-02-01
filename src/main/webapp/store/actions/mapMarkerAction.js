@@ -54,7 +54,7 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
     "centreLatitude": latitude,
     "centreLongitude": longitude
   };
-  headers = authenticated===false ? headers : { ...headers, "Authorization": "Bearer " + accessToken };
+  headers = authenticated===false ? headers : { ...headers, Authorization: "Bearer " + accessToken };
 
   const filter = {
       propertyZone: zone ? zone : null,
@@ -98,7 +98,7 @@ export const applyFilterRequest = () => dispatch => {
 
 
 export const selectFilter = (item, accessToken) => async dispatch => {
-  const headers = { "Authorization": "Bearer " + accessToken }
+  const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
   dispatch(showLoading());
   dispatch(selectFilterRequest());
   await axios.get(`${apiUrl}/notifications/${item.id}`, 

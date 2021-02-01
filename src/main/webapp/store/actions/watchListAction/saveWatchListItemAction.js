@@ -7,8 +7,8 @@ import { showSignIn } from "../signInModalAction";
 const apiUrl = "/api/notifications";
 
 export const saveWatchListItem = () => async dispatch => {
-
   const { accessToken } = store.getState().auth;
+  const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
   const { property_id, house_number, street_name, suburb_name, post_code } = store.getState().popup;
   const address = `${house_number} ${getUpperCase(street_name)}, ${getUpperCase(suburb_name)}, ${post_code}`;
   const data = {
@@ -20,10 +20,7 @@ export const saveWatchListItem = () => async dispatch => {
     dispatch(showLoading());
     dispatch(saveWatchListItemRequest());
     await axios.post(apiUrl, JSON.stringify(data), 
-          { timeout: 10000 },
-    {
-          Authorization: "Bearer " + accessToken,
-    })
+          { timeout: 10000, headers })
         .then(res=>console.log(res.data))
         .catch(error => console.log(error));
     dispatch(hideLoading());

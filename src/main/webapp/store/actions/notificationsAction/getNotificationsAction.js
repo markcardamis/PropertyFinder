@@ -4,7 +4,7 @@ import { hideLoading, showLoading } from "../loadingAction";
 const apiUrl = "/api/notifications?type=filters";
 
 export const getNotifications = (accessToken) => async dispatch => {
-  const headers = { Authorization: "Bearer " + accessToken }
+  const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
   
   dispatch(showLoading());
     dispatch(setNotificationsRequest());

@@ -11,8 +11,8 @@ const apiUrl = "/api/propertyinformation";
 
 export const getPopup = (propId, longitude, latitude) => async dispatch => {
   const { accessToken } = store.getState().auth;
+  const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
   const propertyInfo = store.getState().popup;
-  const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {}
 
   const popup = <Provider store={store}><Popup propertyInfo={propertyInfo}/></Provider>;
   
