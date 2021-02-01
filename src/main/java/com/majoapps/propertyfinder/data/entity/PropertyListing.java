@@ -82,4 +82,6 @@ public class PropertyListing {
     private Geometry geometry;
     @Column(name="property_type")
     private String propertyType;
+    @Column(name="street_frontage")
+    private BigDecimal streetFrontage;
 }
