@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import "../../../../../../node_modules/react-vis/dist/style.css";
-import { XYPlot, LineSeries, HorizontalGridLines, DiscreteColorLegend, VerticalGridLines, XAxis, YAxis, Crosshair, MarkSeries } from "react-vis";
+import { XYPlot, LineSeries, HorizontalGridLines, DiscreteColorLegend, XAxis, YAxis, Crosshair, MarkSeries } from "react-vis";
 import "./chart.scss";
 import PropTypes from "prop-types";
 import { useWindowSize } from "../../../modules/windowSize";
 
 const Chart = (props) => {
     const [ crosshairValues, setCrosshairValues ] = useState([]);
-    const { property_sales, land_values } = props.chartData;
+    const { landvalueData, salesData } = props;
 
     const getChartdata = (array) => {
       const newArray = array.map(item=>({ 
@@ -22,29 +22,28 @@ const Chart = (props) => {
         <div className='chart-title'>Sales and Landvalue Trend</div>
         <XYPlot height={size.width<982 ? 260 : 150} width={size.width<982 ? 550 : 340}>
             <HorizontalGridLines />
-            {/* <VerticalGridLines /> */}
             <XAxis xType="time"/>
             <YAxis
               tickFormat={v => v>9999999 ? ((v/1000000).toFixed(0))+"M" : v>999999 ? ((v/1000000).toFixed(1))+"M" : v/1000+"k"}
             />
             <LineSeries
-              data={getChartdata(land_values)}
+              data={getChartdata(landvalueData)}
               onNearestX={(value) => 
                 setCrosshairValues([ { x: value.x, y: value.y } ])
               }
             />
             <MarkSeries 
-              data={getChartdata(land_values)}
+              data={getChartdata(landvalueData)}
               size="2"
               color={"12939a"}
               />
             <MarkSeries 
-              data={getChartdata(property_sales)}
+              data={getChartdata(salesData)}
               size="3"
               color={"#FDB813"}
               />
             <MarkSeries 
-              data={[ ...getChartdata(property_sales), ...getChartdata(land_values) ]}
+              data={[ ...getChartdata(salesData), ...getChartdata(landvalueData) ]}
               color={"transparent"}
               onNearestX={(value) => 
                 setCrosshairValues([ { x: value.x, y: value.y } ])
@@ -73,7 +72,8 @@ const Chart = (props) => {
 };
 
 Chart.propTypes = {
-  chartData: PropTypes.object
+  landvalueData: PropTypes.array,
+  salesData: PropTypes.array,
 };
 
 export default Chart;
