@@ -4,17 +4,18 @@ import { connect } from "react-redux";
 
 import "./popup.scss";
 import Chart from "../../molecules/chart/Chart";
-import { ADDRESS, AREA, ZONE, LAND_VALUE, FLOOR_SPACE_RATIO, MINIMUM_LOT_SIZE, BUILDING_HEIGHT, LAST_SOLD, INTERESTED_PEOPLE } from "../../../shared/constants/constants";
+import { ADDRESS, AREA, ZONE, LAND_VALUE, FLOOR_SPACE_RATIO, MINIMUM_LOT_SIZE, BUILDING_HEIGHT, LAST_SOLD, INTERESTED_PEOPLE, LEP_LINK } from "../../../shared/constants/constants";
 import PropListItem from "../../molecules/propListItem/PropListItem";
 import PropListItem2 from "../../molecules/propListItem2/PropListItem2";
-import { IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight, IconInterest, IconSold, IconStar, } from "../../../assets/icons";
+import { IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight, IconInterest, IconSold, IconStar, IconLink, } from "../../../assets/icons";
 import { useWindowSize } from "../../../modules/windowSize";
 import { getUpperCase } from "../../../shared/utils/getUppercase";
 import { saveWatchListItem } from "../../../store/actions/watchListAction/saveWatchListItemAction";
 import { showSignIn } from "../../../store/actions/signInModalAction";
+import variables from "../../../styles/_variables.scss";
 
 const Popup = props => {
-    const { property_id, house_number, street_name, suburb_name, post_code, zone_code, area, area_type, floor_space_ratio, minimum_lot_size, building_height, land_value_1, last_sold, interested_people, interested_user } = props.propertyInfo;
+    const { property_id, house_number, street_name, suburb_name, post_code, zone_code, area, area_type, floor_space_ratio, minimum_lot_size, building_height, land_value_1, last_sold, interested_people, legislation_url, interested_user } = props.propertyInfo;
     const { land_values, property_sales } = props.propertyInfo.chart_data;
     const { accessToken } = props.auth;
     const address = `${house_number} ${getUpperCase(street_name)}, ${getUpperCase(suburb_name)}, ${post_code}`;
@@ -74,6 +75,11 @@ const Popup = props => {
                     icon={<IconInterest size={size.width<982 ? 2:1}/>} 
                     title={INTERESTED_PEOPLE} 
                     value11={interested_people}
+                    />
+                <PropListItem 
+                    icon={<IconLink size={size.width<982 ? 1.7:0.7} color={variables.green}/>} 
+                    title={LEP_LINK} 
+                    value11={<a href={legislation_url} target="_blank">{legislation_url.slice(0, 35)}...</a>}
                     />
             </div>
             <div className="popup-watchList" onClick={addToWatchList}>

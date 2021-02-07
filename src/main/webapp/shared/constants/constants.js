@@ -25,5 +25,6 @@ export const BEDROOMS = "Bedrooms";
 export const CAR_SPACES = "Car Spaces";
 export const LAST_SOLD = "Last sold date";
 export const INTERESTED_PEOPLE = "Interested people";
+export const LEP_LINK = "LEP link";
 
 export const FREQUENCY = [ "OFF", "DAILY", "WEEKLY", "MONTHLY" ];

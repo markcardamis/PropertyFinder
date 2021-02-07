@@ -14,15 +14,15 @@ export const getPopup = (propId, longitude, latitude) => async dispatch => {
   const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
   const propertyInfo = store.getState().popup;
 
-  const popup = <Provider store={store}><Popup propertyInfo={propertyInfo}/></Provider>;
   
-    dispatch(showLoading());
-    dispatch(setPopupRequest());
-    await axios.get(`${apiUrl}/${propId}`, 
-      { timeout: 5000, headers })
-        .then(res=>dispatch({ type: "SET_POPUP_LOADED", property: res.data }))
-        .catch(error => console.log(error));
-    renderPopup(longitude, latitude, popup);
+  dispatch(showLoading());
+  dispatch(setPopupRequest());
+  await axios.get(`${apiUrl}/${propId}`, 
+  { timeout: 5000, headers })
+  .then(res=>dispatch({ type: "SET_POPUP_LOADED", property: res.data }))
+  .catch(error => console.log(error));
+  const popup = <Provider store={store}><Popup propertyInfo={propertyInfo}/></Provider>;
+  renderPopup(longitude, latitude, popup);
     dispatch(hideLoading());
 };
 

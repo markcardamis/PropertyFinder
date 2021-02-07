@@ -35,6 +35,7 @@ export { default as IconLandOnly } from "./IconLandOnly";
 export { default as IconLandval } from "./IconLandval";
 export { default as IconLandvalG } from "./IconLandvalG";
 export { default as IconLayers } from "./IconLayers";
+export { default as IconLink } from "./IconLink";
 export { default as IconList } from "./IconList";
 export { default as IconList2 } from "./IconList2";
 export { default as IconLogoTitle } from "./IconLogoTitle";
