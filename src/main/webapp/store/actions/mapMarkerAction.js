@@ -71,11 +71,11 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
       propertyFloorSpaceRatioMax: floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null,
       landOnly: landOnly !== null ? landOnly : false
   };
-  const getMarkersRequest = axios.post(`${apiUrl}/query`, JSON.stringify(filter), { timeout: 10000, headers });
-  const getNearbyDARequest = axios.get(nearbyDAUrl, { timeout: 10000 });
+  const markersRequest = axios.post(`${apiUrl}/query`, JSON.stringify(filter), { timeout: 10000, headers });
+  const nearbyDARequest = nearbyDA ? axios.get(nearbyDAUrl, { timeout: 10000 }) : null;
   dispatch(showLoading());
   dispatch(applyFilterRequest());
-  await axios.all([ getMarkersRequest, nearbyDA && getNearbyDARequest ])
+  await axios.all([ markersRequest, nearbyDARequest ])
         .then(
           axios.spread((...res) => {
             dispatch({ 

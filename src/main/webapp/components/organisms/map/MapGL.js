@@ -19,6 +19,7 @@ import "./MapGL.scss";
 import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
 import { renderPopup } from "../../../shared/utils/renderPopup";
 import { NearByPopup } from "../../molecules/nearByPopup/NearByPopup";
+import { removeMapPopup } from "../../../shared/utils/removeMapPopup";
 
     mapboxgl.accessToken = process.env.MAPBOX_API;
     export let map;
@@ -49,8 +50,7 @@ async componentDidMount() {
         hotjar.initialize(1445331, 6);
     }
     
-    // map.on("click", (e) => this.handlePropertyClick(e)); 
-    map.on("click", (e) => console.log("clicked property")); 
+    map.on("click", (e) => this.handlePropertyClick(e)); 
     map.on("move", () => this.handleViewportChange());
     map.on("mousemove", "nsw-property", (e) => this.handleHoverOnProperty(e));
     map.on("mouseleave", "nsw-property", () => this.handleHoverOffProperty());
@@ -107,7 +107,8 @@ renderMarkers = async () => {
         el.tabIndex = 0;
         el.className = "marker-nearbyDA";
         el.onclick=(e)=>{
-            e.stopPropagation(); 
+            e.stopPropagation();
+            removeMapPopup(); 
             renderPopup(
                 marker.application.lng, 
                 marker.application.lat, 

@@ -15,6 +15,7 @@ import ToggleWidget from "../toggleWidget/ToggleWidget";
 import { useAuth } from "../../../modules/auth";
 import { applyFilter } from "../../../store/actions/mapMarkerAction";
 import { LATITUDE_DIFF } from "../../../shared/constants/constants";
+import { removeMapPopup } from "../../../shared/utils/removeMapPopup";
 
 const FilterButtonGroup = withAuth(props => {
     const searchModal = useSelector(state=>state.searchModal);
@@ -46,8 +47,7 @@ const FilterButtonGroup = withAuth(props => {
         window.clearTimeout(timer);
       };
     const handleSelect = (item) => {
-        const popup = document.getElementsByClassName("mapboxgl-popup");
-        if ( popup.length ) popup[0].remove();
+        removeMapPopup();
         handleCancelSearch;
         setSelected(item);
         map.flyTo({ center: [ item.longitude, item.latitude - LATITUDE_DIFF ], zoom: 16 });
