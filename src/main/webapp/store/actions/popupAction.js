@@ -20,7 +20,7 @@ export const getPopup = (propId, longitude, latitude) => async dispatch => {
     .then(res=>dispatch({ type: "SET_POPUP_LOADED", property: res.data }))
     .catch(error => console.log(error));
   
-    const propertyInfo = store.getState().popup;
+    const propertyInfo = await store.getState().popup;
     const popup = <Provider store={store}><Popup propertyInfo={propertyInfo}/></Provider>;
     renderPopup(longitude, latitude, popup);
     dispatch(hideLoading());
