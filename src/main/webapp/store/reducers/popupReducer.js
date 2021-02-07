@@ -1,7 +1,7 @@
 import { propertyId } from "../../../../../constants_temp";
 
-// const initialState = {};
-const initialState = propertyId;
+const initialState = {};
+// const initialState = propertyId;
 
 const popupReducer = (state = initialState, action) => {
     switch (action.type) {
