@@ -42,8 +42,8 @@ const SavedFiltersListItem = props => {
             <SavedFilterItem title={"Price to landvalue max: "} value={data.propertyPriceToLandValueMax} icon={<IconLandvalG/>} position={"first"}/>
             <SavedFilterItem title={"Floorspace ratio min: "} value={data.propertyFloorSpaceRatioMin} icon={<IconFsrG/>} position={"first"}/>
             <SavedFilterItem title={"Floorspace ratio max: "} value={data.propertyFloorSpaceRatioMax} icon={<IconFsrG/>} position={"first"}/>
-            <SavedFilterItem title={"Land only: "} value={data.landOnly} icon={<IconLandOnly/>} position={"first"}/>
-          </div>   
+            <SavedFilterItem title={"Land only: "} value={data.landOnly && data.landOnly.toString()} icon={<IconLandOnly/>} position={"first"}/>
+          </div>  
         </div>
     );
 };
