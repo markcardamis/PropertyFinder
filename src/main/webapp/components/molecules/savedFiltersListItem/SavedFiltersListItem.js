@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import "./savedFiltersListItem.scss";
 import SavedFilterItem from "../../atoms/savedFilterItem/SavedFilterItem";
-import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, IconPostG, IconPencil, IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30 } from "../../../assets/icons";
+import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, IconPostG, IconPencil, IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30, IconLandOnly } from "../../../assets/icons";
 
 const SavedFiltersListItem = props => {
     const { data } = props;
@@ -42,6 +42,7 @@ const SavedFiltersListItem = props => {
             <SavedFilterItem title={"Price to landvalue max: "} value={data.propertyPriceToLandValueMax} icon={<IconLandvalG/>} position={"first"}/>
             <SavedFilterItem title={"Floorspace ratio min: "} value={data.propertyFloorSpaceRatioMin} icon={<IconFsrG/>} position={"first"}/>
             <SavedFilterItem title={"Floorspace ratio max: "} value={data.propertyFloorSpaceRatioMax} icon={<IconFsrG/>} position={"first"}/>
+            <SavedFilterItem title={"Land only: "} value={data.landOnly} icon={<IconLandOnly/>} position={"first"}/>
           </div>   
         </div>
     );
