@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './pages.scss';
-import Layout from '../components/organisms/layout/Layout';
+import React from "react";
+import PropTypes from "prop-types";
+import "./pages.scss";
+import Layout from "../components/organisms/layout/Layout";
 
 const ContactPage = props => {
     return (

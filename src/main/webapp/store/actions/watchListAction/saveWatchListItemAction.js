@@ -1,33 +1,27 @@
+import axios from "../../../api/axiosConfig";
 import { getUpperCase } from "../../../shared/utils/getUppercase";
 import { store } from "../../../javascript";
 import { hideLoading, showLoading } from "../loadingAction";
-import { showSignIn } from '../signInModalAction'
+import { showSignIn } from "../signInModalAction";
 
 const apiUrl = "/api/notifications";
 
 export const saveWatchListItem = () => async dispatch => {
-
   const { accessToken } = store.getState().auth;
+  const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
   const { property_id, house_number, street_name, suburb_name, post_code } = store.getState().popup;
   const address = `${house_number} ${getUpperCase(street_name)}, ${getUpperCase(suburb_name)}, ${post_code}`;
   const data = {
         "propertyId": property_id,
         "frequency": "WEEKLY",
         "title": address
-    }
+    };
   if (accessToken) {
     dispatch(showLoading());
     dispatch(saveWatchListItemRequest());
-    await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-            },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(res=>console.log(res))
+    await axios.post(apiUrl, JSON.stringify(data), 
+          { timeout: 10000, headers })
+        .then(res=>console.log(res.data))
         .catch(error => console.log(error));
     dispatch(hideLoading());
   } else {

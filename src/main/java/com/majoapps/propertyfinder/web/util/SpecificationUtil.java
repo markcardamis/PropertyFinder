@@ -22,27 +22,27 @@ public class SpecificationUtil {
                 sb.append(notifications.getPropertyZone());
             }
             if (notifications.getPropertyAreaMin() != null && notifications.getPropertyAreaMin() != 0) {
-                sb.append(" AND area>=");
+                sb.append(" AND area>");
                 sb.append(notifications.getPropertyAreaMin());
             }
             if (notifications.getPropertyAreaMax() != null && notifications.getPropertyAreaMax() != 0) {
-                sb.append(" AND area<=");
+                sb.append(" AND area<");
                 sb.append(notifications.getPropertyAreaMax());
             }
             if (notifications.getPropertyPriceMin() != null && notifications.getPropertyPriceMin() != 0) {
-                sb.append(" AND priceInt>=");
+                sb.append(" AND priceInt>");
                 sb.append(notifications.getPropertyPriceMin());
             }
             if (notifications.getPropertyPriceMax() != null && notifications.getPropertyPriceMax() != 0) {
-                sb.append(" AND priceInt<=");
+                sb.append(" AND priceInt<");
                 sb.append(notifications.getPropertyPriceMax());
             }
             if (notifications.getPropertyPricePSMMin() != null && notifications.getPropertyPricePSMMin() != 0) {
-                sb.append(" AND pricePSM>=");
+                sb.append(" AND pricePSM>");
                 sb.append(notifications.getPropertyPricePSMMin());
             }
             if (notifications.getPropertyPricePSMMax() != null && notifications.getPropertyPricePSMMax() != 0) {
-                sb.append(" AND pricePSM<=");
+                sb.append(" AND pricePSM<");
                 sb.append(notifications.getPropertyPricePSMMax());
             }
             if (notifications.getPropertyPostCode() != null) {
@@ -50,25 +50,34 @@ public class SpecificationUtil {
                 sb.append(notifications.getPropertyPostCode());
             }
             if (notifications.getPropertyPriceToLandValueMin() != null) {
-                sb.append(" AND priceToLandValue>=");
+                sb.append(" AND priceToLandValue>");
                 sb.append(notifications.getPropertyPriceToLandValueMin());
             }
             if (notifications.getPropertyPriceToLandValueMax() != null) {
-                sb.append(" AND priceToLandValue<=");
+                sb.append(" AND priceToLandValue<");
                 sb.append(notifications.getPropertyPriceToLandValueMax());
             }
             if (notifications.getPropertyFloorSpaceRatioMin() != null) {
-                sb.append(" AND floorSpaceRatio>=");
+                sb.append(" AND floorSpaceRatio>");
                 sb.append(notifications.getPropertyFloorSpaceRatioMin());
             }
             if (notifications.getPropertyFloorSpaceRatioMax() != null) {
-                sb.append(" AND floorSpaceRatio<=");
+                sb.append(" AND floorSpaceRatio<");
                 sb.append(notifications.getPropertyFloorSpaceRatioMax());
             }
             if (notifications.getLandOnly() != null && notifications.getLandOnly()) {
                 sb.append(" AND propertyType:VacantLand");
             }
+            if (notifications.getStreetFrontageMin() != null) {
+                sb.append(" AND streetFrontage>");
+                sb.append(notifications.getStreetFrontageMin());
+            }
+            if (notifications.getStreetFrontageMax() != null) {
+                sb.append(" AND streetFrontage<");
+                sb.append(notifications.getStreetFrontageMax());
+            }
         }
+        System.out.println(sb.toString());
         return sb.toString();
     }
 
@@ -89,6 +98,8 @@ public class SpecificationUtil {
             sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio >= :floorSpaceRatioMin)");
             sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio <= :floorSpaceRatioMax)");
             sb.append(" AND ( :landOnly IS NULL OR :landOnly IS FALSE OR ( :landOnly IS TRUE AND l.propertyType LIKE '%Land%') )");
+            sb.append(" AND ( :streetFrontageMin IS NULL OR l.streetFrontage >= :streetFrontageMin)");
+            sb.append(" AND ( :streetFrontageMax IS NULL OR l.streetFrontage <= :streetFrontageMax)");
         }
         return appendOrderBy(latitude, longitude, sb);
     }
@@ -111,6 +122,8 @@ public class SpecificationUtil {
             query.setParameter("floorSpaceRatioMin", notifications.getPropertyFloorSpaceRatioMin());
             query.setParameter("floorSpaceRatioMax", notifications.getPropertyFloorSpaceRatioMax());
             query.setParameter("landOnly", notifications.getLandOnly());
+            query.setParameter("streetFrontageMin", notifications.getStreetFrontageMin());
+            query.setParameter("streetFrontageMax", notifications.getStreetFrontageMax());
         }
         return query;
     }
@@ -129,6 +142,8 @@ public class SpecificationUtil {
             sb.append(" AND ( :buildingHeightMax IS NULL OR l.buildingHeight <= :buildingHeightMax)");
             sb.append(" AND ( :floorSpaceRatioMin IS NULL OR l.floorSpaceRatio >= :floorSpaceRatioMin)");
             sb.append(" AND ( :floorSpaceRatioMax IS NULL OR l.floorSpaceRatio <= :floorSpaceRatioMax)");
+            sb.append(" AND ( :streetFrontageMin IS NULL OR l.streetFrontage >= :streetFrontageMin)");
+            sb.append(" AND ( :streetFrontageMax IS NULL OR l.streetFrontage <= :streetFrontageMax)");
         }
         return appendOrderBy(latitude, longitude, sb);
     }
@@ -147,6 +162,8 @@ public class SpecificationUtil {
             query.setParameter("buildingHeightMax", propertyInformation.getBuildingHeightMax());
             query.setParameter("floorSpaceRatioMin", propertyInformation.getFloorSpaceRatioMin());
             query.setParameter("floorSpaceRatioMax", propertyInformation.getFloorSpaceRatioMax());
+            query.setParameter("streetFrontageMin", propertyInformation.getStreetFrontageMin());
+            query.setParameter("streetFrontageMax", propertyInformation.getStreetFrontageMax());
         }
         return query;
     }
@@ -178,7 +195,7 @@ public class SpecificationUtil {
         StringBuilder sb = new StringBuilder(search.length());
         for (int i = 0; i < search.length(); ++i) {
             char ch = search.charAt(i);
-            if (Character.isLetterOrDigit(ch) || ch == ' ' || ch == '\'') {
+            if (Character.isLetterOrDigit(ch) || ch == ' ' || ch == '\'' || ch == '-') {
                 sb.append(ch);
             } else if (ch == '/') {
                 sb.append(' '); // use space as street number prefix

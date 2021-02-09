@@ -1,10 +1,10 @@
+import React from "react";
 import { withAuth } from "@okta/okta-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import React from "react";
 import { hotjar } from "react-hotjar";
 import { connect } from "react-redux";
-import { MapMarker } from "../../../assets/icons";
+
 import { INITIAL_VIEWPORT } from "../../../shared/constants/constants";
 import { closeFilter, showFilter } from "../../../store/actions/filterModalAction";
 import { closeLayersModal, showLayersModal } from "../../../store/actions/layersAction";
@@ -17,6 +17,9 @@ import FilterButtonGroup from "../../molecules/filterButtonGroup/FilterButtonGro
 import LayerSelectModal from "../layerSelectModal/LayerSelectModal";
 import "./MapGL.scss";
 import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
+import { renderPopup } from "../../../shared/utils/renderPopup";
+import { NearByPopup } from "../../molecules/nearByPopup/NearByPopup";
+import { removeMapPopup } from "../../../shared/utils/removeMapPopup";
 
     mapboxgl.accessToken = process.env.MAPBOX_API;
     export let map;
@@ -74,8 +77,7 @@ componentDidUpdate() {
         }
     }
     currentMarkers = [];
-    const mp = <div><MapMarker/></div>;
-    this.renderMarkers(mp);   
+    this.renderMarkers(); 
 }
 
 handleViewportChange = () => {
@@ -85,17 +87,40 @@ handleViewportChange = () => {
 }
 
 renderMarkers = async () => {
-    const { mapMarker } = this.props;
-    mapMarker.forEach((marker) => {
-        var el = document.createElement("div");
+    const { markers, nearbyDAMarkers } = this.props.mapMarker;
+    markers.forEach((marker) => {
+        const el = document.createElement("div");
         el.tabIndex = 0;
         el.className = marker.status;
         el.onmouseover=()=>el.id="marker-hovered";
         el.onmouseout=()=>el.removeAttribute("id");
         el.onclick=()=>this.props.getPropertyInfo(marker);
        
-        let oneMarker = new mapboxgl.Marker(el)
+        const oneMarker = new mapboxgl.Marker(el)
           .setLngLat({ lng: marker.longitude, lat: marker.latitude })
+          .addTo(map);
+        currentMarkers.push(oneMarker);
+    });
+
+    nearbyDAMarkers.forEach((marker) => {
+        const el = document.createElement("div");
+        el.tabIndex = 0;
+        el.className = "marker-nearbyDA";
+        el.onclick=(e)=>{
+            e.stopPropagation();
+            removeMapPopup(); 
+            renderPopup(
+                marker.application.lng, 
+                marker.application.lat, 
+                <NearByPopup 
+                    title={marker.application.address}
+                    url={marker.application.info_url}
+                    date={marker.application.date_received}
+                    description={marker.application.description}
+                    />
+            );};
+        const oneMarker = new mapboxgl.Marker(el)
+          .setLngLat({ lng: marker.application.lng, lat: marker.application.lat })
           .addTo(map);
         currentMarkers.push(oneMarker);
     });
@@ -151,7 +176,7 @@ handleHoverOffProperty = () => {
 }
 
 handleRemoveParcels = () => {
-    map.setFilter("nsw-property-highlighted", [ 'in', 'propid', '' ]);
+    map.setFilter("nsw-property-highlighted", [ "in", "propid", "" ]);
 }
 
 checkAuthentication = async () => {
@@ -180,7 +205,7 @@ checkAuthentication = async () => {
                 />}
                 {layers.showModal&&<LayerSelectModal/>}
             </div>
-            <div id="map-overlay" className="map-overlay"></div>
+            <div id="map-overlay" className="map-overlay"/>
         </>
         );
     }

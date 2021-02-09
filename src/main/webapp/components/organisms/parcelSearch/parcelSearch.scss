@@ -1,4 +1,4 @@
-@import '../../../styles//style.scss';
+@import '../../../styles/style.scss';
 
 .filterLine {
     display: flex;
@@ -6,23 +6,11 @@
     justify-content: space-between;
     align-items: center;
 }
-.resetFilterBtn {
-    margin-top: 20px;
-    color: $green;
-    cursor: pointer;
-    font-size: 16px;
-}
+
 .filterBtnContainer {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-
-        .btnSavePref {
-            width: 25%;
-        }
-        .btnSearch {
-            width: 65%;
-        }
     }
 .zoneSelect {
     display: flex;
@@ -30,7 +18,7 @@
     justify-content: space-between;
 
     .zoneSelectBtn {
-        width: 42%;
+        width: 50%;
         height: 34px;
         border: 1px solid $dark-grey;
         border-radius: 6px;
@@ -139,7 +127,6 @@
             .btnSearch {
                 width: 100%;
                 margin: 25px 0 25px 0;
-                //margin-top: 50px;
             }
         }
 

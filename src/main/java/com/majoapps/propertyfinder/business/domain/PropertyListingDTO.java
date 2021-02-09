@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import lombok.Data;
 
+import javax.persistence.Column;
+
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PropertyListingDTO implements Serializable {  
@@ -30,5 +32,6 @@ public class PropertyListingDTO implements Serializable {
     @JsonProperty("price_psm") private Integer pricePSM;
     @JsonProperty("price_to_land_value") private BigDecimal priceToLandValue;
     @JsonProperty("property_type") private String propertyType;
+    @JsonProperty("street_frontage") private BigDecimal streetFrontage;
 }
 

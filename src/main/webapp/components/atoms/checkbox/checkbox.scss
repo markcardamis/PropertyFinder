@@ -1,0 +1,11 @@
+@import '../../../styles/style.scss';
+
+.checkboxContainer{
+    height: 24px;
+    width: 24px;
+    border: 1px solid $light-grey;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: 'center';
+}

@@ -1,17 +1,16 @@
+import axios from "../../../api/axiosConfig";
 import { hideLoading, showLoading } from "../loadingAction";
 
 const apiUrl = "/api/notifications?type=filters";
 
 export const getNotifications = (accessToken) => async dispatch => {
+  const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
+  
   dispatch(showLoading());
     dispatch(setNotificationsRequest());
-    await fetch(apiUrl, {
-      headers: {
-        Authorization: "Bearer " + accessToken
-      }
-    })
-        .then(response => response.json())
-        .then(res=>dispatch({type: "SET_NOTIFICATIONS_LOADED", notifications: res}))
+    await axios.get(apiUrl, 
+      { timeout: 10000, headers })
+        .then(res=>dispatch({ type: "SET_NOTIFICATIONS_LOADED", notifications: res.data }))
         .catch(error => console.log(error));
   dispatch(hideLoading());
 };

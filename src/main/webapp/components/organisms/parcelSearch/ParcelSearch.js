@@ -9,14 +9,17 @@ import "./parcelSearch.scss";
 import { FilterLine, ZoneSelect, PostCode } from "./components";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
-import { IconArea, IconFsr, IconPrice, IconZone, IconPost } from "../../../assets/icons";
+import { IconArea, IconFsr, IconPrice, IconZone, IconPost, IconBuildingHeight, IconLandOnly, IconNearBy } from "../../../assets/icons";
 import { setParcelFilter, resetParcelFilter } from "../../../store/actions/parcelSearchAction/setParcelFilter";
 import { applyParcelSearch } from "../../../store/actions/parcelSearchAction/parcelSearchAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
+import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
+import variables from "../../../styles/_variables.scss";
+import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 
 const ParcelSearch = (props) => {
     const { parcelSearch } = props;
-    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue } = props.parcelSearch;
+    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue, landOnly, nearbyDA } = props.parcelSearch;
 
     const onSelect = ({ key }) => {
       props.setParcelFilter({ ...parcelSearch, zone: key });
@@ -66,7 +69,7 @@ const ParcelSearch = (props) => {
 
                 <FilterLine 
                   title22={"Building Height"} 
-                  icon={<IconFsr/>} 
+                  icon={<IconBuildingHeight/>} 
                   value={buildingHeight}
                   step={1} 
                   showCurrency={false}
@@ -103,28 +106,31 @@ const ParcelSearch = (props) => {
                   labelMin={"$100k"} 
                   labelMax={"$5M"}
                   />
-                {/* <FilterLine 
-                  title22={"Street Frontage"} 
-                  icon={<IconPriceM/>} 
-                  value={filter.priceM2} 
-                  step={10} 
-                  showCurrency={true}
-                  onChange={(val)=>this.props.getFilter({ ...filter, priceM2: val })} 
-                  min={0} 
-                  max={10000} 
-                  labelMin={"$1"} 
-                  labelMax={"$10 000+"}
-                  /> */}
-                {/* <div>Sold in last 6 years</div> */}
-                 <div className="resetFilterBtn" onClick={props.resetParcelFilter}>Reset filter</div>
+                <div className="checkboxLine"> 
+                    <CheckboxFilterLine 
+                      title='Land Only' 
+                      icon={<IconLandOnly/>}
+                      value={landOnly} 
+                      onClick={()=>props.setParcelFilter({ ...parcelSearch, landOnly: !landOnly })}
+                      style={{ paddingRight: "5px" }}
+                      />
+                    <CheckboxFilterLine 
+                      title='Include nearby DA' 
+                      icon={<IconNearBy color={variables.darkGrey} />}
+                      value={nearbyDA} 
+                      onClick={()=>props.setParcelFilter({ ...parcelSearch, nearbyDA: !nearbyDA })}
+                      style={{ paddingLeft: "5px" }}
+                      />
+                </div>
                 </div> 
-                  <div className='filterBtnContainer'>
-                  <div className='btnSavePref'/>
-                  <div className='btnSearch'><ButtonFilled title={"Search"} onClick={handleSubmit}/></div>
+
+                <div className='filterBtnContainer'>
+                  <ButtonOutlined title={"Reset filter"} onClick={props.resetParcelFilter} style={{ width: "22%" }} titleStyle={{ color: variables.green }} />
+                  <ButtonFilled title={"Search"} onClick={handleSubmit} style={{ width: "53%" }} />
                 </div>
               </div>
         );
-    }
+    };
 
 const mapStateToProps = (state) => {
   return {
@@ -139,7 +145,11 @@ const mapDispatchToProps = {
   };
 
 ParcelSearch.propTypes = {
-    
+  resetParcelFilter: PropTypes.func,
+  setParcelFilter: PropTypes.func,
+  applyParcelSearch: PropTypes.func,
+  closeFilter: PropTypes.func,
+  parcelSearch: PropTypes.object
 };
 
   export default connect(mapStateToProps, mapDispatchToProps)(ParcelSearch);

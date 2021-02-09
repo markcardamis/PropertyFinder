@@ -1,9 +1,10 @@
+import axios from "../../api/axiosConfig";
 import { store } from "../../../webapp/javascript/index";
 import { hideLoading, showLoading } from "./loadingAction";
 const apiUrl = "/api/notifications";
 
 export const saveFilter = (accessToken, name, frequency, editedFilter) => async dispatch => {
-    const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio } = store.getState().filter;
+    const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly, nearbyDA } = store.getState().filter;
     const filter = {
         title: name ? name : "Untitled",
         frequency: frequency==null ? "OFF" : frequency,
@@ -18,21 +19,20 @@ export const saveFilter = (accessToken, name, frequency, editedFilter) => async 
         propertyPriceToLandValueMin: priceLandvalue[0] !== 0 ? priceLandvalue[0] : null,
         propertyPriceToLandValueMax: priceLandvalue[1] !== 10 ? priceLandvalue[1] : null,
         propertyFloorSpaceRatioMin: floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : null,
-        propertyFloorSpaceRatioMax: floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null
+        propertyFloorSpaceRatioMax: floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null,
+        landOnly: landOnly !== null ? landOnly : false,
+        nearbyDA: nearbyDA !== null ? nearbyDA : false,
     };
-
+    const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
+    
     dispatch(showLoading());
     dispatch(saveFilterRequest());
-    await fetch(`${apiUrl}${editedFilter ? "/"+editedFilter.id : ""}`, {
-        method: editedFilter ? "PUT" : "POST",
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-            },
-        body: JSON.stringify(filter)
-    })
-        .then(response => response.json())
-        .then(res=>console.log(res))
+    const method = editedFilter ? axios.put : axios.post;
+    await method(
+            `${apiUrl}${editedFilter ? "/"+editedFilter.id : ""}`,
+            JSON.stringify(filter), 
+            { timeout: 5000, headers })
+        .then(res=>console.log(res.data))
         .catch(error => console.log(error));
     dispatch(hideLoading());
 };

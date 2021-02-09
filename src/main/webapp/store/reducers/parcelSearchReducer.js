@@ -6,8 +6,9 @@ const initialFilter = {
     buildingHeight: [ 0, 100 ],
     floorspaceRatio: [ 0, 2 ],
     landValue: [ 100000, 5000000 ],
+    landOnly: false,
+    nearbyDA: false,
     result: []
-    // result: parcels
 };
 
 const parselSearchReducer = (state = initialFilter, action) => {
@@ -20,7 +21,7 @@ const parselSearchReducer = (state = initialFilter, action) => {
         case "APPLY_PARCEL_SEARCH_REQUEST":
             return state;
         case "PARCEL_SEARCH_LOADED":
-            return {...state, result: action.payload};
+            return { ...state, result: action.payload };
         default:
             return state;
     }

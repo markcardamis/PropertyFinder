@@ -1,9 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Nav from '../components/organisms/nav/Nav';
-import './pages.scss';
-import Layout from '../components/organisms/layout/Layout';
-//import est from './aboutUsPhoto.jpg'
+import React from "react";
+import PropTypes from "prop-types";
+
+import "./pages.scss";
+import Layout from "../components/organisms/layout/Layout";
 
 const AboutPage = props => {
     return (

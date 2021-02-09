@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 
-import {WatchListListItem} from './WatchListListItem'
-import {getWatchList} from '../../../store/actions/watchListAction/getWatchListAction'
-import {deleteWatchListItem} from '../../../store/actions/watchListAction/deleteWatchListListItemAction'
-import { changeWatchListFrequency } from '../../../store/actions/watchListAction/changeWatchListFrequency'
-import { FREQUENCY } from '../../../shared/constants/constants'
+import { WatchListListItem } from "./WatchListListItem";
+import { getWatchList } from "../../../store/actions/watchListAction/getWatchListAction";
+import { deleteWatchListItem } from "../../../store/actions/watchListAction/deleteWatchListListItemAction";
+import { changeWatchListFrequency } from "../../../store/actions/watchListAction/changeWatchListFrequency";
+import { FREQUENCY } from "../../../shared/constants/constants";
 
 
 const WatchList = (props) => {
 
   useEffect(()=>{
-    props.getWatchList(props.auth.accessToken)
-  }, [])
+    props.getWatchList(props.auth.accessToken);
+  }, []);
 
   const handleChangeFrequency = async (item) => {
     const getFrequency = () => {
@@ -22,12 +22,12 @@ const WatchList = (props) => {
     };
     await props.changeWatchListFrequency(item, getFrequency());
     props.getWatchList();
-  }
+  };
 
   const handleDeleteItem = async (item) => {
     await props.deleteWatchListItem(item);
     props.getWatchList();
-  }
+  };
 
   const renderData = () => {
     return props.watchList.map((item, index)=>{
@@ -40,14 +40,14 @@ const WatchList = (props) => {
             />;
     }
     );
-  }
+  };
 
   return (
     <div>
       <ul className='savedFiltersList'>{renderData()}</ul>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -61,5 +61,5 @@ const mapDispatchToProps = {
   changeWatchListFrequency
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WatchList)
+export default connect(mapStateToProps, mapDispatchToProps)(WatchList);
 

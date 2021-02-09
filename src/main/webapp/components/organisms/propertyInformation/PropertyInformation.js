@@ -18,10 +18,7 @@ import variables from "../../../styles/_variables.scss";
 const PropertyInformation = (props) => {
 
         const { handleClosePropertyInfo } = props;
-        // const { id, address, area, floorSpaceRatio, minimumLotSize,
-        //     price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
-        //     pricePSM, priceToLandValue, summaryDescription, listingPhoto,
-        //     } = props.property;   
+        
         const propertyInfo = useSelector(state=>state.propertyModal);
         const { id, address, area, floorSpaceRatio, minimumLotSize,
             price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
@@ -37,7 +34,6 @@ const PropertyInformation = (props) => {
                         </div>
                         <div>
                             <PropImg img={listingPhoto || DEFAULT_HOUSE_IMAGE}/>
-                            {/* <PropImg img={props.property.listing_photo || DEFAULT_HOUSE_IMAGE}/> */}
                             <div className='propertyInformation-mainContainer'>
                                 <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
                                 <div className='propertyInformation-address'>{address}</div>
@@ -68,7 +64,7 @@ const PropertyInformation = (props) => {
                                     icon2={minimumLotSize ? <IconLotG/> : <IconLotG color={variables.lightGrey}/>} 
                                     title2={MINIMUM_LOT_SIZE} value2={minimumLotSize}
                                     />
-                                <div className='propertyInformation-margin10'/>
+                                <div className="propertyInformation-margin10"/>
                                 <PropListItem title={DESCRIPTION} value14={" "}/>
                                 <div className='propertyInformation-descr'>{summaryDescription}</div>
                             </div>

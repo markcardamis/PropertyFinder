@@ -6,7 +6,7 @@ import "../../molecules/savedFiltersListItem/savedFiltersListItem.scss";
 import { IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30 } from "../../../assets/icons";
 
 export const WatchListListItem = (props) => {
-    const { data } = props
+    const { data } = props;
     const watchList = useSelector(state=>state.watchList);
     const [ frequency, setFrequency ] = useState(data.frequency);
 

@@ -88,27 +88,127 @@ export const markerInfo = {
 "priceToLandValue": 1.00
 };
 export const propertyId = {
-    area: 470.02,
-    area_type: "M",
-    building_height: 9,
-    chart_data: {property_sales: [], land_values: [{date: "2019-01-07", value: 563000}, {date: "2018-01-07", value: 619000}]},
-    land_values: [{date: "2019-01-07", value: 563000}, {date: "2018-01-07", value: 619000}],
-    property_sales: [],
-    floor_space_ratio: 0,
-    house_number: "239",
-    interested_people: 0,
-    interested_user: false,
-    land_value_1: 563000,
-    last_sold: "21/01/2008 $280000",
-    minimum_lot_size: "450",
-    post_code: "2144",
-    property_id: 1311557,
-    street_name: "CHISHOLM RD",
-    suburb_name: "AUBURN",
-    zone_code: "R2",
-}
+    "property_id": 1311383,
+    "house_number": "206",
+    "street_name": "CHISHOLM RD",
+    "suburb_name": "AUBURN",
+    "post_code": "2144",
+    "zone_code": "R2",
+    "land_value_1": 615000,
+    "area": 543.8,
+    "area_type": "M",
+    "floor_space_ratio": 0,
+    "minimum_lot_size": "450",
+    "building_height": 9,
+    "street_frontage": 4.4,
+    "legislation_url": "https://www.legislation.nsw.gov.au/#/view/EPI/2010/616",
+    "last_sold": "12/08/2019 $775000",
+    "chart_data": {
+        "property_sales": [
+            {
+                "date": "2019-08-12",
+                "value": 775000
+            },
+            {
+                "date": "2015-02-24",
+                "value": 665500
+            }
+        ],
+        "land_values": [
+            {
+                "date": "2020-07-01",
+                "value": 615000
+            },
+            {
+                "date": "2019-07-01",
+                "value": 545000
+            },
+            {
+                "date": "2018-07-01",
+                "value": 599000
+            },
+            {
+                "date": "2017-07-01",
+                "value": 614000
+            },
+            {
+                "date": "2016-07-01",
+                "value": 550000
+            }
+        ]
+    },
+    "interested_people": 1,
+    "interested_user": true
+};
 
-export const filters = [ { "id":"f5e266e4-b729-4d72-8383-678faef08baf","createdAt":"2020-06-04T01:14:29.242+0000","updatedAt":"2020-09-10T20:11:58.439+0000","account":{ "id":"9c867c05-e332-4a29-99ab-957b198f676f","createdAt":"2019-12-08T11:43:38.114+0000","updatedAt":"2020-09-15T06:00:11.588+0000","userId":"00u1ocauivq0h33sa357","firstName":null,"lastLogin":"2020-09-15T06:00:11.511+0000" },"title":"Untitled","frequency":"OFF","propertyZone":null,"propertyAreaMin":null,"propertyAreaMax":null,"propertyPriceMin":1630000,"propertyPriceMax":null,"propertyPricePSMMin":3650,"propertyPricePSMMax":6730,"propertyPostCode":"3333","propertyPriceToLandValueMin":null,"propertyPriceToLandValueMax":null,"propertyFloorSpaceRatioMin":0.5,"propertyFloorSpaceRatioMax":null },{ "id":"5ae5889d-02cd-4219-a450-9590baf2530f","createdAt":"2020-06-03T21:57:57.308+0000","updatedAt":"2020-09-10T20:12:39.233+0000","account":{ "id":"9c867c05-e332-4a29-99ab-957b198f676f","createdAt":"2019-12-08T11:43:38.114+0000","updatedAt":"2020-09-15T06:00:11.588+0000","userId":"00u1ocauivq0h33sa357","firstName":null,"lastLogin":"2020-09-15T06:00:11.511+0000" },"title":"Untitled","frequency":"OFF","propertyZone":"B2","propertyAreaMin":null,"propertyAreaMax":null,"propertyPriceMin":null,"propertyPriceMax":null,"propertyPricePSMMin":3970,"propertyPricePSMMax":7230,"propertyPostCode":"4444","propertyPriceToLandValueMin":null,"propertyPriceToLandValueMax":null,"propertyFloorSpaceRatioMin":null,"propertyFloorSpaceRatioMax":null },{ "id":"1d582eec-1a2b-4fd2-8804-dfafff9bb5f6","createdAt":"2020-06-03T21:38:02.160+0000","updatedAt":"2020-09-11T09:28:53.158+0000","account":{ "id":"9c867c05-e332-4a29-99ab-957b198f676f","createdAt":"2019-12-08T11:43:38.114+0000","updatedAt":"2020-09-15T06:00:11.588+0000","userId":"00u1ocauivq0h33sa357","firstName":null,"lastLogin":"2020-09-15T06:00:11.511+0000" },"title":"Untitled","frequency":"DAILY","propertyZone":"B2","propertyAreaMin":8700,"propertyAreaMax":null,"propertyPriceMin":null,"propertyPriceMax":null,"propertyPricePSMMin":3970,"propertyPricePSMMax":7230,"propertyPostCode":"6633","propertyPriceToLandValueMin":null,"propertyPriceToLandValueMax":null,"propertyFloorSpaceRatioMin":0.6,"propertyFloorSpaceRatioMax":null },{ "id":"544bccc6-9d3a-4b91-b39a-a1b1ecd4bd27","createdAt":"2020-09-11T09:31:05.391+0000","updatedAt":"2020-09-11T09:31:05.391+0000","account":{ "id":"9c867c05-e332-4a29-99ab-957b198f676f","createdAt":"2019-12-08T11:43:38.114+0000","updatedAt":"2020-09-15T06:00:11.588+0000","userId":"00u1ocauivq0h33sa357","firstName":null,"lastLogin":"2020-09-15T06:00:11.511+0000" },"title":"Preferences 15","frequency":"MONTHLY","propertyZone":null,"propertyAreaMin":4600,"propertyAreaMax":null,"propertyPriceMin":null,"propertyPriceMax":null,"propertyPricePSMMin":null,"propertyPricePSMMax":null,"propertyPostCode":null,"propertyPriceToLandValueMin":null,"propertyPriceToLandValueMax":null,"propertyFloorSpaceRatioMin":null,"propertyFloorSpaceRatioMax":null },{ "id":"1719bf87-932b-413a-bad6-6c360d092565","createdAt":"2020-06-03T21:18:48.665+0000","updatedAt":"2020-06-03T21:18:58.341+0000","account":{ "id":"9c867c05-e332-4a29-99ab-957b198f676f","createdAt":"2019-12-08T11:43:38.114+0000","updatedAt":"2020-09-15T06:00:11.588+0000","userId":"00u1ocauivq0h33sa357","firstName":null,"lastLogin":"2020-09-15T06:00:11.511+0000" },"title":null,"frequency":"WEEKLY","propertyZone":"B3","propertyAreaMin":3300,"propertyAreaMax":11100,"propertyPriceMin":1010000,"propertyPriceMax":2620000,"propertyPricePSMMin":null,"propertyPricePSMMax":null,"propertyPostCode":"6655","propertyPriceToLandValueMin":2.40,"propertyPriceToLandValueMax":7.50,"propertyFloorSpaceRatioMin":0.4,"propertyFloorSpaceRatioMax":1.1 } ];
+export const filters = [{
+    "id": "5311ce1f-9789-40c9-acee-6932d87586c9",
+    "createdAt": "2020-11-15T19:23:13.686+00:00",
+    "updatedAt": "2020-11-15T19:23:13.686+00:00",
+    "title": "Preference 1 test",
+    "frequency": "OFF",
+    "propertyId": null,
+    "propertyZone": "B4",
+    "propertyAreaMin": 5500,
+    "propertyAreaMax": null,
+    "propertyPriceMin": null,
+    "propertyPriceMax": null,
+    "propertyPricePSMMin": null,
+    "propertyPricePSMMax": null,
+    "propertyPostCode": null,
+    "propertyPriceToLandValueMin": null,
+    "propertyPriceToLandValueMax": null,
+    "propertyFloorSpaceRatioMin": null,
+    "propertyFloorSpaceRatioMax": 1.6,
+    "landOnly": null,
+    "streetFrontageMin": null,
+    "streetFrontageMax": null
+}, {
+    "id": "62a35821-7750-4f4c-9c12-753496a440b0",
+    "createdAt": "2021-02-07T17:12:21.978+00:00",
+    "updatedAt": "2021-02-07T17:12:21.978+00:00",
+    "title": "Preference 123",
+    "frequency": "OFF",
+    "propertyId": null,
+    "propertyZone": null,
+    "propertyAreaMin": null,
+    "propertyAreaMax": null,
+    "propertyPriceMin": null,
+    "propertyPriceMax": null,
+    "propertyPricePSMMin": null,
+    "propertyPricePSMMax": null,
+    "propertyPostCode": null,
+    "propertyPriceToLandValueMin": null,
+    "propertyPriceToLandValueMax": null,
+    "propertyFloorSpaceRatioMin": null,
+    "propertyFloorSpaceRatioMax": null,
+    "landOnly": true,
+    "streetFrontageMin": null,
+    "streetFrontageMax": null
+}, {
+    "id": "a1393916-b098-478b-bb6a-2231167de91e",
+    "createdAt": "2021-02-07T17:30:40.643+00:00",
+    "updatedAt": "2021-02-07T17:30:40.643+00:00",
+    "title": "Preference 1234",
+    "frequency": "OFF",
+    "propertyId": null,
+    "propertyZone": null,
+    "propertyAreaMin": null,
+    "propertyAreaMax": null,
+    "propertyPriceMin": null,
+    "propertyPriceMax": null,
+    "propertyPricePSMMin": null,
+    "propertyPricePSMMax": null,
+    "propertyPostCode": null,
+    "propertyPriceToLandValueMin": null,
+    "propertyPriceToLandValueMax": null,
+    "propertyFloorSpaceRatioMin": null,
+    "propertyFloorSpaceRatioMax": null,
+    "landOnly": true,
+    "streetFrontageMin": null,
+    "streetFrontageMax": null
+}];
+
 export const searchResult = [ { "latitude":null,"longitude":null,"propertyId":2551487,"address":"317 GREAT WESTERN HWY ST MARYS 2760" },{ "latitude":-33.8188476,"longitude":150.9961065,"propertyId":855197,"address":"85 GREAT WESTERN HWY PARRAMATTA 2150" },{ "latitude":-33.5896868,"longitude":151.3005366,"propertyId":993858,"address":"5 ROSS SMITH PDE GREAT MACKEREL BEACH 2108" },{ "latitude":-33.8187662,"longitude":150.9954471,"propertyId":855231,"address":"93 GREAT WESTERN HWY PARRAMATTA 2150" },{ "latitude":-33.5898912,"longitude":151.297325,"propertyId":982399,"address":"1 DIGGERS CRES GREAT MACKEREL BEACH 2108" } ];
 export const parcels = [
     {
@@ -141,4 +241,45 @@ export const parcels = [
     {
         "property_id": 1992428
     }
+]
+
+export const nearbyDA = [
+    {
+        "application": {
+            "id": 1865329,
+            "council_reference": "X/4/2021",
+            "date_scraped": "2021-01-10T01:00:05.000Z",
+            "address": "12 Barnet Street Glenbrook NSW 2773",
+            "description": "Demolition of two existing sheds, construction of new shed",
+            "info_url": "https://www2.bmcc.nsw.gov.au/DATracking/Pages/XC.Track/SearchApplication.aspx?id=834011",
+            "comment_url": null,
+            "date_received": "2021-01-06",
+            "on_notice_from": null,
+            "on_notice_to": null,
+            "lat": -33.7620328,
+            "lng": 150.6258556,
+            "authority": {
+                "full_name": "Blue Mountains City Council"
+            }
+        }
+    },
+    {
+        "application": {
+            "id": 1865331,
+            "council_reference": "XM/560/2020/A",
+            "date_scraped": "2021-01-10T01:00:05.000Z",
+            "address": "9 York Street Glenbrook NSW 2773",
+            "description": "Alterations and additions to existing dwelling and detached garage - as modified - PAN-60039",
+            "info_url": "https://www2.bmcc.nsw.gov.au/DATracking/Pages/XC.Track/SearchApplication.aspx?id=834448",
+            "comment_url": null,
+            "date_received": "2021-01-08",
+            "on_notice_from": null,
+            "on_notice_to": null,
+            "lat": -33.7598177,
+            "lng": 150.6249257,
+            "authority": {
+                "full_name": "Blue Mountains City Council"
+            }
+        }
+    },
 ]

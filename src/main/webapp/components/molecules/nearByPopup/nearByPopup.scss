@@ -1,0 +1,10 @@
+@import '../../../styles/style.scss';
+
+.nerbyDAPopup {
+    max-width: 400px;
+}
+@media only screen and (max-device-width: $breakpoint-mobile) {
+    .nerbyDAPopup {
+        max-width: 200px;
+    }
+}

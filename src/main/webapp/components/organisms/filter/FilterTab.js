@@ -8,15 +8,19 @@ import "rc-dropdown/assets/index.css";
 
 import { ZONES } from "../../../shared/constants/zones";
 import "./filter.scss";
-import { FilterLine, ZoneSelect, PostCode } from "./components";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
-import { IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost } from "../../../assets/icons";
+import { IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost, IconLandOnly, IconNearBy } from "../../../assets/icons";
 import { getFilter, resetFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 import { showSearchModal } from "../../../store/actions/searchModalAction";
 import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
+import { FilterLine } from "./FilterLine";
+import { PostCode } from "./PostCode";
+import { ZoneSelect } from "./ZoneSelect";
+import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
+import variables from "../../../styles/_variables.scss";
 
 class FilterTab extends React.Component {
 
@@ -26,7 +30,7 @@ class FilterTab extends React.Component {
             authenticated: false,
             zone: this.props.filter.zone,
             zoneColor: null,
-            showValidation: false      
+            showValidation: false,
         };
 
        this.checkAuthentication();
@@ -101,7 +105,7 @@ class FilterTab extends React.Component {
                   value={filter.area} 
                   step={100} 
                   showCurrency={false}
-                  onChange={(val)=>this.props.getFilter({ ...filter, area: val })} 
+                  onChange={val=>this.props.getFilter({ ...filter, area: val })} 
                   min={0} 
                   max={20000} 
                   labelMin={"0"} 
@@ -139,7 +143,7 @@ class FilterTab extends React.Component {
                   step={10} 
                   showCurrency={true}
                   onChange={(val)=>this.props.getFilter({ ...filter, priceM2: val })} 
-                  min={0} 
+                  min={1} 
                   max={10000} 
                   labelMin={"$1"} 
                   labelMax={"$10 000+"}
@@ -156,11 +160,29 @@ class FilterTab extends React.Component {
                   labelMin={"0.0"} 
                   labelMax={"10.0"}
                   />
-                  <div className="resetFilterBtn" onClick={()=>this.props.resetFilter()}>Reset filter</div>
+
+                <div className="checkboxLine"> 
+                    <CheckboxFilterLine 
+                      title='Land Only' 
+                      icon={<IconLandOnly/>}
+                      value={filter.landOnly} 
+                      onClick={()=>this.props.getFilter({ ...filter, landOnly: !filter.landOnly })}
+                      style={{ paddingRight: "5px" }}
+                      />
+                    <CheckboxFilterLine 
+                      title='Include nearby DA' 
+                      icon={<IconNearBy color={variables.darkGrey} />}
+                      value={filter.nearbyDA} 
+                      onClick={()=>this.props.getFilter({ ...filter, nearbyDA: !filter.nearbyDA })}
+                      style={{ paddingLeft: "5px" }}
+                      />
+                </div>
+
                 </div> 
                  <div className='filterBtnContainer'>
-                  <div className='btnSavePref'><ButtonOutlined title={"Save preferences"} onClick={this.handleSaveFilter}/></div>
-                  <div className='btnSearch'><ButtonFilled title={"Search"} onClick={this.handleSubmit}/></div>
+                  <ButtonOutlined title={"Reset filter"} onClick={this.props.resetFilter} style={{ width: "22%" }} titleStyle={{ color: variables.green }} />
+                  <ButtonOutlined title={"Save preferences"} onClick={this.handleSaveFilter} style={{ width: "22%" }} />
+                  <ButtonFilled title={"Search"} onClick={this.handleSubmit} style={{ width: "53%" }} />
                 </div>
               </div>
         );
@@ -181,7 +203,14 @@ const mapDispatchToProps = {
   };
 
 FilterTab.propTypes = {
-    
+  resetFilter: PropTypes.func,
+  getFilter: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  closeFilter: PropTypes.func,
+  showSearchArea: PropTypes.func,
+  handleSaveFilter: PropTypes.func,
+  filter: PropTypes.object,
+  auth: PropTypes.object
 };
 
   export default withAuth(connect(mapStateToProps, mapDispatchToProps)(FilterTab));

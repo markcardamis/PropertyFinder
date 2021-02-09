@@ -1,4 +1,4 @@
-@import '../../../styles//style.scss';
+@import '../../../styles/style.scss';
 
 .registerFormText {
     display: flex;
@@ -30,9 +30,7 @@
 }
 
 .registerFormAgree {
-    //color: $blue;
     font-size: 14px;
-    //text-decoration: underline;
     margin-top: 10px;
     cursor: pointer;
 }
@@ -57,7 +55,6 @@
         display: flex;
         flex-direction: column;
         flex: 1;
-        //flex-grow: 1;
         height: 100%;
         align-items: stretch;
         justify-content: space-between;

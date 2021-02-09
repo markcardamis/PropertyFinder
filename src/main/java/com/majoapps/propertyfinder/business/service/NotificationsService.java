@@ -1,5 +1,6 @@
 package com.majoapps.propertyfinder.business.service;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.majoapps.propertyfinder.data.entity.Account;
 import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.repository.NotificationsRepository;
@@ -118,6 +119,8 @@ public class NotificationsService {
             notifications.setPropertyFloorSpaceRatioMin(newNotifications.getPropertyFloorSpaceRatioMin());
             notifications.setPropertyFloorSpaceRatioMax(newNotifications.getPropertyFloorSpaceRatioMax());
             notifications.setLandOnly(newNotifications.getLandOnly());
+            notifications.setStreetFrontageMin(newNotifications.getStreetFrontageMin());
+            notifications.setStreetFrontageMax(newNotifications.getStreetFrontageMax());
             this.saveNotifications(notifications);
             return ResponseEntity.ok(notifications);
         }).orElseThrow(() -> new ResourceNotFoundException("Notifications " + id + " not found"));
@@ -179,6 +182,12 @@ public class NotificationsService {
             }
             if (newNotifications.getLandOnly() != null) {
                 notifications.setLandOnly(newNotifications.getLandOnly());
+            }
+            if (newNotifications.getStreetFrontageMin() != null) {
+                notifications.setStreetFrontageMin(newNotifications.getStreetFrontageMin());
+            }
+            if (newNotifications.getStreetFrontageMax() != null) {
+                notifications.setStreetFrontageMax(newNotifications.getStreetFrontageMax());
             }
             this.saveNotifications(notifications);
             return ResponseEntity.ok(notifications);

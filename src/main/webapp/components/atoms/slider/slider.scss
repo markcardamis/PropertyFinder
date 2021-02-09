@@ -1,34 +1,24 @@
-@import '../../../styles//style.scss';
+@import '../../../styles/style.scss';
 
-.rc-slider-rail {
-    background-color: $green;
-}
-.rc-slider-track {
-    background-color: $light-grey;
-}
 .rc-slider-handle {
     background-color: $dark-grey;
-    // width: 28px;
-    // height: 28px;
-    // border-radius: 20px;
+    opacity: 0.9;
     width: 14px;
     height: 14px;
     border-radius: 14px;
     border: none;
-    //margin-top: -15px;
 }
 
 .sliderContainer {
-    padding-top: 24px;
-    width: 40%;
-    padding-right: 25px;
-    padding-left: 12px;
+    padding-top: 5px;
+    width: 100%;
+    padding-right: 5px;
+    padding-left: 5px;
     
     .sliderLegend {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-       // margin-top: 8px;
 
         .sliderLabel {
             font-family: $mavenPro;

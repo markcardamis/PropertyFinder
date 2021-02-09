@@ -22,6 +22,7 @@ export const FilterLine = (props) => {
                     labelMin={props.labelMin}
                     labelMax={props.labelMax}
                     showCurrency={props.showCurrency}
+                    style={{ width: "50%" }}
                     />
             </div>;
 };
@@ -43,7 +44,7 @@ export const PostCode = (props) => {
     return <>
             <div className='postCode'>
                 <PropListTitle title22={props.title22} icon={props.icon}/>
-                <TextInput value={props.value} width={"42%"} onChange={props.onChange}/>
+                <TextInput value={props.value} width={"50%"} onChange={props.onChange}/>
             </div>
             <div className='validation'>{props.showValidation && "*must be 4 digits"}</div>
             </>;
