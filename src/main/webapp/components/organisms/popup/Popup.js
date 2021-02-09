@@ -72,14 +72,14 @@ const Popup = props => {
                     value2={`${building_height} M`}
                     />
                 <PropListItem 
+                    icon={<IconLink size={size.width<982 ? 1.7:0.7} color={variables.green}/>} 
+                    title={LEP_LINK} 
+                    value11={<a href={legislation_url} target="_blank" rel="noopener noreferrer" >{legislation_url.slice(0, 35)}...</a>}
+                    />
+                <PropListItem 
                     icon={<IconInterest size={size.width<982 ? 2:1}/>} 
                     title={INTERESTED_PEOPLE} 
                     value11={interested_people}
-                    />
-                <PropListItem 
-                    icon={<IconLink size={size.width<982 ? 1.7:0.7} color={variables.green}/>} 
-                    title={LEP_LINK} 
-                    value11={<a href={legislation_url} target="_blank">{legislation_url.slice(0, 35)}...</a>}
                     />
             </div>
             <div className="popup-watchList" onClick={addToWatchList}>
