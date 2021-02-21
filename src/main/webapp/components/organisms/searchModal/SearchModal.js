@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { IconCloseMobile } from "../../../assets/icons";
 
 const SearchModal = () => {
-    const properties = useSelector(state=>state.mapMarker);
+    const properties = useSelector(state=>state.mapMarker.markers);
     const dispatch = useDispatch();
 
     const renderResults = () => {
