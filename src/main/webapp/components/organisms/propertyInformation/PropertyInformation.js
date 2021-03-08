@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { useSelector } from "react-redux";
 import Fade from "react-reveal/Fade";
 
-import { DEFAULT_HOUSE_IMAGE, ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO } from "../../../shared/constants/constants";
+import { DEFAULT_HOUSE_IMAGE, ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO, STREET_FRONTAGE } from "../../../shared/constants/constants";
 import PropListItem from "../../molecules/propListItem/PropListItem";
-import { IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG, IconCloseMobile } from "../../../assets/icons";
+import { IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG, IconCloseMobile, IconFence } from "../../../assets/icons";
 import "./propertyInformation.scss";
 import PropImg from "../../atoms/propImg/PropImg";
 import ButtonProperty from "../../atoms/buttonProperty/ButtonProperty";
@@ -22,7 +22,7 @@ const PropertyInformation = (props) => {
         const propertyInfo = useSelector(state=>state.propertyModal);
         const { id, address, area, floorSpaceRatio, minimumLotSize,
             price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
-            pricePSM, priceToLandValue, summaryDescription, listingPhoto,
+            pricePSM, priceToLandValue, summaryDescription, listingPhoto, streetFrontage
             } = propertyInfo;  
 
             return (
@@ -48,7 +48,12 @@ const PropertyInformation = (props) => {
                                     icon2={bedrooms ? <IconBedG/> : <IconBedG color={variables.lightGrey}/>} 
                                     title2={BEDROOMS} value2={bedrooms}
                                     />
-                                <PropListItem icon={carspaces ? <IconCarG/> : <IconCarG color={variables.lightGrey}/>} title={CAR_SPACES} value14={carspaces}/>
+                                <PropListItem2 
+                                    icon1={carspaces ? <IconCarG/> : <IconCarG color={variables.lightGrey}/>} 
+                                    title1={CAR_SPACES} value1={carspaces}
+                                    icon2={<IconFence color={streetFrontage ? variables.green : variables.lightGrey} />} 
+                                    title2={STREET_FRONTAGE} value2={streetFrontage}
+                                    />
                                 <DeviderLine/>
                                 <PropListItem icon={price ? <IconPriceG/> : <IconPriceG color={variables.lightGrey}/>} title={PRICE} value18={price}/>
                                 <PropListItem icon={priceToLandValue ? <IconPriceLandG/> : <IconPriceLandG color={variables.lightGrey}/>} title={PRICE_TO_LAND_VALUE} value14={priceToLandValue&&priceToLandValue}/>

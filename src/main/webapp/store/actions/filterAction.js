@@ -4,13 +4,15 @@ import { hideLoading, showLoading } from "./loadingAction";
 const apiUrl = "/api/notifications";
 
 export const saveFilter = (accessToken, name, frequency, editedFilter) => async dispatch => {
-    const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly, nearbyDA } = store.getState().filter;
+    const { zone, area, streetFrontage, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly, nearbyDA } = store.getState().filter;
     const filter = {
         title: name ? name : "Untitled",
         frequency: frequency==null ? "OFF" : frequency,
         propertyZone: zone ? zone : null,
         propertyAreaMin: area[0] !== 0 ? area[0] : null,
         propertyAreaMax: area[1] !== 20000 ? area[1] : null,
+        streetFrontageMin: area[0] !== 0 ? streetFrontage[0] : null,
+        streetFrontageMax: area[1] !== 20 ? streetFrontage[1] : null,
         propertyPriceMin: price[0] !== 100000 ? price[0] : null,
         propertyPriceMax: price[1] !== 5000000 ? price[1] : null,
         propertyPricePSMMin: priceM2[0] !== 1 ? priceM2[0] : null,

@@ -1,6 +1,7 @@
 export const initialFilter = { 
                         zone: null,
                         area: [ 0, 20000 ],
+                        streetFrontage: [ 0, 20 ],
                         price: [ 100000, 5000000 ],
                         priceM2: [ 1, 10000 ],
                         postCode: "",

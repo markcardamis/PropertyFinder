@@ -18,6 +18,7 @@ export const PRICE_PER_M2 = "Price per m²";
 export const LAND_VALUE = "Land Value";
 export const DESCRIPTION = "Description";
 export const FLOOR_SPACE_RATIO = "Floor Space Ratio";
+export const STREET_FRONTAGE = "Street Frontage";
 export const MINIMUM_LOT_SIZE = "Minimum Lot Size";
 export const BUILDING_HEIGHT = "Building Height";
 export const BATHROOMS = "Bathrooms";

@@ -9,7 +9,7 @@ import "./parcelSearch.scss";
 import { FilterLine, ZoneSelect, PostCode } from "./components";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
-import { IconArea, IconFsr, IconPrice, IconZone, IconPost, IconBuildingHeight, IconLandOnly, IconNearBy } from "../../../assets/icons";
+import { IconArea, IconFsr, IconPrice, IconZone, IconPost, IconBuildingHeight, IconLandOnly, IconNearBy, IconFence } from "../../../assets/icons";
 import { setParcelFilter, resetParcelFilter } from "../../../store/actions/parcelSearchAction/setParcelFilter";
 import { applyParcelSearch } from "../../../store/actions/parcelSearchAction/parcelSearchAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
@@ -19,7 +19,7 @@ import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 
 const ParcelSearch = (props) => {
     const { parcelSearch } = props;
-    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue, landOnly, nearbyDA } = props.parcelSearch;
+    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue, landOnly, nearbyDA, streetFrontage } = props.parcelSearch;
 
     const onSelect = ({ key }) => {
       props.setParcelFilter({ ...parcelSearch, zone: key });
@@ -65,6 +65,19 @@ const ParcelSearch = (props) => {
                   max={20000} 
                   labelMin={"0"} 
                   labelMax={"20 000+"}
+                />
+
+                <FilterLine 
+                  title22={"Street Frontage"} 
+                  icon={<IconFence/>} 
+                  value={streetFrontage}
+                  step={0.1} 
+                  showCurrency={false}
+                  onChange={(val)=>props.setParcelFilter({ ...parcelSearch, streetFrontage: val })} 
+                  min={0} 
+                  max={20} 
+                  labelMin={"0.0"} 
+                  labelMax={"20.0+"}
                 />
 
                 <FilterLine 
