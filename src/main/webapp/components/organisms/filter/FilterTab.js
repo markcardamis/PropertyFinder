@@ -123,18 +123,6 @@ class FilterTab extends React.Component {
                   labelMin={"0.0"} 
                   labelMax={"2.0+"}
                   />
-                <FilterLine 
-                  title22={"Street Frontage"} 
-                  icon={<IconFence />} 
-                  value={filter.streetFrontage} 
-                  step={0.1} 
-                  showCurrency={false}
-                  onChange={(val)=>this.props.getFilter({ ...filter, streetFrontage: val })} 
-                  min={0} 
-                  max={20} 
-                  labelMin={"0.0"} 
-                  labelMax={"20.0+"}
-                  />
                 <DeviderLine/>
                 <FilterLine 
                   title22={"Price"} 
@@ -171,6 +159,18 @@ class FilterTab extends React.Component {
                   max={10} 
                   labelMin={"0.0"} 
                   labelMax={"10.0"}
+                  />
+                <FilterLine 
+                  title22={"Street Frontage"} 
+                  icon={<IconFence />} 
+                  value={filter.streetFrontage} 
+                  step={0.1} 
+                  showCurrency={false}
+                  onChange={(val)=>this.props.getFilter({ ...filter, streetFrontage: val })} 
+                  min={0} 
+                  max={50} 
+                  labelMin={"0.0"} 
+                  labelMax={"50.0+"}
                   />
 
                 <div className="checkboxLine"> 

@@ -61,7 +61,7 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
       propertyAreaMin: area[0] !== 0 ? area[0] : null,
       propertyAreaMax: area[1] !== 20000 ? area[1] : null,
       streetFrontageMin: streetFrontage[0] !== 0 ? streetFrontage[0] : null,
-      streetFrontageMax: streetFrontage[1] !== 20 ? streetFrontage[1] : null,
+      streetFrontageMax: streetFrontage[1] !== 50 ? streetFrontage[1] : null,
       propertyPriceMin: price[0] !== 100000 ? price[0] : null,
       propertyPriceMax: price[1] !== 5000000 ? price[1] : null,
       propertyPricePSMMin: priceM2[0] !== 1 ? priceM2[0] : null,

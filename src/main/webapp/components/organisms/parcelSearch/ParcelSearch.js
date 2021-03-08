@@ -68,19 +68,6 @@ const ParcelSearch = (props) => {
                 />
 
                 <FilterLine 
-                  title22={"Street Frontage"} 
-                  icon={<IconFence/>} 
-                  value={streetFrontage}
-                  step={0.1} 
-                  showCurrency={false}
-                  onChange={(val)=>props.setParcelFilter({ ...parcelSearch, streetFrontage: val })} 
-                  min={0} 
-                  max={20} 
-                  labelMin={"0.0"} 
-                  labelMax={"20.0+"}
-                />
-
-                <FilterLine 
                   title22={"Building Height"} 
                   icon={<IconBuildingHeight/>} 
                   value={buildingHeight}
@@ -119,6 +106,19 @@ const ParcelSearch = (props) => {
                   labelMin={"$100k"} 
                   labelMax={"$5M"}
                   />
+
+                <FilterLine 
+                  title22={"Street Frontage"} 
+                  icon={<IconFence/>} 
+                  value={streetFrontage}
+                  step={0.1} 
+                  showCurrency={false}
+                  onChange={(val)=>props.setParcelFilter({ ...parcelSearch, streetFrontage: val })} 
+                  min={0} 
+                  max={50} 
+                  labelMin={"0.0"} 
+                  labelMax={"50.0+"}
+                />
                 <div className="checkboxLine"> 
                     <CheckboxFilterLine 
                       title='Land Only' 
