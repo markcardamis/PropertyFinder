@@ -48,7 +48,7 @@ class SavedFilters extends Component {
     this.props.getFilter({
       zone: item.propertyZone!== null ? item.propertyZone : null,
       area: [ item.propertyAreaMin!== null? item.propertyAreaMin : 0, item.propertyAreaMax!== null ? item.propertyAreaMax : 20000 ],
-      streetFrontage: [ item.streetFrontageMin ? item.streetFrontageMin : 0, item.streetFrontageMax ? item.streetFrontageMax : 20 ],
+      streetFrontage: [ item.streetFrontageMin ? item.streetFrontageMin : 0, item.streetFrontageMax ? item.streetFrontageMax : 50 ],
       price: [ item.propertyPriceMin!== null ? item.propertyPriceMin : 100000, item.propertyPriceMax!== null ? item.propertyPriceMax : 5000000 ],
       priceM2: [ item.propertyPricePSMMin!== null ? item.propertyPricePSMMin : 1, item.propertyPricePSMMax!== null ? item.propertyPricePSMMax : 10000 ],
       postCode: item.propertyPostCode!== null ? item.propertyPostCode : "",
