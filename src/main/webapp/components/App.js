@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useMemo } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Security, ImplicitCallback } from "@okta/okta-react";
 import Loader from "react-loader-spinner";
@@ -14,6 +14,8 @@ import { showSignIn } from "../store/actions/signInModalAction";
 
 const App = () => {
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector(state=>state.auth.authenticated);
+  const signupRoute = useMemo(() => !isAuthenticated && <Route path='/signup' exact component={Home} />, [ isAuthenticated ]);
 
     return (
       <>
@@ -33,11 +35,11 @@ const App = () => {
                     scopes={[ "openid profile email" ]}
                     pkce={true} >
             <Route path='/' exact={true} component={Home} />
-            <Route path='/signup' exact component={Home} />
             <Route path='/search' exact component={Home} />
             <Route path='/about' exact component={AboutPage} />
             <Route path='/contact' exact component={ContactPage} />
             <Route path='/implicit/callback' component={ImplicitCallback} />
+            {signupRoute}
           </Security>
         </Router>
       </>
