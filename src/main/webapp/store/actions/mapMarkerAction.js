@@ -47,7 +47,7 @@ export const changeAllMarkers = (item, status) => {
 
 export const applyFilter = (authenticated, accessToken) => async dispatch => {
   
-  const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly, nearbyDA } = store.getState().filter;
+  const { zone, area, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly, nearbyDA, streetFrontage } = store.getState().filter;
   const { latitude, longitude } = store.getState().viewport;
   const nearbyDAUrl = `https://api.planningalerts.org.au/applications.js?key=${process.env.DA_API_KEY}&lat=${latitude}&lng=${longitude}&radius=2000`;
   let headers = {
@@ -60,6 +60,8 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
       propertyZone: zone ? zone : null,
       propertyAreaMin: area[0] !== 0 ? area[0] : null,
       propertyAreaMax: area[1] !== 20000 ? area[1] : null,
+      streetFrontageMin: streetFrontage[0] !== 0 ? streetFrontage[0] : null,
+      streetFrontageMax: streetFrontage[1] !== 50 ? streetFrontage[1] : null,
       propertyPriceMin: price[0] !== 100000 ? price[0] : null,
       propertyPriceMax: price[1] !== 5000000 ? price[1] : null,
       propertyPricePSMMin: priceM2[0] !== 1 ? priceM2[0] : null,

@@ -11,7 +11,7 @@ import "./filter.scss";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
-import { IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost, IconLandOnly, IconNearBy } from "../../../assets/icons";
+import { IconArea, IconFsr, IconLandval, IconPrice, IconPriceM, IconZone, IconPost, IconLandOnly, IconNearBy, IconFence } from "../../../assets/icons";
 import { getFilter, resetFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 import { showSearchModal } from "../../../store/actions/searchModalAction";
@@ -159,6 +159,18 @@ class FilterTab extends React.Component {
                   max={10} 
                   labelMin={"0.0"} 
                   labelMax={"10.0"}
+                  />
+                <FilterLine 
+                  title22={"Street Frontage"} 
+                  icon={<IconFence />} 
+                  value={filter.streetFrontage} 
+                  step={0.1} 
+                  showCurrency={false}
+                  onChange={(val)=>this.props.getFilter({ ...filter, streetFrontage: val })} 
+                  min={0} 
+                  max={50} 
+                  labelMin={"0.0"} 
+                  labelMax={"50.0+"}
                   />
 
                 <div className="checkboxLine"> 

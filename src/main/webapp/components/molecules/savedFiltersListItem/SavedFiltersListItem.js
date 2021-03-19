@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 
 import "./savedFiltersListItem.scss";
 import SavedFilterItem from "../../atoms/savedFilterItem/SavedFilterItem";
-import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, IconPostG, IconPencil, IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30, IconLandOnly } from "../../../assets/icons";
+import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, IconPostG, IconPencil, IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30, IconLandOnly, IconFence } from "../../../assets/icons";
+import variables from "../../../styles/_variables.scss";
+
 
 const SavedFiltersListItem = props => {
     const { data } = props;
@@ -33,6 +35,8 @@ const SavedFiltersListItem = props => {
             <SavedFilterItem title={"Zone: "} value={data.propertyZone} icon={<IconZoneG/>} position={"first"}/>
             <SavedFilterItem title={"Area min: "} value={data.propertyAreaMin} icon={<IconAreaG/>} position={"first"}/>
             <SavedFilterItem title={"Area max: "} value={data.propertyAreaMax} icon={<IconAreaG/>} position={"first"}/>
+            <SavedFilterItem title={"Street Frontage min: "} value={data.streetFrontageMin} icon={<IconFence color={variables.green}/>} position={"first"}/>
+            <SavedFilterItem title={"Street Frontage max: "} value={data.streetFrontageMax} icon={<IconFence color={variables.green}/>} position={"first"}/>
             <SavedFilterItem title={"Price min: "} value={data.propertyPriceMin} icon={<IconPriceG/>} position={"first"}/>
             <SavedFilterItem title={"Price max: "} value={data.propertyPriceMax} icon={<IconPriceG/>} position={"first"}/>
             <SavedFilterItem title={"Price per m2 min: "} value={data.propertyPricePSMMin} icon={<IconPriceMg/>} position={"first"}/>
@@ -42,7 +46,7 @@ const SavedFiltersListItem = props => {
             <SavedFilterItem title={"Price to landvalue max: "} value={data.propertyPriceToLandValueMax} icon={<IconLandvalG/>} position={"first"}/>
             <SavedFilterItem title={"Floorspace ratio min: "} value={data.propertyFloorSpaceRatioMin} icon={<IconFsrG/>} position={"first"}/>
             <SavedFilterItem title={"Floorspace ratio max: "} value={data.propertyFloorSpaceRatioMax} icon={<IconFsrG/>} position={"first"}/>
-            <SavedFilterItem title={"Land only: "} value={data.landOnly && data.landOnly.toString()} icon={<IconLandOnly/>} position={"first"}/>
+            <SavedFilterItem title={"Land only: "} value={data.landOnly && data.landOnly.toString()} icon={<IconLandOnly color={variables.green}/>} position={"first"}/>
           </div>  
         </div>
     );

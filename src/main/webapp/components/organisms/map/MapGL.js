@@ -83,7 +83,6 @@ componentDidUpdate() {
 handleViewportChange = () => {
     this.props.showSearchArea();
     this.props.viewportChange({ latitude: map.getCenter().lat, longitude: map.getCenter().lng });
-    this.handleRemoveParcels();
 }
 
 renderMarkers = async () => {
@@ -173,10 +172,6 @@ handleHoverOffProperty = () => {
         });
     }
     hoverId = null;
-}
-
-handleRemoveParcels = () => {
-    map.setFilter("nsw-property-highlighted", [ "in", "propid", "" ]);
 }
 
 checkAuthentication = async () => {

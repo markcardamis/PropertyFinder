@@ -3,6 +3,7 @@ const initialFilter = {
     zone: null,
     postCode: "",
     area: [ 0, 20000 ],
+    streetFrontage: [ 0, 50 ],
     buildingHeight: [ 0, 100 ],
     floorspaceRatio: [ 0, 2 ],
     landValue: [ 100000, 5000000 ],

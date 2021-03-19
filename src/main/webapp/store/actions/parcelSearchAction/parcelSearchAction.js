@@ -6,7 +6,7 @@ import { hideLoading, showLoading } from "../loadingAction";
 const apiUrl = "/api/propertyinformation";
 
 export const applyParcelSearch = () => async dispatch => {
-    const { zone, postCode, area, buildingHeight, landValue, floorspaceRatio, landOnly, nearbyDA } = store.getState().parcelSearch;
+    const { zone, postCode, area, buildingHeight, landValue, floorspaceRatio, landOnly, nearbyDA, streetFrontage } = store.getState().parcelSearch;
     const { latitude, longitude } = store.getState().viewport;
     const { markers } = store.getState().mapMarker;
     const nearbyDAUrl = `https://api.planningalerts.org.au/applications.js?key=1iQRahpMr6dxwRGN9fgM&lat=${latitude}&lng=${longitude}&radius=2000`;
@@ -30,6 +30,8 @@ export const applyParcelSearch = () => async dispatch => {
         postCode: `&postCode=${postCode}`,
         areaMin: `&areaMin=${area[0] !== 0 ? area[0] : ""}`,
         areaMax: `&areaMax=${area[1] !== 20000 ? area[1] : ""}`,
+        streetFrontageMin: `&streetFrontageMin=${streetFrontage[0] !== 0 ? streetFrontage[0] : ""}`,
+        streetFrontageMax: `&streetFrontageMax=${streetFrontage[1] !== 50 ? streetFrontage[1] : ""}`,
         landValueMin: `&landValueMin=${landValue[0] !== 100000 ? landValue[0] : ""}`,
         landValueMax: `&landValueMax=${landValue[1] !== 5000000 ? landValue[1] : ""}`,
         buildingHeightMin: `&buildingHeightMin=${buildingHeight[0] !== 0 ? buildingHeight[0] : ""}`,

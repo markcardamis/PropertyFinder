@@ -24,6 +24,7 @@ export { default as IconExitMobile } from "./IconExitMobile";
 export { default as IconEye } from "./IconEye";
 export { default as IconInterest } from "./IconInterest";
 export { default as IconFsr } from "./IconFsr";
+export { default as IconFence } from "./IconFence";
 export { default as IconFilter } from "./IconFilter";
 export { default as LogoBlack } from "./LogoBlack";
 export { default as IconFsrG } from "./IconFsrG";
