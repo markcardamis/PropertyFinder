@@ -7,7 +7,7 @@ import TextInput from "../../atoms/textInput/TextInput";
 import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import { IconUser, IconKey, IconEye } from "../../../assets/icons";
-import variables from "../../../styles/_variables.scss";
+import variables from "../../../styles/_variables.module.scss";
 
 class LoginForm extends Component {
     constructor(props) {

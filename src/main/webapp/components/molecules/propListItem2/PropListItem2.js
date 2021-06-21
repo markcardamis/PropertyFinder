@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import "./propListItem2.scss";
 import PropListTitle from "../../atoms/propListTitle/PropListTitle";
-import variables from "../../../styles/_variables.scss";
+import variables from "../../../styles/_variables.module.scss";
 
 const PropListItem = props => {
     return (

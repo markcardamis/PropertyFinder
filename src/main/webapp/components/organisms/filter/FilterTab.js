@@ -20,7 +20,7 @@ import { FilterLine } from "./FilterLine";
 import { PostCode } from "./PostCode";
 import { ZoneSelect } from "./ZoneSelect";
 import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
-import variables from "../../../styles/_variables.scss";
+import variables from "../../../styles/_variables.module.scss";
 
 class FilterTab extends React.Component {
 

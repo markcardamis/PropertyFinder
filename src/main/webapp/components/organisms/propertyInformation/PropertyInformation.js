@@ -12,7 +12,7 @@ import ButtonProperty from "../../atoms/buttonProperty/ButtonProperty";
 import PropListItem2 from "../../molecules/propListItem2/PropListItem2";
 import ButtonSquare from "../../atoms/buttonSquare/ButtonSquare";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
-import variables from "../../../styles/_variables.scss";
+import variables from "../../../styles/_variables.module.scss";
 
 
 const PropertyInformation = (props) => {

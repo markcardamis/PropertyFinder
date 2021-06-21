@@ -6,7 +6,7 @@ import PropListItem2 from "../../molecules/propListItem2/PropListItem2";
 import PropListItem from "../../molecules/propListItem/PropListItem";
 import { ADDRESS, AREA, ZONE, PRICE, PRICE_TO_LAND_VALUE, PRICE_PER_M2, LAND_VALUE, DESCRIPTION, BATHROOMS, BEDROOMS, CAR_SPACES, MINIMUM_LOT_SIZE, FLOOR_SPACE_RATIO, DEFAULT_HOUSE_IMAGE } from "../../../shared/constants/constants";
 import { IconAreaG, IconAddressG, IconZoneG, IconPriceG, IconPriceLandG, IconLandvalG, IconPriceMg, IconClose, IconBathG, IconBedG, IconCarG, IconLotG, IconFsrG } from "../../../assets/icons";
-import variables from "../../../styles/_variables.scss";
+import variables from "../../../styles/_variables.module.scss";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonProperty from "../../atoms/buttonProperty/ButtonProperty";
 import "./searchItem.scss";

@@ -8,7 +8,7 @@ import Home from "../pages/Home";
 import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import "../styles/style.scss";
-import variables from "../styles/_variables.scss";
+import variables from "../styles/_variables.module.scss";
 import { showSignIn } from "../store/actions/signInModalAction";
 
 

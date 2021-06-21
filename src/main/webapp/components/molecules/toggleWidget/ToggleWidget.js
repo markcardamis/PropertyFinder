@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import "./toggleWidget.scss";
 import { IconMap, IconList2 } from "../../../assets/icons";
-import variables from "../../../styles/_variables.scss";
+import variables from "../../../styles/_variables.module.scss";
 import Switch from "react-switch";
 
 const ToggleWidget = (props) => {

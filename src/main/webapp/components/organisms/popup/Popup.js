@@ -12,7 +12,7 @@ import { useWindowSize } from "../../../modules/windowSize";
 import { getUpperCase } from "../../../shared/utils/getUppercase";
 import { saveWatchListItem } from "../../../store/actions/watchListAction/saveWatchListItemAction";
 import { showSignIn } from "../../../store/actions/signInModalAction";
-import variables from "../../../styles/_variables.scss";
+import variables from "../../../styles/_variables.module.scss";
 
 const Popup = props => {
     const { property_id, house_number, street_name, suburb_name, post_code, zone_code, area, area_type, floor_space_ratio, minimum_lot_size, building_height, land_value_1, last_sold, interested_people, legislation_url, interested_user, street_frontage } = props.propertyInfo;

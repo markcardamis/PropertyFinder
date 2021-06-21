@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import "./savedFiltersListItem.scss";
 import SavedFilterItem from "../../atoms/savedFilterItem/SavedFilterItem";
 import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, IconPostG, IconPencil, IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30, IconLandOnly, IconFence } from "../../../assets/icons";
-import variables from "../../../styles/_variables.scss";
+import variables from "../../../styles/_variables.module.scss";
 
 
 const SavedFiltersListItem = props => {

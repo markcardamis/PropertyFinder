@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import variables from "../../../styles/_variables.scss";
+import variables from "../../../styles/_variables.module.scss";
 import "./propListTitle.scss";
 
 const PropListTitle = props => {

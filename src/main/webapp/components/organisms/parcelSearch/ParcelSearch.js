@@ -14,7 +14,7 @@ import { setParcelFilter, resetParcelFilter } from "../../../store/actions/parce
 import { applyParcelSearch } from "../../../store/actions/parcelSearchAction/parcelSearchAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
 import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
-import variables from "../../../styles/_variables.scss";
+import variables from "../../../styles/_variables.module.scss";
 import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import { map } from "../../organisms/map/MapGL";
 
