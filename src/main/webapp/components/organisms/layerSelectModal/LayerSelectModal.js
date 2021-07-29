@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PopupContainer from "../../molecules/popupContainer/PopupContainer";
 import "./layerSelectModal.scss";
 import { toggleLayer, closeLayersModal } from "../../../store/actions/layersAction";
-import { useWindowSize } from "../../../modules/windowSize";
+import { useWindowSize } from "../../../hooks/windowSize";
 import { map } from "../../organisms/map/MapGL";
 
 const LayerSelectModal = () => {

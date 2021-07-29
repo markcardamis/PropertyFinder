@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./buttonAccount.scss";
 import { IconAccount, IconArD } from "../../../assets/icons";
-import { useWindowSize } from "../../../modules/windowSize";
+import { useWindowSize } from "../../../hooks/windowSize";
 
 const ButtonAccount = props => {
     const size = useWindowSize();

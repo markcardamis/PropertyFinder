@@ -3,7 +3,7 @@ import "../../../../../../node_modules/react-vis/dist/style.css";
 import { XYPlot, LineSeries, HorizontalGridLines, DiscreteColorLegend, XAxis, YAxis, Crosshair, MarkSeries } from "react-vis";
 import "./chart.scss";
 import PropTypes from "prop-types";
-import { useWindowSize } from "../../../modules/windowSize";
+import { useWindowSize } from "../../../hooks/windowSize";
 
 const Chart = (props) => {
     const [ crosshairValues, setCrosshairValues ] = useState([]);

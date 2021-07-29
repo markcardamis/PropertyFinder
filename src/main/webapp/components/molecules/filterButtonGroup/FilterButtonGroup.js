@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector, connect } from "react-redux";
-import { withOktaAuth } from "@okta/okta-react";
 
 import ButtonSquare from "../../atoms/buttonSquare/ButtonSquare";
 import { LogoBlack, IconLayers, IconSearch } from "../../../assets/icons";
 import "./filterButtonGroup.scss";
-import { useWindowSize } from "../../../modules/windowSize";
+import { useWindowSize } from "../../../hooks/windowSize";
 import { getSearchResults } from "../../../store/actions/searchAction";
 import { getPopup } from "../../../store/actions/popupAction";
 import SearchInput from "../searchInput/SearchInput";
 import { map } from "../../organisms/map/MapGL";
 import ToggleWidget from "../toggleWidget/ToggleWidget";
-import { useAuth } from "../../../modules/auth";
+import { useAuth } from "../../../hooks/auth";
 import { applyFilter } from "../../../store/actions/mapMarkerAction";
 import { LATITUDE_DIFF } from "../../../shared/constants/constants";
 import { removeMapPopup } from "../../../shared/utils/removeMapPopup";
 
-const FilterButtonGroup = withOktaAuth(props => {
+const FilterButtonGroup = props => {
     const searchModal = useSelector(state=>state.searchModal);
     const propertyModal = useSelector(state=>state.propertyModal.isHidden);
     const windowSize = useWindowSize();
@@ -26,7 +25,7 @@ const FilterButtonGroup = withOktaAuth(props => {
     const [ hovered, setHovered ] = useState({});
     const [ selected, setSelected ] = useState({});
     const [ showResults, setShowResults ] = useState(false);
-    const [ authenticated, user, accessToken ] = useAuth(props.auth);
+    const { isAuthenticated, accessToken } = useAuth();
     let timer;
     const handleSearch = (e) => {
        setSearch(e.target.value.replace(/[^a-zA-Z0-9-_ /]/gi, ""));
@@ -59,7 +58,7 @@ const FilterButtonGroup = withOktaAuth(props => {
         setHovered(item);
     };
     const handleSearchArea = () => {
-        props.applyFilter(authenticated, accessToken);
+        props.applyFilter(isAuthenticated, accessToken);
     };
     return (
         <div className='filterButtonGroup'>
@@ -109,7 +108,7 @@ const FilterButtonGroup = withOktaAuth(props => {
                 />}
         </div>
     );
-});
+};
 
 
 const mapStateToProps = (state) => {

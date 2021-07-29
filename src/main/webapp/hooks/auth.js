@@ -13,5 +13,9 @@ export const useAuth = () => {
     }
   }, [ authState ]);
 
-  return [ authState && authState.isAuthenticated, user, authState && authState.accessToken ];
+  return { 
+    isAuthenticated: authState && authState.isAuthenticated, 
+    user, 
+    accessToken: authState && authState.accessToken
+  };
 };

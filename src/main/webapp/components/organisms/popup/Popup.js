@@ -8,7 +8,7 @@ import { ADDRESS, AREA, ZONE, LAND_VALUE, FLOOR_SPACE_RATIO, MINIMUM_LOT_SIZE, B
 import PropListItem from "../../molecules/propListItem/PropListItem";
 import PropListItem2 from "../../molecules/propListItem2/PropListItem2";
 import { IconAddressG, IconAreaG, IconZoneG, IconLandvalG, IconFsrG, IconLotG, IconHeight, IconInterest, IconSold, IconStar, IconLink, IconFence, } from "../../../assets/icons";
-import { useWindowSize } from "../../../modules/windowSize";
+import { useWindowSize } from "../../../hooks/windowSize";
 import { getUpperCase } from "../../../shared/utils/getUppercase";
 import { saveWatchListItem } from "../../../store/actions/watchListAction/saveWatchListItemAction";
 import { showSignIn } from "../../../store/actions/signInModalAction";

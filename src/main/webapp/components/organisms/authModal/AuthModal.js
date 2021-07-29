@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { withOktaAuth } from "@okta/okta-react";
+import { useOktaAuth } from '@okta/okta-react';
 import { useHistory } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
-import { useAuth } from "../../../modules/auth";
+import { useAuth } from "../../../hooks/auth";
 import PopupContainer from "../../molecules/popupContainer/PopupContainer";
 import LoginForm from "../../molecules/loginForm/LoginForm";
 import RegisterForm from "../../molecules/registerForm/RegisterForm";
@@ -12,9 +12,10 @@ import UserInfo from "../../molecules/userInfo/UserInfo";
 import { useDispatch } from "react-redux";
 import "./authModal.scss";
 
-const AuthModal = withOktaAuth(({ oktaAuth }) => {
+const AuthModal = () => {
     const history = useHistory();
-    const [ authenticated, user ] = useAuth(oktaAuth);
+    const { isAuthenticated, user } = useAuth();
+    const { oktaAuth } = useOktaAuth();
     const [ state, setState ] = useState( history.location.pathname === "/signup" ? "register" : "login");
     const dispatch = useDispatch();
     const node = useRef();
@@ -36,7 +37,7 @@ const AuthModal = withOktaAuth(({ oktaAuth }) => {
       
     const renderComponent = () => {
        if (state=="login") {
-            return authenticated ? <Account onLogout={()=>{oktaAuth.signOut(); setState("login");}} onAccountClick={()=>setState("account")}/> :
+            return isAuthenticated ? <Account onLogout={()=>{oktaAuth.signOut(); setState("login");}} onAccountClick={()=>setState("account")}/> :
                 <LoginForm onSignUp={()=>setState("register")} onForgotClick={()=>setState("account")}/>;
         } else if (state=="register") {
             return <RegisterForm onBack={()=>setState("login")}/>;
@@ -55,6 +56,6 @@ const AuthModal = withOktaAuth(({ oktaAuth }) => {
         </Fade>
       </div>
     );
-});
+};
 
 export default AuthModal;

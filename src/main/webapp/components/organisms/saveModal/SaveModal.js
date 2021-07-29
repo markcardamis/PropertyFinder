@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { IconArD } from "../../../assets/icons";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import CloseBtn from "../../atoms/closeBtn/CloseBtn";
 import TextInput from "../../atoms/textInput/TextInput";
-import { useAuth } from "../../../modules/auth";
-import { withOktaAuth } from "@okta/okta-react";
 import { saveFilter } from "../../../store/actions/filterAction";
-import { connect } from "react-redux";
+import { useAuth } from "../../../hooks/auth";
 import "./saveModal.scss";
 
 const SaveModal = (props) => {
+    const { accessToken } = useAuth();
     const [ title, setTiltle ] = useState("Preference 1");
     const [ frequency, setFrequency ] = useState("OFF");
     const [ showDropdown, setShowDropdown ] = useState(false);
@@ -30,9 +30,9 @@ const SaveModal = (props) => {
                     </div>;
         });
     };
-    const handleSaveFilter = async () => {
+    const handleSaveFilter = () => {
         props.onSaveClick(title, frequency);
-        props.saveFilter(await props.auth.getAccessToken(), title, frequency);
+        props.saveFilter(accessToken, title, frequency);
     };
 
     const handleInput = (e) => {
@@ -79,4 +79,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     saveFilter
   };
-export default withOktaAuth(connect(mapStateToProps, mapDispatchToProps)(SaveModal));
+export default connect(mapStateToProps, mapDispatchToProps)(SaveModal);

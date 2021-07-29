@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect } from "react"; 
 import { Link, useLocation } from "react-router-dom";
-import { withOktaAuth } from "@okta/okta-react";
 import { useDispatch } from "react-redux";
 import { IconMenuMobile, Logo, PropertyFetch } from "../../../assets/icons";
 
 import "./nav.scss";
 import TopNavList from "../../molecules/topNavList/TopNavList";
-import { useAuth } from "../../../modules/auth";
+import { useAuth } from "../../../hooks/auth";
 import ButtonLogin from "../../atoms/buttonLogin/ButtonLogin";
 import ButtonAccount from "../../atoms/buttonAccount/ButtonAccount";
 import { login, logout } from "../../../store/actions/authAction";
 import { showSignIn } from "../../../store/actions/signInModalAction";
 
-const Nav = withOktaAuth(({ auth }) => {
-    const [ authenticated, user, accessToken ] = useAuth(auth);
+const Nav = () => {
+    const { isAuthenticated, user, accessToken } = useAuth();
     const location = useLocation();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        authenticated ? dispatch(login({ authenticated, user, accessToken })) : dispatch(logout({ authenticated, user, accessToken }));
-    }, [ authenticated, user, accessToken ]);
+        isAuthenticated ? dispatch(login({ isAuthenticated, user, accessToken })) : dispatch(logout({ isAuthenticated, user, accessToken }));
+    }, [ isAuthenticated, user, accessToken ]);
 
 
         return (
@@ -31,7 +30,7 @@ const Nav = withOktaAuth(({ auth }) => {
                 </Link>
                 <div className='navLinks'>
                     <TopNavList route={location.pathname}/>
-                    {authenticated !== null && authenticated ? 
+                    {isAuthenticated !== null && isAuthenticated ? 
                         <ButtonAccount onClick={()=>dispatch(showSignIn())}/> : 
                         <ButtonLogin onClick={()=>dispatch(showSignIn())}/>
                         }
@@ -41,6 +40,6 @@ const Nav = withOktaAuth(({ auth }) => {
                 </div>
             </div>
         );
-    });
+    };
 
 export default Nav;

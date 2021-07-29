@@ -1,7 +1,6 @@
-import React, { Component } from "react";
-import { OktaAuth } from "@okta/okta-auth-js";
-import { withOktaAuth } from "@okta/okta-react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { useOktaAuth } from '@okta/okta-react';
 import "./loginForm.scss";
 import TextInput from "../../atoms/textInput/TextInput";
 import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
@@ -9,43 +8,31 @@ import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import { IconUser, IconKey, IconEye } from "../../../assets/icons";
 import variables from "../../../styles/_variables.module.scss";
 
-class LoginForm extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        sessionToken: null,
-        data: null,
-        userName: "",
-        password: "",
-        showPassword: false,
-        errorMessage: ""
-      };
-      this.oktaAuth = new OktaAuth({ issuer: process.env.OKTA_URL });
+const LoginForm = (props) => {
+      const { oktaAuth } = useOktaAuth();
+      const [sessionToken, setSessionToken] = useState(null);
+      const [userName, setUserName] = useState('');
+      const [password, setPassword] = useState('');
+      const [errorMessage, setErrorMessage] = useState('');
+      const [showPassword, setShowPassword] = useState(false);
+
+  const handleSubmit = async (e) => {
+      props.dispatch({ type: "SHOW_LOADING" });
+
+      oktaAuth.signIn({ username: userName, password })
+      .then(res => setSessionToken(res.sessionToken))
+      .catch(err => setErrorMessage(err.errorSummary));
+      props.dispatch({ type: "HIDE_LOADING" });
     }
 
-  handleSubmit = async (e) => {
-      this.props.dispatch({ type: "SHOW_LOADING" });
-
-      this.oktaAuth.signIn({
-        username: this.state.userName,
-        password: this.state.password
-      })
-      .then(res => this.setState({
-        sessionToken: res.sessionToken
-      }))
-      .catch(err => {
-        console.log(err.errorSummary);
-        this.setState({ errorMessage: err.errorSummary });
-      });
-      this.props.dispatch({ type: "HIDE_LOADING" });
-    }
-
-    render() {
-      if (this.state.sessionToken) {
-        this.props.oktaAuth.signInWithRedirect({ sessionToken: this.state.sessionToken });
+    useEffect(() => {
+      if (sessionToken) {
+        oktaAuth.signInWithRedirect({ sessionToken });
         return null;
       }
-      const passIconColor = this.state.showPassword && Boolean(this.state.password) ? variables.darkGrey : variables.lightGrey;
+    })
+
+      const passIconColor = showPassword && Boolean(password) ? variables.darkGrey : variables.lightGrey;
  
       return (
         <div className='loginForm'>
@@ -55,35 +42,34 @@ class LoginForm extends Component {
                  <TextInput 
                     icon={<IconUser/>} 
                     placeholder={"User Name"}
-                    value={this.state.userName}
-                    onChange={(e)=>this.setState({ userName: e.target.value })}
+                    value={userName}
+                    onChange={(e)=>setUserName(e.target.value)}
                     />
             </div>
             <div className={"loginFormInput"}>
                 <TextInput 
                     icon={<IconKey/>} 
                     rightIcon={<IconEye color={passIconColor}/>}
-                    onRightIconClick={() => this.setState({ showPassword: !this.state.showPassword })}
-                    type={this.state.showPassword ? "text" : "password"}
+                    onRightIconClick={() => setShowPassword(!showPassword)}
+                    type={showPassword ? "text" : "password"}
                     placeholder={"Password"}
-                    value={this.state.password}
-                    onChange={(e)=>this.setState({ password: e.target.value })}
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
                     />
             </div>
-            { this.state.errorMessage && <div className="authError">Login failed, please check your email and password</div>}
-            <div className={"loginFormForgot"} onClick={this.props.onForgotClick}>Forgot Password?</div>
+            { errorMessage && <div className="authError">Login failed, please check your email and password</div>}
+            <div className={"loginFormForgot"} onClick={props.onForgotClick}>Forgot Password?</div>
           </div>
           <div>
-            <div className={"loginFormBtn"}><ButtonOutlined title={"SIGN IN"} onClick={this.handleSubmit}/></div>
+            <div className={"loginFormBtn"}><ButtonOutlined title={"SIGN IN"} onClick={handleSubmit}/></div>
             <div className='loginFormText'>
                 <div className='loginFormLine'/>Would you like to join?<div className='loginFormLine'/>
             </div>
-            <div className={"loginFormBtn"}><ButtonFilled title={"SIGN UP"} onClick={this.props.onSignUp}/></div>
+            <div className={"loginFormBtn"}><ButtonFilled title={"SIGN UP"} onClick={props.onSignUp}/></div>
           </div>
         </div>
       );
     }
-  }
 
   const mapStateToProps = (state) => {
     return {
@@ -91,4 +77,4 @@ class LoginForm extends Component {
     };
 };
 
-export default withOktaAuth(connect(mapStateToProps)(LoginForm));
+export default connect(mapStateToProps)(LoginForm);
