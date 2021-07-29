@@ -65,8 +65,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
-    "@okta/okta-auth-js": "^3.2.2",
-    "@okta/okta-react": "^2.0.1",
+    "@okta/okta-auth-js": "^5.2.3",
+    "@okta/okta-react": "^6.1.0",
     "@svgr/cli": "^5.5.0",
     "autoprefixer": "^10.2.6",
     "axios": "^0.21.1",

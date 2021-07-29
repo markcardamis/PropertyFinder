@@ -175,7 +175,7 @@ handleHoverOffProperty = () => {
 }
 
 checkAuthentication = async () => {
-    const authenticated = await this.props.auth.isAuthenticated();
+    const authenticated = await this.props.authState.isAuthenticated;
     
     if (authenticated !== this.state.authenticated) {
       this.setState({ authenticated });

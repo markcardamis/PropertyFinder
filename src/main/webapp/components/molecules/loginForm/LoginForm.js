@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import OktaAuth from "@okta/okta-auth-js";
+import { OktaAuth } from "@okta/okta-auth-js";
 import { withOktaAuth } from "@okta/okta-react";
 import { connect } from "react-redux";
 import "./loginForm.scss";
@@ -42,7 +42,7 @@ class LoginForm extends Component {
 
     render() {
       if (this.state.sessionToken) {
-        this.props.authService.redirect({ sessionToken: this.state.sessionToken });
+        this.props.oktaAuth.signInWithRedirect({ sessionToken: this.state.sessionToken });
         return null;
       }
       const passIconColor = this.state.showPassword && Boolean(this.state.password) ? variables.darkGrey : variables.lightGrey;

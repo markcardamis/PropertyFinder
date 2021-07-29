@@ -1,6 +1,6 @@
 import fetch from "isomorphic-fetch";
 import React, { Component } from "react";
-import OktaAuth from "@okta/okta-auth-js";
+import { OktaAuth } from "@okta/okta-auth-js";
 import { withOktaAuth } from "@okta/okta-react";
 import "./registerForm.scss";
 import TextInput from "../../atoms/textInput/TextInput";
@@ -76,7 +76,7 @@ class RegisterForm extends Component {
     
     render () {
       if (this.state.sessionToken) {
-        this.props.authService.redirect({ sessionToken: this.state.sessionToken });
+        this.props.oktaAuth.signInWithRedirect({ sessionToken: this.state.sessionToken });
         return null;
       }
       const { validation, email, firstName, lastName, password } = this.state;
