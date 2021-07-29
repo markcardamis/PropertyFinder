@@ -1,4 +1,4 @@
-import { withAuth } from "@okta/okta-react";
+import { withOktaAuth } from "@okta/okta-react";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Fade from "react-reveal/Fade";
@@ -128,4 +128,4 @@ const mapDispatchToProps = {
   getNotifications
 };
 
-export default withAuth(connect(mapStateToProps, mapDispatchToProps)(FilterModal));
+export default withOktaAuth(connect(mapStateToProps, mapDispatchToProps)(FilterModal));

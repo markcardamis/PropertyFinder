@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { withAuth } from "@okta/okta-react";
+import { withOktaAuth } from "@okta/okta-react";
 import "./mobileNav.scss";
 import { useAuth } from "../../../modules/auth";
 import TopNavList from "../../molecules/topNavList/TopNavList";
@@ -14,14 +14,14 @@ import Fade from "react-reveal/Fade";
 import { IconExitMobile } from "../../../assets/icons";
 import DeviderLine from "../../../components/atoms/deviderLine/DeviderLine";
 
-const MobileNav = withAuth(({ auth }) => {
-    const [ authenticated, user ] = useAuth(auth);
+const MobileNav = withOktaAuth(({ authService }) => {
+    const [ authenticated, user ] = useAuth(authService);
     const [ state, setState ] = useState("nav");
     const location = useLocation();
 
     const renderComponent = () => {
         if (state=="login") {
-             return authenticated ? <div className='mobileNav_formContainer'><Account onLogout={()=>{auth.logout(); setState("login");}} onAccountClick={()=>setState("account")}/></div> :
+             return authenticated ? <div className='mobileNav_formContainer'><Account onLogout={()=>{authService.logout(); setState("login");}} onAccountClick={()=>setState("account")}/></div> :
                  <div className='mobileNav_formContainer'><LoginForm onSignUp={()=>setState("register")} onForgotClick={()=>setState("account")}/></div>;
          } else if (state=="register") {
              return <div className='mobileNav_formContainer'><RegisterForm onBack={()=>setState("login")}/></div>;
@@ -38,7 +38,7 @@ const MobileNav = withAuth(({ auth }) => {
                         </div>
                         <div className='mobileNavLogin'>
                             {authenticated !== null && authenticated ? 
-                                    <ButtonLogin icon={<IconExitMobile/>} title={"LOGOUT"} onClick={()=>{auth.logout(); setState("login");}}/> :
+                                    <ButtonLogin icon={<IconExitMobile/>} title={"LOGOUT"} onClick={()=>{authService.logout(); setState("login");}}/> :
                                     <ButtonLogin onClick={()=>setState("login")}/>
                                     }
                         </div>

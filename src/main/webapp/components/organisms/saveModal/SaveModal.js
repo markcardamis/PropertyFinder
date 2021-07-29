@@ -4,7 +4,7 @@ import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import CloseBtn from "../../atoms/closeBtn/CloseBtn";
 import TextInput from "../../atoms/textInput/TextInput";
 import { useAuth } from "../../../modules/auth";
-import { withAuth } from "@okta/okta-react";
+import { withOktaAuth } from "@okta/okta-react";
 import { saveFilter } from "../../../store/actions/filterAction";
 import { connect } from "react-redux";
 import "./saveModal.scss";
@@ -79,4 +79,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     saveFilter
   };
-export default withAuth(connect(mapStateToProps, mapDispatchToProps)(SaveModal));
+export default withOktaAuth(connect(mapStateToProps, mapDispatchToProps)(SaveModal));

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Security, ImplicitCallback } from "@okta/okta-react";
+import { Security, LoginCallback } from "@okta/okta-react";
 import Loader from "react-loader-spinner";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -38,7 +38,7 @@ const App = () => {
             <Route path='/search' exact component={Home} />
             <Route path='/about' exact component={AboutPage} />
             <Route path='/contact' exact component={ContactPage} />
-            <Route path='/implicit/callback' component={ImplicitCallback} />
+            <Route path='/implicit/callback' component={LoginCallback} />
             {signupRoute}
           </Security>
         </Router>

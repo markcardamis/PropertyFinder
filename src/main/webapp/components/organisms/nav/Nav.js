@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"; 
 import { Link, useLocation } from "react-router-dom";
-import { withAuth } from "@okta/okta-react";
+import { withOktaAuth } from "@okta/okta-react";
 import { useDispatch } from "react-redux";
 import { IconMenuMobile, Logo, PropertyFetch } from "../../../assets/icons";
 
@@ -12,7 +12,7 @@ import ButtonAccount from "../../atoms/buttonAccount/ButtonAccount";
 import { login, logout } from "../../../store/actions/authAction";
 import { showSignIn } from "../../../store/actions/signInModalAction";
 
-const Nav = withAuth(({ auth }) => {
+const Nav = withOktaAuth(({ auth }) => {
     const [ authenticated, user, accessToken ] = useAuth(auth);
     const location = useLocation();
     const dispatch = useDispatch();

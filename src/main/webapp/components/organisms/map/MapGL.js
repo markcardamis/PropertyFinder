@@ -1,5 +1,5 @@
 import React from "react";
-import { withAuth } from "@okta/okta-react";
+import { withOktaAuth } from "@okta/okta-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { hotjar } from "react-hotjar";
@@ -232,4 +232,4 @@ const mapDispatchToProps = {
     showSearchArea
 };
 
-export default withAuth(connect(mapStateToProps, mapDispatchToProps)(MapGL));
+export default withOktaAuth(connect(mapStateToProps, mapDispatchToProps)(MapGL));

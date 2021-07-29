@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector, connect } from "react-redux";
-import { withAuth } from "@okta/okta-react";
+import { withOktaAuth } from "@okta/okta-react";
 
 import ButtonSquare from "../../atoms/buttonSquare/ButtonSquare";
 import { LogoBlack, IconLayers, IconSearch } from "../../../assets/icons";
@@ -17,7 +17,7 @@ import { applyFilter } from "../../../store/actions/mapMarkerAction";
 import { LATITUDE_DIFF } from "../../../shared/constants/constants";
 import { removeMapPopup } from "../../../shared/utils/removeMapPopup";
 
-const FilterButtonGroup = withAuth(props => {
+const FilterButtonGroup = withOktaAuth(props => {
     const searchModal = useSelector(state=>state.searchModal);
     const propertyModal = useSelector(state=>state.propertyModal.isHidden);
     const windowSize = useWindowSize();

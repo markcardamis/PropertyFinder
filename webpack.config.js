@@ -8,7 +8,7 @@ module.exports = {
   entry: './src/main/webapp/javascript/index.js',
   output: {
     path: path.join(__dirname, "/src/main/resources/static/dist"),
-    filename: 'index-bundle.js',
+    filename: '[name].js',
     publicPath: '/'
     //publicPath: 'http://192.168.0.100:5000/'
   },

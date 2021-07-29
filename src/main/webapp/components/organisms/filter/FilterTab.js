@@ -1,6 +1,6 @@
 
 import React from "react";
-import { withAuth } from "@okta/okta-react";
+import { withOktaAuth } from "@okta/okta-react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import "rc-slider/assets/index.css";
@@ -225,4 +225,4 @@ FilterTab.propTypes = {
   auth: PropTypes.object
 };
 
-  export default withAuth(connect(mapStateToProps, mapDispatchToProps)(FilterTab));
+  export default withOktaAuth(connect(mapStateToProps, mapDispatchToProps)(FilterTab));

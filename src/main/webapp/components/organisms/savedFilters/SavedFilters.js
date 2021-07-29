@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withAuth } from "@okta/okta-react";
+import { withOktaAuth } from "@okta/okta-react";
 import { connect } from "react-redux";
 import SavedFiltersListItem from "../../molecules/savedFiltersListItem/SavedFiltersListItem";
 import { getNotifications } from "../../../store/actions/notificationsAction/getNotificationsAction";
@@ -134,4 +134,4 @@ const mapDispatchToProps = {
   getWatchList
 };
 
-export default withAuth(connect(mapStateToProps, mapDispatchToProps)(SavedFilters));
+export default withOktaAuth(connect(mapStateToProps, mapDispatchToProps)(SavedFilters));
