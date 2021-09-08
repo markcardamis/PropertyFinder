@@ -8,7 +8,8 @@ module.exports = {
   entry: './src/main/webapp/javascript/index.js',
   output: {
     path: path.join(__dirname, "/src/main/resources/static/dist"),
-    filename: '[name].js',
+    filename: 'src/main/webapp/javascript/[name].js',
+    // filename: '[name].js',
     publicPath: '/'
     //publicPath: 'http://192.168.0.100:5000/'
   },
@@ -21,11 +22,14 @@ module.exports = {
 
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader: "babel-loader",
+      { 
+        test: /\.tsx?$/,
+        loader: "ts-loader",
+        options: {
+          transpileOnly: true
+        }
       },
+      { test: /\.js$/, loader: "babel-loader" },
       {
         test: /\.(css|s[ac]ss)$/,
         use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"]
@@ -37,7 +41,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.mjs', '.js', '.jsx']
+    extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx']
   },
 
   plugins: [

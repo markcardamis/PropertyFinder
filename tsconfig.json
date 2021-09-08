@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "outDir": "./src/main/resources/static/dist",
+      "allowJs": true,
+      "target": "es5",
+      "jsx": "react",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "noImplicitUseStrict": true,
+      "strict": false,
+    },
+    "include": ["./src/**/*"],
+  }

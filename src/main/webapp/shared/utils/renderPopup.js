@@ -5,7 +5,7 @@ import { map } from "../../components/organisms/map/MapGL";
 
 export const renderPopup = (longitude, latitude, popup) => {
     const addPopup=(el) =>{
-        const placeholder = document.createElement("div");
+        const placeholder = document && document.createElement("div");
         ReactDOM.render(el, placeholder);
     
         new mapboxgl.Popup()

@@ -88,7 +88,7 @@ handleViewportChange = () => {
 renderMarkers = async () => {
     const { markers, nearbyDAMarkers } = this.props.mapMarker;
     markers.forEach((marker) => {
-        const el = document.createElement("div");
+        const el = document && document.createElement("div");
         el.tabIndex = 0;
         el.className = marker.status;
         el.onmouseover=()=>el.id="marker-hovered";
@@ -102,7 +102,7 @@ renderMarkers = async () => {
     });
 
     nearbyDAMarkers.forEach((marker) => {
-        const el = document.createElement("div");
+        const el = document && document.createElement("div");
         el.tabIndex = 0;
         el.className = "marker-nearbyDA";
         el.onclick=(e)=>{
