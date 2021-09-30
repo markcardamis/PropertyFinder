@@ -6,12 +6,21 @@ import { getWatchList } from "../../../store/actions/watchListAction/getWatchLis
 import { deleteWatchListItem } from "../../../store/actions/watchListAction/deleteWatchListListItemAction";
 import { changeWatchListFrequency } from "../../../store/actions/watchListAction/changeWatchListFrequency";
 import { FREQUENCY } from "../../../shared/constants/constants";
+import { useAuth } from "../../../hooks/useAuth";
+
+export interface WatchListProps {
+  getWatchList: (token: string) => void;
+  changeWatchListFrequency: (item: {}) => void;
+  deleteWatchListItem: (item: {}) => void;
+  watchList: [{}];
+}
 
 
-const WatchList = (props) => {
+const WatchList = ({ getWatchList, changeWatchListFrequency, deleteWatchListItem, watchList }: WatchListProps) => {
+const { accessToken } = useAuth();
 
   useEffect(()=>{
-    props.getWatchList(props.auth.accessToken);
+    getWatchList(accessToken);
   }, []);
 
   const handleChangeFrequency = async (item) => {
@@ -20,17 +29,17 @@ const WatchList = (props) => {
       const index = FREQUENCY.indexOf(startFrequency)<3 ? FREQUENCY.indexOf(startFrequency) + 1 : 0;
       return FREQUENCY[index];
     };
-    await props.changeWatchListFrequency(item, getFrequency());
-    props.getWatchList();
+    await changeWatchListFrequency(item, getFrequency());
+    getWatchList();
   };
 
   const handleDeleteItem = async (item) => {
-    await props.deleteWatchListItem(item);
-    props.getWatchList();
+    await deleteWatchListItem(item);
+    getWatchList();
   };
 
   const renderData = () => {
-    return props.watchList.map((item, index)=>{
+    return watchList.map((item, index)=>{
       return <WatchListListItem
               key={index}
               index={index+1}

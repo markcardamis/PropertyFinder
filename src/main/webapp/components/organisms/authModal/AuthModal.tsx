@@ -3,7 +3,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import { useHistory } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
-import { useAuth } from "../../../hooks/auth";
+import { useAuth } from "../../../hooks/useAuth";
 import PopupContainer from "../../molecules/popupContainer/PopupContainer";
 import LoginForm from "../../molecules/loginForm/LoginForm";
 import RegisterForm from "../../molecules/registerForm/RegisterForm";

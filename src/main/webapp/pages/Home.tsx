@@ -6,14 +6,12 @@ import MapGL from "../components/organisms/map/MapGL";
 import PropertyInformation from "../components/organisms/propertyInformation/PropertyInformation";
 import SaveModal from "../components/organisms/saveModal/SaveModal";
 import SearchModal from "../components/organisms/searchModal/SearchModal";
-import { saveNewFilter } from "../store/actions/filterAction";
 import { closeFilter } from "../store/actions/filterModalAction";
 import { closeProperty } from "../store/actions/propertyModalAction";
 import { closeSaveModal, saveNotification } from "../store/actions/saveModalAction";
-import { closeSignIn } from "../store/actions/signInModalAction";
 
 
-const Home = (props) => {
+const Home = () => {
   const dispatch = useDispatch();
   const filterModal = useSelector(state=>state.filterModal);
   const propertyModal = useSelector(state=>state.propertyModal.isHidden);
@@ -28,9 +26,7 @@ const Home = (props) => {
     dispatch(closeProperty());
 };
 
-  const handleCloseSignIn = () => {
-    dispatch(closeSignIn());
-};
+
   const handleSaveNotification = (name, frequency) => {
     dispatch(saveNotification(name, frequency));
   };

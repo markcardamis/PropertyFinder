@@ -9,7 +9,7 @@ import AuthModal from "../authModal/AuthModal";
 import MobileNav from "../mobileNav/MobileNav";
 import "./layout.scss";
 
-const Layout = ({ children }: { children: ReactNode[] }) => {
+const Layout = ({ children }: { children: ReactNode[] | ReactNode }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const signInModal = useSelector(state=>state.signInModal);

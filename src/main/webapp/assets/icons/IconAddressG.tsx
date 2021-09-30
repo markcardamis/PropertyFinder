@@ -1,6 +1,6 @@
 import * as React from "react";
 
-function SvgIconAddressG(props) {
+function SvgIconAddressG(props: { color: string, size: number }) {
   const size = 14*props.size || 14;
   return (
     <svg 

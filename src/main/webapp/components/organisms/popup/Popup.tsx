@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import "./popup.scss";
@@ -13,16 +12,46 @@ import { getUpperCase } from "../../../shared/utils/getUppercase";
 import { saveWatchListItem } from "../../../store/actions/watchListAction/saveWatchListItemAction";
 import { showSignIn } from "../../../store/actions/signInModalAction";
 import variables from "../../../styles/_variables.module.scss";
+import { useAuth } from "../../../hooks/useAuth";
 
-const Popup = props => {
-    const { property_id, house_number, street_name, suburb_name, post_code, zone_code, area, area_type, floor_space_ratio, minimum_lot_size, building_height, land_value_1, last_sold, interested_people, legislation_url, interested_user, street_frontage } = props.propertyInfo;
-    const { land_values, property_sales } = props.propertyInfo.chart_data;
-    const { accessToken } = props.auth;
+export interface PropertyInfo {
+    property_id: string;
+    house_number: string;
+    street_name: string;
+    suburb_name: string;
+    post_code: string;
+    zone_code: string;
+    area: string;
+    area_type: string;
+    floor_space_ratio: string;
+    minimum_lot_size: string;
+    building_height: string;
+    land_value_1: string;
+    last_sold: string;
+    interested_people: string;
+    legislation_url: string;
+    interested_user: string;
+    street_frontage: string;
+    chart_data: {
+        land_values: string[];
+        property_sales: string[];
+    }
+}
+
+export interface PopupProps {
+    propertyInfo: PropertyInfo;
+    saveWatchListItem: () => void;
+}
+
+const Popup = ({ propertyInfo, saveWatchListItem }: PopupProps) => {
+    const { property_id, house_number, street_name, suburb_name, post_code, zone_code, area, area_type, floor_space_ratio, minimum_lot_size, building_height, land_value_1, last_sold, interested_people, legislation_url, interested_user, street_frontage } = propertyInfo;
+    const { land_values, property_sales } = propertyInfo.chart_data;
+    const { accessToken } = useAuth();
     const address = `${house_number} ${getUpperCase(street_name)}, ${getUpperCase(suburb_name)}, ${post_code}`;
     const size = useWindowSize();
     const [ interestedUser, setInterestedUser ] = useState(interested_user);
     const addToWatchList = async () => {
-        await props.saveWatchListItem();
+        await saveWatchListItem();
         accessToken ? setInterestedUser(!interestedUser) : showSignIn();
     };
  
@@ -100,11 +129,5 @@ const mapStateToProps = (state) => {
     saveWatchListItem,
     showSignIn
   };
-
-  Popup.propTypes = {
-    propertyInfo: PropTypes.object,
-    auth: PropTypes.object,
-    saveWatchListItem: PropTypes.func
-};
   
   export default connect(mapStateToProps, mapDispatchToProps)(Popup);

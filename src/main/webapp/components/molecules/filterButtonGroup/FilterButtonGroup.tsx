@@ -10,23 +10,23 @@ import { getPopup } from "../../../store/actions/popupAction";
 import SearchInput from "../searchInput/SearchInput";
 import { map } from "../../organisms/map/MapGL";
 import ToggleWidget from "../toggleWidget/ToggleWidget";
-import { useAuth } from "../../../hooks/auth";
+import { useAuth } from "../../../hooks/useAuth";
 import { applyFilter } from "../../../store/actions/mapMarkerAction";
 import { LATITUDE_DIFF } from "../../../shared/constants/constants";
 import { removeMapPopup } from "../../../shared/utils/removeMapPopup";
 
 export interface FilterButtonGroupProps {
-    onListViewClick: () => void,
-    onMapViewClick: () => void,
-    onFilterClick: () => void,
-    onLayersClick:() => void,
-    searchAreaBtn: boolean,
+    onFilterClick: () => void;
+    onLayersClick: () => void;
+    onListViewClick: () => void;
+    onMapViewClick: () => void;
 }
 
-const FilterButtonGroup = (props: FilterButtonGroupProps) => {
-    const searchModal = useSelector(state=>state.searchModal);
-    const propertyModal = useSelector(state=>state.propertyModal.isHidden);
+const FilterButtonGroup = ({ onFilterClick, onLayersClick, onListViewClick, onMapViewClick }: FilterButtonGroupProps) => {
+    const { searchModal, propertyModal, searchAreaBtn } = useSelector(state=>state);
+    const isModalHidden = propertyModal.isHidden;
     const windowSize = useWindowSize();
+
     const [ showSearchInput, setSearchInput ] = useState(false);
     const [ search, setSearch ] = useState("");
     const [ hovered, setHovered ] = useState({});
@@ -45,7 +45,7 @@ const FilterButtonGroup = (props: FilterButtonGroupProps) => {
         if (e.key!="ArrowUp"&&e.key!="ArrowDown") {
             window.clearTimeout(timer);
             timer = window.setTimeout(() => {
-            props.getSearchResults(search);
+            getSearchResults(search);
             }, 500);
         }
       };
@@ -57,7 +57,7 @@ const FilterButtonGroup = (props: FilterButtonGroupProps) => {
         handleCancelSearch;
         setSelected(item);
         map.flyTo({ center: [ item.longitude, item.latitude - LATITUDE_DIFF ], zoom: 16 });
-        props.getPopup(item.propertyId, item.longitude, item.latitude);
+        getPopup(item.propertyId, item.longitude, item.latitude);
         setShowResults(false);
         setSearchInput(false);
     };
@@ -65,20 +65,20 @@ const FilterButtonGroup = (props: FilterButtonGroupProps) => {
         setHovered(item);
     };
     const handleSearchArea = () => {
-        props.applyFilter(isAuthenticated, accessToken);
+        applyFilter(isAuthenticated, accessToken);
     };
     return (
         <div className='filterButtonGroup'>
             <div className='filterButtonGroup-left'>
             <ButtonSquare 
                 icon={<LogoBlack color={"#000000"} size={windowSize.width<982 ? 2 : 1}/>} 
-                onClick={props.onFilterClick}
+                onClick={onFilterClick}
                 style={{ marginRight: 14 }}
                 />   
             <ButtonSquare 
                 icon={<IconLayers size={windowSize.width<982 ? 2 : 1}/>} 
                 style={{ marginRight: 14 }}
-                onClick={props.onLayersClick}
+                onClick={onLayersClick}
                 />
             {!showSearchInput ? 
                 <ButtonSquare 
@@ -99,36 +99,22 @@ const FilterButtonGroup = (props: FilterButtonGroupProps) => {
                     setShowResults={(state)=>setShowResults(state)}
                 />
                 }
-                {props.searchAreaBtn && !showSearchInput&&<ButtonSquare 
+                {searchAreaBtn && !showSearchInput&&<ButtonSquare 
                   icon={<div className="searchBtn">Search this area</div>} 
                   style={{ width: 120, position: "absolute", marginLeft: "auto", marginRight: "auto", left: 0, right: 0 }}
                   onClick={handleSearchArea}
                   />}
             </div>
 
-            {!propertyModal && <ToggleWidget
+            {!isModalHidden && <ToggleWidget
                 leftValue={"List View"}
                 rightValue={"Map View"}
                 activeButton={!searchModal ? "Map View" : "List View"}
-                onLeftClick={props.onListViewClick}
-                onRightClick={props.onMapViewClick}
+                onLeftClick={onListViewClick}
+                onRightClick={onMapViewClick}
                 />}
         </div>
     );
 };
 
-
-const mapStateToProps = (state) => {
-    return {
-        searchAreaBtn: state.searchAreaBtn,
-        filter: state.filter
-    };
-};
-
-const mapDispatchToProps = {
-    getSearchResults,
-    getPopup,
-    applyFilter
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilterButtonGroup);
+export default FilterButtonGroup;

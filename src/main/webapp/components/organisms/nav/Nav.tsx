@@ -5,7 +5,7 @@ import { IconMenuMobile, Logo, PropertyFetch } from "../../../assets/icons";
 
 import "./nav.scss";
 import TopNavList from "../../molecules/topNavList/TopNavList";
-import { useAuth } from "../../../hooks/auth";
+import { useAuth } from "../../../hooks/useAuth";
 import ButtonLogin from "../../atoms/buttonLogin/ButtonLogin";
 import ButtonAccount from "../../atoms/buttonAccount/ButtonAccount";
 import { login, logout } from "../../../store/actions/authAction";

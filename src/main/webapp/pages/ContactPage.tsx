@@ -1,9 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import "./pages.scss";
 import Layout from "../components/organisms/layout/Layout";
 
-const ContactPage = props => {
+const ContactPage = () => {
     return (
         <Layout>
             <div className='pageContainer'>
@@ -13,7 +12,5 @@ const ContactPage = props => {
         </Layout>
     );
 };
-
-ContactPage.propTypes = {};
 
 export default ContactPage;

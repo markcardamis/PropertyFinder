@@ -1,10 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import "./pages.scss";
 import Layout from "../components/organisms/layout/Layout";
 
-const AboutPage = props => {
+const AboutPage = () => {
     return (
         <Layout>
             <div className='aboutPageContainer'>
@@ -19,10 +18,6 @@ const AboutPage = props => {
             </div>
         </Layout>
     );
-};
-
-AboutPage.propTypes = {
-
 };
 
 export default AboutPage;

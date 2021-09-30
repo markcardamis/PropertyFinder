@@ -1,6 +1,6 @@
 import * as React from "react";
 
-function SvgIconArD(props) {
+function SvgIconArD(props: { color: string }) {
   return (
     <svg width={14} height={8} fill="none" {...props}>
       <path

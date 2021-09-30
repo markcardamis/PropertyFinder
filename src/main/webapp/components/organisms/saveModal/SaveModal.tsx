@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+
 import { IconArD } from "../../../assets/icons";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import CloseBtn from "../../atoms/closeBtn/CloseBtn";
 import TextInput from "../../atoms/textInput/TextInput";
 import { saveFilter } from "../../../store/actions/filterAction";
-import { useAuth } from "../../../hooks/auth";
+import { useAuth } from "../../../hooks/useAuth";
 import "./saveModal.scss";
 
-const SaveModal = (props) => {
+export interface SaveModalProps {
+    onSaveClick: (title: string, frequency: string) => void;
+    onCloseClick: () => void;
+}
+
+const SaveModal = ({ onSaveClick, onCloseClick }: SaveModalProps) => {
     const { accessToken } = useAuth();
     const [ title, setTiltle ] = useState("Preference 1");
     const [ frequency, setFrequency ] = useState("OFF");
@@ -31,8 +36,8 @@ const SaveModal = (props) => {
         });
     };
     const handleSaveFilter = () => {
-        props.onSaveClick(title, frequency);
-        props.saveFilter(accessToken, title, frequency);
+        onSaveClick(title, frequency);
+        saveFilter(accessToken, title, frequency);
     };
 
     const handleInput = (e) => {
@@ -44,12 +49,11 @@ const SaveModal = (props) => {
 
     return (
         <div className='saveModalContainer'>
-            {console.log(title)}
             <div className='saveModal'>
                 <div className='saveModalHeader'>
                     <div />
                     Save Preferences
-                    <CloseBtn onClick={props.onCloseClick}/>
+                    <CloseBtn onClick={onCloseClick}/>
                 </div>
                 <div className='saveModalInput'><TextInput value={title} onChange={(e)=>handleInput(e)}/></div>
                 <div className='saveModalNote'>Name your saved preferences.</div>
@@ -71,12 +75,4 @@ const SaveModal = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-    };
-};
-
-const mapDispatchToProps = {
-    saveFilter
-  };
-export default connect(mapStateToProps, mapDispatchToProps)(SaveModal);
+export default SaveModal;

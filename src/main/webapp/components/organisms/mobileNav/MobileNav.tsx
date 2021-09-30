@@ -4,7 +4,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import Fade from "react-reveal/Fade";
 
 import "./mobileNav.scss";
-import { useAuth } from "../../../hooks/auth";
+import { useAuth } from "../../../hooks/useAuth";
 import TopNavList from "../../molecules/topNavList/TopNavList";
 import ButtonLogin from "../../atoms/buttonLogin/ButtonLogin";
 import ButtonAccount from "../../atoms/buttonAccount/ButtonAccount";

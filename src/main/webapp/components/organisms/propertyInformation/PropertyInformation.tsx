@@ -14,11 +14,12 @@ import ButtonSquare from "../../atoms/buttonSquare/ButtonSquare";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import variables from "../../../styles/_variables.module.scss";
 
+export interface PropertyInformationProps {
+    handleClosePropertyInfo: () => void;
+}
 
-const PropertyInformation = (props) => {
 
-        const { handleClosePropertyInfo } = props;
-        
+const PropertyInformation = ({ handleClosePropertyInfo }: PropertyInformationProps) => {
         const propertyInfo = useSelector(state=>state.propertyModal);
         const { id, address, area, floorSpaceRatio, minimumLotSize,
             price, listingURL, bathrooms, bedrooms, carspaces, zone, landValue, 
