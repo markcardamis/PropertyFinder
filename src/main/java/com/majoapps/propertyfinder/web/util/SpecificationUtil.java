@@ -1,10 +1,11 @@
 package com.majoapps.propertyfinder.web.util;
 
+import static com.majoapps.propertyfinder.web.util.InputUtil.isNotNullOrEmpty;
+
 import com.majoapps.propertyfinder.business.domain.PropertyInformationSearchDTO;
 import com.majoapps.propertyfinder.data.entity.Notifications;
 import com.majoapps.propertyfinder.data.entity.PropertyInformation;
 import com.majoapps.propertyfinder.data.entity.PropertyListing;
-import com.majoapps.propertyfinder.web.util.InputUtil;
 import org.jetbrains.annotations.NotNull;
 import javax.persistence.TypedQuery;
 
@@ -17,9 +18,37 @@ public class SpecificationUtil {
                 sb.append(" AND propertyId:");
                 sb.append(notifications.getPropertyId());
             }
-            if (notifications.getPropertyZone() != null) {
+            if (isNotNullOrEmpty(notifications.getPropertyZone())) {
                 sb.append(" AND zone:");
                 sb.append(notifications.getPropertyZone());
+            }
+            if (isNotNullOrEmpty(notifications.getPropertyZone1()) ||
+                    isNotNullOrEmpty(notifications.getPropertyZone2()) ||
+                    isNotNullOrEmpty(notifications.getPropertyZone3()) ||
+                    isNotNullOrEmpty(notifications.getPropertyZone4()) ||
+                    isNotNullOrEmpty(notifications.getPropertyZone5())) {
+                sb.append(" AND (id<1"); // dummy first false case make any below case true
+                if (isNotNullOrEmpty(notifications.getPropertyZone1())) {
+                    sb.append(" OR zone:");
+                    sb.append(notifications.getPropertyZone1());
+                }
+                if (isNotNullOrEmpty(notifications.getPropertyZone2())) {
+                    sb.append(" OR zone:");
+                    sb.append(notifications.getPropertyZone2());
+                }
+                if (isNotNullOrEmpty(notifications.getPropertyZone3())) {
+                    sb.append(" OR zone:");
+                    sb.append(notifications.getPropertyZone3());
+                }
+                if (isNotNullOrEmpty(notifications.getPropertyZone4())) {
+                    sb.append(" OR zone:");
+                    sb.append(notifications.getPropertyZone4());
+                }
+                if (isNotNullOrEmpty(notifications.getPropertyZone5())) {
+                    sb.append(" OR zone:");
+                    sb.append(notifications.getPropertyZone5());
+                }
+                sb.append(" )");
             }
             if (notifications.getPropertyAreaMin() != null && notifications.getPropertyAreaMin() != 0) {
                 sb.append(" AND area>");
@@ -86,6 +115,11 @@ public class SpecificationUtil {
         if (notifications != null) {
             sb.append(" AND ( :propertyId IS NULL OR l.propertyId = :propertyId)");
             sb.append(" AND ( :zone IS NULL OR l.zone = :zone)");
+            sb.append(" AND ( :zone1 IS NULL OR l.zone = :zone1)");
+            sb.append(" AND ( :zone2 IS NULL OR l.zone = :zone2)");
+            sb.append(" AND ( :zone3 IS NULL OR l.zone = :zone3)");
+            sb.append(" AND ( :zone4 IS NULL OR l.zone = :zone4)");
+            sb.append(" AND ( :zone5 IS NULL OR l.zone = :zone5)");
             sb.append(" AND ( :areaMin IS NULL OR l.area >= :areaMin)");
             sb.append(" AND ( :areaMax IS NULL OR l.area <= :areaMax)");
             sb.append(" AND ( :priceIntMin IS NULL OR l.priceInt >= :priceIntMin)");
@@ -110,6 +144,11 @@ public class SpecificationUtil {
         if (notifications != null) {
             query.setParameter("propertyId", notifications.getPropertyId());
             query.setParameter("zone", notifications.getPropertyZone());
+            query.setParameter("zone1", notifications.getPropertyZone1());
+            query.setParameter("zone2", notifications.getPropertyZone2());
+            query.setParameter("zone3", notifications.getPropertyZone3());
+            query.setParameter("zone4", notifications.getPropertyZone4());
+            query.setParameter("zone5", notifications.getPropertyZone5());
             query.setParameter("areaMin", notifications.getPropertyAreaMin());
             query.setParameter("areaMax", notifications.getPropertyAreaMax());
             query.setParameter("priceIntMin", notifications.getPropertyPriceMin());

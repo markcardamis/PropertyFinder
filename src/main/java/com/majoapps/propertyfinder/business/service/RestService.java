@@ -1,13 +1,13 @@
 package com.majoapps.propertyfinder.business.service;
 
 import com.majoapps.propertyfinder.business.domain.OktaUser;
+import com.majoapps.propertyfinder.exception.ResourceNotFoundException;
 import java.util.Collections;
 import java.util.Map;
 import lombok.Data;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;

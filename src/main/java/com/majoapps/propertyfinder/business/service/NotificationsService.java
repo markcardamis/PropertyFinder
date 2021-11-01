@@ -107,6 +107,11 @@ public class NotificationsService {
             notifications.setFrequency(newNotifications.getFrequency());
             notifications.setPropertyId(newNotifications.getPropertyId());
             notifications.setPropertyZone(newNotifications.getPropertyZone());
+            notifications.setPropertyZone1(newNotifications.getPropertyZone1());
+            notifications.setPropertyZone2(newNotifications.getPropertyZone2());
+            notifications.setPropertyZone3(newNotifications.getPropertyZone3());
+            notifications.setPropertyZone4(newNotifications.getPropertyZone4());
+            notifications.setPropertyZone5(newNotifications.getPropertyZone5());
             notifications.setPropertyAreaMin(newNotifications.getPropertyAreaMin());
             notifications.setPropertyAreaMax(newNotifications.getPropertyAreaMax());
             notifications.setPropertyPriceMin(newNotifications.getPropertyPriceMin());
@@ -140,6 +145,21 @@ public class NotificationsService {
             }
             if (newNotifications.getPropertyZone() != null) {
                 notifications.setPropertyZone(newNotifications.getPropertyZone());
+            }
+            if (newNotifications.getPropertyZone1() != null) {
+                notifications.setPropertyZone1(newNotifications.getPropertyZone1());
+            }
+            if (newNotifications.getPropertyZone2() != null) {
+                notifications.setPropertyZone2(newNotifications.getPropertyZone2());
+            }
+            if (newNotifications.getPropertyZone3() != null) {
+                notifications.setPropertyZone3(newNotifications.getPropertyZone3());
+            }
+            if (newNotifications.getPropertyZone4() != null) {
+                notifications.setPropertyZone4(newNotifications.getPropertyZone4());
+            }
+            if (newNotifications.getPropertyZone5() != null) {
+                notifications.setPropertyZone5(newNotifications.getPropertyZone5());
             }
             if (newNotifications.getPropertyAreaMin() != null && 
                     newNotifications.getPropertyAreaMin() != 0) {
