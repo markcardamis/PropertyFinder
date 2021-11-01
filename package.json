@@ -7,18 +7,7 @@
     "start": "webpack serve --mode development --open --hot",
     "build": "webpack --mode production",
     "heroku-postbuild": "webpack --config webpack.prod.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "husky": {
-      "hooks": {
-        "pre-commit": "lint-staged"
-      }
-    },
-    "lint-staged": {
-      "**/*.js": [
-        "eslint --fix",
-        "git add"
-      ]
-    }
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -51,8 +40,6 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-standard": "^5.0.0",
     "html-webpack-plugin": "^5.3.1",
-    "husky": "^6.0.0",
-    "lint-staged": "^11.0.0",
     "node-sass": "^6.0.0",
     "postcss": "^8.3.5",
     "postcss-loader": "^6.1.0",
