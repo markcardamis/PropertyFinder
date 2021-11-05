@@ -11,17 +11,22 @@ import java.math.BigDecimal;
 public class PropertyInformationSearchDTO implements Serializable {
     private static final long serialVersionUID = 9045863543269746202L;
 
-    @JsonProperty("zone_code") private String zoneCode;
-    @JsonProperty("post_code") private String postCode;
+    @JsonProperty("zoneCode") private String zoneCode;
+    @JsonProperty("zoneCode1") private String zoneCode1;
+    @JsonProperty("zoneCode2") private String zoneCode2;
+    @JsonProperty("zoneCode3") private String zoneCode3;
+    @JsonProperty("zoneCode4") private String zoneCode4;
+    @JsonProperty("zoneCode5") private String zoneCode5;
+    @JsonProperty("postCode") private String postCode;
     @JsonProperty("areaMin") private BigDecimal areaMin;
     @JsonProperty("areaMax") private BigDecimal areaMax;
-    @JsonProperty("land_value_min") private Integer landValueMin;
-    @JsonProperty("land_value_max") private Integer landValueMax;
-    @JsonProperty("building_height_min") private BigDecimal buildingHeightMin;
-    @JsonProperty("building_height_max") private BigDecimal buildingHeightMax;
-    @JsonProperty("floor_space_ratio_min") private BigDecimal floorSpaceRatioMin;
-    @JsonProperty("floor_space_ratio_max") private BigDecimal floorSpaceRatioMax;
-    @JsonProperty("street_frontage_min") private BigDecimal streetFrontageMin;
-    @JsonProperty("street_frontage_max") private BigDecimal streetFrontageMax;
+    @JsonProperty("landValueMin") private Integer landValueMin;
+    @JsonProperty("landValueMax") private Integer landValueMax;
+    @JsonProperty("buildingHeightMin") private BigDecimal buildingHeightMin;
+    @JsonProperty("buildingHeightMax") private BigDecimal buildingHeightMax;
+    @JsonProperty("floorSpaceRatioMin") private BigDecimal floorSpaceRatioMin;
+    @JsonProperty("floorSpaceRatioMax") private BigDecimal floorSpaceRatioMax;
+    @JsonProperty("streetFrontageMin") private BigDecimal streetFrontageMin;
+    @JsonProperty("streetFrontageMax") private BigDecimal streetFrontageMax;
 }
 

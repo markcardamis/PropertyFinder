@@ -114,11 +114,11 @@ public class SpecificationUtil {
         if (notifications != null) {
             sb.append(" AND ( :propertyId IS NULL OR l.propertyId = :propertyId)");
             sb.append(" AND ( :zone IS NULL OR l.zone = :zone)");
-            sb.append(" AND ( :zone1 IS NULL OR l.zone = :zone1)");
-            sb.append(" AND ( :zone2 IS NULL OR l.zone = :zone2)");
-            sb.append(" AND ( :zone3 IS NULL OR l.zone = :zone3)");
-            sb.append(" AND ( :zone4 IS NULL OR l.zone = :zone4)");
-            sb.append(" AND ( :zone5 IS NULL OR l.zone = :zone5)");
+            sb.append(" AND ( :zone1 IS NULL OR l.zone IN (:zone1, :zone2, :zone3, :zone4, :zone5))");
+            sb.append(" AND ( :zone2 IS NULL OR l.zone IN (:zone1, :zone2, :zone3, :zone4, :zone5))");
+            sb.append(" AND ( :zone3 IS NULL OR l.zone IN (:zone1, :zone2, :zone3, :zone4, :zone5))");
+            sb.append(" AND ( :zone4 IS NULL OR l.zone IN (:zone1, :zone2, :zone3, :zone4, :zone5))");
+            sb.append(" AND ( :zone5 IS NULL OR l.zone IN (:zone1, :zone2, :zone3, :zone4, :zone5))");
             sb.append(" AND ( :areaMin IS NULL OR l.area >= :areaMin)");
             sb.append(" AND ( :areaMax IS NULL OR l.area <= :areaMax)");
             sb.append(" AND ( :priceIntMin IS NULL OR l.priceInt >= :priceIntMin)");
@@ -167,10 +167,15 @@ public class SpecificationUtil {
     }
 
     public static String createQueryString(
-            PropertyInformationSearchDTO propertyInformation, Double latitude, Double longitude) {
+            PropertyInformationSearchDTO propertyInformationSearchDTO, Double latitude, Double longitude) {
         StringBuilder sb = new StringBuilder("SELECT l FROM PropertyInformation l WHERE l.propertyId>0");
-        if (propertyInformation != null) {
+        if (propertyInformationSearchDTO != null) {
             sb.append(" AND ( :zoneCode IS NULL OR l.zoneCode = :zoneCode)");
+            sb.append(" AND ( :zoneCode1 IS NULL OR l.zoneCode IN (:zoneCode1, :zoneCode2, :zoneCode3, :zoneCode4, :zoneCode5))");
+            sb.append(" AND ( :zoneCode2 IS NULL OR l.zoneCode IN (:zoneCode1, :zoneCode2, :zoneCode3, :zoneCode4, :zoneCode5))");
+            sb.append(" AND ( :zoneCode3 IS NULL OR l.zoneCode IN (:zoneCode1, :zoneCode2, :zoneCode3, :zoneCode4, :zoneCode5))");
+            sb.append(" AND ( :zoneCode4 IS NULL OR l.zoneCode IN (:zoneCode1, :zoneCode2, :zoneCode3, :zoneCode4, :zoneCode5))");
+            sb.append(" AND ( :zoneCode5 IS NULL OR l.zoneCode IN (:zoneCode1, :zoneCode2, :zoneCode3, :zoneCode4, :zoneCode5))");
             sb.append(" AND ( :postCode IS NULL OR l.postCode = :postCode)");
             sb.append(" AND ( :areaMin IS NULL OR l.area >= :areaMin)");
             sb.append(" AND ( :areaMax IS NULL OR l.area <= :areaMax)");
@@ -188,20 +193,25 @@ public class SpecificationUtil {
 
     public static TypedQuery<PropertyInformation> queryBuilder(
             TypedQuery<PropertyInformation> query,
-            PropertyInformationSearchDTO propertyInformation) {
-        if (propertyInformation != null) {
-            query.setParameter("zoneCode", InputUtil.returnStringOrNull(propertyInformation.getZoneCode()));
-            query.setParameter("postCode", InputUtil.returnStringOrNull(propertyInformation.getPostCode()));
-            query.setParameter("areaMin", propertyInformation.getAreaMin());
-            query.setParameter("areaMax", propertyInformation.getAreaMax());
-            query.setParameter("landValueMin", propertyInformation.getLandValueMin());
-            query.setParameter("landValueMax", propertyInformation.getLandValueMax());
-            query.setParameter("buildingHeightMin", propertyInformation.getBuildingHeightMin());
-            query.setParameter("buildingHeightMax", propertyInformation.getBuildingHeightMax());
-            query.setParameter("floorSpaceRatioMin", propertyInformation.getFloorSpaceRatioMin());
-            query.setParameter("floorSpaceRatioMax", propertyInformation.getFloorSpaceRatioMax());
-            query.setParameter("streetFrontageMin", propertyInformation.getStreetFrontageMin());
-            query.setParameter("streetFrontageMax", propertyInformation.getStreetFrontageMax());
+            PropertyInformationSearchDTO propertyInformationSearchDTO) {
+        if (propertyInformationSearchDTO != null) {
+            query.setParameter("zoneCode", InputUtil.returnStringOrNull(propertyInformationSearchDTO.getZoneCode()));
+            query.setParameter("zoneCode1", InputUtil.returnStringOrNull(propertyInformationSearchDTO.getZoneCode1()));
+            query.setParameter("zoneCode2", InputUtil.returnStringOrNull(propertyInformationSearchDTO.getZoneCode2()));
+            query.setParameter("zoneCode3", InputUtil.returnStringOrNull(propertyInformationSearchDTO.getZoneCode3()));
+            query.setParameter("zoneCode4", InputUtil.returnStringOrNull(propertyInformationSearchDTO.getZoneCode4()));
+            query.setParameter("zoneCode5", InputUtil.returnStringOrNull(propertyInformationSearchDTO.getZoneCode5()));
+            query.setParameter("postCode", InputUtil.returnStringOrNull(propertyInformationSearchDTO.getPostCode()));
+            query.setParameter("areaMin", propertyInformationSearchDTO.getAreaMin());
+            query.setParameter("areaMax", propertyInformationSearchDTO.getAreaMax());
+            query.setParameter("landValueMin", propertyInformationSearchDTO.getLandValueMin());
+            query.setParameter("landValueMax", propertyInformationSearchDTO.getLandValueMax());
+            query.setParameter("buildingHeightMin", propertyInformationSearchDTO.getBuildingHeightMin());
+            query.setParameter("buildingHeightMax", propertyInformationSearchDTO.getBuildingHeightMax());
+            query.setParameter("floorSpaceRatioMin", propertyInformationSearchDTO.getFloorSpaceRatioMin());
+            query.setParameter("floorSpaceRatioMax", propertyInformationSearchDTO.getFloorSpaceRatioMax());
+            query.setParameter("streetFrontageMin", propertyInformationSearchDTO.getStreetFrontageMin());
+            query.setParameter("streetFrontageMax", propertyInformationSearchDTO.getStreetFrontageMax());
         }
         return query;
     }
