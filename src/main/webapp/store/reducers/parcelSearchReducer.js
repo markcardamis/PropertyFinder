@@ -1,6 +1,6 @@
 import { parcels } from "../../../../../constants_temp";
 const initialFilter = { 
-    zone: null,
+    zone: [],
     postCode: "",
     area: [ 0, 20000 ],
     streetFrontage: [ 0, 50 ],

@@ -8,7 +8,7 @@ export const saveFilter = (accessToken, name, frequency, editedFilter) => async 
     const filter = {
         title: name ? name : "Untitled",
         frequency: frequency==null ? "OFF" : frequency,
-        propertyZone: zone ? zone : null,
+        propertyZone: zone.length ? zone : null,
         propertyAreaMin: area[0] !== 0 ? area[0] : null,
         propertyAreaMax: area[1] !== 20000 ? area[1] : null,
         streetFrontageMin: streetFrontage[0] !== 0 ? streetFrontage[0] : null,

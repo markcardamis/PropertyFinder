@@ -12,38 +12,6 @@
         flex-direction: row;
         justify-content: space-between;
     }
-.zoneSelect {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    .zoneSelectBtn {
-        width: 50%;
-        height: 34px;
-        border: 1px solid $dark-grey;
-        border-radius: 6px;
-        padding: 0 18px 0 8px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 14px;
-        font-family: $mavenPro;
-
-        .zoneSelectText {
-            display: flex;
-            flex-direction: row;
-        }
-
-        .zoneColor {
-            align-self: center;
-            width: 14px;
-            height: 14px;
-            border-radius: 4px;
-            margin-right: 12px;
-        }
-    }
-
-}
 
 .postCode {
     display: flex;

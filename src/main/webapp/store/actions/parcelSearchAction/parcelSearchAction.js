@@ -26,7 +26,7 @@ export const applyParcelSearch = () => async dispatch => {
     };
 
     const queryValues = {
-        zone: `zoneCode=${zone !== null ? zone : ""}`,
+        zone: `zoneCode=${zone.length ? zone : ""}`,
         postCode: `&postCode=${postCode}`,
         areaMin: `&areaMin=${area[0] !== 0 ? area[0] : ""}`,
         areaMax: `&areaMax=${area[1] !== 20000 ? area[1] : ""}`,

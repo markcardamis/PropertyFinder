@@ -6,7 +6,10 @@ import "rc-dropdown/assets/index.css";
 
 import { ZONES } from "../../../shared/constants/zones";
 import "./parcelSearch.scss";
-import { FilterLine, ZoneSelect, PostCode } from "./components";
+import { FilterLine } from "./FliterLine";
+import { ZoneSelect } from "../../molecules/zoneSelect/ZoneSelect";
+import { PostCode } from "./PostCode";
+
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import { IconArea, IconFsr, IconPrice, IconZone, IconPost, IconBuildingHeight, IconLandOnly, IconNearBy, IconFence } from "../../../assets/icons";
@@ -24,12 +27,16 @@ const ParcelSearch = (props) => {
     const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue, landOnly, nearbyDA, streetFrontage } = props.parcelSearch;
 
     const onSelect = ({ key }) => {
-      props.setParcelFilter({ ...parcelSearch, zone: key });
-      let zoneColor = ZONES.filter(item=>{
-        return item.name===key;
-      });
-      setZoneColor(zoneColor[0].color);
+      const newZoneValue = zone.length < 3 ? [...zone, key] : zone;
+      props.setParcelFilter({ ...parcelSearch, zone: newZoneValue });
     };
+
+    const onDeselect = ({ key }) => {
+      const newZoneValue = [...zone]
+      newZoneValue.splice(zone.indexOf(key), 1)
+      props.setParcelFilter({ ...parcelSearch, zone: newZoneValue });
+    }
+
     const [ zoneColor, setZoneColor ] = useState(null);
 
     const handleSubmit = async () => {
@@ -48,11 +55,12 @@ const ParcelSearch = (props) => {
             <div className='filterTab'> 
               <div className='filterInputContainer'>
               <ZoneSelect 
-                zone={zone} 
-                zoneColor={zoneColor} 
+                zone={zone}
                 title22={"Zone"} 
                 icon={<IconZone/>} 
                 onSelect={onSelect}
+                onDeselect={onDeselect}
+                multiSelect={3}
                 />
                <PostCode 
                 title22={"Post Code"} 

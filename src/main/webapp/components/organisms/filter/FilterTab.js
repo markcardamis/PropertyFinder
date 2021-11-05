@@ -18,7 +18,7 @@ import { showSearchModal } from "../../../store/actions/searchModalAction";
 import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
 import { FilterLine } from "./FilterLine";
 import { PostCode } from "./PostCode";
-import { ZoneSelect } from "./ZoneSelect";
+import { ZoneSelect } from "../../molecules/zoneSelect/ZoneSelect";
 import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
 import variables from "../../../styles/_variables.module.scss";
 
@@ -29,7 +29,6 @@ class FilterTab extends React.Component {
         this.state = {
             authenticated: false,
             zone: this.props.filter.zone,
-            zoneColor: null,
             showValidation: false,
         };
 
@@ -61,12 +60,15 @@ class FilterTab extends React.Component {
     }
 
     onSelect = ({ key }) => {
-      this.props.getFilter({ ...this.props.filter, zone: key });
-      let zoneColor = ZONES.filter(item=>{
-        return item.name===key;
-      });
-      this.setState({ zoneColor: zoneColor[0].color });
+      const newZoneValue = this.props.filter.zone.length < 3 ? [...this.props.filter.zone, key] : this.props.filter.zone;
+      this.props.getFilter({ ...this.props.filter, zone: newZoneValue });
     }
+
+    onDeselect = ({ key }) => {
+      const newZoneValue = [...this.props.filter.zone]
+      newZoneValue.splice(this.props.filter.zone.indexOf(key), 1)
+      this.props.getFilter({ ...this.props.filter, zone: newZoneValue });
+    };
 
     handleSaveFilter = async () => {
       const { postCode } = this.props.filter;
@@ -86,10 +88,11 @@ class FilterTab extends React.Component {
               <div className='filterInputContainer'>
               <ZoneSelect 
                 zone={filter.zone} 
-                zoneColor={this.state.zoneColor} 
                 title22={"Zone"} 
                 icon={<IconZone/>} 
                 onSelect={this.onSelect}
+                onDeselect={this.onDeselect}
+                multiSelect={3}
                 />
               <PostCode 
                 title22={"Post Code"} 
