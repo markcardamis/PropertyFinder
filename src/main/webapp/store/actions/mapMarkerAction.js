@@ -56,8 +56,10 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
   };
   headers = authenticated===false ? headers : { ...headers, Authorization: "Bearer " + accessToken };
 
+  const propertyZone = {};
+  zone.map((item, index) => propertyZone[`propertyZone${index + 1}`] = item);
+
   const filter = {
-      propertyZone: zone ? zone : null,
       propertyAreaMin: area[0] !== 0 ? area[0] : null,
       propertyAreaMax: area[1] !== 20000 ? area[1] : null,
       streetFrontageMin: streetFrontage[0] !== 0 ? streetFrontage[0] : null,
@@ -71,7 +73,8 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
       propertyPriceToLandValueMax: priceLandvalue[1] !== 10 ? priceLandvalue[1] : null,
       propertyFloorSpaceRatioMin: floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : null,
       propertyFloorSpaceRatioMax: floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null,
-      landOnly: landOnly !== null ? landOnly : false
+      landOnly: landOnly !== null ? landOnly : false,
+      ...propertyZone,
   };
   const markersRequest = axios.post(`${apiUrl}/query`, JSON.stringify(filter), { timeout: 10000, headers });
   const nearbyDARequest = nearbyDA ? axios.get(nearbyDAUrl, { timeout: 10000 }) : null;

@@ -24,10 +24,11 @@ export const applyParcelSearch = () => async dispatch => {
       "centreLatitude": latitude,
       "centreLongitude": longitude
     };
+    const zoneCode = {};
+    zone.map((item, index) => zoneCode[`zoneCode${index + 1}`] = `&zoneCode${index + 1}=${item}`);
 
     const queryValues = {
-        zone: `zoneCode=${zone.length ? zone : ""}`,
-        postCode: `&postCode=${postCode}`,
+        postCode: `postCode=${postCode}`,
         areaMin: `&areaMin=${area[0] !== 0 ? area[0] : ""}`,
         areaMax: `&areaMax=${area[1] !== 20000 ? area[1] : ""}`,
         streetFrontageMin: `&streetFrontageMin=${streetFrontage[0] !== 0 ? streetFrontage[0] : ""}`,
@@ -38,7 +39,8 @@ export const applyParcelSearch = () => async dispatch => {
         buildingHeightMax: `&buildingHeightMax=${buildingHeight[1] !== 100 ? buildingHeight[1] : ""}`,
         floorSpaceRatioMin: `&floorSpaceRatioMin=${floorspaceRatio[0] !== 0 ? floorspaceRatio[0] : ""}`,
         floorSpaceRatioMax: `&floorSpaceRatioMax=${floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : ""}`,
-        landOnly: `&landOnly=${landOnly !== null ? landOnly : false}`
+        landOnly: `&landOnly=${landOnly !== null ? landOnly : false}`,
+        ...zoneCode,
     };
     const queryParameters = Object.values(queryValues).join("");
     dispatch(showLoading());

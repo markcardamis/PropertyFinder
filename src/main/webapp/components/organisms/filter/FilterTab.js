@@ -22,6 +22,7 @@ import { ZoneSelect } from "../../molecules/zoneSelect/ZoneSelect";
 import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
 import variables from "../../../styles/_variables.module.scss";
 
+const maxZones = 5;
 class FilterTab extends React.Component {
 
     constructor(props) {
@@ -60,7 +61,7 @@ class FilterTab extends React.Component {
     }
 
     onSelect = ({ key }) => {
-      const newZoneValue = this.props.filter.zone.length < 3 ? [...this.props.filter.zone, key] : this.props.filter.zone;
+      const newZoneValue = this.props.filter.zone.length < maxZones ? [...this.props.filter.zone, key] : this.props.filter.zone;
       this.props.getFilter({ ...this.props.filter, zone: newZoneValue });
     }
 
@@ -92,7 +93,7 @@ class FilterTab extends React.Component {
                 icon={<IconZone/>} 
                 onSelect={this.onSelect}
                 onDeselect={this.onDeselect}
-                multiSelect={3}
+                multiSelect={maxZones}
                 />
               <PostCode 
                 title22={"Post Code"} 

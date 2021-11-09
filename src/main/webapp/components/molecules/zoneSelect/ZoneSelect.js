@@ -60,7 +60,7 @@ export const ZoneSelect = (props) => {
                     >
                     <div className='zoneSelectBtn'>
                         <div className='zoneSelectOptions'>
-                            {props.zone.length ? renderSelected() : "Select (max. 3)"}
+                            {props.zone.length ? renderSelected() : `Select (max. ${props.multiSelect})`}
                         </div>
                         <IconArD/>
                     </div>

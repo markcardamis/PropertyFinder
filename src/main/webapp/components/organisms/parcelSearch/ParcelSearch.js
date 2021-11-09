@@ -21,13 +21,15 @@ import variables from "../../../styles/_variables.module.scss";
 import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import { map } from "../../organisms/map/MapGL";
 
+const maxZones = 5;
+
 const ParcelSearch = (props) => {
     const { latitude, longitude } = props.viewport;
     const { parcelSearch } = props;
     const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue, landOnly, nearbyDA, streetFrontage } = props.parcelSearch;
 
     const onSelect = ({ key }) => {
-      const newZoneValue = zone.length < 3 ? [...zone, key] : zone;
+      const newZoneValue = zone.length < maxZones ? [...zone, key] : zone;
       props.setParcelFilter({ ...parcelSearch, zone: newZoneValue });
     };
 
@@ -60,7 +62,7 @@ const ParcelSearch = (props) => {
                 icon={<IconZone/>} 
                 onSelect={onSelect}
                 onDeselect={onDeselect}
-                multiSelect={3}
+                multiSelect={maxZones}
                 />
                <PostCode 
                 title22={"Post Code"} 

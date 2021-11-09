@@ -5,10 +5,11 @@ const apiUrl = "/api/notifications";
 
 export const saveFilter = (accessToken, name, frequency, editedFilter) => async dispatch => {
     const { zone, area, streetFrontage, price, priceM2, postCode, priceLandvalue, floorspaceRatio, landOnly, nearbyDA } = store.getState().filter;
+    const propertyZone = {};
+    zone.map((item, index) => propertyZone[`propertyZone${index + 1}`] = item);
     const filter = {
         title: name ? name : "Untitled",
         frequency: frequency==null ? "OFF" : frequency,
-        propertyZone: zone.length ? zone : null,
         propertyAreaMin: area[0] !== 0 ? area[0] : null,
         propertyAreaMax: area[1] !== 20000 ? area[1] : null,
         streetFrontageMin: streetFrontage[0] !== 0 ? streetFrontage[0] : null,
@@ -24,6 +25,7 @@ export const saveFilter = (accessToken, name, frequency, editedFilter) => async 
         propertyFloorSpaceRatioMax: floorspaceRatio[1] !== 2 ? floorspaceRatio[1] : null,
         landOnly: landOnly !== null ? landOnly : false,
         nearbyDA: nearbyDA !== null ? nearbyDA : false,
+        ...propertyZone,
     };
     const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
     
