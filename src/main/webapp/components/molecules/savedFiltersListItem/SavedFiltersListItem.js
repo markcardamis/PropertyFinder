@@ -21,6 +21,8 @@ const SavedFiltersListItem = props => {
     const notificationIcon = frequency=="DAILY"? <IconBell1/> : 
       frequency=="WEEKLY"? <IconBell7/> : frequency=="MONTHLY"? <IconBell30/> : <IconBellOff/>;
 
+    const zone = [data.propertyZone, data.propertyZone1, data.propertyZone2, data.propertyZone3, data.propertyZone4, data.propertyZone5].filter(Boolean);
+
     return (
         <div className='savedFilters-filterItem' onClick={props.onSelect}>
           <div className='savedFilters-filterHeader' style={{ display: "flex" }}>
@@ -32,7 +34,7 @@ const SavedFiltersListItem = props => {
             </div>
           </div>
           <div onClick={props.onSelect} className={"savedFilters-propertiesList"}>
-            <SavedFilterItem title={"Zone: "} value={data.propertyZone} icon={<IconZoneG/>} position={"first"}/>
+            <SavedFilterItem title={"Zone: "} value={zone.join(', ')} icon={<IconZoneG/>} position={"first"}/>
             <SavedFilterItem title={"Area min: "} value={data.propertyAreaMin} icon={<IconAreaG/>} position={"first"}/>
             <SavedFilterItem title={"Area max: "} value={data.propertyAreaMax} icon={<IconAreaG/>} position={"first"}/>
             <SavedFilterItem title={"Street Frontage min: "} value={data.streetFrontageMin} icon={<IconFence color={variables.green}/>} position={"first"}/>

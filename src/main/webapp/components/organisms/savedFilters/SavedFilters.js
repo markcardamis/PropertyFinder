@@ -29,7 +29,7 @@ class SavedFilters extends Component {
   handleSelectFilter = (item) => {
     if (item!==undefined) {
       this.props.getFilter({
-        zone: item.propertyZone ? item.propertyZone : null,
+        zone: [item.propertyZone, item.propertyZone1, item.propertyZone2, item.propertyZone3, item.propertyZone4, item.propertyZone5].filter(Boolean),
         area: [ item.propertyAreaMin ? item.propertyAreaMin : 0, item.propertyAreaMax ? item.propertyAreaMax : 20000 ],
         streetFrontage: [ item.streetFrontageMin ? item.streetFrontageMin : 0, item.streetFrontageMax ? item.streetFrontageMax : 20 ],
         price: [ item.propertyPriceMin ? item.propertyPriceMin : 100000, item.propertyPriceMax ? item.propertyPriceMax : 5000000 ],
@@ -46,7 +46,7 @@ class SavedFilters extends Component {
   handleEditFilter = (item) => {
     if (item!== undefined) {
     this.props.getFilter({
-      zone: item.propertyZone!== null ? item.propertyZone : null,
+      zone: [item.propertyZone, item.propertyZone1, item.propertyZone2, item.propertyZone3, item.propertyZone4, item.propertyZone5].filter(Boolean),
       area: [ item.propertyAreaMin!== null? item.propertyAreaMin : 0, item.propertyAreaMax!== null ? item.propertyAreaMax : 20000 ],
       streetFrontage: [ item.streetFrontageMin ? item.streetFrontageMin : 0, item.streetFrontageMax ? item.streetFrontageMax : 50 ],
       price: [ item.propertyPriceMin!== null ? item.propertyPriceMin : 100000, item.propertyPriceMax!== null ? item.propertyPriceMax : 5000000 ],
