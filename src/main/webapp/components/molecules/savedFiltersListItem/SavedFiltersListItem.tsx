@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SyntheticEvent } from "react";
 import { useSelector } from "react-redux";
 
 import "./savedFiltersListItem.scss";
@@ -7,10 +7,10 @@ import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, 
 import variables from "../../../styles/_variables.module.scss";
 
 export interface SavedFiltersListItemProps {
-  onSelect: () => void,
-  onChangeFrequency: () => void,
-  onEdit: () => void,
-  onDelete: () => void,
+  onSelect: (e: SyntheticEvent) => void,
+  onChangeFrequency: (e: SyntheticEvent) => void,
+  onEdit: (e: SyntheticEvent) => void,
+  onDelete: (e: SyntheticEvent) => void,
   data: { 
     frequency: string,
     propertyZone: string,

@@ -43,7 +43,7 @@ export interface ParcelSearchProps {
 
 const ParcelSearch = ({ viewport, parcelSearch, setParcelFilter, applyParcelSearch, closeFilter, resetParcelFilter }: ParcelSearchProps) => {
     const { latitude, longitude } = viewport;
-    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue, landOnly, nearbyDA, streetFrontage } = props.parcelSearch;
+    const { zone, area, postCode, buildingHeight, floorspaceRatio, landValue, landOnly, nearbyDA, streetFrontage } = parcelSearch;
 
     const onSelect = ({ key }) => {
       setParcelFilter({ ...parcelSearch, zone: key });
