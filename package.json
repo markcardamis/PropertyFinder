@@ -94,10 +94,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "source-map-explorer": "^2.5.2",
-<<<<<<< Updated upstream
-=======
     "source-map-loader": "^3.0.0",
->>>>>>> Stashed changes
     "ts-loader": "^9.2.4",
     "webpack-bundle-analyzer": "^4.4.2"
   }

@@ -1,99 +1,79 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "rc-slider/assets/index.css";
 import "rc-dropdown/assets/index.css";
 
 import { ZONES } from "../../../shared/constants/zones";
-import "./parcelSearch.scss";
-import { FilterLine, ZoneSelect, PostCode } from "./components";
+import "./filter.scss";
 import DeviderLine from "../../atoms/deviderLine/DeviderLine";
+import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import {
   IconArea,
   IconFsr,
+  IconLandval,
   IconPrice,
+  IconPriceM,
   IconZone,
   IconPost,
-  IconBuildingHeight,
   IconLandOnly,
   IconNearBy,
   IconFence,
 } from "../../../assets/icons";
-import {
-  setParcelFilter,
-  resetParcelFilter,
-} from "../../../store/actions/parcelSearchAction/setParcelFilter";
-import { applyParcelSearch } from "../../../store/actions/parcelSearchAction/parcelSearchAction";
+import { getFilter, resetFilter } from "../../../store/actions/filterAction";
 import { closeFilter } from "../../../store/actions/filterModalAction";
+import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
+import { FilterLine } from "./FilterLine";
+import { PostCode } from "./PostCode";
+import { ZoneSelect } from "./ZoneSelect";
 import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
 import variables from "../../../styles/_variables.module.scss";
-import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
-import { map } from "../../organisms/map/MapGL";
 
-export interface Parcel {
-  zone: number;
-  area: number;
-  postCode: number;
-  buildingHeight: number;
-  floorspaceRatio: number;
-  landValue: number;
-  landOnly: boolean;
-  nearbyDA: boolean;
-  streetFrontage: number;
-}
-
-export interface ParcelSearchProps {
-  resetParcelFilter: () => void;
-  setParcelFilter: (val: Parcel) => void;
-  applyParcelSearch: () => void;
-  closeFilter: () => void;
-  parcelSearch: Parcel;
-  viewport: {
-    latitude: number,
-    longitude: number,
-  };
-}
-
-const ParcelSearch = ({
-  viewport,
-  parcelSearch,
-  setParcelFilter,
-  applyParcelSearch,
-  closeFilter,
-  resetParcelFilter,
-}: ParcelSearchProps) => {
-  const { latitude, longitude } = viewport;
+const FilterTab = () => {
+  const dispatch = useDispatch();
+  const { filter } = useSelector((state) => state);
   const {
     zone,
-    area,
     postCode,
-    buildingHeight,
+    area,
     floorspaceRatio,
-    landValue,
+    price,
+    priceM2,
+    priceLandvalue,
+    streetFrontage,
     landOnly,
     nearbyDA,
-    streetFrontage,
-  } = parcelSearch;
+  } = filter;
 
-  const onSelect = ({ key }) => {
-    setParcelFilter({ ...parcelSearch, zone: key });
-    let zoneColor = ZONES.filter((item) => {
-      return item.name === key;
-    });
-    setZoneColor(zoneColor[0].color);
-  };
   const [zoneColor, setZoneColor] = useState(null);
+  const [showValidation, setShowValidation] = useState(false);
 
   const handleSubmit = async () => {
-    await applyParcelSearch();
-    map.flyTo({ center: [longitude, latitude], zoom: 16 });
-    closeFilter();
+    if (postCode.length !== 4 && postCode.length !== 0) {
+      setShowValidation(true);
+    } else {
+      setShowValidation(false);
+      await dispatch(getFilter(filter));
+      dispatch(handleSubmit());
+      dispatch(closeFilter());
+      dispatch(showSearchArea());
+    }
   };
 
-  const handleResetFilter = () => {
-    resetParcelFilter();
-    // remove parcels
-    map.setFilter("nsw-property-highlighted", ["in", "propid", ""]);
+  const onSelect = ({ key }) => {
+    dispatch(getFilter({ ...filter, zone: key }));
+    const zoneColor = ZONES.filter((item) => item.name === key);
+    setZoneColor(zoneColor[0].color);
+  };
+
+  const handleSaveFilter = async () => {
+    if (postCode.length !== 4 && postCode.length !== 0) {
+      setShowValidation(true);
+    } else {
+      setShowValidation(false);
+      await dispatch(getFilter(filter));
+      dispatch(handleSaveFilter());
+    }
   };
 
   return (
@@ -110,41 +90,24 @@ const ParcelSearch = ({
           title22={"Post Code"}
           icon={<IconPost />}
           value={postCode}
-          showValidation={false}
+          showValidation={showValidation}
           onChange={(event) =>
-            setParcelFilter({ ...parcelSearch, postCode: event.target.value })
+            dispatch(getFilter({ ...filter, postCode: event.target.value }))
           }
         />
         <DeviderLine />
-
         <FilterLine
           title22={"Area"}
           icon={<IconArea />}
           value={area}
           step={100}
           showCurrency={false}
-          onChange={(val) => setParcelFilter({ ...parcelSearch, area: val })}
+          onChange={(val) => dispatch(getFilter({ ...filter, area: val }))}
           min={0}
           max={20000}
           labelMin={"0"}
           labelMax={"20 000+"}
         />
-
-        <FilterLine
-          title22={"Building Height"}
-          icon={<IconBuildingHeight />}
-          value={buildingHeight}
-          step={1}
-          showCurrency={false}
-          onChange={(val) =>
-            setParcelFilter({ ...parcelSearch, buildingHeight: val })
-          }
-          min={0}
-          max={100}
-          labelMin={"0"}
-          labelMax={"100+"}
-        />
-
         <FilterLine
           title22={"Floor Space Ratio"}
           icon={<IconFsr />}
@@ -152,7 +115,7 @@ const ParcelSearch = ({
           step={0.1}
           showCurrency={false}
           onChange={(val) =>
-            setParcelFilter({ ...parcelSearch, floorspaceRatio: val })
+            dispatch(getFilter({ ...filter, floorspaceRatio: val }))
           }
           min={0}
           max={2}
@@ -160,22 +123,44 @@ const ParcelSearch = ({
           labelMax={"2.0+"}
         />
         <DeviderLine />
-
         <FilterLine
-          title22={"Land Value"}
+          title22={"Price"}
           icon={<IconPrice />}
-          value={landValue}
+          value={price}
           step={10000}
           showCurrency={true}
-          onChange={(val) =>
-            setParcelFilter({ ...parcelSearch, landValue: val })
-          }
+          onChange={(val) => dispatch(getFilter({ ...filter, price: val }))}
           min={100000}
           max={5000000}
           labelMin={"$100k"}
           labelMax={"$5M"}
         />
-
+        <FilterLine
+          title22={"Price per m²"}
+          icon={<IconPriceM />}
+          value={priceM2}
+          step={10}
+          showCurrency={true}
+          onChange={(val) => dispatch(getFilter({ ...filter, priceM2: val }))}
+          min={1}
+          max={10000}
+          labelMin={"$1"}
+          labelMax={"$10 000+"}
+        />
+        <FilterLine
+          title22={"Price to Land Value"}
+          icon={<IconLandval />}
+          value={priceLandvalue}
+          step={0.1}
+          showCurrency={false}
+          onChange={(val) =>
+            dispatch(getFilter({ ...filter, priceLandvalue: val }))
+          }
+          min={0}
+          max={10}
+          labelMin={"0.0"}
+          labelMax={"10.0"}
+        />
         <FilterLine
           title22={"Street Frontage"}
           icon={<IconFence />}
@@ -183,20 +168,21 @@ const ParcelSearch = ({
           step={0.1}
           showCurrency={false}
           onChange={(val) =>
-            setParcelFilter({ ...parcelSearch, streetFrontage: val })
+            dispatch(getFilter({ ...filter, streetFrontage: val }))
           }
           min={0}
           max={50}
           labelMin={"0.0"}
           labelMax={"50.0+"}
         />
+
         <div className="checkboxLine">
           <CheckboxFilterLine
             title="Land Only"
             icon={<IconLandOnly />}
             value={landOnly}
             onClick={() =>
-              setParcelFilter({ ...parcelSearch, landOnly: !landOnly })
+              dispatch(getFilter({ ...filter, landOnly: !landOnly }))
             }
             style={{ paddingRight: "5px" }}
           />
@@ -205,19 +191,23 @@ const ParcelSearch = ({
             icon={<IconNearBy color={variables.darkGrey} />}
             value={nearbyDA}
             onClick={() =>
-              setParcelFilter({ ...parcelSearch, nearbyDA: !nearbyDA })
+              dispatch(getFilter({ ...filter, nearbyDA: !nearbyDA }))
             }
             style={{ paddingLeft: "5px" }}
           />
         </div>
       </div>
-
       <div className="filterBtnContainer">
         <ButtonOutlined
           title={"Reset filter"}
-          onClick={handleResetFilter}
+          onClick={() => dispatch(resetFilter())}
           style={{ width: "22%" }}
           titleStyle={{ color: variables.green }}
+        />
+        <ButtonOutlined
+          title={"Save preferences"}
+          onClick={handleSaveFilter}
+          style={{ width: "22%" }}
         />
         <ButtonFilled
           title={"Search"}
@@ -229,17 +219,4 @@ const ParcelSearch = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    parcelSearch: state.parcelSearch,
-    viewport: state.viewport,
-  };
-};
-const mapDispatchToProps = {
-  setParcelFilter,
-  resetParcelFilter,
-  applyParcelSearch,
-  closeFilter,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ParcelSearch);
+export default FilterTab;
