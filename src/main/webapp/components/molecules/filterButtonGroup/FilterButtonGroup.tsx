@@ -16,6 +16,7 @@ import { LATITUDE_DIFF } from "../../../shared/constants/constants";
 import { removeMapPopup } from "../../../shared/utils/removeMapPopup";
 
 export interface FilterButtonGroupProps {
+<<<<<<< Updated upstream:src/main/webapp/components/molecules/filterButtonGroup/FilterButtonGroup.tsx
     onFilterClick: () => void;
     onLayersClick: () => void;
     onListViewClick: () => void;
@@ -25,6 +26,18 @@ export interface FilterButtonGroupProps {
 const FilterButtonGroup = ({ onFilterClick, onLayersClick, onListViewClick, onMapViewClick }: FilterButtonGroupProps) => {
     const { searchModal, propertyModal, searchAreaBtn } = useSelector(state=>state);
     const isModalHidden = propertyModal.isHidden;
+=======
+    onListViewClick: () => void,
+    onMapViewClick: () => void,
+    onFilterClick: () => void,
+    onLayersClick:() => void,
+    searchAreaBtn: boolean,
+}
+
+const FilterButtonGroup = (props: FilterButtonGroupProps) => {
+    const searchModal = useSelector(state=>state.searchModal);
+    const propertyModal = useSelector(state=>state.propertyModal.isHidden);
+>>>>>>> Stashed changes:src/main/webapp/components/molecules/filterButtonGroup/FilterButtonGroup.js
     const windowSize = useWindowSize();
 
     const [ showSearchInput, setSearchInput ] = useState(false);
@@ -99,7 +112,11 @@ const FilterButtonGroup = ({ onFilterClick, onLayersClick, onListViewClick, onMa
                     setShowResults={(state)=>setShowResults(state)}
                 />
                 }
+<<<<<<< Updated upstream:src/main/webapp/components/molecules/filterButtonGroup/FilterButtonGroup.tsx
                 {searchAreaBtn && !showSearchInput&&<ButtonSquare 
+=======
+                {props.searchAreaBtn && !showSearchInput&&<ButtonSquare 
+>>>>>>> Stashed changes:src/main/webapp/components/molecules/filterButtonGroup/FilterButtonGroup.js
                   icon={<div className="searchBtn">Search this area</div>} 
                   style={{ width: 120, position: "absolute", marginLeft: "auto", marginRight: "auto", left: 0, right: 0 }}
                   onClick={handleSearchArea}
@@ -117,4 +134,22 @@ const FilterButtonGroup = ({ onFilterClick, onLayersClick, onListViewClick, onMa
     );
 };
 
+<<<<<<< Updated upstream:src/main/webapp/components/molecules/filterButtonGroup/FilterButtonGroup.tsx
 export default FilterButtonGroup;
+=======
+
+const mapStateToProps = (state) => {
+    return {
+        searchAreaBtn: state.searchAreaBtn,
+        filter: state.filter
+    };
+};
+
+const mapDispatchToProps = {
+    getSearchResults,
+    getPopup,
+    applyFilter
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterButtonGroup);
+>>>>>>> Stashed changes:src/main/webapp/components/molecules/filterButtonGroup/FilterButtonGroup.js

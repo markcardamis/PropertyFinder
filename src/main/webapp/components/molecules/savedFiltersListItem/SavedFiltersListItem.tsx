@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream:src/main/webapp/components/molecules/savedFiltersListItem/SavedFiltersListItem.tsx
 import React, { useState, useEffect, SyntheticEvent } from "react";
+=======
+import React, { useState, useEffect } from "react";
+>>>>>>> Stashed changes:src/main/webapp/components/molecules/savedFiltersListItem/SavedFiltersListItem.js
 import { useSelector } from "react-redux";
 
 import "./savedFiltersListItem.scss";
@@ -7,10 +11,17 @@ import { IconZoneG, IconAreaG, IconPriceG, IconPriceMg, IconLandvalG, IconFsrG, 
 import variables from "../../../styles/_variables.module.scss";
 
 export interface SavedFiltersListItemProps {
+<<<<<<< Updated upstream:src/main/webapp/components/molecules/savedFiltersListItem/SavedFiltersListItem.tsx
   onSelect: (e: SyntheticEvent) => void,
   onChangeFrequency: (e: SyntheticEvent) => void,
   onEdit: (e: SyntheticEvent) => void,
   onDelete: (e: SyntheticEvent) => void,
+=======
+  onSelect: () => void,
+  onChangeFrequency: () => void,
+  onEdit: () => void,
+  onDelete: () => void,
+>>>>>>> Stashed changes:src/main/webapp/components/molecules/savedFiltersListItem/SavedFiltersListItem.js
   data: { 
     frequency: string,
     propertyZone: string,

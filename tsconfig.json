@@ -4,9 +4,15 @@
       "allowJs": true,
       "target": "es5",
       "jsx": "react",
+<<<<<<< Updated upstream
       "esModuleInterop": true,
       "allowSyntheticDefaultImports": true,
       "noImplicitUseStrict": true,
+=======
+      // "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      // "noImplicitUseStrict": true,
+>>>>>>> Stashed changes
       "strict": false,
     },
     "include": ["./src/**/*"],
