@@ -8,8 +8,7 @@ module.exports = {
   mode: 'production',
   output: {
     path: path.join(__dirname, "/src/main/resources/static/dist"),
-    filename: 'src/main/webapp/javascript/[name].js',
-    // filename: '[name].js',
+    filename: 'index-bundle.js',
     publicPath: '/'
   },
   devServer: {

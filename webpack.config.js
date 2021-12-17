@@ -8,16 +8,12 @@ module.exports = {
   entry: './src/main/webapp/javascript/index.js',
   output: {
     path: path.join(__dirname, "/src/main/resources/static/dist"),
-    filename: 'src/main/webapp/javascript/[name].js',
-    // filename: '[name].js',
+    filename: 'index-bundle.js',
     publicPath: '/'
-    //publicPath: 'http://192.168.0.100:5000/'
   },
   devServer: {
     historyApiFallback: true,
-    port: 5000,
-    //host: '192.168.0.100',
-    //disableHostCheck: true
+    port: 5000
   },
 
   module: {
