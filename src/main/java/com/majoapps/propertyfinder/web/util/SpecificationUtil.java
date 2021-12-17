@@ -77,7 +77,6 @@ public class SpecificationUtil {
                 sb.append(notifications.getStreetFrontageMax());
             }
         }
-        System.out.println(sb.toString());
         return sb.toString();
     }
 
