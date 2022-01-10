@@ -10,8 +10,8 @@ apply plugin: 'io.spring.dependency-management'
 
 node {
 	download = true
-	version = '17.3.0'
-	npmVersion = '8.3.0'
+	version = '16.13.1'
+	npmVersion = '8.1.2'
 }
 
 group = 'com.majoapps'
