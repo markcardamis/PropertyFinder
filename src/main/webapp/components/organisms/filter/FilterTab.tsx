@@ -29,7 +29,12 @@ import { ZoneSelect } from "./ZoneSelect";
 import { CheckboxFilterLine } from "../../molecules/checkboxFilterLine/CheckboxFilterLine";
 import variables from "../../../styles/_variables.module.scss";
 
-const FilterTab = () => {
+export interface FilterTabProps {
+  onSubmit: () => void;
+  onSaveFilter: () => void;
+}
+
+const FilterTab = ({ onSubmit, onSaveFilter }: FilterTabProps) => {
   const dispatch = useDispatch();
   const { filter } = useSelector((state) => state);
   const {
@@ -54,7 +59,7 @@ const FilterTab = () => {
     } else {
       setShowValidation(false);
       await dispatch(getFilter(filter));
-      dispatch(handleSubmit());
+      onSubmit();
       dispatch(closeFilter());
       dispatch(showSearchArea());
     }
@@ -72,7 +77,7 @@ const FilterTab = () => {
     } else {
       setShowValidation(false);
       await dispatch(getFilter(filter));
-      dispatch(handleSaveFilter());
+      onSaveFilter();
     }
   };
 

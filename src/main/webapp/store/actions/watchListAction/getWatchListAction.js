@@ -17,15 +17,15 @@ export const getWatchList = () => async dispatch => {
   dispatch(hideLoading());
 };
 
-export const setWatchListRequest = () => dispatch => {
-    dispatch({
+export const setWatchListRequest = () => {
+    return {
       type: "SET_WATCH_LIST_REQUEST"
-    });
+    };
   };
 
-export const setWatchListLoaded = (data) => dispatch => {
-  dispatch({
+export const setWatchListLoaded = (data) => {
+  return {
     type: "SET_WATCH_LIST_LOADED",
     data
-  });
+  };
 };

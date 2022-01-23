@@ -17,8 +17,8 @@ const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
   dispatch(hideLoading());
 };
 
-export const deleteWatchListItemRequest = () => dispatch => {
-    dispatch({
+export const deleteWatchListItemRequest = () => {
+    return {
       type: "DELETE_WATCH_LIST_ITEM"
-    });
+    };
   };

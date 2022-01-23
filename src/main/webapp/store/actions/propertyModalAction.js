@@ -14,25 +14,18 @@ export const getPropertyInfo = (mapMarker) => async dispatch => {
     dispatch(hideLoading());
 };
 
-export const setPropertyInfoRequest = () => dispatch => {
-    dispatch({
+export const setPropertyInfoRequest = () => {
+    return {
       type: "SET_PROPERTY_INFO_REQUEST"
-    });
+    };
   };
 
-export const setPropertyInfoLoaded = (property) => dispatch => {
-  dispatch({
+export const setPropertyInfoLoaded = (property) => {
+  return {
     type: "SET_PROPERTY_INFO_LOADED",
     property
-  });
+  };
 };
-
-// export const showProperty = (item) => {
-//     return {
-//         type: "SHOW_PROPERTY_INFO",
-//         payload: item
-//     };
-// };
 
 export const closeProperty = () => {
     return {

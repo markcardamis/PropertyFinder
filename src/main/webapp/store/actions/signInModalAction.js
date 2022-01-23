@@ -1,11 +1,11 @@
-export const showSignIn = () => dispatch => {
-    dispatch({
+export const showSignIn = () => {
+    return {
         type: "SHOW_SIGNIN"
-    });
+    };
 };
 
-export const closeSignIn = () => dispatch => {
-    dispatch({
+export const closeSignIn = () => {
+    return {
         type: "CLOSE_SIGNIN"
-    });
+    };
 };

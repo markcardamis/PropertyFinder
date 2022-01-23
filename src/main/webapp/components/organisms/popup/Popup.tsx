@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import "./popup.scss";
 import Chart from "../../molecules/chart/Chart";
@@ -40,10 +40,10 @@ export interface PropertyInfo {
 
 export interface PopupProps {
     propertyInfo: PropertyInfo;
-    saveWatchListItem: () => void;
 }
 
-const Popup = ({ propertyInfo, saveWatchListItem }: PopupProps) => {
+const Popup = ({ propertyInfo }: PopupProps) => {
+    const dispatch = useDispatch();
     const { property_id, house_number, street_name, suburb_name, post_code, zone_code, area, area_type, floor_space_ratio, minimum_lot_size, building_height, land_value_1, last_sold, interested_people, legislation_url, interested_user, street_frontage } = propertyInfo;
     const { land_values, property_sales } = propertyInfo.chart_data;
     const { accessToken } = useAuth();
@@ -51,8 +51,8 @@ const Popup = ({ propertyInfo, saveWatchListItem }: PopupProps) => {
     const size = useWindowSize();
     const [ interestedUser, setInterestedUser ] = useState(interested_user);
     const addToWatchList = async () => {
-        await saveWatchListItem();
-        accessToken ? setInterestedUser(!interestedUser) : showSignIn();
+        await dispatch(saveWatchListItem());
+        accessToken ? setInterestedUser(!interestedUser) : dispatch(showSignIn());
     };
  
     return (
@@ -118,16 +118,5 @@ const Popup = ({ propertyInfo, saveWatchListItem }: PopupProps) => {
         </div>
     );
 };
-
-const mapStateToProps = (state) => {
-    return {
-      auth: state.auth,
-      watchList: state.watchList
-    };
-  };
-  const mapDispatchToProps = {
-    saveWatchListItem,
-    showSignIn
-  };
   
-  export default connect(mapStateToProps, mapDispatchToProps)(Popup);
+  export default Popup;

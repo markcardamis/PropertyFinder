@@ -15,15 +15,15 @@ export const getNotifications = (accessToken) => async dispatch => {
   dispatch(hideLoading());
 };
 
-export const setNotificationsRequest = () => dispatch => {
-    dispatch({
+export const setNotificationsRequest = () => {
+    return {
       type: "SET_NOTIFICATIONS_REQUEST"
-    });
+    };
   };
 
-export const setNotificationsLoaded = (notifications) => dispatch => {
-  dispatch({
+export const setNotificationsLoaded = (notifications) => {
+  return {
     type: "SET_NOTIFICATIONS_LOADED",
     notifications
-  });
+  };
 };

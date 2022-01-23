@@ -19,8 +19,8 @@ export const changeWatchListFrequency = (item, frequency) => async dispatch => {
     dispatch(hideLoading());
   };
 
-  export const changeWatchListFrequencyRequest = () => dispatch => {
-    dispatch({
+  export const changeWatchListFrequencyRequest = () => {
+    return {
       type: "CHANGE_WATCH_LIST_FREQUENCY_REQUEST"
-    });
+    };
   };

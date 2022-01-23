@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { useSelector, connect } from "react-redux";
+import { useSelector } from "react-redux";
 import "./searchInput.scss";
-import { getSearchResults } from "../../../store/actions/searchAction";
 
 export interface SearchInputProps {
     onHover: (item) => void;
@@ -90,14 +88,4 @@ const SearchInput = ({
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-    
-    };
-};
-
-const mapDispatchToProps = {
-    getSearchResults
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchInput);
+export default SearchInput;

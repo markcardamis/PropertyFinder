@@ -55,8 +55,8 @@ export const applyParcelSearch = () => async dispatch => {
     dispatch(hideLoading());
   };
   
-  export const applyParcelSearchRequest = () => dispatch => {
-    dispatch({
+  export const applyParcelSearchRequest = () => {
+    return {
       type: "PARCEL_SEARCH_REQUEST"
-    });
+    };
   };

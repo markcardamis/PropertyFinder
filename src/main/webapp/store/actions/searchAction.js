@@ -12,15 +12,15 @@ export const getSearchResults = (query) => async dispatch => {
     dispatch(hideLoading());
 };
 
-export const setSearchResultsRequest = () => dispatch => {
-    dispatch({
+export const setSearchResultsRequest = () => {
+    return {
       type: "SET_SEARCH_RESULTS_REQUEST"
-    });
+    };
   };
 
-export const setSearchResultsLoaded = (searchResults) => dispatch => {
-  dispatch({
+export const setSearchResultsLoaded = (searchResults) => {
+   return {
     type: "SET_SEARCH_RESULTS_LOADED",
     searchResults
-  });
+  };
 };

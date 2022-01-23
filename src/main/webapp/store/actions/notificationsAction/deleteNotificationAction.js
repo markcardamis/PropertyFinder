@@ -15,8 +15,8 @@ export const deleteNotification = (item, accessToken) => async dispatch => {
     dispatch(hideLoading());
   };
   
-  export const deleteNotificationRequest = () => dispatch => {
-      dispatch({
+  export const deleteNotificationRequest = () => {
+      return {
         type: "DELETE_NOTIFICATION_REQUEST"
-      });
+      };
     };

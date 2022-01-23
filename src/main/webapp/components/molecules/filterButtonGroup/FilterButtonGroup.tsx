@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import ButtonSquare from "../../atoms/buttonSquare/ButtonSquare";
 import { LogoBlack, IconLayers, IconSearch } from "../../../assets/icons";
@@ -8,7 +8,6 @@ import { useWindowSize } from "../../../hooks/windowSize";
 import { getSearchResults } from "../../../store/actions/searchAction";
 import { getPopup } from "../../../store/actions/popupAction";
 import SearchInput from "../searchInput/SearchInput";
-import { map } from "../../organisms/map/MapGL";
 import ToggleWidget from "../toggleWidget/ToggleWidget";
 import { useAuth } from "../../../hooks/useAuth";
 import { applyFilter } from "../../../store/actions/mapMarkerAction";
@@ -33,6 +32,7 @@ const FilterButtonGroup = ({
   );
   const isModalHidden = propertyModal.isHidden;
   const windowSize = useWindowSize();
+  const dispatch = useDispatch();
 
   const [showSearchInput, setSearchInput] = useState(false);
   const [search, setSearch] = useState("");
@@ -52,7 +52,7 @@ const FilterButtonGroup = ({
     if (e.key != "ArrowUp" && e.key != "ArrowDown") {
       window.clearTimeout(timer);
       timer = window.setTimeout(() => {
-        getSearchResults(search);
+        dispatch(getSearchResults(search));
       }, 500);
     }
   };
@@ -67,7 +67,7 @@ const FilterButtonGroup = ({
       center: [item.longitude, item.latitude - LATITUDE_DIFF],
       zoom: 16,
     });
-    getPopup(item.propertyId, item.longitude, item.latitude);
+    dispatch(getPopup(item.propertyId, item.longitude, item.latitude));
     setShowResults(false);
     setSearchInput(false);
   };
@@ -75,7 +75,7 @@ const FilterButtonGroup = ({
     setHovered(item);
   };
   const handleSearchArea = () => {
-    applyFilter(isAuthenticated, accessToken);
+    dispatch(applyFilter(isAuthenticated, accessToken));
   };
   return (
     <div className="filterButtonGroup">

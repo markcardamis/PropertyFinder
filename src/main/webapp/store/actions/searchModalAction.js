@@ -1,11 +1,11 @@
-export const showSearchModal = () => dispatch => {
-    dispatch({
+export const showSearchModal = () => {
+    return {
         type: "SHOW_SEARCH_MODAL"
-    });
+    };
 };
 
-export const closeSearchModal = () => dispatch => {
-    dispatch({
+export const closeSearchModal = () => {
+    return {
         type: "CLOSE_SEARCH_MODAL"
-    });
+    };
 };

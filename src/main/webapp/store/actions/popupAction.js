@@ -26,17 +26,17 @@ export const getPopup = (propId, longitude, latitude) => async dispatch => {
     dispatch(hideLoading());
 };
 
-export const setPopupRequest = () => dispatch => {
-    dispatch({
+export const setPopupRequest = () => {
+    return {
       type: "SET_POPUP_REQUEST"
-    });
+    };
   };
 
-export const setPopupLoaded = (property) => dispatch => {
-  dispatch({
+export const setPopupLoaded = (property) => {
+  return {
     type: "SET_POPUP_LOADED",
     property
-  });
+  };
 };
 
 export const closePopup = () => {

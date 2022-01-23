@@ -29,8 +29,8 @@ export const saveWatchListItem = () => async dispatch => {
     }
   };
 
-  export const saveWatchListItemRequest = () => dispatch => {
-    dispatch({
+  export const saveWatchListItemRequest = () => {
+    return {
       type: "SAVE_WATCH_LIST_ITEM_REQUEST"
-    });
+    };
   };

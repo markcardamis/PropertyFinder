@@ -15,18 +15,18 @@ export const getMapMarkers = (renderMarkers) => async dispatch => {
     dispatch(hideLoading());
 };
 
-export const setMapMarkersRequest = () => dispatch => {
-    dispatch({
+export const setMapMarkersRequest = () => {
+    return {
       type: "SET_MAP_MARKERS_REQUEST"
-    });
+    };
   };
 
-export const setMapMarkersLoaded = (markers, nearbyDAMarkers) => dispatch => {
-  dispatch({
+export const setMapMarkersLoaded = (markers, nearbyDAMarkers) => {
+  return {
     type: "SET_MAP_MARKERS_LOADED",
     markers, 
     nearbyDAMarkers
-  });
+  };
 };
 
 export const changeMarker = (item, status) => {
@@ -92,10 +92,10 @@ export const applyFilter = (authenticated, accessToken) => async dispatch => {
 
 };
 
-export const applyFilterRequest = () => dispatch => {
-  dispatch({
+export const applyFilterRequest = () => {
+  return {
     type: "APPLY_FILTER_REQUEST"
-  });
+  };
 };
 
 
@@ -111,10 +111,10 @@ export const selectFilter = (item, accessToken) => async dispatch => {
   dispatch(closeFilter());
 };
 
-export const selectFilterRequest = () => dispatch => {
-  dispatch({
+export const selectFilterRequest = () => {
+  return {
     type: "SELECT_FILTER_REQUEST"
-  });
+  };
 };
 
 

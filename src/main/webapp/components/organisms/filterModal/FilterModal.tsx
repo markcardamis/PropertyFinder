@@ -91,12 +91,12 @@ const FilterModal = ({ handleCloseFilter }: FilterModalProps) => {
             </TabList>
             <TabPanel>
               <FilterTab
-                handleSubmit={handleSubmit}
-                handleSaveFilter={handleSaveFilter}
+                onSubmit={handleSubmit}
+                onSaveFilter={handleSaveFilter}
               />
             </TabPanel>
             <TabPanel>
-              <ParcelSearch handleSubmit={handleSubmit} />
+              <ParcelSearch />
             </TabPanel>
             <TabPanel>
               <SavedFilters

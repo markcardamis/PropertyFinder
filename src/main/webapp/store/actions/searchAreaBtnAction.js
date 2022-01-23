@@ -1,11 +1,11 @@
-export const showSearchArea = () => dispatch => {
-    dispatch({
+export const showSearchArea = () => {
+    return {
         type: "SHOW_SEARCH_AREA"
-    });
+    };
 };
 
-export const hideSearchArea = () => dispatch => {
-    dispatch({
+export const hideSearchArea = () => {
+    return {
         type: "CLOSE_SEARCH_AREA"
-    });
+    };
 };

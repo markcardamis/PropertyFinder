@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 
 import { IconArD } from "../../../assets/icons";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
@@ -15,6 +16,7 @@ export interface SaveModalProps {
 
 const SaveModal = ({ onSaveClick, onCloseClick }: SaveModalProps) => {
     const { accessToken } = useAuth();
+    const dispatch = useDispatch();
     const [ title, setTiltle ] = useState("Preference 1");
     const [ frequency, setFrequency ] = useState("OFF");
     const [ showDropdown, setShowDropdown ] = useState(false);
@@ -37,7 +39,7 @@ const SaveModal = ({ onSaveClick, onCloseClick }: SaveModalProps) => {
     };
     const handleSaveFilter = () => {
         onSaveClick(title, frequency);
-        saveFilter(accessToken, title, frequency);
+        dispatch(saveFilter(accessToken, title, frequency));
     };
 
     const handleInput = (e) => {

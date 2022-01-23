@@ -45,15 +45,15 @@ export const saveFilterRequest = () => dispatch => {
     });
   };
 
-export const getFilter = (item) => dispatch => {
-    dispatch({
+export const getFilter = (item) => {
+    return {
         type: "GET_FILTER",
         payload: item
-    });
+    };
 };
 
-export const resetFilter = () => dispatch => {
-    dispatch({
+export const resetFilter = () => {
+    return {
         type: "RESET_FILTER"
-    });
+    };
 };

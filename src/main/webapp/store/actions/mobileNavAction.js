@@ -1,11 +1,11 @@
-export const showMobileNav = () => dispatch => {
-    dispatch({
+export const showMobileNav = () => {
+    return {
         type: "SHOW_MOBILE_NAV"
-    });
+    };
 };
 
-export const closeMobileNav = () => dispatch => {
-    dispatch({
+export const closeMobileNav = () => {
+    return {
         type: "CLOSE_MOBILE_NAV"
-    });
+    };
 };

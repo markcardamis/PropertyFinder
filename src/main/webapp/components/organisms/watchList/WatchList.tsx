@@ -1,26 +1,18 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { WatchListListItem } from "./WatchListListItem";
 import { getWatchList } from "../../../store/actions/watchListAction/getWatchListAction";
 import { deleteWatchListItem } from "../../../store/actions/watchListAction/deleteWatchListListItemAction";
 import { changeWatchListFrequency } from "../../../store/actions/watchListAction/changeWatchListFrequency";
 import { FREQUENCY } from "../../../shared/constants/constants";
-import { useAuth } from "../../../hooks/useAuth";
 
-export interface WatchListProps {
-  getWatchList: (token: string) => void;
-  changeWatchListFrequency: (item: {}) => void;
-  deleteWatchListItem: (item: {}) => void;
-  watchList: [{}];
-}
-
-
-const WatchList = ({ getWatchList, changeWatchListFrequency, deleteWatchListItem, watchList }: WatchListProps) => {
-const { accessToken } = useAuth();
+const WatchList = () => {
+const { watchList } = useSelector(state => state.state)
+const dispatch = useDispatch();
 
   useEffect(()=>{
-    getWatchList(accessToken);
+    dispatch(getWatchList());
   }, []);
 
   const handleChangeFrequency = async (item) => {
@@ -29,13 +21,13 @@ const { accessToken } = useAuth();
       const index = FREQUENCY.indexOf(startFrequency)<3 ? FREQUENCY.indexOf(startFrequency) + 1 : 0;
       return FREQUENCY[index];
     };
-    await changeWatchListFrequency(item, getFrequency());
-    getWatchList();
+    await dispatch(changeWatchListFrequency(item, getFrequency()));
+    dispatch(getWatchList());
   };
 
   const handleDeleteItem = async (item) => {
-    await deleteWatchListItem(item);
-    getWatchList();
+    await dispatch(deleteWatchListItem(item));
+    dispatch(getWatchList());
   };
 
   const renderData = () => {
@@ -58,17 +50,5 @@ const { accessToken } = useAuth();
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth,
-    watchList: state.watchList
-  };
-};
-const mapDispatchToProps = {
-  getWatchList,
-  deleteWatchListItem,
-  changeWatchListFrequency
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(WatchList);
+export default WatchList;
 

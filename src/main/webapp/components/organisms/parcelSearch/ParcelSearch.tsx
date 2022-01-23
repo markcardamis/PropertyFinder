@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "rc-slider/assets/index.css";
 import "rc-dropdown/assets/index.css";
 
@@ -42,26 +42,8 @@ export interface Parcel {
   streetFrontage: number;
 }
 
-export interface ParcelSearchProps {
-  resetParcelFilter: () => void;
-  setParcelFilter: (val: Parcel) => void;
-  applyParcelSearch: () => void;
-  closeFilter: () => void;
-  parcelSearch: Parcel;
-  viewport: {
-    latitude: number,
-    longitude: number,
-  };
-}
-
-const ParcelSearch = ({
-  viewport,
-  parcelSearch,
-  setParcelFilter,
-  applyParcelSearch,
-  closeFilter,
-  resetParcelFilter,
-}: ParcelSearchProps) => {
+const ParcelSearch = () => {
+  const { parcelSearch, viewport } = useSelector(state => state.state)
   const { latitude, longitude } = viewport;
   const {
     zone,
@@ -75,8 +57,10 @@ const ParcelSearch = ({
     streetFrontage,
   } = parcelSearch;
 
+  const dispatch = useDispatch();
+
   const onSelect = ({ key }) => {
-    setParcelFilter({ ...parcelSearch, zone: key });
+    dispatch(setParcelFilter({ ...parcelSearch, zone: key }));
     let zoneColor = ZONES.filter((item) => {
       return item.name === key;
     });
@@ -85,13 +69,13 @@ const ParcelSearch = ({
   const [zoneColor, setZoneColor] = useState(null);
 
   const handleSubmit = async () => {
-    await applyParcelSearch();
+    await dispatch(applyParcelSearch());
     map.flyTo({ center: [longitude, latitude], zoom: 16 });
-    closeFilter();
+    dispatch(closeFilter());
   };
 
   const handleResetFilter = () => {
-    resetParcelFilter();
+    dispatch(resetParcelFilter());
     // remove parcels
     map.setFilter("nsw-property-highlighted", ["in", "propid", ""]);
   };
@@ -112,7 +96,7 @@ const ParcelSearch = ({
           value={postCode}
           showValidation={false}
           onChange={(event) =>
-            setParcelFilter({ ...parcelSearch, postCode: event.target.value })
+            dispatch(setParcelFilter({ ...parcelSearch, postCode: event.target.value }))
           }
         />
         <DeviderLine />
@@ -123,7 +107,7 @@ const ParcelSearch = ({
           value={area}
           step={100}
           showCurrency={false}
-          onChange={(val) => setParcelFilter({ ...parcelSearch, area: val })}
+          onChange={(val) => dispatch(setParcelFilter({ ...parcelSearch, area: val }))}
           min={0}
           max={20000}
           labelMin={"0"}
@@ -137,7 +121,7 @@ const ParcelSearch = ({
           step={1}
           showCurrency={false}
           onChange={(val) =>
-            setParcelFilter({ ...parcelSearch, buildingHeight: val })
+            dispatch(setParcelFilter({ ...parcelSearch, buildingHeight: val }))
           }
           min={0}
           max={100}
@@ -152,7 +136,7 @@ const ParcelSearch = ({
           step={0.1}
           showCurrency={false}
           onChange={(val) =>
-            setParcelFilter({ ...parcelSearch, floorspaceRatio: val })
+            dispatch(setParcelFilter({ ...parcelSearch, floorspaceRatio: val }))
           }
           min={0}
           max={2}
@@ -168,7 +152,7 @@ const ParcelSearch = ({
           step={10000}
           showCurrency={true}
           onChange={(val) =>
-            setParcelFilter({ ...parcelSearch, landValue: val })
+            dispatch(setParcelFilter({ ...parcelSearch, landValue: val }))
           }
           min={100000}
           max={5000000}
@@ -183,7 +167,7 @@ const ParcelSearch = ({
           step={0.1}
           showCurrency={false}
           onChange={(val) =>
-            setParcelFilter({ ...parcelSearch, streetFrontage: val })
+            dispatch(setParcelFilter({ ...parcelSearch, streetFrontage: val }))
           }
           min={0}
           max={50}
@@ -196,7 +180,7 @@ const ParcelSearch = ({
             icon={<IconLandOnly />}
             value={landOnly}
             onClick={() =>
-              setParcelFilter({ ...parcelSearch, landOnly: !landOnly })
+              dispatch(setParcelFilter({ ...parcelSearch, landOnly: !landOnly }))
             }
             style={{ paddingRight: "5px" }}
           />
@@ -205,7 +189,7 @@ const ParcelSearch = ({
             icon={<IconNearBy color={variables.darkGrey} />}
             value={nearbyDA}
             onClick={() =>
-              setParcelFilter({ ...parcelSearch, nearbyDA: !nearbyDA })
+              dispatch(setParcelFilter({ ...parcelSearch, nearbyDA: !nearbyDA }))
             }
             style={{ paddingLeft: "5px" }}
           />
@@ -229,17 +213,4 @@ const ParcelSearch = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    parcelSearch: state.parcelSearch,
-    viewport: state.viewport,
-  };
-};
-const mapDispatchToProps = {
-  setParcelFilter,
-  resetParcelFilter,
-  applyParcelSearch,
-  closeFilter,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ParcelSearch);
+export default ParcelSearch;

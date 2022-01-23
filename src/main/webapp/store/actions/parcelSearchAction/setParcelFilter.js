@@ -1,12 +1,12 @@
-export const setParcelFilter = (item) => dispatch => {
-    dispatch({
+export const setParcelFilter = (item) => {
+    return {
         type: "SET_PARCEL_FILTER",
         payload: item
-    });
+    };
 };
 
-export const resetParcelFilter = () => dispatch => {
-    dispatch({
+export const resetParcelFilter = () => {
+    return {
         type: "RESET_PARCEL_FILTER",
-    });
+    };
 };

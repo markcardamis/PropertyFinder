@@ -7,12 +7,11 @@ import { IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30 } from "../../
 export interface WatchListItemProps {
   onSelect: () => void;
   onChangeFrequency: () => void;
-  onEdit: () => void;
   onDelete: () => void;
   data: { title: string; frequency: string; }
 }
 
-export const WatchListListItem = ({ data, onSelect, onChangeFrequency, onEdit, onDelete}: WatchListItemProps) => {
+export const WatchListListItem = ({ data, onSelect, onChangeFrequency, onDelete}: WatchListItemProps) => {
     const watchList = useSelector(state=>state.watchList);
     const [ frequency, setFrequency ] = useState(data.frequency);
 
