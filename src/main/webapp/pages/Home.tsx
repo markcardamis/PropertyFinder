@@ -9,6 +9,7 @@ import SearchModal from "../components/organisms/searchModal/SearchModal";
 import { closeFilter } from "../store/actions/filterModalAction";
 import { closeProperty } from "../store/actions/propertyModalAction";
 import { closeSaveModal, saveNotification } from "../store/actions/saveModalAction";
+import { closeSearchModal } from "../store/actions/searchModalAction";
 
 
 const Home = () => {

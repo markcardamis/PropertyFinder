@@ -100,8 +100,8 @@ const FilterModal = ({ handleCloseFilter }: FilterModalProps) => {
             </TabPanel>
             <TabPanel>
               <SavedFilters
-                handleSelectFilter={handleSelectFilter}
-                handleEditFilter={handleEditFilter}
+                onSelectFilter={handleSelectFilter}
+                onEditFilter={handleEditFilter}
               />
             </TabPanel>
             <TabPanel>

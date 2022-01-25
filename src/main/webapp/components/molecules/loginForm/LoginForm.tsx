@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useOktaAuth } from '@okta/okta-react';
 import "./loginForm.scss";
 import TextInput from "../../atoms/textInput/TextInput";
@@ -7,22 +7,29 @@ import ButtonOutlined from "../../atoms/buttonOutlined/ButtonOutlined";
 import ButtonFilled from "../../atoms/buttonFilled/ButtonFilled";
 import { IconUser, IconKey, IconEye } from "../../../assets/icons";
 import variables from "../../../styles/_variables.module.scss";
+import { hideLoading, showLoading } from "../../../store/actions/loadingAction";
 
-const LoginForm = (props) => {
+export interface LoginFormProps {
+  onForgotClick: () => void;
+  onSignUp: () => void;
+}
+
+const LoginForm = ({ onForgotClick, onSignUp }: LoginFormProps) => {
       const { oktaAuth } = useOktaAuth();
+      const dispatch = useDispatch();
       const [sessionToken, setSessionToken] = useState(null);
       const [userName, setUserName] = useState('');
       const [password, setPassword] = useState('');
       const [errorMessage, setErrorMessage] = useState('');
       const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (e) => {
-      props.dispatch({ type: "SHOW_LOADING" });
+  const handleSubmit = async () => {
+      dispatch(showLoading());
 
       oktaAuth.signIn({ username: userName, password })
       .then(res => setSessionToken(res.sessionToken))
       .catch(err => setErrorMessage(err.errorSummary));
-      props.dispatch({ type: "HIDE_LOADING" });
+      dispatch(hideLoading());
     }
 
     useEffect(() => {
@@ -58,23 +65,17 @@ const LoginForm = (props) => {
                     />
             </div>
             { errorMessage && <div className="authError">Login failed, please check your email and password</div>}
-            <div className={"loginFormForgot"} onClick={props.onForgotClick}>Forgot Password?</div>
+            <div className={"loginFormForgot"} onClick={onForgotClick}>Forgot Password?</div>
           </div>
           <div>
             <div className={"loginFormBtn"}><ButtonOutlined title={"SIGN IN"} onClick={handleSubmit}/></div>
             <div className='loginFormText'>
                 <div className='loginFormLine'/>Would you like to join?<div className='loginFormLine'/>
             </div>
-            <div className={"loginFormBtn"}><ButtonFilled title={"SIGN UP"} onClick={props.onSignUp}/></div>
+            <div className={"loginFormBtn"}><ButtonFilled title={"SIGN UP"} onClick={onSignUp}/></div>
           </div>
         </div>
       );
     }
 
-  const mapStateToProps = (state) => {
-    return {
-        loginForm: state,
-    };
-};
-
-export default connect(mapStateToProps)(LoginForm);
+export default LoginForm;

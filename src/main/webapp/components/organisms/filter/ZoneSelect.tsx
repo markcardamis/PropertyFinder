@@ -9,9 +9,7 @@ import { ZONES } from "../../../shared/constants/zones";
 import { IconArD } from "../../../assets/icons";
 
 export interface ZoneSelectProps {
-  value: number;
-  onChange: () => void;
-  onSelect: () => void;
+  onSelect: ({ key }: { key: string }) => void;
   icon: ReactNode;
   title22: string;
   zone: string;
@@ -19,8 +17,6 @@ export interface ZoneSelectProps {
 }
 
 export const ZoneSelect = ({ 
-  value, 
-  onChange, 
   onSelect,
   icon,
   title22,

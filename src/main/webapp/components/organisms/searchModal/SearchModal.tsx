@@ -2,12 +2,15 @@ import React from "react";
 import Fade from "react-reveal/Fade";
 import "./searchModal.scss";
 import SearchItem from "../../molecules/searchItem/SearchItem";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { IconCloseMobile } from "../../../assets/icons";
 
-const SearchModal = () => {
+export interface SearchModalProps {
+    onCloseClick: () => void;
+}
+
+const SearchModal = ({ onCloseClick }) => {
     const properties = useSelector(state=>state.mapMarker.markers);
-    const dispatch = useDispatch();
 
     const renderResults = () => {
         return properties.map((item,index)=>{
@@ -23,7 +26,7 @@ const SearchModal = () => {
                 <div className='searchModal'>
                     <div className='searchModalHeader'>
                         {properties&&properties.length} Properties
-                        <div className='searchHeaderClose' onClick={()=>dispatch({ type: "CLOSE_SEARCH_MODAL" })}>
+                        <div className='searchHeaderClose' onClick={onCloseClick}>
                            <IconCloseMobile size={0.8}/>
                         </div>
                     </div>

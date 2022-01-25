@@ -13,12 +13,10 @@ export interface SliderProps {
   labelMin: string,
   labelMax: string,
   showCurrency: boolean,
-  index: number,
-  dragging: boolean,
   style?: React.CSSProperties,
 }
 
-const Slider = ({ value, onChange, min, max, step, labelMin, labelMax, showCurrency, index, dragging, style }: SliderProps) => {
+const Slider = ({ value, onChange, min, max, step, labelMin, labelMax, showCurrency, style }: SliderProps) => {
   const k = "k";
   const m = "M";
   const aud = showCurrency ? "$" : "";

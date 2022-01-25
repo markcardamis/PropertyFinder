@@ -6,10 +6,10 @@ import variables from "../../../styles/_variables.module.scss";
 
 export interface PropListItemProps {
     title: string,
-    value11: string,
-    value14: string,
-    value18: string,
-    icon: React.ReactNode,
+    value11?: string,
+    value14?: string,
+    value18?: string,
+    icon?: React.ReactNode,
 }
 
 const PropListItem = ({ title, value11, value14, value18, icon }: PropListItemProps) => {

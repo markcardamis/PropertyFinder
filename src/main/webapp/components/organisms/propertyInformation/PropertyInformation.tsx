@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { useSelector } from "react-redux";
 import Fade from "react-reveal/Fade";
 
@@ -81,12 +80,5 @@ const PropertyInformation = ({ handleClosePropertyInfo }: PropertyInformationPro
             );
     };
 
-
-const mapStateToProps = (state) => {
-    return {
-        property: state.showProperty
-    };
-};
-
-export default connect(mapStateToProps)(PropertyInformation);
+export default PropertyInformation;
 

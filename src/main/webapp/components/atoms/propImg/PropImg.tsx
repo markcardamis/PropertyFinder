@@ -4,8 +4,8 @@ import "./propImg.scss";
 
 export interface PropImgProps {
     img: string,
-    height: number,
-    width: number,
+    height?: number,
+    width?: number,
 }
 
 const PropImg = ({ img, height, width }: PropImgProps) => {

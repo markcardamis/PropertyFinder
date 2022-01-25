@@ -18,7 +18,7 @@ const AuthModal = () => {
     const { oktaAuth } = useOktaAuth();
     const [ state, setState ] = useState( history.location.pathname === "/signup" ? "register" : "login");
     const dispatch = useDispatch();
-    const node = useRef();
+    const node = useRef<HTMLDivElement>();
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClick);

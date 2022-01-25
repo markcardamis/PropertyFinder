@@ -4,11 +4,11 @@ import variables from "../../../styles/_variables.module.scss";
 import "./propListTitle.scss";
 
 export interface PropListTitleProps {
-    icon: React.ReactNode,
-    title: string,
-    title16: string,
-    title22: string,
-    color: string,
+    icon?: React.ReactNode,
+    title?: string,
+    title16?: string,
+    title22?: string,
+    color?: string,
     style?: React.CSSProperties,
 }
 

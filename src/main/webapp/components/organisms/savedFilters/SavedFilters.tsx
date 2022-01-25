@@ -8,7 +8,12 @@ import { closeFilter } from "../../../store/actions/filterModalAction";
 import { FREQUENCY } from "../../../shared/constants/constants";
 import { useAuth } from "../../../hooks/useAuth";
 
-const SavedFilters = () => {
+export interface SavedFiltersProps {
+  onSelectFilter: (item) => void;
+  onEditFilter: (item) => void;
+}
+
+const SavedFilters = ({ onSelectFilter, onEditFilter }:SavedFiltersProps) => {
   const dispatch = useDispatch();
   const { notifications, filter } = useSelector((state) => state);
   const { isAuthenticated, accessToken } = useAuth();
@@ -54,7 +59,7 @@ const SavedFilters = () => {
           landOnly: item.landOnly,
         })
       );
-      dispatch(handleSelectFilter(item));
+      onSelectFilter(item);
     }
     dispatch(closeFilter());
   };
@@ -101,7 +106,7 @@ const SavedFilters = () => {
           landOnly: item.landOnly,
         })
       );
-      dispatch(handleEditFilter(item));
+      onEditFilter(item);
     }
   };
   const handleChangeFrequency = async (item) => {

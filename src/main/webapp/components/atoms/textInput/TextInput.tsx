@@ -3,13 +3,13 @@ import React from "react";
 import "./textInput.scss";
 
 export interface TextInputProps {
-    icon: React.ReactNode,
+    icon?: React.ReactNode,
     rightIcon?: React.ReactNode,
     onRightIconClick?: () => void,
     type?: string,
     value: string,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    placeholder: string,
+    placeholder?: string,
     width?: string,
 }
 

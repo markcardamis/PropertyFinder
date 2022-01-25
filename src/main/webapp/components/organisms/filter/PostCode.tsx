@@ -1,13 +1,12 @@
 import React, { ReactNode } from "react";
 import "./filter.scss";
-import PropTypes from "prop-types";
 
 import PropListTitle from "../../atoms/propListTitle/PropListTitle";
 import TextInput from "../../atoms/textInput/TextInput";
 
 export interface PostCodeProps {
     value: string;
-    onChange: () => void;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     showValidation: boolean;
     icon: ReactNode;
     title22: string;

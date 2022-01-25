@@ -5,7 +5,7 @@ import Slider from "../../atoms/slider/Slider";
 
 export interface FilterLineProps {
     value: [number, number];
-    onChange: () => void;
+    onChange: (val: number) => void;
     min: number;
     max: number;
     step: number;
