@@ -28,6 +28,7 @@ export interface SavedFiltersListItemProps {
   onEdit: (e: SyntheticEvent) => void;
   onDelete: (e: SyntheticEvent) => void;
   data: {
+    title: string,
     frequency: string,
     propertyZone: string,
     propertyAreaMin: string,
@@ -54,7 +55,7 @@ const SavedFiltersListItem = ({
   onDelete,
   data,
 }: SavedFiltersListItemProps) => {
-  const notifications = useSelector((state) => state.notifications);
+  const { notifications } = useSelector((state) => state);
   const [frequency, setFrequency] = useState(data.frequency);
 
   useEffect(() => {

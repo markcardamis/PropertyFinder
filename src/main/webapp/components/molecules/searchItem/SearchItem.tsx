@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 
 import PropListItem2 from "../../molecules/propListItem2/PropListItem2";
@@ -11,6 +11,8 @@ import ButtonProperty from "../../atoms/buttonProperty/ButtonProperty";
 import "./searchItem.scss";
 import ImageLazy from "../../atoms/ImageLazy/ImageLazy";
 import { map } from "../../organisms/map/MapGL";
+import { changeAllMarkers, changeMarker } from "../../../store/actions/mapMarkerAction";
+import { viewportChange } from "../../../store/actions/viewportAction";
 
 export interface Marker {
     id: string;
@@ -41,16 +43,15 @@ export interface SearchItemProps {
 const SearchItem = ({ marker }: SearchItemProps) => {
     const dispatch = useDispatch();
     const { id, area, zone, address, bathrooms, bedrooms, carspaces, price, land_value, price_psm, floor_space_ratio, price_to_land_value, minimum_lot_size, listing_url, summary_description, listing_photo, status, longitude, latitude } = marker;
-    const [ shadow, setShadow ] = useState(status==="marker-selected");
     const handleClick = () => {
-        dispatch({ type: "CHANGE_ALL_MARKERS_STATUS", payload: marker, status: "marker-unvisited" });
-        dispatch({ type: "CHANGE_MARKER_STATUS", payload: marker, status: "marker-selected" });
-        dispatch ({ type: "VIEWPORT_CHANGE", payload: { latitude, longitude } });
+        dispatch(changeAllMarkers(marker, "marker-unvisited"));
+        dispatch(changeMarker(marker, "marker-selected"));
+        dispatch(viewportChange({ latitude, longitude }));
         map.flyTo({ center: [ longitude, latitude ], zoom: 10 });
     };
     return (
         <div className='searchItem' onClick={handleClick}>
-                <ImageLazy src={listing_photo || DEFAULT_HOUSE_IMAGE} shadow={status==="marker-selected"||shadow}/>
+                <ImageLazy src={listing_photo || DEFAULT_HOUSE_IMAGE} shadow={status==="marker-selected"}/>
            <div className='searchItemInfo'>
                 <PropListItem icon={address ? <IconAddressG/> : <IconAddressG color={variables.lightGrey}/>} title={ADDRESS} value11={`ID: ${id}`}/>
                 <div className='searchItem-address'>{address}</div>

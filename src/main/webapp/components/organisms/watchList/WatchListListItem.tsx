@@ -5,13 +5,12 @@ import "../../molecules/savedFiltersListItem/savedFiltersListItem.scss";
 import { IconTrash, IconBellOff, IconBell7, IconBell1, IconBell30 } from "../../../assets/icons";
 
 export interface WatchListItemProps {
-  onSelect: () => void;
   onChangeFrequency: () => void;
   onDelete: () => void;
-  data: { title: string; frequency: string; }
+  data: { id: string, title: string; frequency: string; }
 }
 
-export const WatchListListItem = ({ data, onSelect, onChangeFrequency, onDelete}: WatchListItemProps) => {
+export const WatchListListItem = ({ data, onChangeFrequency, onDelete}: WatchListItemProps) => {
     const watchList = useSelector(state=>state.watchList);
     const [ frequency, setFrequency ] = useState(data.frequency);
 
@@ -24,7 +23,7 @@ export const WatchListListItem = ({ data, onSelect, onChangeFrequency, onDelete}
       frequency=="WEEKLY"? <IconBell7/> : frequency=="MONTHLY"? <IconBell30/> : <IconBellOff/>;
 
     return (
-        <div className='savedFilters-filterItem' onClick={onSelect}>
+        <div className='savedFilters-filterItem'>
           <div className='savedFilters-filterHeader' style={{ display: "flex" }}>
             <div className='savedFilters-filterTitle'>{data.title ? data.title : "Untitled"}</div>
             <div className='savedFilterEdit'>

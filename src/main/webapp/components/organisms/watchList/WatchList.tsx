@@ -8,7 +8,7 @@ import { changeWatchListFrequency } from "../../../store/actions/watchListAction
 import { FREQUENCY } from "../../../shared/constants/constants";
 
 const WatchList = () => {
-const { watchList } = useSelector(state => state.state)
+const { watchList } = useSelector(state => state)
 const dispatch = useDispatch();
 
   useEffect(()=>{

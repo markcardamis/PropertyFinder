@@ -43,7 +43,7 @@ export interface Parcel {
 }
 
 const ParcelSearch = () => {
-  const { parcelSearch, viewport } = useSelector(state => state.state)
+  const { parcelSearch, viewport } = useSelector(state => state)
   const { latitude, longitude } = viewport;
   const {
     zone,
