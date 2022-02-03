@@ -19,6 +19,7 @@ import { showSearchArea } from "../../../store/actions/searchAreaBtnAction";
 import { renderPopup } from "../../../shared/utils/renderPopup";
 import { NearByPopup } from "../../molecules/nearByPopup/NearByPopup";
 import { removeMapPopup } from "../../../shared/utils/removeMapPopup";
+import { layerTypes } from "./types";
 
     mapboxgl.accessToken = process.env.MAPBOX_API;
     export let map;
@@ -28,40 +29,40 @@ import { removeMapPopup } from "../../../shared/utils/removeMapPopup";
 const MapGL = () => {
     const dispatch = useDispatch();
     const { searchModal, filterModal, saveModal, layers, mapMarker } = useSelector(state=>state);
+    map = useRef(null);
     const mapContainerRef = useRef(null);
 
     useEffect(() => {
-        map = new mapboxgl.Map({
+        if (map.current) return;
+
+        map.current = new mapboxgl.Map({
             container: mapContainerRef.current,
             style: process.env.MAPBOX_STYLE,
             center: [ INITIAL_VIEWPORT.longitude, INITIAL_VIEWPORT.latitude ],
             zoom: INITIAL_VIEWPORT.zoom
             });  
      
-        map.addControl(new mapboxgl.NavigationControl());
+        map.current.addControl(new mapboxgl.NavigationControl());
         dispatch(getMapMarkers(renderMarkers));
 
         if ((process.env.LOGGING || "").trim() === "production") {
             hotjar.initialize(1445331, 6);
         }
-        map.on("click", (e) => handlePropertyClick(e)); 
-        map.on("move", () => handleViewportChange());
-        map.on("mousemove", "nsw-property", (e) => handleHoverOnProperty(e));
-        map.on("mouseleave", "nsw-property", () => handleHoverOffProperty());
-        map.on("styledata", () => {
-            map.setLayoutProperty("nswlandzoning", "visibility", layers.landZoning ? "visible" : "none");
-            map.setLayoutProperty("nswlandzoning-labels", "visibility", layers.landZoning ? "visible" : "none");
-            map.setLayoutProperty("nswfloorspaceratio", "visibility", layers.floorSpaceRatio ? "visible" : "none");
-            map.setLayoutProperty("nswfloorspaceratio-labels", "visibility", layers.floorSpaceRatio ? "visible" : "none");
-            map.setLayoutProperty("nswheightofbuilding", "visibility", layers.heightOfBuilding ? "visible" : "none");
-            map.setLayoutProperty("nswheightofbuilding-labels", "visibility", layers.heightOfBuilding ? "visible" : "none");
-            map.setLayoutProperty("nswlotsize", "visibility", layers.lotsize ? "visible" : "none");
-            map.setLayoutProperty("nswlotsize-labels", "visibility", layers.lotsize ? "visible" : "none");
-            map.setLayoutProperty("nswheritage", "visibility", layers.heritage ? "visible" : "none");
-            map.setLayoutProperty("nswheritage-labels", "visibility", layers.heritage ? "visible" : "none");
-            map.setLayoutProperty("mobile-internet", "visibility", layers.mobileInternet ? "visible" : "none");
-        });
+        map.current.on("click", (e) => handlePropertyClick(e)); 
+        map.current.on("move", () => handleViewportChange());
+        map.current.on("mousemove", "nsw-property", (e) => handleHoverOnProperty(e));
+        map.current.on("mouseleave", "nsw-property", () => handleHoverOffProperty());
     }, [])
+
+    useEffect(() => {
+        map.current.on("styledata", () => {
+            Object.entries(layerTypes).map(([property, mapboxLayers]) => {
+                mapboxLayers.map(layer => {
+                    map.current.setLayoutProperty(layer, "visibility", layers[property] ? "visible" : "none");
+                })
+            })
+        });
+    }, [layers, map.current])
 
     
 
@@ -77,7 +78,7 @@ useEffect(() => {
 
 const handleViewportChange = () => {
     dispatch(showSearchArea());
-    dispatch(viewportChange({ latitude: map.getCenter().lat, longitude: map.getCenter().lng }));
+    dispatch(viewportChange({ latitude: map.current.getCenter().lat, longitude: map.current.getCenter().lng }));
 }
 
 const renderMarkers = async () => {
@@ -121,7 +122,7 @@ const renderMarkers = async () => {
 }
 
 const handlePropertyClick = async (e) => {
-    const features = map.queryRenderedFeatures(e.point);
+    const features = map.current.queryRenderedFeatures(e.point);
     const displayProperties = [ "properties" ];
     const displayFeatures = features.map(function(feat) {
          const displayFeat = {};
@@ -137,7 +138,7 @@ const handlePropertyClick = async (e) => {
 const handleHoverOnProperty = (e) => {
     if (e.features.length > 0) {
         if (hoverId) {
-            map.setFeatureState({
+            map.current.setFeatureState({
                 source: "composite",
                 sourceLayer: "nsw_property",
                 id: hoverId,
@@ -146,7 +147,7 @@ const handleHoverOnProperty = (e) => {
             });
         }
         hoverId = e.features[0].id;
-        map.setFeatureState({
+        map.current.setFeatureState({
             source: "composite",
             sourceLayer: "nsw_property",
             id: hoverId,
@@ -158,7 +159,7 @@ const handleHoverOnProperty = (e) => {
 
 const handleHoverOffProperty = () => {
     if (hoverId) {
-        map.setFeatureState({
+        map.current.setFeatureState({
             source: "composite",
             sourceLayer: "nsw_property",
             id: hoverId,

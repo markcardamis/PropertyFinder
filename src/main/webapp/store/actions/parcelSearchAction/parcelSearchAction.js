@@ -16,7 +16,7 @@ export const applyParcelSearch = () => async dispatch => {
       let array = parcels.map(item => item.property_id);
       if (array.length > 0) {
           let filter = [ "in", [ "get", "propid" ], [ "literal", array ] ];
-          map.setFilter("nsw-property-highlighted", filter);
+          map.current.setFilter("nsw-property-highlighted", filter);
       }
     };
 

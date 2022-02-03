@@ -70,14 +70,14 @@ const ParcelSearch = () => {
 
   const handleSubmit = async () => {
     await dispatch(applyParcelSearch());
-    map.flyTo({ center: [longitude, latitude], zoom: 16 });
+    map.current.flyTo({ center: [longitude, latitude], zoom: 16 });
     dispatch(closeFilter());
   };
 
   const handleResetFilter = () => {
     dispatch(resetParcelFilter());
     // remove parcels
-    map.setFilter("nsw-property-highlighted", ["in", "propid", ""]);
+    map.current.setFilter("nsw-property-highlighted", ["in", "propid", ""]);
   };
 
   return (

@@ -13,6 +13,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { applyFilter } from "../../../store/actions/mapMarkerAction";
 import { LATITUDE_DIFF } from "../../../shared/constants/constants";
 import { removeMapPopup } from "../../../shared/utils/removeMapPopup";
+import { map } from "../../organisms/map/MapGL";
 
 export interface FilterButtonGroupProps {
   onFilterClick: () => void;
@@ -63,7 +64,7 @@ const FilterButtonGroup = ({
     removeMapPopup();
     handleCancelSearch;
     setSelected(item);
-    map.flyTo({
+    map.current.flyTo({
       center: [item.longitude, item.latitude - LATITUDE_DIFF],
       zoom: 16,
     });

@@ -47,7 +47,7 @@ const SearchItem = ({ marker }: SearchItemProps) => {
         dispatch(changeAllMarkers(marker, "marker-unvisited"));
         dispatch(changeMarker(marker, "marker-selected"));
         dispatch(viewportChange({ latitude, longitude }));
-        map.flyTo({ center: [ longitude, latitude ], zoom: 10 });
+        map.current.flyTo({ center: [ longitude, latitude ], zoom: 10 });
     };
     return (
         <div className='searchItem' onClick={handleClick}>

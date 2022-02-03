@@ -5,7 +5,7 @@ import { hideLoading, showLoading } from "../loadingAction";
 const apiUrl = "/api/notifications";
 
 export const changeWatchListFrequency = (item, frequency) => async dispatch => {
-  const { accessToken } = store.getState().auth;
+  const { accessToken } = store.getState().auth.accessToken;
   const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
   const data = { "frequency": frequency };
 
