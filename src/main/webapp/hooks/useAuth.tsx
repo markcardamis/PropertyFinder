@@ -14,8 +14,8 @@ export const useAuth = () => {
   }, [ authState ]);
 
   return { 
-    isAuthenticated: authState && authState.isAuthenticated, 
+    isAuthenticated: authState?.isAuthenticated, 
     user, 
-    accessToken: authState && authState.accessToken.accessToken
+    accessToken: authState?.accessToken?.accessToken
   };
 };
