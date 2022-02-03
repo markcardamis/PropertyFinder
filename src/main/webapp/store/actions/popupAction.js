@@ -10,7 +10,7 @@ import { renderPopup } from "../../shared/utils/renderPopup";
 const apiUrl = "/api/propertyinformation";
 
 export const getPopup = (propId, longitude, latitude) => async dispatch => {
-  const { accessToken } = store.getState().auth.accessToken;
+  const { accessToken } = store.getState().auth;
   const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
   
   dispatch(showLoading());

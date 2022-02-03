@@ -7,7 +7,7 @@ import { showSignIn } from "../signInModalAction";
 const apiUrl = "/api/notifications";
 
 export const saveWatchListItem = () => async dispatch => {
-  const { accessToken } = store.getState().auth.accessToken;
+  const { accessToken } = store.getState().auth;
   const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
   const { property_id, house_number, street_name, suburb_name, post_code } = store.getState().popup;
   const address = `${house_number} ${getUpperCase(street_name)}, ${getUpperCase(suburb_name)}, ${post_code}`;

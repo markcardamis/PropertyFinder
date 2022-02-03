@@ -5,7 +5,7 @@ import { showLoading, hideLoading } from "../loadingAction";
 const apiUrl = "/api/notifications";
 
 export const deleteWatchListItem = (item) => async dispatch => {
-const { accessToken } = store.getState().auth.accessToken;
+const { accessToken } = store.getState().auth;
 const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
 
   dispatch(showLoading());

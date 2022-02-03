@@ -62,7 +62,7 @@ const MapGL = () => {
                 })
             })
         });
-    }, [layers, map.current])
+    }, [layers])
 
     
 
@@ -93,7 +93,7 @@ const renderMarkers = async () => {
        
         const oneMarker = new mapboxgl.Marker(el)
           .setLngLat({ lng: marker.longitude, lat: marker.latitude })
-          .addTo(map);
+          .addTo(map.current);
         currentMarkers.push(oneMarker);
     });
 

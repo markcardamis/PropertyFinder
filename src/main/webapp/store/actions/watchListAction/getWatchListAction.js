@@ -5,16 +5,17 @@ import { hideLoading, showLoading } from "../loadingAction";
 const apiUrl = "/api/notifications?type=watchlist";
 
 export const getWatchList = () => async dispatch => {
-  const { accessToken } = store.getState().auth.accessToken;
+  const { accessToken } = store.getState().auth;
   const headers = accessToken ? { Authorization: "Bearer " + accessToken } : {};
+  console.log('accessToken', JSON.stringify(headers))
 
-  dispatch(showLoading());
-    dispatch(setWatchListRequest());
-    await axios.get(apiUrl, 
-      { timeout: 10000, headers })
-        .then(res=>dispatch({ type: "SET_WATCH_LIST_LOADED", data: res.data }))
-        .catch(error => console.log(error));
-  dispatch(hideLoading());
+  // dispatch(showLoading());
+  //   dispatch(setWatchListRequest());
+  //   await axios.get(apiUrl, 
+  //     { timeout: 10000, headers })
+  //       .then(res=>dispatch({ type: "SET_WATCH_LIST_LOADED", data: res.data }))
+  //       .catch(error => console.log(error));
+  // dispatch(hideLoading());
 };
 
 export const setWatchListRequest = () => {
