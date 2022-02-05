@@ -3,6 +3,6 @@ export const layerTypes = {
     floorSpaceRatio: ["nswfloorspaceratio", "nswfloorspaceratio-labels"],
     heightOfBuilding: ["nswheightofbuilding", "nswheightofbuilding-labels"],
     lotsize: ["nswlotsize", "nswlotsize-labels"],
-    heritage: ["nswheritage", ],
-    mobileInternet: ["mobile-internet", "nswheritage-labels"],
+    heritage: ["nswheritage", "nswheritage-labels"],
+    mobileInternet: ["mobile-internet"]
 }
