@@ -30,6 +30,7 @@ const LayerSelectModal = () => {
     const toggleLayers = (layerName, layer) => {
         dispatch(toggleLayer(layer));
         map.current.setLayoutProperty(layerName, "visibility", layers[layer] ? "none" : "visible");
+        map.current.setLayoutProperty(layerName+"-labels", "visibility", layers[layer] ? "none" : "visible");
     };
 
     return (

@@ -54,15 +54,15 @@ const MapGL = () => {
         map.current.on("mouseleave", "nsw-property", () => handleHoverOffProperty());
     }, [])
 
-    useEffect(() => {
-        map.current.on("styledata", () => {
-            Object.entries(layerTypes).map(([property, mapboxLayers]) => {
-                mapboxLayers.map(layer => {
-                    map.current.setLayoutProperty(layer, "visibility", layers[property] ? "visible" : "none");
-                })
-            })
-        });
-    }, [layers])
+    // useEffect(() => {
+    //     map.current.on("styledata", () => {
+    //         Object.entries(layerTypes).map(([property, mapboxLayers]) => {
+    //             mapboxLayers.map(layer => {
+    //                 map.current.setLayoutProperty(layer, "visibility", layers[property] ? "visible" : "none");
+    //             })
+    //         })
+    //     });
+    // }, [layers])
 
     
 
