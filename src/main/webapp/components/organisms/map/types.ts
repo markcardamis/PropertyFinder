@@ -4,5 +4,5 @@ export const layerTypes = {
     heightOfBuilding: ["nswheightofbuilding", "nswheightofbuilding-labels"],
     lotsize: ["nswlotsize", "nswlotsize-labels"],
     heritage: ["nswheritage", "nswheritage-labels"],
-    mobileInternet: ["mobile-internet"]
+    mobileInternet: ["mobile-internet", "mobile-internet-labels"]
 }
