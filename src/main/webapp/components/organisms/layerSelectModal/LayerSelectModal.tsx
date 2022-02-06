@@ -29,7 +29,7 @@ const LayerSelectModal = () => {
     dispatch(closeLayersModal());
   };
 
-  const toggleLayers = (layerName, layer) => {
+  const toggleLayers = (layer) => {
     dispatch(toggleLayer(layer));
   };
 
@@ -49,39 +49,37 @@ const LayerSelectModal = () => {
       >
         <div
           className={`layerName ${layers.landZoning ? "active" : ""}`}
-          onClick={() => toggleLayers("nswlandzoning", "landZoning")}
+          onClick={() => toggleLayers("landZoning")}
         >
           Land zoning
         </div>
         <div
           className={`layerName ${layers.floorSpaceRatio ? "active" : ""}`}
-          onClick={() => toggleLayers("nswfloorspaceratio", "floorSpaceRatio")}
+          onClick={() => toggleLayers("floorSpaceRatio")}
         >
           Floor space ratio
         </div>
         <div
           className={`layerName ${layers.heightOfBuilding ? "active" : ""}`}
-          onClick={() =>
-            toggleLayers("nswheightofbuilding", "heightOfBuilding")
-          }
+          onClick={() => toggleLayers("heightOfBuilding")}
         >
           Height of building
         </div>
         <div
           className={`layerName ${layers.lotsize ? "active" : ""}`}
-          onClick={() => toggleLayers("nswlotsize", "lotsize")}
+          onClick={() => toggleLayers("lotsize")}
         >
           Lot Size
         </div>
         <div
           className={`layerName ${layers.heritage ? "active" : ""}`}
-          onClick={() => toggleLayers("nswheritage", "heritage")}
+          onClick={() => toggleLayers("heritage")}
         >
           Heritage
         </div>
         <div
           className={`layerName ${layers.mobileInternet ? "active" : ""}`}
-          onClick={() => toggleLayers("mobile-internet", "mobileInternet")}
+          onClick={() => toggleLayers("mobileInternet")}
         >
           Mobile Internet
         </div>
