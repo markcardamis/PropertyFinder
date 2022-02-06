@@ -42,18 +42,6 @@ const MapGL = () => {
   map = useRef(null);
   const mapContainerRef = useRef(null);
 
-  const toggleMapLayers = () => {
-    Object.entries(layerTypes).map(([property, mapboxLayers]) => {
-      mapboxLayers.map((layer) => {
-        map.current.setLayoutProperty(
-          layer,
-          "visibility",
-          layers[property] ? "visible" : "none"
-        );
-      });
-    });
-  };
-
   useEffect(() => {
     if (map.current) return;
 
@@ -79,13 +67,17 @@ const MapGL = () => {
       handleHoverOffProperty()
     );
     map.current.on("styledata", () => {
-      toggleMapLayers();
+      Object.entries(layerTypes).map(([property, mapboxLayers]) => {
+        mapboxLayers.map((layer) => {
+          map.current.setLayoutProperty(
+            layer,
+            "visibility",
+            layers[property] ? "visible" : "none"
+          );
+        });
+      });
     });
   }, []);
-
-  useEffect(() => {
-    toggleMapLayers();
-  }, [layers]);
 
   useEffect(() => {
     if (currentMarkers !== null) {

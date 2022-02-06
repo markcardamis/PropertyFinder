@@ -8,6 +8,7 @@ import {
   closeLayersModal,
 } from "../../../store/actions/layersAction";
 import { useWindowSize } from "../../../hooks/windowSize";
+import { map } from "../../organisms/map/MapGL";
 
 const LayerSelectModal = () => {
   const dispatch = useDispatch();
@@ -29,8 +30,18 @@ const LayerSelectModal = () => {
     dispatch(closeLayersModal());
   };
 
-  const toggleLayers = (layer) => {
+  const toggleLayers = (layerName, layer) => {
     dispatch(toggleLayer(layer));
+    map.current.setLayoutProperty(
+      layerName,
+      "visibility",
+      layers[layer] ? "none" : "visible"
+    );
+    map.current.setLayoutProperty(
+      layerName + "-labels",
+      "visibility",
+      layers[layer] ? "none" : "visible"
+    );
   };
 
   return (
@@ -49,37 +60,39 @@ const LayerSelectModal = () => {
       >
         <div
           className={`layerName ${layers.landZoning ? "active" : ""}`}
-          onClick={() => toggleLayers("landZoning")}
+          onClick={() => toggleLayers("nswlandzoning", "landZoning")}
         >
           Land zoning
         </div>
         <div
           className={`layerName ${layers.floorSpaceRatio ? "active" : ""}`}
-          onClick={() => toggleLayers("floorSpaceRatio")}
+          onClick={() => toggleLayers("nswfloorspaceratio", "floorSpaceRatio")}
         >
           Floor space ratio
         </div>
         <div
           className={`layerName ${layers.heightOfBuilding ? "active" : ""}`}
-          onClick={() => toggleLayers("heightOfBuilding")}
+          onClick={() =>
+            toggleLayers("nswheightofbuilding", "heightOfBuilding")
+          }
         >
           Height of building
         </div>
         <div
           className={`layerName ${layers.lotsize ? "active" : ""}`}
-          onClick={() => toggleLayers("lotsize")}
+          onClick={() => toggleLayers("nswlotsize", "lotsize")}
         >
           Lot Size
         </div>
         <div
           className={`layerName ${layers.heritage ? "active" : ""}`}
-          onClick={() => toggleLayers("heritage")}
+          onClick={() => toggleLayers("nswheritage", "heritage")}
         >
           Heritage
         </div>
         <div
           className={`layerName ${layers.mobileInternet ? "active" : ""}`}
-          onClick={() => toggleLayers("mobileInternet")}
+          onClick={() => toggleLayers("mobile-internet", "mobileInternet")}
         >
           Mobile Internet
         </div>
